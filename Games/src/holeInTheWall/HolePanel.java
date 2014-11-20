@@ -29,10 +29,9 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 	private int holeY = 220;
 
 	private int holeNumber = 2;
-	private int[] holesX = { 500, 500 + (170),
-			500 + (170) * 2};
-	
-	private int[] holesY = { 220, 270, 250};
+	private int[] holesX = { 500, 500 + (170), 500 + (170) * 2 };
+
+	private int[] holesY = { 220, 270, 250 };
 
 	private int ballX = 20;
 	private int ballY = 240;
@@ -43,7 +42,7 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int ballSpeed = 5;
 	private int holeSpeed = 4;
-	
+
 	private int timeSplit = 0;
 	private int timeSeconds = 0;
 	private boolean paused = false;
@@ -72,6 +71,8 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 		if (playing) {
 			int nextBallX = ballX + deltaX;
 			int nextBallY = ballY + deltaY;
+			int nextBallCenterX = nextBallX + diameter / 2;
+			int nextBallCenterY = nextBallY + diameter / 2;
 
 			int leftX = ballX + deltaX;
 			int rightX = ballX + deltaX + diameter;
@@ -85,6 +86,7 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 
 			// System.out.println(topRightColor.toString() + "   ");
 
+			
 			if (topLeftColor.equals(Color.WHITE)
 					|| topRightColor.equals(Color.WHITE)
 					|| bottomLeftColor.equals(Color.WHITE)
@@ -103,37 +105,52 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			}
 
 			for (int i = 0; i < holesX.length; i++) {
-				
+
 				if (holesX[i] <= 0) {
 					holesX[i] = 500;
 					holesY[i] = randomY(i);
-					
+
 				}
-				
+
+				/*
+				if (distance(nextBallCenterX, nextBallCenterY, holesX[i]
+						+ diameter / 2, holesY[i] + diameter / 2)
+						- diameter / 2 < 0) {
+					playing = false;
+					endGame = true;
+					
+
+				}
+				*/
 
 				holesX[i] -= holeSpeed;
 
 			}
-			
-			
+
 			timeSplit++;
 			if (timeSplit == 60) {
 				timeSplit = 0;
 				timeSeconds++;
 			}
-			
+
 			holeSpeed = (int) (timeSeconds / 10) + 4;
-			
-			
-			if (ballY + deltaY + diameter > 0) 
-			ballY += deltaY;
-			
-			//int ballSpeedChange = (int) (timeSeconds / 10);
-			//System.out.println(ballSpeed);
+
+			if (ballY + deltaY + diameter > 0)
+				ballY += deltaY;
+
+			// int ballSpeedChange = (int) (timeSeconds / 10);
+			// System.out.println(ballSpeed);
 
 		}
 		repaint();
 
+	}
+
+	public double distance(int ballCenterX, int ballCenterY, int boxCenterX,
+			int boxCenterY) {
+
+		return Math.sqrt(Math.pow(ballCenterX - boxCenterX, 2)
+				+ Math.pow(ballCenterY - boxCenterY, 2));
 	}
 
 	public void paintComponent(Graphics g) {
@@ -144,16 +161,20 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
-			CenteredText title1 = new CenteredText("HOLE IN THE", 500, 500, g, true, 150);
-			//g.drawString("HOLE IN THE", 60, 210);
-			CenteredText title2 = new CenteredText("WALL", 500, 500, g, true, 200);
-			//g.drawString("WALL", 180, 260);
+			CenteredText title1 = new CenteredText("HOLE IN THE", 500, 500, g,
+					true, 150);
+			// g.drawString("HOLE IN THE", 60, 210);
+			CenteredText title2 = new CenteredText("WALL", 500, 500, g, true,
+					200);
+			// g.drawString("WALL", 180, 260);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
-			
-			CenteredText start1 = new CenteredText("Press Enter to", 500, 500, g, true, 300);
-			//g.drawString("Press Enter to", 120, 300);
-			CenteredText start2 = new CenteredText("Start", 500, 500, g, true, 330);
-			//g.drawString("Start", 200, 330);
+
+			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
+					g, true, 300);
+			// g.drawString("Press Enter to", 120, 300);
+			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
+					330);
+			// g.drawString("Start", 200, 330);
 
 		} else if (playing || paused) {
 
@@ -176,27 +197,29 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.WHITE);
 
 			g.fillOval(ballX, ballY, diameter, diameter);
-			
+
 			g.setFont(new Font("Joystix", Font.BOLD, 15));
 			g.drawString(String.valueOf(timeSeconds), 5, 15);
-			
+
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
-				CenteredText pause = new CenteredText("Paused", 500, 500,
-						g, true, 200);
+				CenteredText pause = new CenteredText("Paused", 500, 500, g,
+						true, 200);
 			}
 
 		} else if (endGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
-			
-			CenteredText lose = new CenteredText("You Lose!", 500, 500, g, true, 170);
-			//g.drawString("You Lose!", 50, 270);
+
+			CenteredText lose = new CenteredText("You Lose!", 500, 500, g,
+					true, 170);
+			// g.drawString("You Lose!", 50, 270);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
-			
-			CenteredText restart = new CenteredText("Enter to Restart", 500, 500, g, true, 320);
-			//g.drawString("Enter to Restart", 80, 400);
+
+			CenteredText restart = new CenteredText("Enter to Restart", 500,
+					500, g, true, 320);
+			// g.drawString("Enter to Restart", 80, 400);
 
 		}
 
@@ -231,8 +254,8 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			if (endGame) {
 				holeX = 500;
 				for (int i = 0; i < holesX.length; i++) {
-				holesX[i] = 500 + (170) * i;
-				holesY[i] = randomY(i);
+					holesX[i] = 500 + (170) * i;
+					holesY[i] = randomY(i);
 				}
 				holeSpeed = 4;
 				ballSpeed = 5;
@@ -248,20 +271,17 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public int randomY(int i) {
-		//System.out.println(((int) (Math.random() * 6)) * 80);
+		// System.out.println(((int) (Math.random() * 6)) * 80);
 		/*
-		int firstX = holesX[0];
-		holesX[0] = holesX[1];
-		holesX[1] = holesX[2];
-		holesX[2] = firstX;
-		
-		int firstY = holesY[0];
-		holesY[0] = holesY[1];
-		holesY[1] = holesY[2];
-		holesY[2] = firstY;
-		*/
-		if (i == 0) i = 3;
-		int prevHole = holesY[i-1];
+		 * int firstX = holesX[0]; holesX[0] = holesX[1]; holesX[1] = holesX[2];
+		 * holesX[2] = firstX;
+		 * 
+		 * int firstY = holesY[0]; holesY[0] = holesY[1]; holesY[1] = holesY[2];
+		 * holesY[2] = firstY;
+		 */
+		if (i == 0)
+			i = 3;
+		int prevHole = holesY[i - 1];
 		int randNum = ((int) (Math.random() * 400));
 		while (Math.abs(randNum - prevHole) > 200) {
 			randNum = ((int) (Math.random() * 400));
