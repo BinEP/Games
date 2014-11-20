@@ -157,10 +157,10 @@ public class RunnerPanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
-			CenteredText title1 = new CenteredText("HOLE IN THE", 500, 500, g,
+			CenteredText title1 = new CenteredText("TUNNEL", 500, 500, g,
 					true, 150);
 			// g.drawString("HOLE IN THE", 60, 210);
-			CenteredText title2 = new CenteredText("WALL", 500, 500, g, true,
+			CenteredText title2 = new CenteredText("RUNNER", 500, 500, g, true,
 					200);
 			// g.drawString("WALL", 180, 260);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));

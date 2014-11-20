@@ -11,7 +11,7 @@ public class RunnerRunner {
 	public static void main(String[] args) {
 
 		
-		JFrame frame = new JFrame("HOLE IN THE WALL!");
+		JFrame frame = new JFrame("TUNNEL RUNNER");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		
