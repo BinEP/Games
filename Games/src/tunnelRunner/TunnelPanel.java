@@ -91,6 +91,7 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 		if (playing) {
 			int nextBallX = ballX + deltaX;
 			int nextBallY = ballY + deltaY;
+			
 
 			int leftX = ballX + deltaX;
 			int rightX = ballX + deltaX + diameter;
@@ -128,6 +129,8 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 					holesY[i] = randomY(i);
 
 				}
+				
+				
 
 				holesX[i] -= holeSpeed;
 
@@ -151,6 +154,7 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 		repaint();
 
 	}
+	
 
 	public void paintComponent(Graphics g) {
 

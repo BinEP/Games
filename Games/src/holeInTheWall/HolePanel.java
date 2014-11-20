@@ -39,6 +39,8 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 	private int deltaY = 0;
 	private int diameter = 20;
 	private int buffer = 0;
+	
+	private int currentHole = 0;
 
 	private int ballSpeed = 5;
 	private int holeSpeed = 4;
@@ -73,12 +75,12 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			int nextBallY = ballY + deltaY;
 			int nextBallCenterX = nextBallX + diameter / 2;
 			int nextBallCenterY = nextBallY + diameter / 2;
-/*
+
 			int leftX = ballX + deltaX;
 			int rightX = ballX + deltaX + diameter;
 			int topY = ballY + deltaY;
 			int bottomY = ballY + deltaY + diameter;
-
+/*
 			Color topLeftColor = getColor(leftX + buffer, topY + buffer);
 			Color topRightColor = getColor(rightX - buffer, topY + buffer);
 			Color bottomLeftColor = getColor(leftX + buffer, bottomY - buffer);
@@ -104,6 +106,26 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			} else {
 				deltaY = 0;
 			}
+			
+//			int holeLeft = holesX[currentHole];
+//			int holeRight = holesX[currentHole] + 15;
+//			int holeMiddleY = 50 + holesY[currentHole];
+//			
+//			if (holeLeft < rightX) {
+//				if (leftX < holeRight) {
+//					if ( distance(nextBallCenterX, nextBallCenterY, holeLeft + 7, holeMiddleY) > 40) {
+//					playing = false;
+//					endGame = true;
+//					}
+//					
+//				} else {
+//					currentHole = (currentHole == 2) ? 0 : currentHole + 1;
+//				}
+//				
+//				
+//				
+//				
+//			}
 
 			for (int i = 0; i < holesX.length; i++) {
 
@@ -112,7 +134,8 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 					holesY[i] = randomY(i);
 
 				}
-
+				
+				
 				
 				if (distance(nextBallCenterX, nextBallCenterY, holesX[i] + 7, holesY[i]) - diameter / 2 < 0 || 
 						distance(nextBallCenterX, nextBallCenterY, holesX[i] + 7, holesY[i] + 100) - diameter / 2 < 0 ||
