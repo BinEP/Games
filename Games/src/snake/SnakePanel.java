@@ -25,6 +25,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	private boolean startGame = true;
 	private boolean playing = false;
+	private boolean paused = false;
 	private boolean endGame = false;
 
 	private ArrayList<Point> snakeBody = new ArrayList<Point>();
@@ -38,10 +39,10 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private int deltaY = -bodySize;
 
 	private int prevLoseKey = KeyEvent.VK_DOWN;
-	
+
 	private Timer timer;
 	private double speed = 10;
-	
+
 	private int score = 0;
 
 	public SnakePanel() {
@@ -72,40 +73,38 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	public void moves() {
 
 		if (playing) {
-			
+
 			head.x += deltaX;
 			head.y += deltaY;
 
 			// System.out.println("(" + head.x + ", " + head.y + ")");
 
-			
+			for (int i = snakeBody.size() - 1; i > 0; i--) {
 
-			for (int i = snakeBody.size()-1; i > 0 ; i--) {
-				
-				if (head.x == snakeBody.get(i).x && head.y == snakeBody.get(i).y) {
+				if (head.x == snakeBody.get(i).x
+						&& head.y == snakeBody.get(i).y) {
 					playing = false;
 					endGame = true;
 				}
-				snakeBody.set(i, snakeBody.get(i-1));
-				
-				
-				//System.out.print("(" + x.x + ", " + x.y + ") ");
+				snakeBody.set(i, snakeBody.get(i - 1));
+
+				// System.out.print("(" + x.x + ", " + x.y + ") ");
 
 			}
 			snakeBody.set(0, new Point(head.x, head.y));
-			
-			/*
-			for (Point x : snakeBody) {
-				//snakeBody.set(i, snakeBody.get(i-1));
-				
-				
-				System.out.print("(" + x.x + ", " + x.y + ") ");
 
-			}
-			*/
-			//System.out.println();
-			
-			//System.out.println();
+			/*
+			 * for (Point x : snakeBody) { //snakeBody.set(i,
+			 * snakeBody.get(i-1));
+			 * 
+			 * 
+			 * System.out.print("(" + x.x + ", " + x.y + ") ");
+			 * 
+			 * }
+			 */
+			// System.out.println();
+
+			// System.out.println();
 
 			/*
 			 * for (int i = 0; i < snakeBody.size(); i++) {
@@ -115,29 +114,26 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			 * 
 			 * snakeBody.set(i, body); }
 			 */
-/*
-			Point headOfBody = new Point();
-			headOfBody = snakeBody.get(0);
-			*/
+			/*
+			 * Point headOfBody = new Point(); headOfBody = snakeBody.get(0);
+			 */
 			int nextHeadX = head.x + deltaX;
 			int nextHeadY = head.y + deltaY;
-/*
-			if (Math.abs(nextHeadX - fruitX) < 5 && Math.abs(nextHeadY - fruitY) < 5) {
-				addBodySquare();
-			}
-			*/
-			
+			/*
+			 * if (Math.abs(nextHeadX - fruitX) < 5 && Math.abs(nextHeadY -
+			 * fruitY) < 5) { addBodySquare(); }
+			 */
+
 			if (Math.abs(head.x - fruitX) < 5 && Math.abs(head.y - fruitY) < 5) {
 				addBodySquare();
 			}
-			
-			if (head.x < 1 || head.x > 485 || head.y < 8
-					||head.y > 465) {
+
+			if (head.x < 1 || head.x > 485 || head.y < 8 || head.y > 465) {
 
 				playing = false;
 				endGame = true;
 			}
-			
+
 		}
 
 		repaint();
@@ -145,26 +141,26 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void addBodySquare() {
-		
-		int lastBodyX = snakeBody.get(snakeBody.size()-1).x;
-		int lastBodyY = snakeBody.get(snakeBody.size()-1).y;
-		int secondLastBodyX = snakeBody.get(snakeBody.size()-2).x;
-		int secondLastBodyY = snakeBody.get(snakeBody.size()-2).y;
-		
+
+		int lastBodyX = snakeBody.get(snakeBody.size() - 1).x;
+		int lastBodyY = snakeBody.get(snakeBody.size() - 1).y;
+		int secondLastBodyX = snakeBody.get(snakeBody.size() - 2).x;
+		int secondLastBodyY = snakeBody.get(snakeBody.size() - 2).y;
+
 		int changeX = lastBodyX - secondLastBodyX;
 		int changeY = lastBodyY - secondLastBodyY;
-		
+
 		snakeBody.add(new Point(lastBodyX + changeX, lastBodyY + changeY));
-		
+
 		fruitX = randNum();
 		fruitY = randNum();
-		
+
 		speed += .5;
 		System.out.println(speed);
-		System.out.println((int) (1000.0/speed));
-		timer.setDelay((int) (1000.0/speed));
+		System.out.println((int) (1000.0 / speed));
+		timer.setDelay((int) (1000.0 / speed));
 		score++;
-		
+
 	}
 
 	public void resetBody() {
@@ -181,10 +177,9 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		prevLoseKey = KeyEvent.VK_DOWN;
 
 	}
-	
-	public int randNum () {
-		
-		
+
+	public int randNum() {
+
 		return ((int) (Math.random() * 45)) * 10 + 10;
 	}
 
@@ -209,11 +204,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
 					330);
 
-		} else if (playing) {
-			
+		} else if (playing || paused) {
+
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
 			g.setColor(Color.WHITE);
-			CenteredText score1 = new CenteredText(String.valueOf(score), 500, 500, g, true, 450);
+			CenteredText score1 = new CenteredText(String.valueOf(score), 500,
+					500, g, true, 450);
 			for (Point body : snakeBody) {
 
 				g.setColor(Color.WHITE);
@@ -221,25 +217,33 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				g.setColor(Color.BLACK);
 				g.drawRect(body.x, body.y, bodySize, bodySize);
 				g.drawRect(fruitX, fruitY, bodySize, bodySize);
-				
-				g.setColor(Color.WHITE);
-				g.fillRect(fruitX+1, fruitY+1, bodySize-2, bodySize-2);
 
+				g.setColor(Color.WHITE);
+				g.fillRect(fruitX + 1, fruitY + 1, bodySize - 2, bodySize - 2);
+
+				if (paused) {
+					g.setFont(new Font("Joystix", Font.BOLD, 60));
+					CenteredText pause = new CenteredText("Paused", 500, 500,
+							g, true, 200);
+				}
 			}
 
 		} else if (endGame) {
-			
+
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
 			g.setColor(Color.WHITE);
-			CenteredText score1 = new CenteredText(String.valueOf(score), 500, 500, g, true, 450);
-			
+			CenteredText score1 = new CenteredText(String.valueOf(score), 500,
+					500, g, true, 450);
+
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
-			
-			CenteredText lose = new CenteredText("You Lose!", 500, 500, g, true, 170);
+
+			CenteredText lose = new CenteredText("You Lose!", 500, 500, g,
+					true, 170);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
-			
-			CenteredText restart = new CenteredText("Enter to Restart", 500, 500, g, true, 320);
+
+			CenteredText restart = new CenteredText("Enter to Restart", 500,
+					500, g, true, 320);
 		}
 
 	}
@@ -295,6 +299,10 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			}
 
+		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+
+			playing = !playing;
+			paused = !paused;
 		}
 	}
 
