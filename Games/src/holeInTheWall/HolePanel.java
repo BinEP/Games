@@ -73,7 +73,7 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			int nextBallY = ballY + deltaY;
 			int nextBallCenterX = nextBallX + diameter / 2;
 			int nextBallCenterY = nextBallY + diameter / 2;
-
+/*
 			int leftX = ballX + deltaX;
 			int rightX = ballX + deltaX + diameter;
 			int topY = ballY + deltaY;
@@ -83,10 +83,10 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			Color topRightColor = getColor(rightX - buffer, topY + buffer);
 			Color bottomLeftColor = getColor(leftX + buffer, bottomY - buffer);
 			Color bottomRightColor = getColor(rightX - buffer, bottomY - buffer);
-
+*/
 			// System.out.println(topRightColor.toString() + "   ");
 
-			
+			/*
 			if (topLeftColor.equals(Color.WHITE)
 					|| topRightColor.equals(Color.WHITE)
 					|| bottomLeftColor.equals(Color.WHITE)
@@ -95,6 +95,7 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 				endGame = true;
 
 			}
+			*/
 
 			if (UpPressed) {
 				deltaY = -ballSpeed;
@@ -112,16 +113,17 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 
 				}
 
-				/*
-				if (distance(nextBallCenterX, nextBallCenterY, holesX[i]
-						+ diameter / 2, holesY[i] + diameter / 2)
-						- diameter / 2 < 0) {
+				
+				if (distance(nextBallCenterX, nextBallCenterY, holesX[i] + 7, holesY[i]) - diameter / 2 < 0 || 
+						distance(nextBallCenterX, nextBallCenterY, holesX[i] + 7, holesY[i] + 100) - diameter / 2 < 0 ||
+						getColor(ballX + deltaX + diameter, ballY + deltaY + diameter/2).equals(Color.WHITE)) {
+					
 					playing = false;
 					endGame = true;
 					
 
 				}
-				*/
+				
 
 				holesX[i] -= holeSpeed;
 
