@@ -65,6 +65,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	// ///////////////////////////////////////
 
 	private int paddleSpeed = 5;
+	private boolean paused = false;
 
 	public PongPanel() {
 
@@ -186,7 +187,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			//g.drawString("Start", start.x, 280);
 			//System.out.println(deltaX + "\t" + deltaY);
 			
-		} else if (playing) {
+		} else if (playing || paused) {
 			
 			/*
 			if (countDown > 0) {
@@ -215,6 +216,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.drawString(String.valueOf(player1Score), 205 - 32 * (spacing()),
 					420);
 			g.drawString(String.valueOf(player2Score), 269, 420);
+			
+			if (paused) {
+				g.setFont(new Font("Joystix", Font.BOLD, 60));
+				CenteredText pause = new CenteredText("Paused", 500, 500,
+						g, true, 200);
+			}
 
 		} else if (endGame) {
 			

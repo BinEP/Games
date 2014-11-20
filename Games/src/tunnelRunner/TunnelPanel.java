@@ -59,6 +59,7 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 
 	private int timeSplit = 0;
 	private int timeSeconds = 0;
+	private boolean paused = false;
 
 	public TunnelPanel() {
 
@@ -174,7 +175,7 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 					330);
 			// g.drawString("Start", 200, 330);
 
-		} else if (playing) {
+		} else if (playing || paused) {
 
 			// g.fillRect(holeX, holeY + 100, 15, 500 - holeY - 100);
 
@@ -208,6 +209,12 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
+			
+			if (paused ) {
+				g.setFont(new Font("Joystix", Font.BOLD, 60));
+				CenteredText pause = new CenteredText("Paused", 500, 500,
+						g, true, 200);
+			}
 
 		} else if (endGame) {
 
