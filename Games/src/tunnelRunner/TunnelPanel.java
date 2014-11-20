@@ -5,11 +5,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
 
 import javax.swing.JPanel;
@@ -17,7 +19,7 @@ import javax.swing.Timer;
 
 import utilityClasses.CenteredText;
 
-public class RunnerPanel extends JPanel implements ActionListener, KeyListener {
+public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 
 	private boolean UpPressed = false;
 	private boolean DownPressed = false;
@@ -58,7 +60,7 @@ public class RunnerPanel extends JPanel implements ActionListener, KeyListener {
 	private int timeSplit = 0;
 	private int timeSeconds = 0;
 
-	public RunnerPanel() {
+	public TunnelPanel() {
 
 		
 		for (int i = 0; i < holesX.length; i++) {
@@ -194,14 +196,22 @@ public class RunnerPanel extends JPanel implements ActionListener, KeyListener {
 
 			g.fillOval(ballX, ballY, diameter, diameter);
 			
+			g.setColor(Color.BLACK);
+			g.setFont(new Font("Joystix", Font.BOLD, 20));
+			FontMetrics f = g.getFontMetrics();
+			int w = f.stringWidth(String.valueOf(timeSeconds));
+			int h = f.getAscent();
 			
-			g.setColor(Color.RED);
+			g.fillRect(3, 3, w + 3, h );
+			
+			
+			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
 
 		} else if (endGame) {
 
-			g.setColor(Color.RED);
+			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
 			

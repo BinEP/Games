@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 import pong.PongPanel;
 
-public class RunnerRunner {
+public class TunnelRunner {
 
 	public static void main(String[] args) {
 
@@ -15,9 +15,9 @@ public class RunnerRunner {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		
-		RunnerPanel RunnerPanel = new RunnerPanel();
+		TunnelPanel TunnelPanel = new TunnelPanel();
 		//wWebPong pongPanel = new WebPong();
-		frame.add(RunnerPanel, BorderLayout.CENTER);
+		frame.add(TunnelPanel, BorderLayout.CENTER);
 		
 		frame.setSize(500, 500);
 		frame.setVisible(true);
