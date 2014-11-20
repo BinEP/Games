@@ -1,20 +1,23 @@
-package snake;
+package tunnelRunner;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 
-public class SnakeRunner {
+import pong.PongPanel;
+
+public class RunnerRunner {
 
 	public static void main(String[] args) {
 
 		
-		JFrame frame = new JFrame("SNAKE!");
+		JFrame frame = new JFrame("HOLE IN THE WALL!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		
-		SnakePanel SnakePanel = new SnakePanel();
-		//WebSnake SnakePanel = new WebSnake();
-		frame.add(SnakePanel, BorderLayout.CENTER);
+		RunnerPanel RunnerPanel = new RunnerPanel();
+		//wWebPong pongPanel = new WebPong();
+		frame.add(RunnerPanel, BorderLayout.CENTER);
 		
 		frame.setSize(500, 500);
 		frame.setVisible(true);

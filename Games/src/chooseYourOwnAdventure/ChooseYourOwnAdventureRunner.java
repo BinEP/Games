@@ -16,14 +16,14 @@ public class ChooseYourOwnAdventureRunner {
 		System.out.println("you notice the sky darken for a split second. ");
 		System.out.println("You look up and exclaim \"Is it a bird?! Is it a plane?! Is it a train?!\"");
 		System.out.println("\"No! It's a dragon!!!\" You figure \"hmmm, pretty...\" ");
-		System.out.println("After stumbling back to your village many hours later, you notice something is slightly off");
+		System.out.println("After stumbling back to your village many hours later, you notice something is slightly off.");
 		System.out.println("with your muddled hearing you notice screams of torment throughout the village,");
 		System.out.println("As fire burns everything within sight, you hear a scream unlike the others,");
 		System.out.println("The dragon destroying your village is plunging to the ground");
 		System.out.println("in the jaws of a larger, scarier looking dragon.");
-		System.out.println("Thinking you had fallen and into the fire, you begin fleeing for your");
+		System.out.println("Thinking you had fallen out of the frying pan and into the fire, you begin fleeing for your");
 		System.out.println("life tripping over baskets and small children in your drunken stupor.");
-		System.out.println("After falling hard over a particulatly small child, you turn to see your savior.");
+		System.out.println("After falling hard over a particularely small child, you turn to see your savior.");
 		System.out.println("The scarier looking dragon is putting out the fires with his wings and rescueing many helpless people");
 		System.out.println("As it flies off into the sunset, you realize that this moment will determine your fate.");
 		System.out.println("Do you wish to become a dragon slayer to make all of dragon kind pay for the actions of one,");
@@ -167,8 +167,42 @@ public class ChooseYourOwnAdventureRunner {
 							System.out.println("You continue on in your studies. You pass your classroom final with flying colors.");
 							System.out.println("Probably because you have a cool sword that can shoot colors.");
 							System.out.println("You now feel ready to take the second part of the final, you have to slay a dragon");
-							System.out.println("");
+							System.out.println("As the date draws near, you acknowledge your underwhelming puniness and realize");
+							System.out.println("that you have next to no chance of survival in the upcoming test.");
+							System.out.println("You start to panic, knowing that your sheer inadequacy will surely be your demise.");
+							System.out.println("You spend every day of the week before training your skills in the practice arena");
+							System.out.println("The day before your fateful duel, you hear two of your classmates whispering in the corner");
+							System.out.println("As you approach, they see you and quickly disperse. Howver, you manage to catch up to one of them");
+							System.out.println("You ask him what you were doing, and after a furtive glance around, he pulls a small");
+							System.out.println("package out of his pocket. He says");
+							System.out.println("If you swallow the contents of this package right before your final, you can't lose.");
+							System.out.println("Do you take the package (a) or do you deny his offer (b)?");
+							answer = console.next();
+							choice = (answer.toLowerCase().equals("b")) ? 2 : 1;
 							
+							
+							switch (choice) {
+							case 1:
+								
+								
+								
+								
+								
+								
+								
+								break;
+							case 2:
+								
+								
+								
+								
+								
+								
+								
+								
+								break;
+							
+							}
 							
 							
 							

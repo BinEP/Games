@@ -1,9 +1,11 @@
 package snake;
 
 import java.awt.AWTException;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -12,112 +14,295 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import utilityClasses.CenteredText;
+
 public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
-	
 	private boolean startGame = true;
 	private boolean playing = false;
 	private boolean endGame = false;
-	
+
 	private ArrayList<Point> snakeBody = new ArrayList<Point>();
 	private int bodySize = 10;
-	
+	private Point head = new Point(250, 250);
+
 	private int fruitX = 300;
 	private int fruitY = 200;
-	
+
 	private int deltaX = 0;
 	private int deltaY = -bodySize;
+
+	private int prevLoseKey = KeyEvent.VK_DOWN;
 	
+	private Timer timer;
+	private double speed = 10;
+	
+	private int score = 0;
+
 	public SnakePanel() {
-		snakeBody.add(new Point(250, 250));
-		snakeBody.add(new Point(250, 255));
-		snakeBody.add(new Point(250, 260));
-		snakeBody.add(new Point(250, 265));
+
+		resetBody();
 		for (Point x : snakeBody) {
-			
-			System.out.print(x.x + "  " + x.y);
-			System.out.println();
-			
+
+			// System.out.print(x.x + "  " + x.y);
+			// System.out.println();
+
 		}
 		setBackground(Color.BLACK);
 
 		setFocusable(true);
 		addKeyListener(this);
 
-		Timer timer = new Timer(1000 / 5, this);
+		timer = new Timer((int) (1000 / speed), this);
 		timer.start();
+
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+
+		moves();
+	}
+
+	public void moves() {
+
+		if (playing) {
+			
+			head.x += deltaX;
+			head.y += deltaY;
+
+			// System.out.println("(" + head.x + ", " + head.y + ")");
+
+			
+
+			for (int i = snakeBody.size()-1; i > 0 ; i--) {
+				
+				if (head.x == snakeBody.get(i).x && head.y == snakeBody.get(i).y) {
+					playing = false;
+					endGame = true;
+				}
+				snakeBody.set(i, snakeBody.get(i-1));
+				
+				
+				//System.out.print("(" + x.x + ", " + x.y + ") ");
+
+			}
+			snakeBody.set(0, new Point(head.x, head.y));
+			
+			/*
+			for (Point x : snakeBody) {
+				//snakeBody.set(i, snakeBody.get(i-1));
+				
+				
+				System.out.print("(" + x.x + ", " + x.y + ") ");
+
+			}
+			*/
+			//System.out.println();
+			
+			//System.out.println();
+
+			/*
+			 * for (int i = 0; i < snakeBody.size(); i++) {
+			 * 
+			 * Point body = snakeBody.get(i); body.x += deltaX; body.y +=
+			 * deltaY;
+			 * 
+			 * snakeBody.set(i, body); }
+			 */
+/*
+			Point headOfBody = new Point();
+			headOfBody = snakeBody.get(0);
+			*/
+			int nextHeadX = head.x + deltaX;
+			int nextHeadY = head.y + deltaY;
+/*
+			if (Math.abs(nextHeadX - fruitX) < 5 && Math.abs(nextHeadY - fruitY) < 5) {
+				addBodySquare();
+			}
+			*/
+			
+			if (Math.abs(head.x - fruitX) < 5 && Math.abs(head.y - fruitY) < 5) {
+				addBodySquare();
+			}
+			
+			if (head.x < 1 || head.x > 485 || head.y < 8
+					||head.y > 465) {
+
+				playing = false;
+				endGame = true;
+			}
+			
+		}
+
+		repaint();
+
+	}
+
+	public void addBodySquare() {
 		
+		int lastBodyX = snakeBody.get(snakeBody.size()-1).x;
+		int lastBodyY = snakeBody.get(snakeBody.size()-1).y;
+		int secondLastBodyX = snakeBody.get(snakeBody.size()-2).x;
+		int secondLastBodyY = snakeBody.get(snakeBody.size()-2).y;
+		
+		int changeX = lastBodyX - secondLastBodyX;
+		int changeY = lastBodyY - secondLastBodyY;
+		
+		snakeBody.add(new Point(lastBodyX + changeX, lastBodyY + changeY));
+		
+		fruitX = randNum();
+		fruitY = randNum();
+		
+		speed += .5;
+		System.out.println(speed);
+		System.out.println((int) (1000.0/speed));
+		timer.setDelay((int) (1000.0/speed));
+		score++;
+		
+	}
+
+	public void resetBody() {
+
+		snakeBody.clear();
+		snakeBody.add(new Point(250, 250));
+		snakeBody.add(new Point(250, 260));
+		snakeBody.add(new Point(250, 270));
+		snakeBody.add(new Point(250, 280));
+		head.x = 250;
+		head.y = 250;
+		deltaY = -bodySize;
+		deltaX = 0;
+		prevLoseKey = KeyEvent.VK_DOWN;
 
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		moves();
+	public int randNum () {
+		
+		
+		return ((int) (Math.random() * 45)) * 10 + 10;
 	}
-	
-	public void moves() {
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		snakeBody.remove(snakeBody.size()-1);
-		Point body = snakeBody.get(0);
-		body.x += deltaX;
-		body.y += deltaY;
-		snakeBody.add(0, body);
-		
-		repaint();
-		
-	}
-	
-	public void addBodySquare() {
-		
-		
-		
-		
-	}
-	
+
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
 		g.setColor(Color.WHITE);
-		
-		for (Point body : snakeBody) {
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setStroke(new BasicStroke(15));
+		g2.drawRect(0, 0, 499, 477);
+		g2.setStroke(new BasicStroke(2));
+
+		if (startGame) {
+
+			g.setFont(new Font("Joystix", Font.BOLD, 80));
+			CenteredText title1 = new CenteredText("SNAKE!!", 500, 500, g,
+					true, 180);
+			g.setFont(new Font("Joystix", Font.BOLD, 20));
+
+			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
+					g, true, 300);
+			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
+					330);
+
+		} else if (playing) {
 			
-			g.fillRoundRect(body.x, body.y, bodySize, bodySize, 2, 2);
+			g.setFont(new Font("Joystix", Font.BOLD, 40));
+			g.setColor(Color.WHITE);
+			CenteredText score1 = new CenteredText(String.valueOf(score), 500, 500, g, true, 450);
+			for (Point body : snakeBody) {
+
+				g.setColor(Color.WHITE);
+				g.fillRect(body.x, body.y, bodySize, bodySize);
+				g.setColor(Color.BLACK);
+				g.drawRect(body.x, body.y, bodySize, bodySize);
+				
+				g.setColor(Color.GREEN);
+				g.fillRect(fruitX, fruitY, bodySize, bodySize);
+
+			}
+
+		} else if (endGame) {
 			
+			g.setFont(new Font("Joystix", Font.BOLD, 60));
 			
+			CenteredText lose = new CenteredText("You Lose!", 500, 500, g, true, 170);
+
+			g.setFont(new Font("Joystix", Font.BOLD, 26));
+			
+			CenteredText restart = new CenteredText("Enter to Restart", 500, 500, g, true, 320);
 		}
-		
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		if (e.getKeyCode() == prevLoseKey) {
+
+			playing = false;
+			endGame = true;
+
+		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+
+			deltaX = 0;
+			deltaY = -bodySize;
+			prevLoseKey = KeyEvent.VK_DOWN;
+
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+
+			deltaX = 0;
+			deltaY = bodySize;
+			prevLoseKey = KeyEvent.VK_UP;
+
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+
+			deltaY = 0;
+			deltaX = -bodySize;
+			prevLoseKey = KeyEvent.VK_RIGHT;
+
+		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+
+			deltaY = 0;
+			deltaX = bodySize;
+			prevLoseKey = KeyEvent.VK_LEFT;
+
+		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+			if (startGame) {
+
+				playing = true;
+				startGame = false;
+
+			} else if (endGame) {
+
+				resetBody();
+				playing = true;
+				endGame = false;
+				fruitX = randNum();
+				fruitY = randNum();
+				speed = 10;
+				score = 0;
+
+			}
+
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }
