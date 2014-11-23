@@ -14,7 +14,7 @@ import javax.swing.Timer;
 
 import utilityClasses.CenteredText;
 
-public class PongPanel extends JPanel implements ActionListener, KeyListener {
+public class CurvedPongPanel extends JPanel implements ActionListener, KeyListener {
 
 	private int ballX = 250;
 	private int ballY = 250;
@@ -67,7 +67,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int paddleSpeed = 5;
 	private boolean paused = false;
 
-	public PongPanel() {
+	public CurvedPongPanel() {
 
 		setBackground(Color.BLACK);
 

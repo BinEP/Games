@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 
-public class PongRunner {
+public class CurvedPongRunner {
 
 	
 	
@@ -14,9 +14,9 @@ public class PongRunner {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		
-		PongPanel pongPanel = new PongPanel();
+		CurvedPongPanel curvedPongPanel = new CurvedPongPanel();
 		//wWebPong pongPanel = new WebPong();
-		frame.add(pongPanel, BorderLayout.CENTER);
+		frame.add(curvedPongPanel, BorderLayout.CENTER);
 		
 		frame.setSize(500, 500);
 		frame.setVisible(true);
