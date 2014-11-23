@@ -18,8 +18,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	private int ballX = 250;
 	private int ballY = 250;
-	private int deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;
-	private int deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 3;;
+	private int deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 12;
+	private int deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;;
 	private int diameter = 20;
 
 	private int widthOfFrame = 500;
