@@ -29,6 +29,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean startScreen = true;
 	private boolean playing = false;
 	private boolean endGame = false;
+	private boolean computerPlayer = false;
 	//private boolean nextBall = true;
 	//private int countDown = 3;
 	//private int countDownTiming = 20;
@@ -50,6 +51,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int player1Y = paddleVerticalLocation;
 	private int player1Height = paddleHeight;
 	private int player1Width = paddleWidth;
+	private int player1MiddleY = player1Y + player1Height/2;
 
 	private int player1Score = 0;
 
@@ -109,11 +111,18 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			int nextBallRight = ballX + deltaX + diameter;
 			int nextBallTop = ballY + deltaY;
 			int nextBallBottom = ballY + deltaY + diameter;
+			int nextBallMid = ballY + deltaY + diameter/2;
 
 			int player1Right = player1X + player1Width;
 			int player1Top = player1Y;
 			int player1Bottom = player1Y + player1Height;
-
+			
+			int nextPlayer1Paddle = player1Y;
+			int nextPlayer1PaddleMid = player1Y + paddleSpeed;
+			
+			if (computerPlayer) WPressed = nextPlayer1Paddle > nextBallMid && nextBallLeft < 250;
+			if (computerPlayer) SPressed = nextPlayer1PaddleMid < nextBallMid && nextBallLeft < 250;
+			
 			int player2Left = player2X;
 			int player2Top = player2Y;
 			int player2Bottom = player2Y + player2Height;
@@ -260,10 +269,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			DownPressed = true;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_W) {
-			WPressed = true;
+			if (!computerPlayer) WPressed = true;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			SPressed = true;
+			if (!computerPlayer) SPressed = true;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			
@@ -289,6 +298,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				
 			}
 			
+		}  else if (e.getKeyCode() == KeyEvent.VK_1 && (startScreen || endGame)) {
+			
+			computerPlayer = true;
+			
+		} else if (e.getKeyCode() == KeyEvent.VK_2 && (startScreen || endGame)) {
+			
+			computerPlayer = false;
+			
 		}
 	}
 
@@ -301,10 +318,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			DownPressed = false;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_W) {
-			WPressed = false;
+			if (!computerPlayer) WPressed = false;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			SPressed = false;
+			if (!computerPlayer) SPressed = false;
 
 		}
 
