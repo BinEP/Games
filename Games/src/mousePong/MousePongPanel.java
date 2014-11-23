@@ -1,4 +1,5 @@
 package mousePong;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,12 +23,13 @@ import java.lang.Object;
 
 import utilityClasses.CenteredText;
 
-public class MousePongPanel extends JPanel implements ActionListener, KeyListener, MouseMotionListener {
+public class MousePongPanel extends JPanel implements ActionListener,
+		KeyListener, MouseMotionListener {
 
 	private int ballX = 250;
 	private int ballY = 250;
-	private int deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;
-	private int deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 3;;
+	private int deltaX = ((((int) (Math.random() * 2)) * 2) - 1) * 6;
+	private int deltaY = ((((int) (Math.random() * 2)) * 2) - 1) * 3;;
 	private int diameter = 20;
 
 	private int widthOfFrame = 500;
@@ -35,15 +37,17 @@ public class MousePongPanel extends JPanel implements ActionListener, KeyListene
 	private boolean startScreen = true;
 	private boolean playing = false;
 	private boolean endGame = false;
-	//private boolean nextBall = true;
-	//private int countDown = 3;
-	//private int countDownTiming = 20;
+	// private boolean nextBall = true;
+	// private int countDown = 3;
+	// private int countDownTiming = 20;
 
 	private int paddleHeight = 100;
 	private int paddleWidth = 15;
 	private int paddleDistanceFromSide = 30;
 	private int paddleVerticalLocation = 200;
 	private int dashedY = 5;
+	private int[] xValsD = new int[4];
+	private int[] yValsD = new int[4];
 
 	private int p1DistanceFromSide = paddleDistanceFromSide;
 	private int p2DistanceFromSide = widthOfFrame - paddleDistanceFromSide - 10;
@@ -137,11 +141,11 @@ public class MousePongPanel extends JPanel implements ActionListener, KeyListene
 					// System.out.println("Score Player 2!");
 					player2Score++;
 					gameEnds();
-					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;
-					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 3;
+					deltaX = ((((int) (Math.random() * 2)) * 2) - 1) * 6;
+					deltaY = ((((int) (Math.random() * 2)) * 2) - 1) * 3;
 					ballX = 250;
 					ballY = 250;
-					//nextBall = false;
+					// nextBall = false;
 				}
 			}
 
@@ -156,28 +160,41 @@ public class MousePongPanel extends JPanel implements ActionListener, KeyListene
 					// System.out.println("Score Player 1!");
 					player1Score++;
 					gameEnds();
-					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;
-					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 3;
+					deltaX = ((((int) (Math.random() * 2)) * 2) - 1) * 6;
+					deltaY = ((((int) (Math.random() * 2)) * 2) - 1) * 3;
 					ballX = 250;
 					ballY = 250;
-					//nextBall = false;
+					// nextBall = false;
 
 				}
 			}
 
 			ballX += deltaX;
 			ballY += deltaY;
-			int s = paddleAngled();
-			int paddleDX = (int) (s/10);
-			int paddleDY = (int) (s % 10);
-			double paddleL = Math.sqrt(paddleDX * paddleDX + paddleDY * paddleDY);
-			paddleDX *= 100/paddleL;
-			paddleDY *= 100/paddleL;
-			int[] xVals = {500 - paddleDX, 0
+			String s = paddleAngled();
+			//int mid = (s.length() -1) /2;
 			
+			int paddleDX = Integer.parseInt((s.substring(0, s.indexOf('/'))));
+			int paddleDY = Integer.parseInt((s.substring(s.indexOf('/')+1, s.length()-1)));
+			double paddleL = Math.sqrt(paddleDX * paddleDX + paddleDY
+					* paddleDY);
+			paddleDX *= 100 / paddleL;
+			paddleDY *= 100 / paddleL;
+			System.out.println(paddleDX + ", " + paddleDY);
+
+			// int[] xVals = {500 - paddleDX, 500, (int) (500 - (paddleDX *
+			// paddleHeight / Math.sqrt(paddleDX * paddleDX + paddleDY *
+			// paddleDY))), (int) (500 - paddleDX - (500 + (paddleDX *
+			// paddleHeight / Math.sqrt(paddleDX * paddleDX + paddleDY *
+			// paddleDY))))};
+			// int[] yVals = {476, 476 - paddleDY, (int) (500 + (paddleDY *
+			// paddleHeight / Math.sqrt(paddleDX * paddleDX + paddleDY *
+			// paddleDY))), (int) (476 - (500 - (paddleDY * paddleHeight /
+			// Math.sqrt(paddleDX * paddleDX + paddleDY * paddleDY))))};
+			// xValsD = xVals;
+			// yValsD = yVals;
+
 		}
-		
-		
 
 		repaint();
 
@@ -191,36 +208,32 @@ public class MousePongPanel extends JPanel implements ActionListener, KeyListene
 		g.setColor(Color.WHITE);
 
 		if (startScreen) {
-			
+
 			g.setFont(new Font("Joystix", Font.BOLD, 120));
 			CenteredText pong = new CenteredText("PONG", 500, 500, g, true, 180);
-			//g.drawString("PONG", pong.x, pong.y);
-			
+			// g.drawString("PONG", pong.x, pong.y);
+
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
-			
-			CenteredText pressStart = new CenteredText("Press Enter to", 500, 500, g, true, 250);
-			//g.drawString("Press Enter to", pressStart.x, 250);
-			
-			CenteredText start = new CenteredText("Start", 500, 500, g, true, 280);
-			//g.drawString("Start", start.x, 280);
-			//System.out.println(deltaX + "\t" + deltaY);
-			
+
+			CenteredText pressStart = new CenteredText("Press Enter to", 500,
+					500, g, true, 250);
+			// g.drawString("Press Enter to", pressStart.x, 250);
+
+			CenteredText start = new CenteredText("Start", 500, 500, g, true,
+					280);
+			// g.drawString("Start", start.x, 280);
+			// System.out.println(deltaX + "\t" + deltaY);
+
 		} else if (playing || paused) {
-			
+
 			/*
-			if (countDown > 0) {
-				g.setFont(new Font(Font.DIALOG, Font.BOLD, 80));
-				g.drawString(String.valueOf(countDown), 245, 230);
-				
-				if (countDownTiming == 0) {
-					countDown--;
-					countDownTiming = 60;
-				} else {
-					countDownTiming--;
-				}
-			}
-			*/
-			
+			 * if (countDown > 0) { g.setFont(new Font(Font.DIALOG, Font.BOLD,
+			 * 80)); g.drawString(String.valueOf(countDown), 245, 230);
+			 * 
+			 * if (countDownTiming == 0) { countDown--; countDownTiming = 60; }
+			 * else { countDownTiming--; } }
+			 */
+
 			g.fillOval(ballX, ballY, diameter, diameter);
 			g.fillRect(player1X, player1Y, player1Width, player1Height);
 			g.fillRect(player2X, player2Y, player2Width, player2Height);
@@ -234,31 +247,34 @@ public class MousePongPanel extends JPanel implements ActionListener, KeyListene
 			g.drawString(String.valueOf(player1Score), 205 - 32 * (spacing()),
 					420);
 			g.drawString(String.valueOf(player2Score), 269, 420);
-			
-			g.fillPolygon(xPoints, yPoints, nPoints);
-			
+
+			g.fillPolygon(xValsD, yValsD, 4);
+
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
-				CenteredText pause = new CenteredText("Paused", 500, 500,
-						g, true, 200);
+				CenteredText pause = new CenteredText("Paused", 500, 500, g,
+						true, 200);
 			}
 
 		} else if (endGame) {
-			
+
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
-			
+
 			String playerWon = (player1Score > player2Score) ? "1" : "2";
-			
-			CenteredText playWon = new CenteredText("Player " + playerWon, 500, 500, g, true, 120);
-			//g.drawString("Player " + playerWon, playWon.x, 120);
-			
-			CenteredText win = new CenteredText("You Win!", 500, 500, g, true, 210);
-			//g.drawString("You Win!", win.x, 210);
-			
+
+			CenteredText playWon = new CenteredText("Player " + playerWon, 500,
+					500, g, true, 120);
+			// g.drawString("Player " + playerWon, playWon.x, 120);
+
+			CenteredText win = new CenteredText("You Win!", 500, 500, g, true,
+					210);
+			// g.drawString("You Win!", win.x, 210);
+
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
-			CenteredText restart = new CenteredText("Enter to restart", 500, 500, g, true, 320);
-			//g.drawString("Enter to Restart", restart.x, 320);
-			
+			CenteredText restart = new CenteredText("Enter to restart", 500,
+					500, g, true, 320);
+			// g.drawString("Enter to Restart", restart.x, 320);
+
 		}
 
 	}
@@ -284,12 +300,12 @@ public class MousePongPanel extends JPanel implements ActionListener, KeyListene
 			SPressed = true;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			
+
 			if (startScreen) {
-			playing = true;
-			startScreen = false;
+				playing = true;
+				startScreen = false;
 			} else if (endGame) {
-				
+
 				playing = true;
 				player1Score = 0;
 				player2Score = 0;
@@ -299,14 +315,13 @@ public class MousePongPanel extends JPanel implements ActionListener, KeyListene
 				player1Y = paddleVerticalLocation;
 				player2X = p2DistanceFromSide;
 				player2Y = paddleVerticalLocation;
-				//countDown = 3;
-				//countDownTiming = 20;
-				deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;
-				deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 3;
-				
-				
+				// countDown = 3;
+				// countDownTiming = 20;
+				deltaX = ((((int) (Math.random() * 2)) * 2) - 1) * 6;
+				deltaY = ((((int) (Math.random() * 2)) * 2) - 1) * 3;
+
 			}
-			
+
 		}
 	}
 
@@ -354,49 +369,54 @@ public class MousePongPanel extends JPanel implements ActionListener, KeyListene
 		}
 
 	}
-	
-	public int paddleAngled() {
-		
-		
+
+	public String paddleAngled() {
+
 		Point mouse = MouseInfo.getPointerInfo().getLocation();
 		int mouseX = mouse.x;
 		int mouseY = mouse.y;
-		
+
 		Point frame = getLocationOnScreen();
 		int frameX = frame.x;
 		int frameY = frame.y;
-		
+
 		int middleX = 250 + frame.x;
 		int middleY = 250 + frame.y;
-		
+
 		int slopeTop = middleY - mouseY;
 		int slopeBottom = middleX - mouseX;
-		
+
 		slopeTop = Math.round(slopeTop / 10) * 10;
 		slopeBottom = Math.round(slopeBottom / 10) * 10;
-		
-		double slope = slopeTop / slopeBottom;
+		double slope = slopeTop;
+		if (slopeBottom != 0) {
+			slope = slopeTop / slopeBottom;
+		}
 		int gcd = gcd(slopeTop, slopeBottom);
+
 		slopeTop /= gcd;
 		slopeBottom /= gcd;
 		
-		slope = slopeTop / slopeBottom;
+		slope = slopeTop;
+		if (slopeBottom != 0) {
+			slope = slopeTop / slopeBottom;
+		}
 		
-		//slope = 5 * ((int) (slope/5) + slope % 5 * .2);
-		
-		System.out.println("Mouse: " + mouseX + ", " + mouseY + "  Frame: " + frameX + ", " + frameY + "  " + "Slope: " + slope + "  " + slopeTop + "/" + slopeBottom);
-		
-		
-		return ((int) (slope/10) * 10 + (int) slope % 10);
-		
+
+		// slope = 5 * ((int) (slope/5) + slope % 5 * .2);
+
+		System.out.println("Mouse: " + mouseX + ", " + mouseY + "  Frame: "
+				+ frameX + ", " + frameY + "  " + "Slope: " + slope + "  "
+				+ slopeTop + "/" + slopeBottom);
+
+		return slopeTop + "/" + slopeBottom;
+
 	}
-	
-	
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -405,11 +425,11 @@ public class MousePongPanel extends JPanel implements ActionListener, KeyListene
 		int mouseX = e.getX();
 		int mouseY = e.getY();
 		Point mouse = MouseInfo.getPointerInfo().getLocation();
-		
+
 		System.out.println("Coords" + mouseX + ", " + mouseY);
-		
+
 	}
-	
+
 	public static int gcd(int a, int b) {
 
 		if (b != 0) {
