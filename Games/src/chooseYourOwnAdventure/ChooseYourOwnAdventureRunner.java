@@ -298,14 +298,15 @@ public class ChooseYourOwnAdventureRunner {
 									
 									answer = console.next();
 									
-									System.out.println("\"Oh that's right!\" he says \"You\'re " + answer + "! Welcome to the Ridge Riders! We were told that you were the top of your class back in grad\"");
-									System.out.println("school! Here! Have a drink!\" He proceeded to slap a mug almost the size of a keg into your hand. You realize by the way that he was staring at you");
-									System.out.println("that he expected you to chug the whole thing. You did, but you barely managed to keep your stomach. He bellows \"Atta boy! Have another!\" You stare");
-									System.out.println("at the massive mug in your hand with a sense of despair, knowing that after you nearly drowned in this one, there would be many more to come...");
-									System.out.println("In less than hour, you were so drunk that you couldn't even remember you name. All you saw were smudges, and you couldn't make out any phrases over the");
-									System.out.println("cacophany of sound surrounding you. Except for one:");
+									System.out.println("\"Oh that's right!\" he says \"You\'re " + answer + "! Welcome to the Ridge Riders! We were told that you were the top");
+									System.out.println("of your class back in grad school! Here! Have a drink!\" He proceeded to slap a mug almost the size of a keg into your");
+									System.out.println("hand. You realize by the way that he was staring at you that he expected you to chug the whole thing. You did, but you");
+									System.out.println("barely managed to keep your stomach. He bellows \"Atta boy! Have another!\" You stare at the massive mug in your hand ");
+									System.out.println("than hour, you were so drunk that you couldn't even remember you name. All you saw were smudges, and you couldn't make");
+									System.out.println("out any phrases over thewith a sense of despair, knowing that after you nearly drowned in this one, there would be many");
+									System.out.println("more to come... In less cacophany of sound surrounding you. Except for one:");
 									System.out.println("\"Now let's see what you've got, boy!");
-									
+									System.out.println("He drags you into their arena/gym where many different type of training equipment hae been set up. As you walk around");									
 									break;
 									
 								case 2:
