@@ -48,6 +48,10 @@ public class MousePongPanel extends JPanel implements ActionListener,
 	private int dashedY = 5;
 	private int[] xValsD = new int[4];
 	private int[] yValsD = new int[4];
+	private int paddleX;
+	private int paddleY;
+	private double paddleDX;
+	private double paddleDY;
 
 	private int p1DistanceFromSide = paddleDistanceFromSide;
 	private int p2DistanceFromSide = widthOfFrame - paddleDistanceFromSide - 10;
@@ -171,25 +175,29 @@ public class MousePongPanel extends JPanel implements ActionListener,
 
 			ballX += deltaX;
 			ballY += deltaY;
-			String s = paddleAngled();
-			//int mid = (s.length() -1) /2;
-			int paddleDX = 0;
-			int paddleDY = 0;
-			try {
-			paddleDX = Integer.parseInt((s.substring(0, s.indexOf('/'))));
-			} catch (NumberFormatException e) {
-				
-			}
-			try {
-			paddleDY = Integer.parseInt((s.substring(s.indexOf('/')+1, s.length()-1)));
-			} catch (NumberFormatException e) {
-				
-			}
+			paddleAngled();
+//			//int mid = (s.length() -1) /2;
+//			paddleDX = 0;
+//			paddleDY = 0;
+//			try {
+//			paddleDX = Integer.parseInt((s.substring(0, s.indexOf('/'))));
+//			} catch (NumberFormatException e) {
+//				
+//			}
+//			try {
+//			paddleDY = Integer.parseInt((s.substring(s.indexOf('/')+1, s.length()-1)));
+//			} catch (NumberFormatException e) {
+//				
+//			}
+			
 			double paddleL = Math.sqrt(paddleDX * paddleDX + paddleDY
 					* paddleDY);
-			paddleDX *= 100 / paddleL;
-			paddleDY *= 100 / paddleL;
+			paddleDX = Math.abs(paddleDX * (int) (100 / paddleL));
+			paddleDY = -Math.abs(paddleDY * (int) (100 / paddleL));
+			
 			System.out.println(paddleDX + ", " + paddleDY);
+			paddleX = (int) (500 - paddleDX);
+			paddleY = getHeight() - 15;
 
 			// int[] xVals = {500 - paddleDX, 500, (int) (500 - (paddleDX *
 			// paddleHeight / Math.sqrt(paddleDX * paddleDX + paddleDY *
@@ -257,7 +265,10 @@ public class MousePongPanel extends JPanel implements ActionListener,
 					420);
 			g.drawString(String.valueOf(player2Score), 269, 420);
 
-			g.fillPolygon(xValsD, yValsD, 4);
+			
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.rotate(Math.atan(paddleDY/paddleDX), paddleX, paddleY+15);
+			g.fillRect(paddleX, paddleY, 100, 15);
 
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
@@ -393,7 +404,7 @@ public class MousePongPanel extends JPanel implements ActionListener,
 		int middleY = 250 + frame.y;
 
 		int slopeTop = middleY - mouseY;
-		int slopeBottom = middleX - mouseX;
+		int slopeBottom = mouseX - middleX;
 
 		slopeTop = Math.round(slopeTop / 10) * 10;
 		slopeBottom = Math.round(slopeBottom / 10) * 10;
@@ -417,6 +428,9 @@ public class MousePongPanel extends JPanel implements ActionListener,
 		System.out.println("Mouse: " + mouseX + ", " + mouseY + "  Frame: "
 				+ frameX + ", " + frameY + "  " + "Slope: " + slope + "  "
 				+ slopeTop + "/" + slopeBottom);
+		
+		paddleDX = slopeBottom;
+		paddleDY = slopeTop;
 
 		return slopeTop + "/" + slopeBottom;
 
