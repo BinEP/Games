@@ -280,12 +280,40 @@ public class ChooseYourOwnAdventureRunner {
 								System.out.println("This is the path that you have chosen, and you must continue on it.");
 								System.out.println("Speaking of continuing on your path, your school has reccomemnded you to a guild of dragon slayers, and they want you to join");
 								System.out.println("Do you (a) join the guild or (b) forge out on your own?");
-			
+
+								answer = console.next();
+								choice = (answer.toLowerCase().equals("b")) ? 2 : 1;
 								
+								switch (choice) {
 								
-								//comment
-								//llll
-								
+								case 1:
+									
+									System.out.println("Your school notifies that you wish to join, and the next thing you know, you are holding your bags in front of a big ol' building, staring");
+									System.out.println("up at it like a little kid. As you walk in, you are engulfed in absolute chaos. People yelling, fighting, and even belting out drinking songs,");
+									System.out.println("completely surround you. You immediately understand that part of guild life is drinking. Seeing as it isn't even noon and everyone is mad drunk,");
+									System.out.println("you decide that its lots of drinking. As you slide your way through the mass of people, trying not to trip over any passed");
+									System.out.println("out bodies, an unusually sober man approaches you. He asks you what your name is.");
+									System.out.println("What is it again?");
+									
+									answer = console.next();
+									
+									System.out.println("\"Oh that's right!\" he says \"You\'re " + answer + "! Welcome to the Ridge Riders! We were told that you were the top of your class back in grad\"");
+									System.out.println("school! Here! Have a drink!\" He proceeded to slap a mug almost the size of a keg into your hand. You realize by the way that he was staring at you");
+									System.out.println("that he expected you to chug the whole thing. You did, but you barely managed to keep your stomach. He bellows \"Atta boy! Have another!\" You stare");
+									System.out.println("at the massive mug in your hand with a sense of despair, knowing that after you nearly drowned in this one, there would be many more to come...");
+									System.out.println("In less than hour, you were so drunk that you couldn't even remember you name. All you saw were smudges, and you couldn't make out any phrases over the");
+									System.out.println("cacophany of sound surrounding you. Except for one:");
+									System.out.println("\"Now let's see what you've got, boy!");
+									
+									break;
+									
+								case 2:
+									
+									
+									
+									break;
+
+								}
 								break;
 							
 							}
