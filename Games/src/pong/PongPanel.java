@@ -240,14 +240,22 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			
 			String playerWon = (player1Score > player2Score) ? "1" : "2";
 			
+			if (!computerPlayer) {
 			CenteredText playWon = new CenteredText("Player " + playerWon, 500, 500, g, true, 120);
-			//g.drawString("Player " + playerWon, playWon.x, 120);
-			
 			CenteredText win = new CenteredText("You Win!", 500, 500, g, true, 210);
+			//g.drawString("Player " + playerWon, playWon.x, 120);
+			} else {
+				CenteredText playWon = new CenteredText("Computer", 500, 500, g, true, 80);
+				CenteredText playWon1 = new CenteredText("Won!", 500, 500, g, true, 150);
+				CenteredText win = new CenteredText("You Lose!", 500, 500, g, true, 280);
+				
+			}
+			
+			
 			//g.drawString("You Win!", win.x, 210);
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
-			CenteredText restart = new CenteredText("Enter to restart", 500, 500, g, true, 320);
+			CenteredText restart = new CenteredText("Enter to restart", 500, 500, g, true, 350);
 			//g.drawString("Enter to Restart", restart.x, 320);
 			
 		}
