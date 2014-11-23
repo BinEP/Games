@@ -52,7 +52,7 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 	private int diameter = 15;
 	private int buffer = 0;
 
-	private int ballSpeed = 4;
+	private int ballSpeed = 5;
 	private int origBallSpeed = ballSpeed;
 	private int holeSpeed = 5;
 	private int origHoleSpeed = holeSpeed;
