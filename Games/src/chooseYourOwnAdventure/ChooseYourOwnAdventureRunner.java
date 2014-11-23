@@ -7,6 +7,7 @@ public class ChooseYourOwnAdventureRunner {
 	public static void main(String[] args) throws InterruptedException {
 		
 		System.out.println("");
+		@SuppressWarnings("resource")
 		Scanner console = new Scanner(System.in);
 		String answer = "";
 		int choice = 0;
@@ -312,35 +313,3 @@ public class ChooseYourOwnAdventureRunner {
 		
 	}
 }
-
-/*
- * switch (choice) {
-						
-						case 1:
-							
-							System.out.println("");
-							System.out.println("");
-							System.out.println("");
-							System.out.println("");
-							
-							
-							
-							
-							break;
-							
-						case 2:
-							
-							System.out.println("");
-							System.out.println("");
-							System.out.println("");
-							System.out.println("");
-							
-							
-							
-							
-							
-							
-							break;
-							
-						}
-						*/
