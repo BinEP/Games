@@ -11,7 +11,7 @@ public class ShapeRunner {
 	public static void main(String[] args) {
 
 		
-		JFrame frame = new JFrame("TUNNEL RUNNER");
+		JFrame frame = new JFrame("Shape Jumper");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		
