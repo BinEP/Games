@@ -16,8 +16,9 @@ import utilityClasses.CenteredText;
 
 public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
-	private int slopeX = (int) (Math.random() * 2) + 1;
-	private int slopeY = (int) (Math.random() * 2) + 1;
+	//private int slopeX = (int) (Math.random() * 2) + 1;
+//	private int slopeX = rand4or8();
+//	private int slopeY = (int) (Math.random() * 2) + 1;
 	// ////////////////////////////////
 	
 	private int ballX = 250;
@@ -36,6 +37,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean playing = false;
 	private boolean endGame = false;
 	private boolean computerPlayer = false;
+	
+	private int computerXMove = 200;
 	//private boolean nextBall = true;
 	//private int countDown = 3;
 	//private int countDownTiming = 20;
@@ -101,8 +104,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		if (playing) {
 			//System.out.println(deltaX);
 			//System.out.println(deltaY);
-			System.out.println(slopeX);
-			System.out.println(slopeY);
+			//System.out.println(slopeX);
+			//System.out.println(slopeY);
 			if (WPressed && player1Y - paddleSpeed > 50)
 				player1Y -= paddleSpeed;
 
@@ -130,8 +133,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			int nextPlayer1Paddle = player1Y;
 			int nextPlayer1PaddleMid = player1Y + paddleSpeed;
 			
-			if (computerPlayer) WPressed = nextPlayer1Paddle > nextBallMid && nextBallLeft < 400;
-			if (computerPlayer) SPressed = nextPlayer1PaddleMid < nextBallMid && nextBallLeft < 400;
+			if (computerPlayer) WPressed = nextPlayer1Paddle > nextBallMid && nextBallLeft < computerXMove;
+			if (computerPlayer) SPressed = nextPlayer1PaddleMid < nextBallMid && nextBallLeft < computerXMove;
 			
 			int player2Left = player2X;
 			int player2Top = player2Y;
@@ -271,7 +274,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					
 					CenteredText playWon = new CenteredText("You Win!", 500, 500, g, true, 150);
 				}
-				
+				computerPlayer = false;
 			}
 			
 			
@@ -334,10 +337,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		}  else if (e.getKeyCode() == KeyEvent.VK_1 && (startScreen || endGame)) {
 			
 			computerPlayer = true;
+			computerXMove = 200;
+			
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_2 && (startScreen || endGame)) {
 			
-			computerPlayer = false;
+			computerPlayer = true;
+			computerXMove = 400;
+			
 			
 		}
 	}
@@ -387,6 +394,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				&& Math.abs(player1Score - player2Score) > 1) {
 			playing = false;
 			endGame = true;
+			
 
 		}
 
