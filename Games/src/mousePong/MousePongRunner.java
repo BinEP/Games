@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import pong.PongPanel;
-
 public class MousePongRunner {
 
 	public static void main(String[] args) {
