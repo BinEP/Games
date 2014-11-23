@@ -322,6 +322,7 @@ public class ChooseYourOwnAdventureRunner {
 									System.out.println("You wake up feeling much better, but you don't see Elvira. All of a sudden, your guildmaster bursts into the room and bellows");
 									System.out.println("\"Rise and shine, " + name + "! We're going on a quest!\"");
 									
+									
 									break;
 									
 								case 2:
