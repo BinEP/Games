@@ -303,11 +303,12 @@ public class ChooseYourOwnAdventureRunner {
 									System.out.println("hand. You realize by the way that he was staring at you that he expected you to chug the whole thing. You did, but you");
 									System.out.println("barely managed to keep your stomach. He bellows \"Atta boy! Have another!\" You stare at the massive mug in your hand ");
 									System.out.println("than hour, you were so drunk that you couldn't even remember you name. All you saw were smudges, and you couldn't make");
-									System.out.println("with a sense of despair, knowing that after you nearly drowned in this one, there would be many");
-									System.out.println("more to come... In the cacophany of sound surrounding you, you coul out any phrases over the. Except for one:");
+									System.out.println("with a sense of despair, knowing that after you nearly drowned in this one, there would be many more to come... You");
+									System.out.println("could not make out any phrases over the cacophany of sound surrounding you. Except for one:");
 									System.out.println("\"Now let's see what you've got, boy!");
 									System.out.println("He drags you into their arena/gym where many different type of training equipment hae been set up. As you walk around");
-									System.out.println("you are suddenly bashed over the head a rock. As you fasde the blsck, you hear \'You always need to watchout while slaying dagons\'");
+									System.out.println("you are suddenly bashed over the head a rock. As you fade into the black, you hear \'You always need to watch out while");
+									System.out.println("slaying dagons.\'");
 									break;
 									
 								case 2:
