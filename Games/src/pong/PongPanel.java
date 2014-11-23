@@ -18,8 +18,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	private int ballX = 250;
 	private int ballY = 250;
-	private int deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 12;
-	private int deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;;
+	private int ballXSpeed = 8;
+	private int ballYSpeed = 4;
+	private int deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+	private int deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 	private int diameter = 20;
 
 	private int widthOfFrame = 500;
@@ -129,8 +131,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// System.out.println("Score Player 2!");
 					player2Score++;
 					gameEnds();
-					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;
-					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 3;
+					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 					ballX = 250;
 					ballY = 250;
 					//nextBall = false;
@@ -148,8 +150,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// System.out.println("Score Player 1!");
 					player1Score++;
 					gameEnds();
-					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;
-					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 3;
+					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 					ballX = 250;
 					ballY = 250;
 					//nextBall = false;
@@ -281,8 +283,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				player2Y = paddleVerticalLocation;
 				//countDown = 3;
 				//countDownTiming = 20;
-				deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * 6;
-				deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * 3;
+				deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+				deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 				
 				
 			}
