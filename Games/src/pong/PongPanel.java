@@ -16,10 +16,16 @@ import utilityClasses.CenteredText;
 
 public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
+	private int slopeX = (int) (Math.random() * 2) + 1;
+	private int slopeY = (int) (Math.random() * 2) + 1;
+	// ////////////////////////////////
+	
 	private int ballX = 250;
 	private int ballY = 250;
-	private int ballXSpeed = 8;
-	private int ballYSpeed = 4;
+	private int ballXSpeed = ((int) (Math.random() * 2) + 1) * (4);
+	private int ballYSpeed = ((int) (Math.random() * 2) + 1) * (4);
+	//private int ballXSpeed = (slopeX) * (4);
+		//private int ballYSpeed = (slopeY) * (4);
 	private int deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
 	private int deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 	private int diameter = 20;
@@ -93,18 +99,22 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	public void moves() {
 
 		if (playing) {
-			if (WPressed && player1Y - paddleSpeed > 0)
+			//System.out.println(deltaX);
+			//System.out.println(deltaY);
+			System.out.println(slopeX);
+			System.out.println(slopeY);
+			if (WPressed && player1Y - paddleSpeed > 50)
 				player1Y -= paddleSpeed;
 
 			if (SPressed
-					&& player1Y + player1Height + paddleSpeed < getHeight())
+					&& player1Y + player1Height + paddleSpeed < getHeight() - 50)
 				player1Y += paddleSpeed;
 
-			if (UpPressed && player2Y - paddleSpeed > 0)
+			if (UpPressed && player2Y - paddleSpeed > 50)
 				player2Y -= paddleSpeed;
 
 			if (DownPressed
-					&& player2Y + player2Height + paddleSpeed < getHeight())
+					&& player2Y + player2Height + paddleSpeed < getHeight() - 50)
 				player2Y += paddleSpeed;
 
 			int nextBallLeft = ballX + deltaX;
@@ -120,8 +130,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			int nextPlayer1Paddle = player1Y;
 			int nextPlayer1PaddleMid = player1Y + paddleSpeed;
 			
-			if (computerPlayer) WPressed = nextPlayer1Paddle > nextBallMid && nextBallLeft < 250;
-			if (computerPlayer) SPressed = nextPlayer1PaddleMid < nextBallMid && nextBallLeft < 250;
+			if (computerPlayer) WPressed = nextPlayer1Paddle > nextBallMid && nextBallLeft < 400;
+			if (computerPlayer) SPressed = nextPlayer1PaddleMid < nextBallMid && nextBallLeft < 400;
 			
 			int player2Left = player2X;
 			int player2Top = player2Y;
@@ -140,6 +150,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// System.out.println("Score Player 2!");
 					player2Score++;
 					gameEnds();
+					ballXSpeed = ((int) (Math.random() * 2) + 1) * (4);
+					ballYSpeed = ((int) (Math.random() * 2) + 1) * (4);
 					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
 					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 					ballX = 250;
@@ -159,6 +171,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// System.out.println("Score Player 1!");
 					player1Score++;
 					gameEnds();
+					ballXSpeed = ((int) (Math.random() * 2) + 1) * (4);
+					ballYSpeed = ((int) (Math.random() * 2) + 1) * (4);
 					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
 					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 					ballX = 250;
@@ -184,6 +198,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.WHITE);
 
 		if (startScreen) {
+//			int a = (int)(Math.random() * 2);
+//			System.out.println(a);
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 120));
 			CenteredText pong = new CenteredText("PONG", 500, 500, g, true, 180);
@@ -245,9 +261,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			CenteredText win = new CenteredText("You Win!", 500, 500, g, true, 210);
 			//g.drawString("Player " + playerWon, playWon.x, 120);
 			} else {
+				
+				if (player1Score > player2Score) {
 				CenteredText playWon = new CenteredText("Computer", 500, 500, g, true, 80);
 				CenteredText playWon1 = new CenteredText("Won!", 500, 500, g, true, 150);
 				CenteredText win = new CenteredText("You Lose!", 500, 500, g, true, 280);
+				
+				} else {
+					
+					CenteredText playWon = new CenteredText("You Win!", 500, 500, g, true, 150);
+				}
 				
 			}
 			
@@ -300,6 +323,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				player2Y = paddleVerticalLocation;
 				//countDown = 3;
 				//countDownTiming = 20;
+				ballXSpeed = ((int) (Math.random() * 2) + 1) * (4);
+				ballYSpeed = ((int) (Math.random() * 2) + 1) * (4);
 				deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
 				deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 				
@@ -331,7 +356,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
 			if (!computerPlayer) SPressed = false;
 
-		}
+		} 
 
 	}
 
