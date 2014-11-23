@@ -16,7 +16,6 @@ public class MousePongRunner {
 		frame.setLayout(new BorderLayout());
 		
 		MousePongPanel MousePongPanel = new MousePongPanel();
-		//wWebPong pongPanel = new WebPong();
 		frame.add(MousePongPanel, BorderLayout.CENTER);
 		
 		frame.setSize(500, 500);
