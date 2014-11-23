@@ -296,19 +296,32 @@ public class ChooseYourOwnAdventureRunner {
 									System.out.println("out bodies, an unusually sober man approaches you. He asks you what your name is.");
 									System.out.println("What is it again?");
 									
-									answer = console.next();
+									String name = console.next();
 									
-									System.out.println("\"Oh that's right!\" he says \"You\'re " + answer + "! Welcome to the Ridge Riders! We were told that you were the top");
+									System.out.println("\"Oh that's right!\" he says \"You\'re " + name + "! Welcome to the Ridge Riders! We were told that you were the top");
 									System.out.println("of your class back in grad school! Here! Have a drink!\" He proceeded to slap a mug almost the size of a keg into your");
 									System.out.println("hand. You realize by the way that he was staring at you that he expected you to chug the whole thing. You did, but you");
 									System.out.println("barely managed to keep your stomach. He bellows \"Atta boy! Have another!\" You stare at the massive mug in your hand ");
-									System.out.println("than hour, you were so drunk that you couldn't even remember you name. All you saw were smudges, and you couldn't make");
-									System.out.println("with a sense of despair, knowing that after you nearly drowned in this one, there would be many more to come... You");
-									System.out.println("could not make out any phrases over the cacophany of sound surrounding you. Except for one:");
-									System.out.println("\"Now let's see what you've got, boy!");
-									System.out.println("He drags you into their arena/gym where many different type of training equipment hae been set up. As you walk around");
-									System.out.println("you are suddenly bashed over the head a rock. As you fade into the black, you hear \'You always need to watch out while");
+									System.out.println("with a sense of despair, knowing that after you nearly drowned in this one, there would be many more to come... In less");
+									System.out.println("than an hour, you were so drunk that you couldn't even remember you name. All you saw were smudges, and you couldn't make");
+									System.out.println("out any phrases over the cacophany of sound surrounding you. Except for one:");
+									System.out.println("\"Now let's see what you've got, boy!\"");
+									System.out.println("He drags you into their arena/gym where many different type of training equipment have been set up. As you walk around");
+									System.out.println("you are suddenly bashed over the head a rock. As you fade into the black, you hear \'You always need to watch your back while");
 									System.out.println("slaying dagons.\'");
+									System.out.println("You wake up several hours later with a roaring headache, lying in a bed in your guild's hospital. As vague shapes slowly");
+									System.out.println("come into focus, you hear something you thought you would never hear in a place like this:");
+									System.out.println("A female voice");
+									System.out.println("As you focus on her voice, her face slowly swims into focus. She is cute, in that I-could-kill-you-with-my-eyes-closed sort");
+									System.out.println("of way. As your blood rushes somewhere else, your headached starts to subside. When she looks at you, she says in a soft voice,");
+									System.out.println("\"Oh! You're awake! How are you doing " + name + "? It seems like you're feeling better. Wanna try sitting up?\"");
+									System.out.println("As you slowly sit up, you're head starts to hurt again. She notices and lets you lay back down. She tells you that you should");
+									System.out.println("probably just rest for a little bit. As you begin to fall asleep, you manage to ask her name.");
+									System.out.println("\"Elvira,\" she says");
+									System.out.println("");
+									System.out.println("You wake up feeling much better, but you don't see Elvira. All of a sudden, your guildmaster bursts into the room and bellows");
+									System.out.println("\"Rise and shine, " + name + "! We're going on a quest!\"");
+									
 									break;
 									
 								case 2:
