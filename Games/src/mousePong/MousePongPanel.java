@@ -173,9 +173,18 @@ public class MousePongPanel extends JPanel implements ActionListener,
 			ballY += deltaY;
 			String s = paddleAngled();
 			//int mid = (s.length() -1) /2;
-			
-			int paddleDX = Integer.parseInt((s.substring(0, s.indexOf('/'))));
-			int paddleDY = Integer.parseInt((s.substring(s.indexOf('/')+1, s.length()-1)));
+			int paddleDX = 0;
+			int paddleDY = 0;
+			try {
+			paddleDX = Integer.parseInt((s.substring(0, s.indexOf('/'))));
+			} catch (NumberFormatException e) {
+				
+			}
+			try {
+			paddleDY = Integer.parseInt((s.substring(s.indexOf('/')+1, s.length()-1)));
+			} catch (NumberFormatException e) {
+				
+			}
 			double paddleL = Math.sqrt(paddleDX * paddleDX + paddleDY
 					* paddleDY);
 			paddleDX *= 100 / paddleL;
