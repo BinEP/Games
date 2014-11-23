@@ -306,7 +306,8 @@ public class ChooseYourOwnAdventureRunner {
 									System.out.println("out any phrases over thewith a sense of despair, knowing that after you nearly drowned in this one, there would be many");
 									System.out.println("more to come... In less cacophany of sound surrounding you. Except for one:");
 									System.out.println("\"Now let's see what you've got, boy!");
-									System.out.println("He drags you into their arena/gym where many different type of training equipment hae been set up. As you walk around");									
+									System.out.println("He drags you into their arena/gym where many different type of training equipment hae been set up. As you walk around");
+									System.out.println("you are suddenly bashed over the head a rock. As you fasde the blsck, you hear \'You always need to watchout while slaying dagons\'");
 									break;
 									
 								case 2:
