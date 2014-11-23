@@ -145,7 +145,7 @@ public class ChooseYourOwnAdventureRunner {
 						
 						case 1:
 							
-							System.out.println("You and the girl go to seek the largest drgon in the land.");
+							System.out.println("You and the girl go to seek the largest dragon in the land.");
 							System.out.println("Little did you know that they make dragons that are quite large. You faint on sight.");
 							System.out.println("The girl rescued you moments before you joined your horse in the land of the crispy.");
 							System.out.println("After this monumental embaressment, you realize you only have two options.");
