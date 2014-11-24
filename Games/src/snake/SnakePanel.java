@@ -200,6 +200,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			g.setFont(new Font("Joystix", Font.BOLD, 80));
 			CenteredText title1 = new CenteredText("SNAKE!!", 500, 500, g,
 					true, 180);
+			drawColorOptions(g, 415);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 
 			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
@@ -232,20 +233,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 					CenteredText pause = new CenteredText("Paused", 500, 500,
 							g, true, 200);
 					
-					int colorY = 300;
-					g.setFont(new Font(Font.DIALOG, Font.BOLD, 45));
-					g.setColor(Color.RED);
-					g2.drawString("R", 50, colorY);
-					g.setColor(Color.GREEN);
-					g2.drawString("G", 100, colorY);
-					g.setColor(Color.BLUE);
-					g2.drawString("B", 150, colorY);
-					g.setColor(Color.YELLOW);
-					g2.drawString("Y", 200, colorY);
-					g.setColor(Color.ORANGE);
-					g2.drawString("O", 250, colorY);
-					g.setColor(Color.BLACK);
-					g2.drawString("W", 300, colorY);
+					drawColorOptions(g, 300);
 				}
 			}
 
@@ -358,6 +346,29 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			
 		//}
 		}
+	}
+	
+	public void drawColorOptions(Graphics g, int colorY) {
+		
+		g.setFont(new Font(Font.DIALOG, Font.BOLD, 45));
+		g.setColor(Color.RED);
+		g.drawString("R", 50, colorY);
+		g.setColor(Color.GREEN);
+		g.drawString("G", 140, colorY);
+		g.setColor(Color.BLUE);
+		g.drawString("B", 230, colorY);
+		g.setColor(Color.YELLOW);
+		g.drawString("Y", 315, colorY);
+		g.setColor(Color.ORANGE);
+		g.drawString("O", 410, colorY);
+//		g.setColor(Color.BLACK);
+//		g.drawString("W", 500, colorY);
+		
+		
+		g.setColor(Color.WHITE);
+		
+		
+		
 	}
 
 	@Override
