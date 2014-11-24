@@ -1,6 +1,7 @@
 package shapeJump;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -43,6 +44,23 @@ public ShapePanel() {
 	}
 	
 	public void drawShape(int randomShape) {
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	public void paintComponent(Graphics g) {
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
