@@ -20,14 +20,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 //	private int slopeX = rand4or8();
 //	private int slopeY = (int) (Math.random() * 2) + 1;
 	// ////////////////////////////////
-	
-	private int ballX = 250;
+	private int startBallX = 400;
+	private int ballX = startBallX;
 	private int ballY = 250;
 	private int ballXSpeed = rand4or8();
 	private int ballYSpeed = rand4or8();
 	//private int ballXSpeed = (slopeX) * (4);
 		//private int ballYSpeed = (slopeY) * (4);
-	private int deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+	//private int deltaX = -Math.abs(((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed);
+	private int deltaX = randDeltaX();
 	private int deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 	private int diameter = 20;
 
@@ -155,9 +156,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					gameEnds();
 					ballXSpeed = rand4or8();
 					ballYSpeed = rand4or8();
-					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+					//deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+					deltaX = randDeltaX();
 					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
-					ballX = 250;
+					ballX = startBallX;
 					ballY = 250;
 					//nextBall = false;
 				}
@@ -176,9 +178,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					gameEnds();
 					ballXSpeed = rand4or8();
 					ballYSpeed = rand4or8();
-					deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+					//deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+					deltaX = randDeltaX();
 					deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
-					ballX = 250;
+					ballX = startBallX;
 					ballY = 250;
 					//nextBall = false;
 
@@ -318,7 +321,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				playing = true;
 				player1Score = 0;
 				player2Score = 0;
-				ballX = 250;
+				ballX = startBallX;
 				ballY = 250;
 				player1X = p1DistanceFromSide;
 				player1Y = paddleVerticalLocation;
@@ -328,7 +331,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				//countDownTiming = 20;
 				ballXSpeed = rand4or8();
 				ballYSpeed = rand4or8();
-				deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+				//deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+				deltaX = randDeltaX();
 				deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 				
 				
@@ -385,6 +389,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	public int rand4or8() {
 		return ((int) (Math.random() * 2) + 1) * (4);
 		
+		
+	}
+	
+	public int randDeltaX() {
+		return -Math.abs(((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed);
 		
 	}
 
