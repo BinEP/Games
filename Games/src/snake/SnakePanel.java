@@ -34,6 +34,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int fruitX = 300;
 	private int fruitY = 200;
+	private Color fruitColor = Color.WHITE;
 
 	private int deltaX = 0;
 	private int deltaY = -bodySize;
@@ -218,7 +219,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				g.drawRect(body.x, body.y, bodySize, bodySize);
 				g.drawRect(fruitX, fruitY, bodySize, bodySize);
 
-				g.setColor(Color.WHITE);
+				//g.setColor(Color.WHITE);
+				g.setColor(fruitColor);
 				g.fillRect(fruitX + 1, fruitY + 1, bodySize - 2, bodySize - 2);
 
 				if (paused) {
@@ -309,6 +311,39 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		//if (startGame || endGame) {
+			switch (e.getKeyCode()) {
+			
+			case KeyEvent.VK_R:
+				fruitColor = Color.RED;
+				
+			break;
+			case KeyEvent.VK_G:
+				fruitColor = Color.GREEN;
+				
+				break;
+			case KeyEvent.VK_B:
+				fruitColor = Color.BLUE;
+				
+				break;
+			case KeyEvent.VK_Y:
+				fruitColor = Color.YELLOW;
+				
+				break;
+			case KeyEvent.VK_O:
+				fruitColor = Color.ORANGE;
+				
+				break;
+			default: //VK_W - White is default case
+				fruitColor = Color.WHITE;
+				
+				break;
+			
+			}
+			
+			
+		//}
+		
 
 	}
 
