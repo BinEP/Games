@@ -157,8 +157,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		fruitY = randNum();
 
 		speed += .5;
-		System.out.println(speed);
-		System.out.println((int) (1000.0 / speed));
+		//System.out.println(speed);
+		//System.out.println((int) (1000.0 / speed));
 		timer.setDelay((int) (1000.0 / speed));
 		score++;
 
