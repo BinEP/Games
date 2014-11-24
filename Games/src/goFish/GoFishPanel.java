@@ -76,7 +76,7 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void shuffleDeck() {
 
-		
+		Collections.shuffle(deck);
 		
 
 	}
