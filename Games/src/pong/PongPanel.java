@@ -393,7 +393,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	public int randDeltaX() {
-		return -Math.abs(((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed);
+		int pos = ((((int) (Math.random() * 2 )) * 2) - 1);
+		startBallX = 250 + (pos * 150);
+		return -pos * Math.abs(((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed);
 		
 	}
 
