@@ -192,7 +192,9 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		g2.setStroke(new BasicStroke(15));
 		g2.drawRect(0, 0, 499, 477);
 		g2.setStroke(new BasicStroke(2));
-
+		
+		
+		
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 80));
@@ -211,6 +213,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.WHITE);
 			CenteredText score1 = new CenteredText(String.valueOf(score), 500,
 					500, g, true, 450);
+			
 			for (Point body : snakeBody) {
 
 				g.setColor(Color.WHITE);
@@ -225,8 +228,24 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 				if (paused) {
 					g.setFont(new Font("Joystix", Font.BOLD, 60));
+					g.setColor(Color.WHITE);
 					CenteredText pause = new CenteredText("Paused", 500, 500,
 							g, true, 200);
+					
+					int colorY = 300;
+					g.setFont(new Font(Font.DIALOG, Font.BOLD, 45));
+					g.setColor(Color.RED);
+					g2.drawString("R", 50, colorY);
+					g.setColor(Color.GREEN);
+					g2.drawString("G", 100, colorY);
+					g.setColor(Color.BLUE);
+					g2.drawString("B", 150, colorY);
+					g.setColor(Color.YELLOW);
+					g2.drawString("Y", 200, colorY);
+					g.setColor(Color.ORANGE);
+					g2.drawString("O", 250, colorY);
+					g.setColor(Color.BLACK);
+					g2.drawString("W", 300, colorY);
 				}
 			}
 
@@ -305,13 +324,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			playing = !playing;
 			paused = !paused;
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		//if (startGame || endGame) {
+		} else {
+			//if (startGame || endGame) {
 			switch (e.getKeyCode()) {
 			
 			case KeyEvent.VK_R:
@@ -334,7 +348,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				fruitColor = Color.ORANGE;
 				
 				break;
-			default: //VK_W - White is default case
+			case KeyEvent.VK_W: //VK_W - White is default case
 				fruitColor = Color.WHITE;
 				
 				break;
@@ -343,6 +357,13 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			
 			
 		//}
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 		
 
 	}
