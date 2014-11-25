@@ -1,6 +1,7 @@
 package shapeJump;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -12,20 +13,32 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import utilityClasses.CenteredText;
+
 public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
+	private boolean startGame = true;
+	private boolean playing = false;
+	private boolean endGame = false;
+	private boolean paused = false;
+	
 	private int shapeWidth = 20;
 	private int squareSide = shapeWidth;
 	private int circleDiameter = shapeWidth;
 	private int borderThickness = 1;
 	private int blockSize = shapeWidth + 2 * borderThickness;
 
-	private int ground = 350;
+	private int ground = 400;
 
 	private int shapeSpeed = 5;
 	// private int pos = nextBlockX();
 
 	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>();
+	
+	private int timeSplit;
+	private int timeSeconds;
+	private boolean UpPressed;
+	private boolean DownPressed;
 
 	public ShapePanel() {
 
@@ -51,6 +64,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void moves() {
 
+		if (playing) {
 		if (shapeGroupX.contains(0)) {
 			shapeGroupX.add(shapeGroupX.get(2) + 170);
 			shapeGroupX.remove(0);
@@ -58,6 +72,14 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		for (int i = 0; i < shapeGroupX.size(); i++) {
 			shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
+		}
+		
+		timeSplit++;
+		if (timeSplit == 60) {
+			timeSplit = 0;
+			timeSeconds++;
+		}
+		
 		}
 
 		repaint();
@@ -91,6 +113,25 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		super.paintComponent(g);
 		g.setColor(Color.WHITE);
 		g.fillRect(0, ground, getWidth(), 10);
+		
+		if (startGame) {
+			
+			g.setFont(new Font("Joystix", Font.BOLD, 80));
+			CenteredText title1 = new CenteredText("SHAPE", 500, 500, g,
+					true, 130);
+			CenteredText title2 = new CenteredText("JUMPER", 500, 500, g, true,
+					200);
+			
+			g.setFont(new Font("Joystix", Font.BOLD, 20));
+
+			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
+					g, true, 300);
+			// g.drawString("Press Enter to", 120, 300);
+			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
+					330);
+			
+			
+		} else if (playing) {
 
 		int[] x = { 1, 2, 1, 3, 2, 3 };
 		int[] y = { 1, 2, 3, 2, 3, 1 };
@@ -98,6 +139,43 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		for (Integer n : shapeGroupX) {
 			drawShape(x, y, n, g);
 
+		}
+		
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Joystix", Font.BOLD, 20));
+		g.drawString(String.valueOf(timeSeconds), 5, 20);
+		
+		if (paused ) {
+			g.setFont(new Font("Joystix", Font.BOLD, 60));
+			CenteredText pause = new CenteredText("Paused", 500, 500,
+					g, true, 200);
+		}
+		
+		
+		
+		} else if (endGame) {
+			
+			
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Joystix", Font.BOLD, 20));
+			g.drawString(String.valueOf(timeSeconds), 5, 20);
+			
+			g.setFont(new Font("Joystix", Font.BOLD, 60));
+			g.setColor(Color.WHITE);
+			CenteredText lose = new CenteredText("You Lose!", 500, 500, g,
+					true, 170);
+			// g.drawString("You Lose!", 50, 270);
+
+			g.setFont(new Font("Joystix", Font.BOLD, 26));
+
+			CenteredText restart = new CenteredText("Enter to Restart", 500,
+					500, g, true, 320);
+			
+			
+			
+			
+			
+			
 		}
 
 	}
@@ -113,7 +191,13 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			UpPressed = true;
 
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			DownPressed = true;
+
+		}
 	}
 
 	@Override
@@ -125,6 +209,38 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			//UpPressed = false;
 
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			//DownPressed = false;
+
+		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+//			if (endGame) {
+//				
+//				reset();
+//
+//			}
+			reset();
+			startGame = false;
+			endGame = false;
+			playing = true;
+
+		}
+
+	}
+	
+	public void reset() {
+		
+		
+		shapeGroupX.clear();
+		shapeGroupX.add(500);
+		shapeGroupX.add(670);
+		shapeGroupX.add(840);
+		timeSplit = 0;
+		timeSeconds = 0;
+		
 	}
 }
