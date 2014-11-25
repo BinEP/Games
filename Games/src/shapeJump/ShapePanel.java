@@ -19,24 +19,20 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private int circleDiameter = shapeWidth;
 	private int borderThickness = 1;
 	private int blockSize = shapeWidth + 2 * borderThickness;
-	
-	private int ground = 350;
-	
-	private int deltaX = 5;
-	private int pos = nextBlockX();
-	
-	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>();
-	
-	
-public ShapePanel() {
 
-	
-	setBackground(Color.BLACK);
-	shapeGroupX.add(20);
-	shapeGroupX.add(160);
-	shapeGroupX.add(200);
-	
-		
+	private int ground = 350;
+
+	private int shapeSpeed = 5;
+	// private int pos = nextBlockX();
+
+	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>();
+
+	public ShapePanel() {
+
+		setBackground(Color.BLACK);
+		shapeGroupX.add(500);
+		shapeGroupX.add(670);
+		shapeGroupX.add(840);
 
 		setFocusable(true);
 		addKeyListener(this);
@@ -52,94 +48,83 @@ public ShapePanel() {
 		moves();
 
 	}
-	
+
 	public void moves() {
-		
-//		
-//		for (int i = 0; i < shapeGroupX.size(); i++) {
-//			
-//			shapeGroupX.set(i, shapeGroupX.get(i) - deltaX);
-//			
-//		}
-//		
+
+		if (shapeGroupX.contains(0)) {
+			shapeGroupX.add(shapeGroupX.get(2) + 170);
+			shapeGroupX.remove(0);
+		}
+
+		for (int i = 0; i < shapeGroupX.size(); i++) {
+			shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
+		}
+
 		repaint();
-		
-		
-		
+
 	}
-	
+
 	public void drawShape(int randomShape) {
-		
-		
-		
-		
-		
-		
-		
+
 	}
-	
-	public void drawShape(int[] x, int[] y, Graphics g) {
-		
-		int pos = nextBlockX();
+
+	public void drawShape(int[] x, int[] y, int pos, Graphics g) {
+
+		// int pos = nextBlockX();
 		for (int i = 0; i < x.length; i++) {
 			g.setColor(Color.WHITE);
-			g.fillRect(pos + (x[i]-1) * blockSize + borderThickness, ground - y[i] * blockSize + borderThickness, shapeWidth, shapeWidth);
-			g.setColor(Color.BLACK);
-			g.drawRect(pos + (x[i]-1) * blockSize + borderThickness/2, ground - y[i] * blockSize + borderThickness/2, shapeWidth, shapeWidth);
-			g.drawRect(pos + (x[i]-1) * blockSize, ground - y[i] * blockSize, shapeWidth, shapeWidth);
-			System.out.println((pos + (x[i]-1) * blockSize + borderThickness) + ", " + (ground - y[i] * blockSize + borderThickness) + ", " + shapeWidth + ", " + shapeWidth);
 			
+			int x1 = pos + (x[i] - 1) * blockSize;
+			int y1 = ground - y[i] * blockSize;
+			
+			g.fillRect(x1 + borderThickness, y1 + borderThickness, shapeWidth, shapeWidth);
+			
+			g.setColor(Color.BLACK);
+			g.drawRect(x1 + borderThickness / 2, y1 + borderThickness / 2, shapeWidth, shapeWidth);
+
 		}
-		
-		
-		
-		
-		
+
 	}
-	
+
 	public void paintComponent(Graphics g) {
-		
-		
-		
+
 		super.paintComponent(g);
 		g.setColor(Color.WHITE);
-		
-		
-		int[] x = {1, 2, 1, 3, 2, 3};
-		int[] y = {1, 2, 3, 2, 3, 1};
-		drawShape(x, y, g);
-		
-		
-		
-		
-		
-		
+		g.fillRect(0, ground, getWidth(), 10);
+
+		int[] x = { 1, 2, 1, 3, 2, 3 };
+		int[] y = { 1, 2, 3, 2, 3, 1 };
+
+		for (Integer n : shapeGroupX) {
+			drawShape(x, y, n, g);
+
+		}
+
 	}
-	
+
 	public int nextBlockX() {
-		
+
 		shapeGroupX.add(shapeGroupX.get(2) + 170);
 		shapeGroupX.remove(0);
-		return shapeGroupX.get(shapeGroupX.size()-1);
-		
-		
+		return shapeGroupX.get(shapeGroupX.size() - 1);
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
