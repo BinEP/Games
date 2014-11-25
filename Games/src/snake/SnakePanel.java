@@ -19,9 +19,6 @@ import java.util.Iterator;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-//Hi
-//Test
-
 import utilityClasses.CenteredText;
 
 public class SnakePanel extends JPanel implements ActionListener, KeyListener {
