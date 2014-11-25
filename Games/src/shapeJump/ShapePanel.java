@@ -22,11 +22,15 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	
 	private int ground = 350;
 	
-	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>(3);
+	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>();
 	
 	
 public ShapePanel() {
 
+	shapeGroupX.add(170);
+	shapeGroupX.add(240);
+	shapeGroupX.add(340);
+	
 		setBackground(Color.BLACK);
 
 		setFocusable(true);
@@ -65,7 +69,7 @@ public ShapePanel() {
 		
 	}
 	
-	public void drawShape(int[] x, int[] y, Graphics2D g) {
+	public void drawShape(int[] x, int[] y, Graphics g) {
 		
 		int pos = nextBlockX();
 		for (int i = 0; i < x.length; i++) {
@@ -73,6 +77,7 @@ public ShapePanel() {
 			g.fillRect(pos + (x[i]-1) * blockSize + borderThickness, ground - y[i] * blockSize + borderThickness, shapeWidth, shapeWidth);
 			g.drawRect(pos + (x[i]-1) * blockSize + borderThickness/2, ground - y[i] * blockSize + borderThickness/2, shapeWidth, shapeWidth);
 			g.drawRect(pos + (x[i]-1) * blockSize, ground - y[i] * blockSize, shapeWidth, shapeWidth);
+			System.out.println((pos + (x[i]-1) * blockSize + borderThickness) + ", " + (ground - y[i] * blockSize + borderThickness) + ", " + shapeWidth + ", " + shapeWidth);
 			
 		}
 		
@@ -89,8 +94,9 @@ public ShapePanel() {
 		
 		
 		
-		
-		
+		int[] x = {1, 2};
+		int[] y = {1, 2};
+		drawShape(x, y, g);
 		
 		
 		
