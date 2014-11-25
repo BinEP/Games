@@ -29,6 +29,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private boolean endGame = false;
 
 	private ArrayList<Point> snakeBody = new ArrayList<Point>();
+	private ArrayList<Color> snakeColor = new ArrayList<Color>();
+	private Color[] Colors = {Color.CYAN, Color.RED, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.WHITE};
 	private int bodySize = 10;
 	private Point head = new Point(250, 250);
 
@@ -152,7 +154,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		int changeY = lastBodyY - secondLastBodyY;
 
 		snakeBody.add(new Point(lastBodyX + changeX, lastBodyY + changeY));
-
+		snakeColor.add(fruitColor);
 		fruitX = randNum();
 		fruitY = randNum();
 
@@ -167,10 +169,19 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	public void resetBody() {
 
 		snakeBody.clear();
+		snakeColor.clear();
 		snakeBody.add(new Point(250, 250));
 		snakeBody.add(new Point(250, 260));
 		snakeBody.add(new Point(250, 270));
 		snakeBody.add(new Point(250, 280));
+		
+		for (int i = 0; i < snakeBody.size(); i++) {
+			
+			//snakeColor.add(Colors[(int) (Math.random() * 6)]);
+			snakeColor.add(Color.WHITE);
+			
+		}
+		
 		head.x = 250;
 		head.y = 250;
 		deltaY = -bodySize;
@@ -214,10 +225,11 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.WHITE);
 			CenteredText score1 = new CenteredText(String.valueOf(score), 500,
 					500, g, true, 450);
-			
+			int i = 0;
 			for (Point body : snakeBody) {
 
-				g.setColor(Color.WHITE);
+				g.setColor(snakeColor.get(i));
+				i++;
 				g.fillRect(body.x, body.y, bodySize, bodySize);
 				g.setColor(Color.BLACK);
 				g.drawRect(body.x, body.y, bodySize, bodySize);
@@ -325,7 +337,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				
 				break;
 			case KeyEvent.VK_B:
-				fruitColor = Color.BLUE;
+				fruitColor = Color.CYAN;
 				
 				break;
 			case KeyEvent.VK_Y:
@@ -355,7 +367,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("R", 50, colorY);
 		g.setColor(Color.GREEN);
 		g.drawString("G", 140, colorY);
-		g.setColor(Color.BLUE);
+		g.setColor(Color.CYAN);
 		g.drawString("B", 230, colorY);
 		g.setColor(Color.YELLOW);
 		g.drawString("Y", 315, colorY);
