@@ -17,7 +17,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private int shapeWidth = 20;
 	private int squareSide = shapeWidth;
 	private int circleDiameter = shapeWidth;
-	private int borderThickness = 2;
+	private int borderThickness = 1;
 	private int blockSize = shapeWidth + 2 * borderThickness;
 	
 	private int ground = 350;
@@ -27,11 +27,13 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	
 public ShapePanel() {
 
-	shapeGroupX.add(170);
-	shapeGroupX.add(240);
-	shapeGroupX.add(340);
 	
-		setBackground(Color.BLACK);
+	setBackground(Color.BLACK);
+	shapeGroupX.add(20);
+	shapeGroupX.add(160);
+	shapeGroupX.add(200);
+	
+		
 
 		setFocusable(true);
 		addKeyListener(this);
@@ -73,8 +75,9 @@ public ShapePanel() {
 		
 		int pos = nextBlockX();
 		for (int i = 0; i < x.length; i++) {
-			
+			g.setColor(Color.WHITE);
 			g.fillRect(pos + (x[i]-1) * blockSize + borderThickness, ground - y[i] * blockSize + borderThickness, shapeWidth, shapeWidth);
+			g.setColor(Color.BLACK);
 			g.drawRect(pos + (x[i]-1) * blockSize + borderThickness/2, ground - y[i] * blockSize + borderThickness/2, shapeWidth, shapeWidth);
 			g.drawRect(pos + (x[i]-1) * blockSize, ground - y[i] * blockSize, shapeWidth, shapeWidth);
 			System.out.println((pos + (x[i]-1) * blockSize + borderThickness) + ", " + (ground - y[i] * blockSize + borderThickness) + ", " + shapeWidth + ", " + shapeWidth);
@@ -91,11 +94,12 @@ public ShapePanel() {
 		
 		
 		
+		super.paintComponent(g);
+		g.setColor(Color.WHITE);
 		
 		
-		
-		int[] x = {1, 2};
-		int[] y = {1, 2};
+		int[] x = {1, 2, 1, 3, 2, 3};
+		int[] y = {1, 2, 3, 2, 3, 1};
 		drawShape(x, y, g);
 		
 		
