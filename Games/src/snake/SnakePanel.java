@@ -18,7 +18,6 @@ import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
-//HI
 
 import utilityClasses.CenteredText;
 
@@ -158,6 +157,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		snakeColor.add(fruitColor);
 		fruitX = randNum();
 		fruitY = randNum();
+		fruitColor = randColor();
 
 		speed += .5;
 		//System.out.println(speed);
@@ -178,7 +178,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		
 		for (int i = 0; i < snakeBody.size(); i++) {
 			
-			//snakeColor.add(Colors[(int) (Math.random() * 6)]);
+			//snakeColor.add(randColor());
 			snakeColor.add(Color.WHITE);
 			
 		}
@@ -194,6 +194,11 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	public int randNum() {
 
 		return ((int) (Math.random() * 45)) * 10 + 10;
+	}
+	
+	public Color randColor() {
+		
+		return Colors[(int) (Math.random() * Colors.length)];
 	}
 
 	public void paintComponent(Graphics g) {
@@ -316,6 +321,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				endGame = false;
 				fruitX = randNum();
 				fruitY = randNum();
+				fruitColor = randColor();
 				speed = 10;
 				score = 0;
 
