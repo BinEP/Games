@@ -22,6 +22,9 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	
 	private int ground = 350;
 	
+	private int deltaX = 5;
+	private int pos = nextBlockX();
+	
 	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>();
 	
 	
@@ -52,10 +55,14 @@ public ShapePanel() {
 	
 	public void moves() {
 		
-		
-		
-		
-		
+//		
+//		for (int i = 0; i < shapeGroupX.size(); i++) {
+//			
+//			shapeGroupX.set(i, shapeGroupX.get(i) - deltaX);
+//			
+//		}
+//		
+		repaint();
 		
 		
 		
