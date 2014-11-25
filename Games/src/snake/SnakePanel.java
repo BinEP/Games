@@ -182,6 +182,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			//snakeColor.add(randColor());
 			//Still have to make a thing to disable colors for now
 			//So if I add something here...
+			//Well Test. Please!!!
+			//hmm
 			snakeColor.add(Color.WHITE);
 			
 		}
