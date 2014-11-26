@@ -31,6 +31,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private int blockSize = shapeWidth + 2 * borderThickness;
 
 	private int ground = 400;
+	private int groundY = ground;
 
 	private int shapeSpeed = 5;
 	// private int pos = nextBlockX();
@@ -43,9 +44,12 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private int deltaY = 0;
 	private int blockWidth = shapeWidth - 1;
 	private int blockVel = 0;
-	//private int gravity = 1;
-	private double gravity = 1;
+	// private int gravity = 1;
 	private boolean jumping = false;
+
+	private int gravity = 1;
+	private int jumpVel = 10;
+	private int ijh = 0;
 
 	private int timeSplit;
 	private int timeSeconds;
@@ -53,9 +57,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private double jumpTime;
 	private boolean UpPressed;
 	private boolean DownPressed;
-	
+
 	private boolean glitch = false;
-	
 
 	public ShapePanel() {
 
@@ -84,7 +87,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void moves() {
-		
+
 		if (playing) {
 			if (shapeGroupX.contains(0)) {
 				shapeGroupX.add(shapeGroupX.get(2) + 170);
@@ -98,56 +101,69 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			
-			Color bottomLeft = getColor(blockX, blockY + 1);
-			Color bottomRight = getColor(blockX + blockWidth, blockY + 1);
-//			System.out.println(bottomLeft);
-//			System.out.println(bottomRight);
-//			if (bottomLeft == Color.WHITE || bottomRight == Color.WHITE || blockY == 399) {
-//				
-//				deltaY = 0;
-//				jumping = false;
-//				
-//			} else { 
-//				
+			//Gets range of the X that the block can be on
+			int[] xR = getXRange();
+			//Checks if block is in bewteen the range
+			if (blockX > xR[0] && blockX < xR[1]) {
+				//groundY = ground - the height of the shape groups
+				groundY = ground - shapeBlocks.get(0).h * blockSize;
+				//jumping = true;
+			} else {
+				//Otherwise keep groundY as the ground
+				groundY = ground;
+			}
+//			if(ijh == 5) {
 //				jumping = true;
+//				deltaY = jumpVel;
 //			}
-			// && (!bottomLeft.equals(Color.WHITE) || !bottomRight.equals(Color.WHITE))
-			if (blockY - deltaY <= ground && jumping) {
-				
-//				if (deltaY - gravity <= -18) {
-//					System.out.println(deltaY - gravity);
-//				}
-				deltaY -= gravity;
-				
-				
-			}
-			int dy = ground - shapeBlocks.get(0).h * blockSize;
-			int nextdy = blockY - (ground - shapeBlocks.get(0).h * blockSize);
-			if (Math.abs(shapeGroupX.get(0) - 60) <= 20  && blockY - deltaY >= ground - shapeBlocks.get(0).h * blockSize) {
-				
-				deltaY = blockY - (ground - shapeBlocks.get(0).h * blockSize);
-				//blockY = 
-				jumping = false;
-				
-			}
-			
-			if (blockY >= ground - 1 && jumping && deltaY < 0) {
-				blockY = ground - 1;
-				blockVel = 0;
-				jumping = false;
-				timePressed = 0;
+			if (blockY == groundY - 1 && !jumping) {
 				deltaY = 0;
 			}
-//			if (deltaY == -18) {
-//				jumping = false;
+//			if (groundY < ground - 1) {
+//				System.out.println(groundY);
 //			}
-
+			int nextDeltaY = deltaY - gravity;
+			int nextBlockY = blockY - nextDeltaY;
+			int deltaYToGround = blockY - (groundY - 1);
+			int blockYToGround = blockY - deltaYToGround;
+			if (jumping) {
+			if (nextBlockY < groundY - 1) {
+				
+				deltaY = nextDeltaY;
+			} else {
+				
+				deltaY = deltaYToGround;
+				jumping = false;
+				
+				
+			}
+			}
+					
+//			if (blockY - deltaY <= groundY && jumping) {
+//
+//				deltaY -= gravity;
+//
+//			}
+//
+//			if (blockY >= groundY - 1 && jumping && deltaY < 0) {
+//				blockY = groundY - 1;
+//				blockVel = 0;
+//				jumping = false;
+//				timePressed = 0;
+//				deltaY = w0;
+//			}
+//			
+			
+			
+			//Keeps track of time
 			timeSplit++;
 			if (timeSplit == 60) {
 				timeSplit = 0;
 				timeSeconds++;
 			}
-			
+
+			ijh++;
+
 			blockY -= deltaY;
 
 		}
@@ -158,11 +174,11 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void drawShape(int[] x, int[] y, int pos, Graphics g) {
 
-		// int pos = nextBlockX();
 		for (int i = 0; i < x.length; i++) {
 			g.setColor(Color.WHITE);
-
+			// x1 = x of shape group + (x position of square) * Size of square
 			int x1 = pos + (x[i] - 1) * blockSize;
+			// y1 = ground - (y position) * size of square
 			int y1 = ground - y[i] * blockSize;
 
 			g.fillRect(x1 + borderThickness, y1 + borderThickness, shapeWidth,
@@ -210,20 +226,20 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
 
 			g.fillRect(blockX, blockY - 20, blockWidth, blockWidth);
-//			g.setColor(Color.RED);
-//			g.fillRect(blockX, blockY + 1, 5, 5);
-//			g.fillRect(blockX + blockWidth, blockY + 1, 5, 5);
-			
+			// g.setColor(Color.RED);
+			// g.fillRect(blockX, blockY + 1, 5, 5);
+			// g.fillRect(blockX + blockWidth, blockY + 1, 5, 5);
+
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
 				CenteredText pause = new CenteredText("Paused", 500, 500, g,
 						true, 200);
 			}
-			
-			if (paused ) {
+
+			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
-				CenteredText pause = new CenteredText("Paused", 500, 500,
-						g, true, 200);
+				CenteredText pause = new CenteredText("Paused", 500, 500, g,
+						true, 200);
 			}
 
 		} else if (endGame) {
@@ -259,47 +275,26 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
-		
-		
-		if (e.getKeyChar() == 'w' && ((!jumping || glitch) || (blockY >= ground - 20 && timeSeconds != 0))) {
-			
-			
-				jumping = true;
-				timePressed = getTimeHund();
-				deltaY = 20;
-			
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			DownPressed = true;
+		if (e.getKeyChar() == 'w'
+				&& ((!jumping || glitch) || (blockY >= ground - 20 && timeSeconds != 0))) {
+
+			jumping = true;
+			// timePressed = getTimeHund();
+			deltaY = jumpVel;
 
 		}
-		
-//		System.out.println("Hi");
-//		if (e.getKeyCode() == KeyEvent.VK_UP) {
-//			System.out.println("Pressed");
-//			if (UpPressed) {
-//				UpPressed = false;
-//				timePressed = getTimeHund();
-//				blockVel = 20;
-//			} else {
-//				UpPressed = true;
-//			}
-//		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-//			DownPressed = true;
-//
-//		}
-		
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			// UpPressed = false;
 			if (!paused) {
-			playing = false;
-			paused = true;
+				playing = false;
+				paused = true;
 			} else {
 				playing = true;
 				paused = false;
@@ -319,7 +314,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		} else if (e.getKeyCode() == KeyEvent.VK_1) {
 			glitch = !glitch;
-			
+
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
 			// if (endGame) {
@@ -337,7 +332,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public double getTimeHund() {
-		//System.out.println(((timeSeconds * 60) + timeSplit) * 5 / (3 * 100));
+		// System.out.println(((timeSeconds * 60) + timeSplit) * 5 / (3 * 100));
 		return ((timeSeconds * 60) + timeSplit) * 5 / 3;
 	}
 
@@ -357,15 +352,15 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		timeSeconds = 0;
 
 	}
-	
+
 	public int[] getXRange() {
-		
-		shapeGroupX.get(0);
-		
-		
-		
+
+		int width = (shapeWidth + borderThickness) * shapeBlocks.get(0).w + 20;
+		int[] x = { shapeGroupX.get(0) - 20, width };
+		return x;
+
 	}
-	
+
 	public static Color getColor(int x, int y) {
 		try {
 			// System.out.print("(" + x + ", " + y + ")  ");
