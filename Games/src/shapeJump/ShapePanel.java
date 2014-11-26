@@ -46,6 +46,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private int blockVel = 0;
 	// private int gravity = 1;
 	private boolean jumping = false;
+	private boolean falling = false;
 
 	private int gravity = 1;
 	private int jumpVel = 10;
@@ -101,61 +102,98 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			
-			//Gets range of the X that the block can be on
+
+			// Gets range of the X that the block can be on
 			int[] xR = getXRange();
-			//Checks if block is in bewteen the range
+			// Checks if block is in bewteen the range
 			if (blockX > xR[0] && blockX < xR[1]) {
-				//groundY = ground - the height of the shape groups
+				// groundY = ground - the height of the shape groups
 				groundY = ground - shapeBlocks.get(0).h * blockSize;
-				//jumping = true;
+				// jumping = true;
 			} else {
-				//Otherwise keep groundY as the ground
+				// Otherwise keep groundY as the ground
 				groundY = ground;
+				//jumping = false;
 			}
-//			if(ijh == 5) {
-//				jumping = true;
-//				deltaY = jumpVel;
-//			}
-			if (blockY == groundY - 1 && !jumping) {
+
+			// if(ijh == 5) {
+			// jumping = true;
+			// deltaY = jumpVel;
+			// }
+			if (blockY == groundY - 1) {
 				deltaY = 0;
+				jumping = false;
 			}
-//			if (groundY < ground - 1) {
-//				System.out.println(groundY);
+			// if (groundY < ground - 1) {
+			// System.out.println(groundY);
+			// }
+//			int nextDeltaY = deltaY - gravity;
+//			int nextBlockY = blockY - nextDeltaY;
+//			int deltaYToGround = blockY - (groundY - 1);
+//			int blockYToGround = blockY - deltaYToGround;
+//			if (jumping) {
+//				if (nextBlockY < groundY) {
+//
+//					deltaY = nextDeltaY;
+//				} else {
+//
+//					deltaY = deltaYToGround;
+//					jumping = false;
+//					// if (blockY != groundY - 1) jumping = true;
+//
+//				}
+//			} else {
+//
+//				if (blockY != groundY - 1) {
+//					jumping = true;
+//					falling = true;
+//				}
+//
 //			}
+			
 			int nextDeltaY = deltaY - gravity;
 			int nextBlockY = blockY - nextDeltaY;
 			int deltaYToGround = blockY - (groundY - 1);
 			int blockYToGround = blockY - deltaYToGround;
+			Color bottomLeft = getColor(blockX, nextBlockY + 2);
+			Color bottomRight = getColor(blockX + blockWidth, nextBlockY + 2);
+			
 			if (jumping) {
-			if (nextBlockY < groundY - 1) {
-				
-				deltaY = nextDeltaY;
+				if (!(bottomLeft.equals(Color.WHITE) || bottomRight.equals(Color.WHITE))) {
+
+					deltaY = nextDeltaY;
+				} else {
+
+					deltaY = deltaYToGround;
+					jumping = false;
+					// if (blockY != groundY - 1) jumping = true;
+
+				}
 			} else {
-				
-				deltaY = deltaYToGround;
-				jumping = false;
-				
-				
+
+				if (blockY != groundY - 1) {
+					jumping = true;
+					falling = true;
+				}
+
 			}
-			}
-					
-//			if (blockY - deltaY <= groundY && jumping) {
-//
-//				deltaY -= gravity;
-//
-//			}
-//
-//			if (blockY >= groundY - 1 && jumping && deltaY < 0) {
-//				blockY = groundY - 1;
-//				blockVel = 0;
-//				jumping = false;
-//				timePressed = 0;
-//				deltaY = w0;
-//			}
-//			
-			
-			
-			//Keeps track of time
+
+			// if (blockY - deltaY <= groundY && jumping) {
+			//
+			// deltaY -= gravity;
+			//
+			// }
+			//
+			// if (blockY >= groundY - 1 && jumping && deltaY < 0) {
+			// blockY = groundY - 1;
+			// blockVel = 0;
+			// jumping = false;
+			// timePressed = 0;
+			// deltaY = w0;
+			// }
+			//
+
+			// Keeps track of time
 			timeSplit++;
 			if (timeSplit == 60) {
 				timeSplit = 0;
@@ -227,7 +265,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 			g.fillRect(blockX, blockY - 20, blockWidth, blockWidth);
 			// g.setColor(Color.RED);
-			// g.fillRect(blockX, blockY + 1, 5, 5);
+			// g.fillRect(blockX, blockY, 5, 5);
 			// g.fillRect(blockX + blockWidth, blockY + 1, 5, 5);
 
 			if (paused) {
