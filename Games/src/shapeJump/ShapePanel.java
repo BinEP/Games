@@ -1,9 +1,11 @@
 package shapeJump;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -36,8 +38,9 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>();
 	private ArrayList<Shape> shapeBlocks = new ArrayList<Shape>();
 
-	private int blockY = ground - 2;
+	private int blockY = ground - 1;
 	private int deltaY = 0;
+	private int blockWidth = shapeWidth - 1;
 	private int blockVel = 0;
 	private int gravity = 1;
 	private boolean jumping = false;
@@ -79,7 +82,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void moves() {
-
+		
 		if (playing) {
 			if (shapeGroupX.contains(0)) {
 				shapeGroupX.add(shapeGroupX.get(2) + 170);
@@ -92,6 +95,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
 			}
 			
+			
+			
 			if (blockY - deltaY <= ground && jumping) {
 				
 //				if (deltaY - gravity <= -18) {
@@ -102,7 +107,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				
 			}
 			
-			if (blockY >= ground - 2 && jumping && deltaY < 0) {
+			if (blockY >= ground - 1 && jumping && deltaY < 0) {
 				blockY = ground - 1;
 				blockVel = 0;
 				jumping = false;
@@ -169,7 +174,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
 					330);
 
-		} else if (playing) {
+		} else if (playing || paused) {
 			int i = 0;
 			for (Integer n : shapeGroupX) {
 				drawShape(shapeBlocks.get(i).x, shapeBlocks.get(i).y, n, g);
@@ -180,11 +185,17 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
 
-			g.fillRect(20, blockY - 21, 20, 20);
+			g.fillRect(20, blockY - 20, blockWidth, blockWidth);
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
 				CenteredText pause = new CenteredText("Paused", 500, 500, g,
 						true, 200);
+			}
+			
+			if (paused ) {
+				g.setFont(new Font("Joystix", Font.BOLD, 60));
+				CenteredText pause = new CenteredText("Paused", 500, 500,
+						g, true, 200);
 			}
 
 		} else if (endGame) {
@@ -222,7 +233,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		
 		
-		if (e.getKeyChar() == 'w' && ((!jumping || glitch)) || (blockY >= ground - 20 && timeSeconds != 0)) {
+		if (e.getKeyChar() == 'w' && ((!jumping || glitch) || (blockY >= ground - 20 && timeSeconds != 0))) {
 			
 			
 				jumping = true;
@@ -256,6 +267,16 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			// UpPressed = false;
+			if (!paused) {
+			playing = false;
+			paused = true;
+			} else {
+				playing = true;
+				paused = false;
+			}
+		}
 	}
 
 	@Override
@@ -307,5 +328,16 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		timeSplit = 0;
 		timeSeconds = 0;
 
+	}
+	
+	public static Color getColor(int x, int y) {
+		try {
+			// System.out.print("(" + x + ", " + y + ")  ");
+			return new Robot().getPixelColor(x, y + 40);
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Color.BLACK;
+		}
 	}
 }
