@@ -4,6 +4,7 @@ public class Shape {
 
 	public int[] x;
 	public int[] y;
+	public int h;
 	public int numOfShapes = 20;
 
 	public Shape() {
@@ -85,6 +86,7 @@ public class Shape {
 		int[] y1 = { 1 };
 		x = x1;
 		y = y1;
+		h = 1;
 
 	}
 
@@ -96,6 +98,7 @@ public class Shape {
 		int[] y1 = { 1, 2 };
 		x = x1;
 		y = y1;
+		h = 2;
 	}
 
 	public void OnexThree() {
@@ -106,6 +109,8 @@ public class Shape {
 		int[] y1 = { 1, 2, 3 };
 		x = x1;
 		y = y1;
+		h = 3;
+		
 	}
 
 	public void TwoxOne() {
@@ -114,6 +119,7 @@ public class Shape {
 		int[] y1 = { 1, 1 };
 		x = x1;
 		y = y1;
+		h = 1;
 	}
 
 	public void TwoxTwo() {
@@ -123,6 +129,7 @@ public class Shape {
 		int[] y1 = { 1, 1, 2, 2 };
 		x = x1;
 		y = y1;
+		h = 2;
 	}
 
 	public void TwoxThree() {
@@ -133,6 +140,7 @@ public class Shape {
 		int[] y1 = { 1, 2, 3, 1, 2, 3 };
 		x = x1;
 		y = y1;
+		h = 3;
 	}
 
 	public void ThreexOne() {
@@ -141,6 +149,7 @@ public class Shape {
 		int[] y1 = { 1, 1, 1 };
 		x = x1;
 		y = y1;
+		h = 1;
 	}
 
 	public void ThreexTwo() {
@@ -150,6 +159,7 @@ public class Shape {
 		int[] y1 = { 1, 1, 1, 2, 2, 2 };
 		x = x1;
 		y = y1;
+		h = 2;
 	}
 
 	public void ThreexThree() {
@@ -160,6 +170,7 @@ public class Shape {
 		int[] y1 = { 1, 1, 1, 2, 2, 2, 3, 3, 3 };
 		x = x1;
 		y = y1;
+		h = 3;
 	}
 
 	public void TwoStep() {
@@ -170,6 +181,7 @@ public class Shape {
 		int[] y1 = { 1, 1, 2 };
 		x = x1;
 		y = y1;
+		h = 2;
 
 	}
 	
@@ -181,6 +193,7 @@ public class Shape {
 		int[] y1 = { 1, 2, 1 };
 		x = x1;
 		y = y1;
+		h = 2;
 
 	}
 
@@ -193,6 +206,7 @@ public class Shape {
 		int[] y1 = { 1, 1, 2, 1, 2, 3 };
 		x = x1;
 		y = y1;
+		h = 3;
 
 	}
 
@@ -205,6 +219,7 @@ public class Shape {
 		int[] y1 = { 1, 2, 3, 1, 2, 1 };
 		x = x1;
 		y = y1;
+		h = 3;
 
 	}
 	
@@ -217,6 +232,7 @@ public class Shape {
 		int[] y1 = { 1, 1, 2, 1 };
 		x = x1;
 		y = y1;
+		h = 2;
 
 	}
 	
@@ -229,6 +245,7 @@ public class Shape {
 		int[] y1 = { 2, 1, 2, 2 };
 		x = x1;
 		y = y1;
+		h = 2;
 
 	}
 	
@@ -241,6 +258,7 @@ public class Shape {
 		int[] y1 = { 1, 1, 2, 3, 1 };
 		x = x1;
 		y = y1;
+		h = 3;
 
 	}
 	
@@ -253,6 +271,7 @@ public class Shape {
 		int[] y1 = { 3, 1, 2, 3, 3 };
 		x = x1;
 		y = y1;
+		h = 3;
 
 	}
 	
@@ -265,6 +284,7 @@ public class Shape {
 		int[] y1 = { 1, 2, 1, 2, 1 };
 		x = x1;
 		y = y1;
+		h = 2;
 
 	}
 	
@@ -277,6 +297,7 @@ public class Shape {
 		int[] y1 = { 1, 1, 2, 1, 2 };
 		x = x1;
 		y = y1;
+		h = 2;
 
 	}
 	
@@ -289,6 +310,7 @@ public class Shape {
 		int[] y1 = { 1, 2, 1, 2, 3, 1, 2 };
 		x = x1;
 		y = y1;
+		h = 3;
 
 	}
 

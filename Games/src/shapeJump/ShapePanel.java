@@ -39,6 +39,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private ArrayList<Shape> shapeBlocks = new ArrayList<Shape>();
 
 	private int blockY = ground - 1;
+	private int blockX = 60;
 	private int deltaY = 0;
 	private int blockWidth = shapeWidth - 1;
 	private int blockVel = 0;
@@ -96,7 +97,20 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			
-			
+			Color bottomLeft = getColor(blockX, blockY + 1);
+			Color bottomRight = getColor(blockX + blockWidth, blockY + 1);
+//			System.out.println(bottomLeft);
+//			System.out.println(bottomRight);
+//			if (bottomLeft == Color.WHITE || bottomRight == Color.WHITE || blockY == 399) {
+//				
+//				deltaY = 0;
+//				jumping = false;
+//				
+//			} else { 
+//				
+//				jumping = true;
+//			}
+			// && (!bottomLeft.equals(Color.WHITE) || !bottomRight.equals(Color.WHITE))
 			if (blockY - deltaY <= ground && jumping) {
 				
 //				if (deltaY - gravity <= -18) {
@@ -106,6 +120,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				
 				
 			}
+			int index = shapeGroupX.indexOf(40);
+			if (index != -1 && blockY - deltaY >= shapeBlocks.get(index).h )
 			
 			if (blockY >= ground - 1 && jumping && deltaY < 0) {
 				blockY = ground - 1;
@@ -185,7 +201,11 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
 
-			g.fillRect(20, blockY - 20, blockWidth, blockWidth);
+			g.fillRect(blockX, blockY - 20, blockWidth, blockWidth);
+//			g.setColor(Color.RED);
+//			g.fillRect(blockX, blockY + 1, 5, 5);
+//			g.fillRect(blockX + blockWidth, blockY + 1, 5, 5);
+			
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
 				CenteredText pause = new CenteredText("Paused", 500, 500, g,
@@ -309,7 +329,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public double getTimeHund() {
-		System.out.println(((timeSeconds * 60) + timeSplit) * 5 / (3 * 100));
+		//System.out.println(((timeSeconds * 60) + timeSplit) * 5 / (3 * 100));
 		return ((timeSeconds * 60) + timeSplit) * 5 / 3;
 	}
 
