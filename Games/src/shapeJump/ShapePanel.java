@@ -49,6 +49,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private boolean UpPressed;
 	private boolean DownPressed;
 	
+	private boolean glitch = false;
+	
 
 	public ShapePanel() {
 
@@ -107,6 +109,9 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				timePressed = 0;
 				deltaY = 0;
 			}
+//			if (deltaY == -18) {
+//				jumping = false;
+//			}
 
 			timeSplit++;
 			if (timeSplit == 60) {
@@ -217,7 +222,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		
 		
-		if (e.getKeyChar() == 'w') {
+		if (e.getKeyChar() == 'w' && ((!jumping || glitch)) || (blockY >= ground - 20 && timeSeconds != 0)) {
 			
 			
 				jumping = true;
@@ -263,6 +268,9 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			// DownPressed = false;
 
+		} else if (e.getKeyCode() == KeyEvent.VK_1) {
+			glitch = !glitch;
+			
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
 			// if (endGame) {
