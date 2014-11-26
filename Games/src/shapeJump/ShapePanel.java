@@ -43,7 +43,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private int deltaY = 0;
 	private int blockWidth = shapeWidth - 1;
 	private int blockVel = 0;
-	private int gravity = 1;
+	//private int gravity = 1;
+	private double gravity = 1;
 	private boolean jumping = false;
 
 	private int timeSplit;
@@ -120,8 +121,15 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				
 				
 			}
-			int index = shapeGroupX.indexOf(40);
-			if (index != -1 && blockY - deltaY >= shapeBlocks.get(index).h )
+			int dy = ground - shapeBlocks.get(0).h * blockSize;
+			int nextdy = blockY - (ground - shapeBlocks.get(0).h * blockSize);
+			if (Math.abs(shapeGroupX.get(0) - 60) <= 20  && blockY - deltaY >= ground - shapeBlocks.get(0).h * blockSize) {
+				
+				deltaY = blockY - (ground - shapeBlocks.get(0).h * blockSize);
+				//blockY = 
+				jumping = false;
+				
+			}
 			
 			if (blockY >= ground - 1 && jumping && deltaY < 0) {
 				blockY = ground - 1;
@@ -348,6 +356,14 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		timeSplit = 0;
 		timeSeconds = 0;
 
+	}
+	
+	public int[] getXRange() {
+		
+		shapeGroupX.get(0);
+		
+		
+		
 	}
 	
 	public static Color getColor(int x, int y) {

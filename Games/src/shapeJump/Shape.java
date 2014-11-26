@@ -5,6 +5,7 @@ public class Shape {
 	public int[] x;
 	public int[] y;
 	public int h;
+	public int w;
 	public int numOfShapes = 20;
 
 	public Shape() {
@@ -87,6 +88,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 1;
+		w = 1;
 
 	}
 
@@ -99,6 +101,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 2;
+		w = 1;
 	}
 
 	public void OnexThree() {
@@ -110,6 +113,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 3;
+		w = 1;
 		
 	}
 
@@ -120,6 +124,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 1;
+		w = 2;
 	}
 
 	public void TwoxTwo() {
@@ -130,6 +135,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 2;
+		w = 2;
 	}
 
 	public void TwoxThree() {
@@ -141,6 +147,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 3;
+		w = 2;
 	}
 
 	public void ThreexOne() {
@@ -150,6 +157,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 1;
+		w = 3;
 	}
 
 	public void ThreexTwo() {
@@ -160,6 +168,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 2;
+		w = 3;
 	}
 
 	public void ThreexThree() {
@@ -171,6 +180,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 3;
+		w = 3;
 	}
 
 	public void TwoStep() {
@@ -182,6 +192,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 2;
+		w = 2;
 
 	}
 	
@@ -194,6 +205,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 2;
+		w = 2;
 
 	}
 
@@ -207,6 +219,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 3;
+		w = 3;
 
 	}
 
@@ -220,6 +233,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 3;
+		w = 3;
 
 	}
 	
@@ -233,6 +247,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 2;
+		w = 3;
 
 	}
 	
@@ -246,6 +261,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 2;
+		w = 3;
 
 	}
 	
@@ -259,6 +275,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 3;
+		w = 3;
 
 	}
 	
@@ -272,6 +289,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 3;
+		w = 3;
 
 	}
 	
@@ -285,6 +303,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 2;
+		w = 3;
 
 	}
 	
@@ -298,6 +317,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 2;
+		w = 3;
 
 	}
 	
@@ -311,6 +331,7 @@ public class Shape {
 		x = x1;
 		y = y1;
 		h = 3;
+		w = 3;
 
 	}
 
