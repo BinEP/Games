@@ -116,7 +116,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 //				jumping = true;
 //				deltaY = jumpVel;
 //			}
-			if (blockY == groundY - 1 && !jumping) {
+			if ((blockY == groundY || Math.abs(blockY - ground) < 5) && !jumping) {
 				deltaY = 0;
 			}
 //			if (groundY < ground - 1) {
@@ -130,8 +130,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			if (nextBlockY < groundY - 1) {
 				
 				deltaY = nextDeltaY;
+			} else if (nextDeltaY > 0) {
 			} else {
-				
 				deltaY = deltaYToGround;
 				jumping = false;
 				
@@ -176,6 +176,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		for (int i = 0; i < x.length; i++) {
 			g.setColor(Color.WHITE);
+			Graphics2D g2d = (Graphics2D) g;
+			
 			// x1 = x of shape group + (x position of square) * Size of square
 			int x1 = pos + (x[i] - 1) * blockSize;
 			// y1 = ground - (y position) * size of square
