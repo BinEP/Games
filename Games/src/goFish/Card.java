@@ -13,8 +13,11 @@ public class Card {
 		suit = (int) (Math.random() * 4) + 1;
 		card = (int) (Math.random() * 13) + 1;
 		shown = getCardFace() + getSuitIcon();
+		//hearts
+		//diamonds
+		//clubs
+		//spades
 		
-
 	}
 	
 	public String getShown() {
@@ -34,10 +37,10 @@ public class Card {
 			suitChar = "\u2665";
 			break;
 		case 3:
-			suitChar = "\u2666";
+			suitChar = "\u2663";
 			break;
 		case 2:
-			suitChar = "\u2663";
+			suitChar = "\u2666";
 			break;
 		case 1:
 			suitChar = "\u2660";
