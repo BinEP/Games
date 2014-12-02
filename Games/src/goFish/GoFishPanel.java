@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -23,18 +25,26 @@ import javax.swing.Timer;
 public class GoFishPanel extends JPanel implements ActionListener, KeyListener, MouseListener {
 
 	private ArrayList<Card> deck = new ArrayList<Card>();
-	private ArrayList<Card> p1Hand = new ArrayList<Card>();
-	private ArrayList<Card> p2Hand = new ArrayList<Card>();
+//	private ArrayList<Card> p1Hand = new ArrayList<Card>();
+//	private ArrayList<Card> p2Hand = new ArrayList<Card>();
+	private int numOfPlayers = 2;
+	private ArrayList<ArrayList<Card>> hands = new ArrayList<ArrayList<Card>>(numOfPlayers);
+	
+	
+	ArrayList<Rectangle> cards = new ArrayList<Rectangle>();
 
 	public GoFishPanel() {
 
 		newDeck();
-		p1Hand = playerHand();
-		p2Hand = playerHand();
+//		p1Hand = playerHand();
+//		p2Hand = playerHand();
+		newHands();
+		
 		setBackground(Color.BLACK);
 
 		setFocusable(true);
 		addKeyListener(this);
+		addMouseListener(this);
 
 		Timer timer = new Timer(1000 / 60, this);
 		timer.start();
@@ -71,8 +81,8 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 	
 	public void drawPlayerHand(int pNum, Graphics g) {
 		
-		ArrayList<Card> hand = new ArrayList<Card>();
-				hand = (pNum == 1) ? p1Hand : p2Hand;
+		ArrayList<Card> hand = hands.get(pNum-1);
+				
 		
 		int HY = (pNum == 1) ? 20 : 550;
 		
@@ -83,6 +93,7 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 		int spacing = (448 - hand.size() * 56)/hand.size();
 		//startX = (500 - (i * (56 + spacing)) * hand.size())/2;
 		System.out.println(spacing);
+		
 		//System.out.println((500 - ((i * (56 + spacing)) * hand.size()))/2);
 		
 		for (Card card : hand) {
@@ -90,12 +101,16 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 			int x = (i * (56 + spacing)) + startX;
 			int y = startY;
 			CenteredText out = new CenteredText(card.getCardFace() + card.getSuitIcon(), 56, 100, g);
-			g.setColor(Color.WHITE);
+			g.setColor(card.getColor());
 			g.fillRoundRect(x, y, 56, 100, 5, 5);
 			g.drawRoundRect(x, y, 56, 100, 5, 5);
 			g.setColor((card.getSuit() % 2 == 0) ? Color.RED : Color.BLACK );
 			g.drawString(card.getCardFace() + card.getSuitIcon(), x + out.x, y + 56);
+			//cards.add(new Rectangle(x, y, 56, 100));
 			
+			hands.get(pNum-1).get(i).setRectangle(x, y, 56, 100);
+			
+				
 			i++;
 			
 			
@@ -105,10 +120,12 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 	}
 	
 	public ArrayList<Card> playerHand() {
+		
+		
 		ArrayList<Card> hand = new ArrayList<Card>();
 		for (int i = 0; i < 7; i++) {
-			hand.add(deck.get(i));
-			deck.remove(i);
+			hand.add(deck.get(0));
+			deck.remove(0);
 			
 		}
 		Collections.sort(hand, Card.CardNumComparator);
@@ -116,6 +133,22 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 		
 		
 		return hand;
+	}
+	
+	public void newHands() {
+		System.out.println(hands.size());
+		for (int n = 0; n < numOfPlayers; n++) {
+		ArrayList<Card> hand = new ArrayList<Card>();
+		for (int i = 0; i < 7; i++) {
+			hand.add(deck.get(0));
+			deck.remove(0);
+			
+		}
+		Collections.sort(hand, Card.CardNumComparator);
+		Collections.sort(hand, Card.CardSuitComparator);
+		hands.add(hand);
+		}
+		//return hand;
 	}
 
 	public void shuffleDeck() {
@@ -160,41 +193,22 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 //
 //	}
 
-	public void runFromMain() {
-
-		newDeck();
-		p1Hand = playerHand();
-		p2Hand = playerHand();
-		//Collections.sort(deck, Card.CardSuitComparator);
-		//Collections.sort(deck, Card.CardNumComparator);
-		for (Card x : deck) {
-
-			System.out.println(x.getCardFace() + x.getSuitIcon());
-			
-
-		}
-		System.out.println("Player 1 Hand");
-		for (Card x : p1Hand) {
-
-			System.out.print(x.getCardFace() + x.getSuitIcon() + "   ");
-			
-
-		}
-		System.out.println("\n Player 2 Hand");
-		for (Card x : p2Hand) {
-
-			System.out.print(x.getCardFace() + x.getSuitIcon() + "   ");
-			
-
-		}
-		
-		repaint();
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Clicked");
+		for (ArrayList<Card> aHand : hands) {
+			
+			for (Card r : aHand)
+			if (r.getRectangle().contains(e.getPoint())) {
+				
+				r.setColor(Color.YELLOW);
+				
+				
+			}
+			
+		}
 	}
 
 	@Override

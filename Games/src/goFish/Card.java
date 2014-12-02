@@ -1,5 +1,7 @@
 package goFish;
 
+import java.awt.Color;
+import java.awt.Rectangle;
 import java.util.Comparator;
 
 public class Card {
@@ -7,12 +9,15 @@ public class Card {
 	private int suit;
 	private int card;
 	private String shown;
+	private Color col = Color.WHITE;
+	private Rectangle picCard = new Rectangle();
 
 	public Card() {
 
 		suit = (int) (Math.random() * 4) + 1;
 		card = (int) (Math.random() * 13) + 1;
 		shown = getCardFace() + getSuitIcon();
+		col = Color.WHITE;
 		//hearts
 		//diamonds
 		//clubs
@@ -28,6 +33,23 @@ public class Card {
 	
 	public int getSuit() {
 		return suit;
+	}
+	
+	public Color getColor() {
+		return col;
+	}
+	
+	public Rectangle getRectangle() {
+		return picCard;
+	}
+	
+	public void setRectangle(int x, int y, int w, int h) {
+		picCard = new Rectangle(x, y, w, h);
+	}
+	
+	public void setColor(Color color) {
+		
+		col = color;
 	}
 
 	public String getSuitIcon() {
@@ -109,7 +131,7 @@ public class Card {
 	    	   int cardNum2 = c2.getCard();
 
 	    	   /*For ascending order*/
-	    	   return cardNum1-cardNum2;
+	    	   return cardNum2-cardNum1;
 
 	    	   /*For descending order*/
 	    	   //rollno2-rollno1;
