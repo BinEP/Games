@@ -11,6 +11,7 @@ public class Card {
 	private String shown;
 	private Color col = Color.WHITE;
 	private Rectangle picCard = new Rectangle();
+	public boolean selected = false;
 
 	public Card() {
 
@@ -18,6 +19,7 @@ public class Card {
 		card = (int) (Math.random() * 13) + 1;
 		shown = getCardFace() + getSuitIcon();
 		col = Color.WHITE;
+		selected = false;
 		//hearts
 		//diamonds
 		//clubs
@@ -139,7 +141,7 @@ public class Card {
 	       
 	       @Override
 	       public String toString() {
-	           return "[ Card Suit = " + getSuitIcon() + ", Card Value = " + getCardFace() + "]";
+	           return "[ Rect = " + picCard + "Card Suit = " + getSuitIcon() + ", Card Value = " + getCardFace() + "]";
 	       }
 	       
 	       @Override

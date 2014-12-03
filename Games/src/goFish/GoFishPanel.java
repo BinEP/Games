@@ -30,6 +30,9 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 	private int numOfPlayers = 2;
 	private ArrayList<ArrayList<Card>> hands = new ArrayList<ArrayList<Card>>(numOfPlayers);
 	
+	private boolean startGame = true;
+	private boolean playing = false;
+	private boolean endGame = false;
 	
 	ArrayList<Rectangle> cards = new ArrayList<Rectangle>();
 
@@ -63,6 +66,30 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 
 	public void moves() {
 
+		
+		if (playing) {
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		repaint();
 	}
 
 	public void newDeck() {
@@ -92,7 +119,6 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 		int startY = 10;
 		int spacing = (448 - hand.size() * 56)/hand.size();
 		//startX = (500 - (i * (56 + spacing)) * hand.size())/2;
-		System.out.println(spacing);
 		
 		//System.out.println((500 - ((i * (56 + spacing)) * hand.size()))/2);
 		
@@ -136,7 +162,6 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 	}
 	
 	public void newHands() {
-		System.out.println(hands.size());
 		for (int n = 0; n < numOfPlayers; n++) {
 		ArrayList<Card> hand = new ArrayList<Card>();
 		for (int i = 0; i < 7; i++) {
@@ -197,18 +222,20 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener, 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("Clicked");
 		for (ArrayList<Card> aHand : hands) {
-			
-			for (Card r : aHand)
+			//System.out.println(aHand);
+			for (Card r : aHand) {
 			if (r.getRectangle().contains(e.getPoint())) {
 				
-				r.setColor(Color.YELLOW);
+				r.selected = !r.selected;
+				r.setColor((r.selected) ? Color.YELLOW : Color.WHITE);
 				
 				
 			}
+			}
 			
 		}
+		repaint();
 	}
 
 	@Override
