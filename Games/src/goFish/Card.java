@@ -141,7 +141,7 @@ public class Card {
 	       
 	       @Override
 	       public String toString() {
-	           return "[ Rect = " + picCard + "Card Suit = " + getSuitIcon() + ", Card Value = " + getCardFace() + "]";
+	           return "Card Suit = " + getSuitIcon() + ", Card Value = " + getCardFace() + "]";
 	       }
 	       
 	       @Override

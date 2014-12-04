@@ -14,9 +14,9 @@ public class GoFishRunner {
 		JFrame frame = new JFrame("TUNNEL RUNNER");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
+		frame.setAlwaysOnTop(true);
 		
 		GoFishPanel GoFishPanel = new GoFishPanel();
-		//wWebPong pongPanel = new WebPong();
 		frame.add(GoFishPanel, BorderLayout.CENTER);
 		
 		frame.setSize(500, 500);
