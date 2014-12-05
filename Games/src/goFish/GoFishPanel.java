@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,13 +34,12 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 			numOfPlayers);
 	private ArrayList<Buttons> buttons = new ArrayList<Buttons>();
 	private ArrayList<Card> restOfDeck = new ArrayList<Card>();
-	private ArrayList<Card> matchingCards = new ArrayList<Card>();
 
 	private int turn = 1;
 
 	private boolean startGame = false;
-	private boolean playing = true;
-	private boolean endGame = false;
+	private boolean playing = false;
+	private boolean endGame = true;
 
 	private int winner;
 	private boolean won = false;
@@ -113,6 +113,19 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		}
 		// return hand;
 		System.out.println(hands);
+	}
+
+	public void newGame() {
+
+		deck.clear();
+		hands.clear();
+		restOfDeck.clear();
+		buttons.clear();
+		turn = 1;
+		newDeck();
+		newHands();
+		setUpButtons();
+
 	}
 
 	public void shuffleDeck() {
@@ -212,8 +225,20 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 		super.paintComponent(g);
 		g.setColor(Color.WHITE);
+		if (startGame) {
 
-		if (playing) {
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Joystix", Font.BOLD, 60));
+			CenteredText title1 = new CenteredText("GO FISH!!", 500, 500, g,
+					true, 230);
+
+			g.setFont(new Font("Joystix", Font.BOLD, 20));
+			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
+					g, true, 350);
+			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
+					380);
+
+		} else if (playing) {
 			// for (int i = 1; i <= hands.size(); i++) {
 			drawPlayerHand(1, g, 10);
 			drawPlayerHand(2, g, 350);
@@ -223,76 +248,21 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 			g.setColor(Color.YELLOW);
 			g.fillRect(10, 40 + (turn - 1) * 350, 10, 30);
 			g.setColor(Color.WHITE);
+		} else if (endGame) {
+
+			g.setColor(Color.WHITE);
+
+			g.setFont(new Font("Joystix", Font.BOLD, 60));
+
+			CenteredText win = new CenteredText("Player " + winner + " Wins!!",
+					500, 500, g, true, 170);
+
+			g.setFont(new Font("Joystix", Font.BOLD, 26));
+
+			CenteredText restart = new CenteredText("Enter to Restart", 500,
+					500, g, true, 320);
+
 		}
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	// public static void main(String[] args) {
-	//
-	// GoFishPanel p = new GoFishPanel(1);
-	// p.runFromMain();
-	//
-	// }
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		if (playing) {
-			checkIfWon();
-			for (ArrayList<Card> aHand : hands) {
-				// System.out.println(aHand);
-				for (Card r : aHand) {
-					if (r.getRectangle().contains(e.getPoint())) {
-
-						r.selected = !r.selected;
-						r.setColor((r.selected) ? Color.YELLOW : Color.WHITE);
-
-						// hmmmmm
-					}
-				}
-
-			}
-			for (Buttons b : buttons) {
-
-				if (b.getButton().contains(e.getPoint())) {
-
-					switch (b.getText()) {
-
-					case "Pair":
-						pairingsTest();
-
-						break;
-					case "Ask":
-
-						askingTest();
-
-						break;
-
-					}
-					resetColors();
-				}
-
-			}
-		}
-
-		repaint();
 	}
 
 	public void pairings() {
@@ -390,7 +360,6 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		if (!getSelected().isEmpty()) {
 			Card selectedCard = getSelected().get(0);
 			ArrayList<Card> matchingCards = new ArrayList<Card>();
-			int selectedCardNum = selectedCard.getCard();
 
 			int i = 0;
 			for (ArrayList<Card> currentHand : hands) {
@@ -498,21 +467,22 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	}
 
-	public void checkIfWon() {
+	public boolean checkIfWon() {
 
-		for (int i = 0; i < hands.size(); i++) {
+		int i = 0;
+		for (ArrayList<Card> hand : hands) {
 
-			ArrayList<Card> hand = hands.get(i);
 			if (hand.isEmpty()) {
 				winner = i + 1;
 				won = true;
 				playing = false;
 				endGame = true;
+				return true;
 
 			}
-
+			i++;
 		}
-
+		return false;
 	}
 
 	public void nextTurn() {
@@ -529,6 +499,48 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		hands.get(turn - 1).add(deck.get(0));
 		deck.remove(0);
 
+	}
+
+	////////////////////////////////////////////////
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (!checkIfWon() && playing) {
+
+			for (ArrayList<Card> aHand : hands) {
+				// System.out.println(aHand);
+				for (Card r : aHand) {
+					if (r.getRectangle().contains(e.getPoint())) {
+
+						r.selected = !r.selected;
+						r.setColor((r.selected) ? Color.YELLOW : Color.WHITE);
+					}
+				}
+
+			}
+			for (Buttons b : buttons) {
+
+				if (b.getButton().contains(e.getPoint())) {
+
+					switch (b.getText()) {
+
+					case "Pair":
+						pairingsTest();
+
+						break;
+					case "Ask":
+
+						askingTest();
+
+						break;
+
+					}
+					resetColors();
+				}
+
+			}
+		}
 	}
 
 	@Override
@@ -551,6 +563,36 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	////////////////////////////////////////////////
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+		if (startGame) {
+			startGame = false;
+			playing = true;
+		} else if (endGame) {
+			endGame = false;
+			playing = true;
+
+			newGame();
+
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
