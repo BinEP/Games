@@ -5,20 +5,15 @@ import utilityClasses.CenteredText;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -27,13 +22,11 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		MouseListener {
 
 	private ArrayList<Card> deck = new ArrayList<Card>();
-	// private ArrayList<Card> p1Hand = new ArrayList<Card>();
-	// private ArrayList<Card> p2Hand = new ArrayList<Card>();
 	private int numOfPlayers = 2;
 	private ArrayList<ArrayList<Card>> hands = new ArrayList<ArrayList<Card>>(
 			numOfPlayers);
 	private ArrayList<Buttons> buttons = new ArrayList<Buttons>();
-	private ArrayList<Card> restOfDeck = new ArrayList<Card>();
+	private ArrayList<ArrayList<Card>> restOfDeck = new ArrayList<ArrayList<Card>>();
 
 	private int turn = 1;
 
@@ -43,8 +36,6 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	private int winner;
 	private boolean won = false;
-
-	ArrayList<Rectangle> cards = new ArrayList<Rectangle>();
 
 	public GoFishPanel() {
 
@@ -56,7 +47,7 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		addKeyListener(this);
 		addMouseListener(this);
 
-		Timer timer = new Timer(1000 / 60, this);
+		Timer timer = new Timer(1000 / 20, this);
 		timer.start();
 
 	}
@@ -67,17 +58,6 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		moves();
-	}
-
-	public void moves() {
-
-		if (playing) {
-
-		}
-		checkIfWon();
-
 		repaint();
 	}
 
@@ -85,14 +65,10 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		Card card = new Card();
 		for (int i = 0; i < 52; i++) {
 			while (deck.contains(card)) {
-
 				card = new Card();
-
 			}
 			deck.add(card);
-
 		}
-
 	}
 
 	public void newHands() {
@@ -101,14 +77,20 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 			for (int i = 0; i < 7; i++) {
 				hand.add(deck.get(0));
 				deck.remove(0);
-
 			}
 			Collections.sort(hand, Card.CardNumComparator);
 			Collections.sort(hand, Card.CardSuitComparator);
 			hands.add(hand);
 		}
-		// return hand;
 		System.out.println(hands);
+	}
+
+	public void deckPairsSetup() {
+
+		restOfDeck.clear();
+		for (int i = 0; i < numOfPlayers; i++) {
+			restOfDeck.add(new ArrayList<Card>());
+		}
 	}
 
 	public void newGame() {
@@ -120,47 +102,57 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		turn = 1;
 		newDeck();
 		newHands();
-		setUpButtons();
+		deckPairsSetup();
 
+		setUpButtons();
 	}
 
 	public void shuffleDeck() {
 
 		Collections.shuffle(deck);
-
 	}
 
 	public void setUpButtons() {
 
 		buttons.add(new Buttons("Pair", 400, 250, 80, 50));
 		buttons.add(new Buttons("Ask", 50, 250, 80, 50));
+	}
 
+	public void drawHandCover(int pNum, Graphics g) {
+
+		ArrayList<Card> hand = hands.get(pNum - 1);
+
+		int y = (pNum == 1) ? 10 : 350;
+		int i = 0;
+		int startX = 20;
+		int spacing = getSpacing(hand);
+		for (Card card : hand) {
+
+			int x = getXCenter(hand, startX) + (spacing * i);
+
+			g.setColor(Color.BLUE);
+			g.fillRoundRect(x, y, 56, 100, 5, 5);
+			g.drawRoundRect(x, y, 56, 100, 5, 5);
+
+			i++;
+		}
 	}
 
 	public void drawPlayerHand(int pNum, Graphics g, int startY) {
 
 		ArrayList<Card> hand = hands.get(pNum - 1);
 
-		int HY = (pNum == 1) ? 20 : 550;
-
 		g.setFont(new Font("Joystix", Font.BOLD, 20));
 		int i = 0;
-		int m = 0;
-		int r = 0;
-		int startX = 20;
-		// int startY = 10;
-		// int spacing = (448 - hand.size() * 56) / hand.size();
-		// startX = (500 - (i * (56 + spacing)) * hand.size())/2;
 
-		// System.out.println((500 - ((i * (56 + spacing)) * hand.size()))/2);
+		int startX = 20;
+
 		int spacing = getSpacing(hand);
 		for (Card card : hand) {
 
-			// int x = getXCenter(hand, startX) + i * (56 + spacing);
-			int x = getXCenter(hand, startX) + (62 * m);
-			// System.out.println(getSpacing(hand));
-			int y = startY + (110 * (int) (i / 7));
-			// System.out.println(i);
+			int x = getXCenter(hand, startX) + (spacing * i);
+			int y = startY;
+
 			CenteredText out = new CenteredText(card.getCardFace()
 					+ card.getSuitIcon(), 56, 100, g);
 			g.setColor(card.getColor());
@@ -169,26 +161,20 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 			g.setColor((card.getSuit() % 2 == 0) ? Color.RED : Color.BLACK);
 			g.drawString(card.getCardFace() + card.getSuitIcon(), x + out.x,
 					y + 56);
-			// cards.add(new Rectangle(x, y, 56, 100));
 
 			hands.get(pNum - 1).get(i).setRectangle(x, y, 56, 100);
 
 			i++;
-			m++;
-			if (m % 7 == 0)
-				m = 0;
-
 		}
-		// hand.add(new Card());
-		// System.out.println("Added Card");
-
 	}
 
 	public int getXCenter(ArrayList<Card> hand, int startX) {
 
-		int size = (hand.size() > 7) ? 7 : hand.size();
+		int size = hand.size();
+		if (size > 7)
+			size = 7;
 
-		int width = size * 62 - getSpacing(hand);
+		int width = size * 62 - 6;
 		startX += (460 - width) / 2;
 
 		return startX;
@@ -196,11 +182,13 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	public int getSpacing(ArrayList<Card> hand) {
 
-		int size = hand.size();
-		int spaceForCard = (int) ((460 - (hand.size() * 56)) / (hand.size()));
+		if (hand.size() < 8)
+			return 62;
+		int size = hand.size() + 1;
 
-		return spaceForCard;
-
+		int cardWidth = size * 56;
+		int space = 460 - cardWidth;
+		return (int) (56 + space / (size - 1));
 	}
 
 	public ArrayList<Card> playerHand() {
@@ -209,10 +197,8 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		for (int i = 0; i < 7; i++) {
 			hand.add(deck.get(0));
 			deck.remove(0);
-
 		}
-		Collections.sort(hand, Card.CardNumComparator);
-		Collections.sort(hand, Card.CardSuitComparator);
+		sortCards();
 
 		return hand;
 	}
@@ -235,28 +221,32 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 					380);
 
 		} else if (playing) {
-			// for (int i = 1; i <= hands.size(); i++) {
+
 			drawPlayerHand(1, g, 10);
 			drawPlayerHand(2, g, 350);
-			// }
 			buttons.get(0).drawRectangle(g);
 			buttons.get(1).drawRectangle(g);
 			g.setColor(Color.YELLOW);
 			g.fillRect(10, 40 + (turn - 1) * 350, 10, 30);
 			g.setColor(Color.WHITE);
+
+			drawHandCover((turn == 1) ? 2 : 1, g);
+
 		} else if (endGame) {
 
 			g.setColor(Color.WHITE);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 
-			CenteredText win = new CenteredText("Player " + winner + " Wins!!",
-					500, 500, g, true, 170);
+			CenteredText win = new CenteredText("Player " + winner, 500, 500,
+					g, true, 130);
+			CenteredText win1 = new CenteredText("Wins!!", 500, 500, g, true,
+					210);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 
 			CenteredText restart = new CenteredText("Enter to Restart", 500,
-					500, g, true, 320);
+					500, g, true, 350);
 
 		}
 	}
@@ -268,17 +258,13 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 			for (Card currentCard : selectedCards) {
 
-				restOfDeck.add(currentCard);
+				restOfDeck.get(turn - 1).add(currentCard);
 				for (ArrayList<Card> cardAL : hands) {
 
 					cardAL.remove(currentCard);
-
 				}
-
 			}
-
 		}
-
 	}
 
 	public boolean checkIfValidPairs(ArrayList<Card> selectedCards) {
@@ -307,11 +293,9 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 			if (currentCard.selected)
 				selected.add(currentCard);
-
 		}
 
 		return selected;
-
 	}
 
 	public void asking() {
@@ -327,11 +311,8 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 						if (selectedCard.getCard() == currentCard.getCard())
 							matchingCards.add(currentCard);
-
 					}
-
 				}
-
 				for (Card matchCard : matchingCards) {
 					currentHand.remove(matchCard);
 				}
@@ -343,7 +324,6 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 			sortCards();
 			if (matchingCards.isEmpty())
 				nextTurn();
-
 		}
 	}
 
@@ -377,16 +357,21 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		for (ArrayList<Card> hand : hands) {
 
 			if (hand.isEmpty()) {
-				winner = i + 1;
-				won = true;
-				playing = false;
-				endGame = true;
+				setWon(i);
 				return true;
 
 			}
 			i++;
 		}
 		return false;
+	}
+
+	public void setWon(int i) {
+		winner = i + 1;
+		won = true;
+		playing = false;
+		endGame = true;
+
 	}
 
 	public void nextTurn() {
@@ -400,20 +385,36 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	public void goFish() {
 
-		hands.get(turn - 1).add(deck.get(0));
-		deck.remove(0);
+		if (!deck.isEmpty()) {
+			hands.get(turn - 1).add(deck.get(0));
+			deck.remove(0);
+		} else {
+			int highestPairs = 0;
+			int highestPlayer = 0;
+			int i = 1;
+			for (ArrayList<Card> playerPairs : restOfDeck) {
+
+				if (playerPairs.size() > highestPairs) {
+					highestPairs = playerPairs.size();
+					highestPlayer = i;
+				}
+
+				i++;
+			}
+			setWon(highestPlayer);
+
+		}
+		sortCards();
 
 	}
 
-	////////////////////////////////////////////////
+	// //////////////////////////////////////////////
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		if (!checkIfWon() && playing) {
 
 			for (ArrayList<Card> aHand : hands) {
-				// System.out.println(aHand);
 				for (Card r : aHand) {
 					if (r.getRectangle().contains(e.getPoint())) {
 
@@ -438,50 +439,43 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 						asking();
 
 						break;
-
 					}
 					resetColors();
 				}
-
 			}
+		repaint();
 		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
-	////////////////////////////////////////////////
+	// //////////////////////////////////////////////
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 		if (startGame) {
 			startGame = false;
@@ -491,13 +485,11 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 			playing = true;
 
 			newGame();
-
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
