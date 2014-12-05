@@ -37,9 +37,9 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	private int turn = 1;
 
-	private boolean startGame = false;
+	private boolean startGame = true;
 	private boolean playing = false;
-	private boolean endGame = true;
+	private boolean endGame = false;
 
 	private int winner;
 	private boolean won = false;
@@ -48,11 +48,7 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	public GoFishPanel() {
 
-		newDeck();
-		// p1Hand = playerHand();
-		// p2Hand = playerHand();
-		newHands();
-		setUpButtons();
+		newGame();
 
 		setBackground(Color.BLACK);
 
@@ -266,44 +262,6 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 	}
 
 	public void pairings() {
-		ArrayList<Integer[]> pairs = new ArrayList<Integer[]>();
-		int n = 0;
-		for (ArrayList<Card> aHand : hands) {
-			// System.out.println(aHand);
-
-			for (int i = 0; i < aHand.size(); i++) {
-				Card r = aHand.get(i);
-				if (r.selected) {
-
-					r.selected = false;
-					r.setColor(Color.WHITE);
-					Integer[] theP = { i, n };
-					pairs.add(theP);
-					// restOfDeck.add(r);
-					// aHand.remove(i);
-					i--;
-				}
-
-			}
-
-			n++;
-
-		}
-		if (pairs.size() > 1) {
-			int m = 0;
-			for (Integer[] i : pairs) {
-
-				restOfDeck.add(hands.get(i[1]).get(i[0] - m));
-				(hands.get(i[1])).remove((int) (i[0] - m));
-				m++;
-
-			}
-
-		}
-		// repaint();
-	}
-
-	public void pairingsTest() {
 
 		ArrayList<Card> selectedCards = getSelected();
 		if (checkIfValidPairs(selectedCards)) {
@@ -356,7 +314,7 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	}
 
-	public void askingTest() {
+	public void asking() {
 		if (!getSelected().isEmpty()) {
 			Card selectedCard = getSelected().get(0);
 			ArrayList<Card> matchingCards = new ArrayList<Card>();
@@ -387,60 +345,6 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 				nextTurn();
 
 		}
-	}
-
-	public void asking() {
-
-		ArrayList<Integer> pairs = new ArrayList<Integer>();
-		ArrayList<Card> aHand = hands.get(turn - 1);
-		// System.out.println(aHand);
-
-		for (int i = 0; i < aHand.size(); i++) {
-			Card r = aHand.get(i);
-			if (r.selected) {
-
-				r.selected = false;
-				r.setColor(Color.WHITE);
-				pairs.add(i);
-				// restOfDeck.add(r);
-				// aHand.remove(i);
-				i--;
-			}
-
-		}
-		int n = 0;
-		if (pairs.size() < 2 && pairs.size() > 0) {
-			int pair = pairs.get(0);
-			Card askCard = aHand.get(pair);
-			int cardNum = askCard.getCard();
-			boolean success = false;
-			ArrayList<Integer> matches = new ArrayList<Integer>();
-
-			for (ArrayList<Card> theCards : hands) {
-				if (n != turn - 1) {
-
-					for (int m = 0; m < theCards.size(); m++) {
-						Card aCard = theCards.get(m);
-						if (aCard.getCard() == cardNum) {
-							hands.get(turn - 1).add(aCard);
-							theCards.remove(m);
-							success = true;
-							m--;
-						}
-
-					}
-
-				}
-				n++;
-				sortCards();
-			}
-			if (!success) {
-
-				nextTurn();
-
-			}
-		}
-
 	}
 
 	public void sortCards() {
@@ -526,12 +430,12 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 					switch (b.getText()) {
 
 					case "Pair":
-						pairingsTest();
+						pairings();
 
 						break;
 					case "Ask":
 
-						askingTest();
+						asking();
 
 						break;
 
