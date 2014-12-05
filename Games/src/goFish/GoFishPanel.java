@@ -270,7 +270,7 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 					switch (b.getText()) {
 
 					case "Pair":
-						pairings();
+						pairingsTest();
 
 						break;
 					case "Ask":
