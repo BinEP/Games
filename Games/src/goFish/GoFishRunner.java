@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import utilityClasses.CenteredText;
-
 public class GoFishRunner {
 
 	public static void main(String[] args) {
