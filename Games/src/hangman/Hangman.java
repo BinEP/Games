@@ -20,7 +20,7 @@ import java.util.Scanner;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import utilityClasses.CenteredText;
+import utilityClasses.*;
 
 @SuppressWarnings("serial")
 public class Hangman extends JPanel implements KeyListener, ActionListener {
@@ -48,6 +48,7 @@ public class Hangman extends JPanel implements KeyListener, ActionListener {
 	private int pIndex = 0;
 
 	private boolean win;
+	private ScoreInfo scores = new ScoreInfo("hangman");
 	
 	private Color background = Color.BLACK;
 	
@@ -97,90 +98,6 @@ public class Hangman extends JPanel implements KeyListener, ActionListener {
 		Timer timer = new Timer((int) (1000 / 60), this);
 		timer.start();
 
-	}
-	
-	public ArrayList<String[]> getScores() throws FileNotFoundException {
-		
-		Scanner scoreContents = new Scanner(new File("scores.txt"));
-		
-		ArrayList<Integer> scores = new ArrayList<Integer>();
-		
-		while (scoreContents.hasNext()) {
-			scores.add(Integer.parseInt(scoreContents.next()));	
-		}
-		
-		Scanner peopleContents = new Scanner(new File("people.txt"));
-		
-		ArrayList<String> people = new ArrayList<String>();
-				
-		while (peopleContents.hasNext()) {
-			
-			people.add(peopleContents.next());
-		}
-		
-		
-		ArrayList<String[]> results = new ArrayList<String[]>();
-		
-		for (int i = 0; i < people.size(); i++) {
-			String[] hs = {scores.get(i).toString(), people.get(i)};
-			results.add(hs);
-		}
-		
-		scoreContents.close();
-		peopleContents.close();
-		
-		pIndex = people.indexOf(pName);
-		//pName = "";
-		
-		return results;
-		
-		
-	}
-	
-	public void setScores() throws IOException {
-		
-		Scanner scoreContents = new Scanner(new File("scores.txt"));
-		
-		ArrayList<Integer> scores = new ArrayList<Integer>();
-		
-		int score = wrongs.size();
-		while (scoreContents.hasNext()) {
-			scores.add(Integer.parseInt(scoreContents.next()));
-			
-		}
-		scores.add(score);
-	
-		/////////////////////////////////////////////////////////////
-		Scanner peopleContents = new Scanner(new File("people.txt"));
-		
-		ArrayList<String> people = new ArrayList<String>();
-		
-		String person = pName;
-		
-		while (peopleContents.hasNext()) {
-			
-			people.add(peopleContents.next());
-		}
-		people.add(person);
-		
-		ArrayList<String[]> results = scoreOrder(scores, people);
-		PrintWriter scoreWriter1 = new PrintWriter(new FileWriter("scores.txt"));
-		PrintWriter peopleWriter1 = new PrintWriter(new FileWriter("people.txt"));
-		
-		for (String[] sp : results) {
-			
-			scoreWriter1.println(sp[0]);
-			peopleWriter1.println(sp[1]);
-			
-		}
-		
-		peopleWriter1.flush();
-		scoreWriter1.flush();
-		peopleWriter1.close();
-		scoreWriter1.close();
-		scoreContents.close();
-		peopleContents.close();
-		
 	}
 	
 	public ArrayList<String[]> scoreOrder(ArrayList<Integer> scores, ArrayList<String> people) {
@@ -418,8 +335,7 @@ public class Hangman extends JPanel implements KeyListener, ActionListener {
 //			}
 		} else if (highScores) {
 			
-			try {
-				ArrayList<String[]> results = getScores();
+				ArrayList<String[]> results = scores.getScores();
 				pName = "";
 				g.setFont(new Font("Joystix", Font.BOLD, 20));
 				int i = 0;
@@ -452,18 +368,6 @@ public class Hangman extends JPanel implements KeyListener, ActionListener {
 					l++;
 					r++;
 				}
-				
-				
-				
-				
-				
-				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
 		}
 
 	}
@@ -613,11 +517,9 @@ public class Hangman extends JPanel implements KeyListener, ActionListener {
 				nameEnter = false;
 				highScores = true;
 //				endGame = true;
-				try {
-					setScores();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}	
+				
+					scores.setScores(wrongs.size(), pName);
+					
 			} else if (highScores) {
 				
 				highScores = false;

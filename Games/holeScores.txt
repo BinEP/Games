@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 50
 40
 35
@@ -10,4 +8,3 @@
 10
 7
 2
->>>>>>> refs/heads/UtilScoreSaver
