@@ -213,11 +213,17 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		super.paintComponent(g);
 		g.setColor(Color.WHITE);
 
-		drawPlayerHand(1, g, 10);
-		drawPlayerHand(2, g, 350);
-		buttons.get(0).drawRectangle(g);
-		buttons.get(1).drawRectangle(g);
-
+		if (playing) {
+			// for (int i = 1; i <= hands.size(); i++) {
+			drawPlayerHand(1, g, 10);
+			drawPlayerHand(2, g, 350);
+			// }
+			buttons.get(0).drawRectangle(g);
+			buttons.get(1).drawRectangle(g);
+			g.setColor(Color.YELLOW);
+			g.fillRect(10, 40 + (turn - 1) * 350, 10, 30);
+			g.setColor(Color.WHITE);
+		}
 	}
 
 	@Override
@@ -275,16 +281,17 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 						break;
 					case "Ask":
 
-						asking();
+						askingTest();
 
 						break;
 
 					}
-
+					resetColors();
 				}
 
 			}
 		}
+
 		repaint();
 	}
 
@@ -379,6 +386,40 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	}
 
+	public void askingTest() {
+		if (!getSelected().isEmpty()) {
+			Card selectedCard = getSelected().get(0);
+			ArrayList<Card> matchingCards = new ArrayList<Card>();
+			int selectedCardNum = selectedCard.getCard();
+
+			int i = 0;
+			for (ArrayList<Card> currentHand : hands) {
+				if (i != turn - 1) {
+
+					for (Card currentCard : currentHand) {
+
+						if (selectedCard.getCard() == currentCard.getCard())
+							matchingCards.add(currentCard);
+
+					}
+
+				}
+
+				for (Card matchCard : matchingCards) {
+					currentHand.remove(matchCard);
+				}
+				i++;
+			}
+
+			hands.get(turn - 1).addAll(matchingCards);
+
+			sortCards();
+			if (matchingCards.isEmpty())
+				nextTurn();
+
+		}
+	}
+
 	public void asking() {
 
 		ArrayList<Integer> pairs = new ArrayList<Integer>();
@@ -422,14 +463,37 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 				}
 				n++;
-				Collections.sort(theCards, Card.CardNumComparator);
-				Collections.sort(theCards, Card.CardSuitComparator);
+				sortCards();
 			}
 			if (!success) {
 
 				nextTurn();
 
 			}
+		}
+
+	}
+
+	public void sortCards() {
+
+		for (ArrayList<Card> theCards : hands) {
+			Collections.sort(theCards, Card.CardNumComparator);
+			Collections.sort(theCards, Card.CardSuitComparator);
+		}
+
+	}
+
+	public void resetColors() {
+
+		for (ArrayList<Card> currentHand : hands) {
+
+			for (Card currentCard : currentHand) {
+
+				currentCard.selected = false;
+				currentCard.setColor(Color.WHITE);
+
+			}
+
 		}
 
 	}
