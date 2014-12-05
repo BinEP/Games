@@ -28,6 +28,18 @@ public class CenteredText {
 		
 	}
 	
+public CenteredText(String text, int width, int height, Graphics g, boolean test) {
+		
+		FontMetrics fontInfo = g.getFontMetrics();
+		int textWidth = fontInfo.stringWidth(text);
+		int textHeight = fontInfo.getHeight();
+		
+		this.x = (width - textWidth)/2;
+		this.y = height - (height - textHeight)/2 - 5;
+		
+		
+	}
+	
 public CenteredText(String text, int width, int height, Graphics g, boolean draw, int textY) {
 		
 		FontMetrics fontInfo = g.getFontMetrics();
