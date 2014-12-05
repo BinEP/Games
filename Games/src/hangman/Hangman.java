@@ -55,11 +55,16 @@ public class Hangman extends JPanel implements KeyListener, ActionListener {
 	private Color sideHang = Color.WHITE;
 	private Color bottomHang = Color.WHITE;
 	
-	private Color head = Color.RED;
-	private Color chest = Color.GREEN;
-	private Color arms = Color.RED;
-	private Color legs = Color.RED;
-	private Color shoulders = Color.GREEN;
+//	private Color head = Color.RED;
+//	private Color chest = Color.GREEN;
+//	private Color arms = Color.RED;
+//	private Color legs = Color.RED;
+//	private Color shoulders = Color.GREEN;
+	private Color head = Color.WHITE;
+	private Color chest = Color.WHITE;
+	private Color arms = Color.WHITE;
+	private Color legs = Color.WHITE;
+	private Color shoulders = Color.WHITE;
 	private Color addedLimb = Color.WHITE;
 	private Color[] body = {legs, legs, arms, shoulders, arms, shoulders, chest, head};
 	
