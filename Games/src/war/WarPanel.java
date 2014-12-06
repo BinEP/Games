@@ -132,6 +132,15 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 		} else if (playing) {
 
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		} else if (endGame) {
 
 			g.setColor(Color.WHITE);
