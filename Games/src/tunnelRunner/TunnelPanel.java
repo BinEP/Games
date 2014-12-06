@@ -17,7 +17,7 @@ import java.util.Arrays;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import utilityClasses.CenteredText;
+import utilityClasses.*;
 
 public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 
@@ -27,24 +27,33 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean startGame = true;
 	private boolean playing = false;
 	private boolean endGame = false;
+	private boolean nameEnter = false;
+	private boolean highScores = false;
+
+	private ScoreInfo scores = new ScoreInfo("tunnel");
 
 	private int holeX = 500;
 	private int holeY = 220;
 
+	private String pName = "";
+	private Character letter;
+
 	private int widthOfHole = 5;
-	private int holeNumber = 500/widthOfHole;
+	private int holeNumber = 500 / widthOfHole;
 	private int holeSize = 150;
-	
+
 	private int[] holesX = new int[holeNumber];
 	private int[] holesY = new int[holeNumber];
-	
-	/*private int[] holesX = { 500, 500 + (15), 500 + (15) * 2, 500 + (15) * 3,
-			500 + (15) * 4, 500 + (15) * 5, 500 + (15) * 6, 500 + (15) * 7,
-			500 + (15) * 8, 500 + (15) * 9, 500 + (15) * 10, 500 + (15) * 11,
-			500 + (15) * 12, 500 + (15) * 13, 500 + (15) * 14, 500 + (15) * 15};
 
-	private int[] holesY = { 220, 230, 240, 230, 240, 230, 220, 230, 240, 230, 240, 230, 220, 230, 240, 250};
-*/
+	/*
+	 * private int[] holesX = { 500, 500 + (15), 500 + (15) * 2, 500 + (15) * 3,
+	 * 500 + (15) * 4, 500 + (15) * 5, 500 + (15) * 6, 500 + (15) * 7, 500 +
+	 * (15) * 8, 500 + (15) * 9, 500 + (15) * 10, 500 + (15) * 11, 500 + (15) *
+	 * 12, 500 + (15) * 13, 500 + (15) * 14, 500 + (15) * 15};
+	 * 
+	 * private int[] holesY = { 220, 230, 240, 230, 240, 230, 220, 230, 240,
+	 * 230, 240, 230, 220, 230, 240, 250};
+	 */
 	private int ballX = 20;
 	private int ballY = 40;
 	private int deltaX = 0;
@@ -63,11 +72,10 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 
 	public TunnelPanel() {
 
-		
 		for (int i = 0; i < holesX.length; i++) {
 			holesX[i] = 500 + widthOfHole * i;
 			holesY[i] = randomY(i);
-			
+
 		}
 		setBackground(Color.BLACK);
 
@@ -91,7 +99,6 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 		if (playing) {
 			int nextBallX = ballX + deltaX;
 			int nextBallY = ballY + deltaY;
-			
 
 			int leftX = ballX + deltaX;
 			int rightX = ballX + deltaX + diameter;
@@ -110,7 +117,8 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 					|| bottomLeftColor.equals(Color.WHITE)
 					|| bottomRightColor.equals(Color.WHITE)) {
 				playing = false;
-				endGame = true;
+				// endGame = true;
+				nameEnter = true;
 
 			}
 
@@ -129,8 +137,6 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 					holesY[i] = randomY(i);
 
 				}
-				
-				
 
 				holesX[i] -= holeSpeed;
 
@@ -154,7 +160,6 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 		repaint();
 
 	}
-	
 
 	public void paintComponent(Graphics g) {
 
@@ -164,8 +169,8 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
-			CenteredText title1 = new CenteredText("TUNNEL", 500, 500, g,
-					true, 150);
+			CenteredText title1 = new CenteredText("TUNNEL", 500, 500, g, true,
+					150);
 			// g.drawString("HOLE IN THE", 60, 210);
 			CenteredText title2 = new CenteredText("RUNNER", 500, 500, g, true,
 					200);
@@ -200,24 +205,23 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.WHITE);
 
 			g.fillOval(ballX, ballY, diameter, diameter);
-			
+
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			FontMetrics f = g.getFontMetrics();
 			int w = f.stringWidth(String.valueOf(timeSeconds));
 			int h = f.getAscent();
-			
-			g.fillRect(3, 3, w + 3, h );
-			
-			
+
+			g.fillRect(3, 3, w + 3, h);
+
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
-			
-			if (paused ) {
+
+			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
-				CenteredText pause = new CenteredText("Paused", 500, 500,
-						g, true, 200);
+				CenteredText pause = new CenteredText("Paused", 500, 500, g,
+						true, 200);
 			}
 
 		} else if (endGame) {
@@ -225,7 +229,7 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
-			
+
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 			g.setColor(Color.WHITE);
 			CenteredText lose = new CenteredText("You Lose!", 500, 500, g,
@@ -238,13 +242,21 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 					500, g, true, 320);
 			// g.drawString("Enter to Restart", 80, 400);
 
+		} else if (nameEnter) {
+
+			scores.enterName(g, 500, 500, timeSeconds, pName);
+
+		} else if (highScores) {
+
+			//scores.setScores(timeSeconds, pName);
+			scores.drawScores(g);
 		}
 
 	}
 
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+	 
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -255,7 +267,17 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			DownPressed = true;
 
-		}
+		}  else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD) {
+
+			if (nameEnter) {
+				if (pName.length() < 10) {
+					letter = e.getKeyChar();
+
+					letter = Character.toUpperCase(letter);
+					pName = pName.concat(letter.toString());
+				}
+			}
+		} 
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -267,7 +289,7 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 			DownPressed = false;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-
+			
 			if (endGame) {
 				holeX = 500;
 				for (int i = 0; i < holesX.length; i++) {
@@ -278,11 +300,27 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 				ballSpeed = origBallSpeed;
 				timeSplit = 0;
 				timeSeconds = 0;
+				startGame = false;
+				playing = true;
+				nameEnter = false;
+				highScores = false;
+				endGame = false;
+				pName = "";
+				
+			} else if (nameEnter) {
+				nameEnter = false;
+				highScores = true;
+				scores.setScores(timeSeconds, pName);
 
-			}
+			} else if (highScores) {
+				
+				
+				highScores = false;
+				endGame = true;
+			} else {
 			startGame = false;
 			playing = true;
-
+			}
 		}
 
 	}
@@ -297,19 +335,15 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 		 * holesY[2] = firstY;
 		 */
 		if (i == 0)
-			i = holesY.length-1;
+			i = holesY.length - 1;
 		int prevHole = holesY[i - 1];
 		int wayPrevHole = prevHole;
 		/*
-		try {
-			if (i - 30 < 0) {
-				i = 124 - i;
-			}
-		wayPrevHole = holesY[i];
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
-		*/
+		 * try { if (i - 30 < 0) { i = 124 - i; } wayPrevHole = holesY[i]; }
+		 * catch (ArrayIndexOutOfBoundsException e) {
+		 * 
+		 * }
+		 */
 		// && Math.abs(randNum - wayPrevHole) > 60
 		int randNum = ((int) (Math.random() * 300));
 		while (Math.abs(randNum - prevHole) > 20) {
