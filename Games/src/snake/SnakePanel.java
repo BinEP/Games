@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 //HI
 
-import utilityClasses.CenteredText;
+import utilityClasses.*;
 
 public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
@@ -28,10 +28,18 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private boolean playing = false;
 	private boolean paused = false;
 	private boolean endGame = false;
+	private boolean nameEnter = false;
+	private boolean highScores = false;
+
+	private ScoreInfo scores = new ScoreInfo("snake");
+
+	private String pName = "";
+	private Character letter;
 
 	private ArrayList<Point> snakeBody = new ArrayList<Point>();
 	private ArrayList<Color> snakeColor = new ArrayList<Color>();
-	private Color[] Colors = {Color.CYAN, Color.RED, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.WHITE};
+	private Color[] Colors = { Color.CYAN, Color.RED, Color.GREEN,
+			Color.YELLOW, Color.ORANGE, Color.WHITE };
 	private int bodySize = 10;
 	private Point head = new Point(250, 250);
 
@@ -88,7 +96,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				if (head.x == snakeBody.get(i).x
 						&& head.y == snakeBody.get(i).y) {
 					playing = false;
-					endGame = true;
+					nameEnter = true;
 				}
 				snakeBody.set(i, snakeBody.get(i - 1));
 
@@ -135,7 +143,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			if (head.x < 1 || head.x > 485 || head.y < 8 || head.y > 465) {
 
 				playing = false;
-				endGame = true;
+				nameEnter = true;
 			}
 
 		}
@@ -161,8 +169,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		fruitColor = randColor();
 
 		speed += .5;
-		//System.out.println(speed);
-		//System.out.println((int) (1000.0 / speed));
+		// System.out.println(speed);
+		// System.out.println((int) (1000.0 / speed));
 		timer.setDelay((int) (1000.0 / speed));
 		score++;
 
@@ -176,13 +184,13 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		snakeBody.add(new Point(250, 260));
 		snakeBody.add(new Point(250, 270));
 		snakeBody.add(new Point(250, 280));
-		
+
 		for (int i = 0; i < snakeBody.size(); i++) {
-			//Whoop
+			// Whoop
 			snakeColor.add(Color.WHITE);
-			
+
 		}
-		
+
 		head.x = 250;
 		head.y = 250;
 		deltaY = -bodySize;
@@ -195,9 +203,9 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		return ((int) (Math.random() * 45)) * 10 + 10;
 	}
-	
+
 	public Color randColor() {
-		
+
 		return Colors[(int) (Math.random() * Colors.length)];
 	}
 
@@ -209,9 +217,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		g2.setStroke(new BasicStroke(15));
 		g2.drawRect(0, 0, 499, 477);
 		g2.setStroke(new BasicStroke(2));
-		
-		
-		
+
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 80));
@@ -241,7 +247,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				g.drawRect(body.x, body.y, bodySize, bodySize);
 				g.drawRect(fruitX, fruitY, bodySize, bodySize);
 
-				//g.setColor(Color.WHITE);
+				// g.setColor(Color.WHITE);
 				g.setColor(fruitColor);
 				g.fillRect(fruitX + 1, fruitY + 1, bodySize - 2, bodySize - 2);
 
@@ -250,7 +256,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 					g.setColor(Color.WHITE);
 					CenteredText pause = new CenteredText("Paused", 500, 500,
 							g, true, 200);
-					
+
 					drawColorOptions(g, 300);
 				}
 			}
@@ -271,6 +277,14 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			CenteredText restart = new CenteredText("Enter to Restart", 500,
 					500, g, true, 320);
+		} else if (nameEnter) {
+
+			scores.enterName(g, 500, 500, snakeBody.size(), pName);
+
+		} else if (highScores) {
+
+			// scores.setScores(timeSeconds, pName);
+			scores.drawScores(g);
 		}
 
 	}
@@ -317,58 +331,83 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			} else if (endGame) {
 
 				resetBody();
+				startGame = false;
 				playing = true;
+				nameEnter = false;
+				highScores = false;
 				endGame = false;
+				pName = "";
 				fruitX = randNum();
 				fruitY = randNum();
 				fruitColor = randColor();
 				speed = 10;
 				score = 0;
 
+			} else if (nameEnter) {
+				nameEnter = false;
+				highScores = true;
+				scores.setScores(snakeBody.size(), pName);
+			} else if (highScores) {
+
+				highScores = false;
+				endGame = true;
+			} else {
+				startGame = false;
+				playing = true;
+
 			}
 
-		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+		} else if (e.getKeyCode() == KeyEvent.VK_SPACE && !nameEnter) {
 
 			playing = !playing;
 			paused = !paused;
+		} else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD
+				&& nameEnter) {
+
+			if (pName.length() < 10) {
+				letter = e.getKeyChar();
+
+				letter = Character.toUpperCase(letter);
+				pName = pName.concat(letter.toString());
+			}
+
 		} else {
-			//if (startGame || endGame) {
+			// if (startGame || endGame) {
 			switch (e.getKeyCode()) {
-			
+
 			case KeyEvent.VK_R:
 				fruitColor = Color.RED;
-				
-			break;
+
+				break;
 			case KeyEvent.VK_G:
 				fruitColor = Color.GREEN;
-				
+
 				break;
 			case KeyEvent.VK_B:
 				fruitColor = Color.CYAN;
-				
+
 				break;
 			case KeyEvent.VK_Y:
 				fruitColor = Color.YELLOW;
-				
+
 				break;
 			case KeyEvent.VK_O:
 				fruitColor = Color.ORANGE;
-				
+
 				break;
-			case KeyEvent.VK_W: //VK_W - White is default case
+			case KeyEvent.VK_W: // VK_W - White is default case
 				fruitColor = Color.WHITE;
-				
+
 				break;
-			
+
 			}
-			
-			
-		//}
+
+			// }
 		}
 	}
-	
+
 	public void drawColorOptions(Graphics g, int colorY) {
-		
+
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, 45));
 		g.setColor(Color.RED);
 		g.drawString("R", 50, colorY);
@@ -380,21 +419,16 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Y", 315, colorY);
 		g.setColor(Color.ORANGE);
 		g.drawString("O", 410, colorY);
-//		g.setColor(Color.BLACK);
-//		g.drawString("W", 500, colorY);
-		
-		
+		// g.setColor(Color.BLACK);
+		// g.drawString("W", 500, colorY);
+
 		g.setColor(Color.WHITE);
-		
-		
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-		
 
 	}
 

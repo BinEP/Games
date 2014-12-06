@@ -9,7 +9,6 @@ public class CopyForScores {
 	private boolean highScores = false;
 
 	private ScoreInfo scores = new ScoreInfo("gameName");
-	
 	private String pName = "";
 	private Character letter;
 	
@@ -35,17 +34,22 @@ public class CopyForScores {
 	 
 	Add this to the end of keyPressed
 	
-	}  else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD) {
+	}  else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD && nameEnter) {
 
-			if (nameEnter) {
+			
 				if (pName.length() < 10) {
 					letter = e.getKeyChar();
 
 					letter = Character.toUpperCase(letter);
 					pName = pName.concat(letter.toString());
 				}
-			}
+			
 		} 
+		
+		//////////////
+		 Add  && !nameEnter 
+		 to any keys in keyPreseed that might interfere with
+		 letter entering
 	//////////////////////////////////////////
 	 
 	 Add this at the end of the keyReleased (Enter) inside of the endGame if
