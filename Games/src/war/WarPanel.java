@@ -1,6 +1,5 @@
 package war;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -18,25 +17,22 @@ import utilityClasses.*;
 
 public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
-	
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private int numOfPlayers = 2;
 	private ArrayList<ArrayList<Card>> hands = new ArrayList<ArrayList<Card>>(
 			numOfPlayers);
-	
+
 	private ArrayList<ArrayList<Card>> restOfDeck = new ArrayList<ArrayList<Card>>();
-	
+
 	private boolean startGame = true;
 	private boolean playing = false;
 	private boolean endGame = false;
 
 	private int winner;
 	private boolean won = false;
-	
+
 	private int turn = 1;
-	
-	
-	
+
 	public WarPanel() {
 
 		newGame();
@@ -52,15 +48,22 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public WarPanel(int i) {
+		newGame();
+		numOfPlayers = i;
+		setBackground(Color.BLACK);
 
+		setFocusable(true);
+		addKeyListener(this);
+
+		Timer timer = new Timer(1000 / 20, this);
+		timer.start();
 	}
-	
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		repaint();
 	}
-	
+
 	public void newDeck() {
 		Card card = new Card();
 		for (int i = 0; i < 52; i++) {
@@ -109,23 +112,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 		Collections.shuffle(deck);
 	}
-	
-	
-	
-	public ArrayList<Card> playerHand() {
 
-		ArrayList<Card> hand = new ArrayList<Card>();
-		for (int i = 0; i < 7; i++) {
-			hand.add(deck.get(0));
-			deck.remove(0);
-		}
-		sortCards();
-
-		return hand;
-	}
-	
-	
-	
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
@@ -145,10 +132,6 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 		} else if (playing) {
 
-			
-
-			
-
 		} else if (endGame) {
 
 			g.setColor(Color.WHITE);
@@ -167,8 +150,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 	}
-	
-	
+
 	public void sortCards() {
 
 		for (ArrayList<Card> theCards : hands) {
@@ -178,8 +160,6 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	
-	
 	public boolean checkIfWon() {
 
 		int i = 0;
@@ -205,28 +185,25 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void nextTurn() {
 
-		
 		turn++;
 		if (turn > numOfPlayers)
 			turn = 1;
 
 	}
 
-	
-
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+
 	}
 
 }
