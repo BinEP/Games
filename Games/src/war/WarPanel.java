@@ -26,6 +26,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 	private ArrayList<ArrayList<Card>> playerCards = new ArrayList<ArrayList<Card>>(
 			numOfPlayers);
 	private ArrayList<Card> middle = new ArrayList<Card>();
+	ArrayList<Card> warCards = new ArrayList<Card>();
 	private int[][] handXYs = { { 222, 15 }, { 429, 180 }, { 222, 361 },
 			{ 15, 180 } };
 	private int[][] middleXYs = { { 222, 130 }, { 329, 180 }, { 222, 246 },
@@ -72,7 +73,26 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (playing) moves();
 		repaint();
+	}
+	
+	public void moves() {
+		
+		boolean almostWon = false;
+		for (ArrayList <Card> hand : playerCards) {
+			
+			if (hand.size() < 51) {
+				almostWon = true;
+			} else {
+//				System.out.println(hand);
+			}
+			
+			
+		}
+		if (almostWon) middleAdd();
+		
+		
 	}
 
 	public void newDeck() {
@@ -151,7 +171,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 25));
 			for (int i = 0; i < numOfPlayers; i++) {
-//				if (playerCards.get(i).size() > 0) {
+				if (playerCards.get(i).size() > 0) {
 					g.setColor(Color.CYAN);
 					int x = handXYs[i][0];
 					int y = handXYs[i][1];
@@ -163,44 +183,41 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 							g);
 					g.drawString(String.valueOf(playerCards.get(i).size()), x
 							+ cardNum.x, y + 60);
-//			}
+				}
 			}
 			if (middleShow) {
 				int m = 0;
 
 				for (Card card : middle) {
-<<<<<<< HEAD
-//					if (playerCards.get(m).size() > 0) {
-					g.setColor(Color.CYAN);
-					int x = handXYs[m][0];
-					int y = handXYs[m][1];
-					g.fillRoundRect(x, y, 56, 100, 5, 5);
-					g.drawRoundRect(x, y, 56, 100, 5, 5);
-					g.setColor(Color.BLACK);
-					CenteredText cardNum = new CenteredText(
-							String.valueOf(playerCards.get(i).size()), 56, 100,
-							g);
-					g.drawString(String.valueOf(playerCards.get(i).size()), x
-							+ cardNum.x, y + 60);
+					if (card.getCard() != 0) {
+						g.setColor(Color.CYAN);
+						int x = handXYs[m][0];
+						int y = handXYs[m][1];
+						g.fillRoundRect(x, y, 56, 100, 5, 5);
+						g.drawRoundRect(x, y, 56, 100, 5, 5);
+						g.setColor(Color.BLACK);
+						CenteredText cardNum = new CenteredText(
+								String.valueOf(playerCards.get(m).size()), 56,
+								100, g);
+						g.drawString(String.valueOf(playerCards.get(m).size()),
+								x + cardNum.x, y + 60);
 
-=======
+						g.setColor(Color.WHITE);
+						x = middleXYs[m][0];
+						y = middleXYs[m][1];
 
-					g.setColor(Color.WHITE);
-					int x = middleXYs[m][0];
-					int y = middleXYs[m][1];
+						if (card.equals(middleHighP))
+							g.setColor(Color.YELLOW);
 
-					if (card.equals(middleHighP))
-						g.setColor(Color.YELLOW);
-
-					g.fillRoundRect(x, y, 56, 100, 5, 5);
-					g.drawRoundRect(x, y, 56, 100, 5, 5);
-					g.setColor(Color.BLACK);
-					CenteredText cardNum = new CenteredText(card.getShown(),
-							56, 100, g);
-					g.drawString(card.getShown(), x + cardNum.x, y + 60);
-
+						g.fillRoundRect(x, y, 56, 100, 5, 5);
+						g.drawRoundRect(x, y, 56, 100, 5, 5);
+						g.setColor(Color.BLACK);
+						CenteredText cardNum1 = new CenteredText(
+								card.getShown(), 56, 100, g);
+						g.drawString(card.getShown(), x + cardNum.x, y + 60);
+						
+					}
 					m++;
->>>>>>> parent of d3b790a... ugh
 				}
 
 			}
@@ -233,15 +250,15 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public boolean checkIfWon() {
+	public void checkIfWon() {
 
 		for (int i = 0; i < numOfPlayers; i++) {
 
 			if (playerCards.get(i).size() == 52)
-				return true;
+				playing = false;
+				endGame = true;
 
 		}
-		return false;
 	}
 
 	public void shuffleHands() {
@@ -267,6 +284,86 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 			turn = 1;
 
 	}
+	
+	public void removeBlanks() {
+		
+		Card card = new Card(true);
+		for (ArrayList <Card> hand : playerCards) {
+			
+			hand.removeAll(Collections.singleton(card));
+			
+			
+		}
+		
+		
+	}
+	
+	public void war(ArrayList<Integer> pInWar) {
+		
+		warCards = new ArrayList<Card>();
+		warCards.addAll(middle);
+		for (Integer n : pInWar) {
+			warCards.addAll(playerCards.get(n).subList(0, 3));
+			playerCards.get(n).removeAll(playerCards.get(n).subList(0, 3));
+		}
+		
+		for (Integer n : pInWar) {
+			
+			warCards.add(playerCards.get(n).get(0));
+			playerCards.get(n).remove(0);
+			
+		}
+		
+		
+		
+		
+	}
+	
+	public void middleAdd() {
+		
+		
+		if (!middleShow) {
+			middle.clear();
+			middleHighP = new Card(true);
+			middleHighPNum = 0;
+			for (int i = 0; i < numOfPlayers; i++) {
+				
+				Card card;
+				if (playerCards.get(i).size() == 0) {
+					card = new Card(true);
+				} else {
+					card = playerCards.get(i).get(0);
+				}
+				middle.add(card);
+				if (playerCards.get(i).size() > 0) {
+
+					if (card.getCard() == middleHighP.getCard()
+							&& card.getSuit() > middleHighP.getSuit()) {
+						middleHighP = card;
+						middleHighPNum = i;
+					} else if (card.getCard() > middleHighP.getCard()) {
+						middleHighP = card;
+						middleHighPNum = i;
+					}
+
+					playerCards.get(i).remove(card);
+					middleShow = true;
+				}
+			}
+			System.out.println(middle);
+		} else {
+			middleShow = false;
+			playerCards.get(middleHighPNum).addAll(middle);
+			shuffleHands();
+			removeBlanks();
+			checkIfWon();
+		}
+		
+		
+		
+		
+		
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -285,33 +382,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 			} else if (playing) {
 
-				if (!middleShow) {
-					middle.clear();
-					middleHighP = new Card(true);
-					middleHighPNum = 0;
-					for (int i = 0; i < numOfPlayers; i++) {
-						if (playerCards.get(i).size() > 0) {
-							Card card = playerCards.get(i).get(0);
-							middle.add(card);
-							if (card.getCard() == middleHighP.getCard()
-									&& card.getSuit() > middleHighP.getSuit()) {
-								middleHighP = card;
-								middleHighPNum = i;
-							} else if (card.getCard() > middleHighP.getCard()) {
-								middleHighP = card;
-								middleHighPNum = i;
-							}
-
-							playerCards.get(i).remove(card);
-							middleShow = true;
-						}
-					}
-				} else {
-					middleShow = false;
-					playerCards.get(middleHighPNum).addAll(middle);
-					shuffleHands();
-					checkIfWon();
-				}
+				middleAdd();
 
 			} else if (endGame) {
 
