@@ -16,10 +16,22 @@ public class Card {
 	public Card() {
 
 		suit = (int) (Math.random() * 4) + 1;
-		card = (int) (Math.random() * 13) + 1;
+		card = (int) (Math.random() * 13) + 2;
 		shown = getCardFace() + getSuitIcon();
 		col = Color.WHITE;
 		selected = false;
+		//hearts
+		//diamonds
+		//clubs
+		//spades
+		
+	}
+	
+	public Card(boolean r) {
+
+		suit = 0;
+		card = 0;
+		
 		//hearts
 		//diamonds
 		//clubs

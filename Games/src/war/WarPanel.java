@@ -77,7 +77,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void newDeck() {
 		Card card = new Card();
-		for (int i = 0; i < 52; i++) {
+		for (int i = 0; i < 4; i++) {
 			while (deck.contains(card)) {
 				card = new Card();
 			}
@@ -151,7 +151,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 25));
 			for (int i = 0; i < numOfPlayers; i++) {
-				if (playerCards.get(i).size() > 0) {
+//				if (playerCards.get(i).size() > 0) {
 					g.setColor(Color.CYAN);
 					int x = handXYs[i][0];
 					int y = handXYs[i][1];
@@ -163,36 +163,28 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 							g);
 					g.drawString(String.valueOf(playerCards.get(i).size()), x
 							+ cardNum.x, y + 60);
-				}
-				
-					if (middleShow && middleCards) {
-						g.setColor(Color.WHITE);
-						int x = middleXYs[i][0];
-						int y = middleXYs[i][1];
-						Card card = middle.get(i);
-						if (card.equals(middleHighP))
-							g.setColor(Color.YELLOW);
+//			}
+			}
+			if (middleShow) {
+				int m = 0;
 
-						g.fillRoundRect(x, y, 56, 100, 5, 5);
-						g.drawRoundRect(x, y, 56, 100, 5, 5);
-						g.setColor(Color.BLACK);
-						CenteredText cardNum1 = new CenteredText(
-								card.getShown(), 56, 100, g);
-						g.drawString(card.getShown(), x + cardNum1.x, y + 60);
-					}
-				
+				for (Card card : middle) {
+//					if (playerCards.get(m).size() > 0) {
+					g.setColor(Color.CYAN);
+					int x = handXYs[m][0];
+					int y = handXYs[m][1];
+					g.fillRoundRect(x, y, 56, 100, 5, 5);
+					g.drawRoundRect(x, y, 56, 100, 5, 5);
+					g.setColor(Color.BLACK);
+					CenteredText cardNum = new CenteredText(
+							String.valueOf(playerCards.get(i).size()), 56, 100,
+							g);
+					g.drawString(String.valueOf(playerCards.get(i).size()), x
+							+ cardNum.x, y + 60);
+
+				}
 
 			}
-
-			// if (middleShow) {
-			// int m = 0;
-			//
-			// for (Card card : middle) {
-			// // if (playerCards.get(m).size() > 0) {
-			//
-			// }
-			//
-			// }
 
 		} else if (endGame) {
 
@@ -279,21 +271,21 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 					middleHighP = new Card(true);
 					middleHighPNum = 0;
 					for (int i = 0; i < numOfPlayers; i++) {
-						// if (playerCards.get(i).size() > 0) {
-						Card card = playerCards.get(i).get(0);
-						middle.add(card);
-						if (card.getCard() == middleHighP.getCard()
-								&& card.getSuit() > middleHighP.getSuit()) {
-							middleHighP = card;
-							middleHighPNum = i;
-						} else if (card.getCard() > middleHighP.getCard()) {
-							middleHighP = card;
-							middleHighPNum = i;
-						}
+//						if (playerCards.get(i).size() > 0) {
+							Card card = playerCards.get(i).get(0);
+							middle.add(card);
+							if (card.getCard() == middleHighP.getCard()
+									&& card.getSuit() > middleHighP.getSuit()) {
+								middleHighP = card;
+								middleHighPNum = i;
+							} else if (card.getCard() > middleHighP.getCard()) {
+								middleHighP = card;
+								middleHighPNum = i;
+							}
 
-						playerCards.get(i).remove(card);
-						middleShow = true;
-						// }
+							playerCards.get(i).remove(card);
+							middleShow = true;
+//						}
 					}
 				} else {
 					middleShow = false;
