@@ -77,7 +77,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void newDeck() {
 		Card card = new Card();
-		for (int i = 0; i < 52; i++) {
+		for (int i = 0; i < 4; i++) {
 			while (deck.contains(card)) {
 				card = new Card();
 			}
@@ -169,23 +169,24 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 				int m = 0;
 
 				for (Card card : middle) {
+//					if (playerCards.get(m).size() > 0) {
+						g.setColor(Color.WHITE);
+						int x = middleXYs[m][0];
+						int y = middleXYs[m][1];
 
-					g.setColor(Color.WHITE);
-					int x = middleXYs[m][0];
-					int y = middleXYs[m][1];
+						if (card.equals(middleHighP))
+							g.setColor(Color.YELLOW);
 
-					if (card.equals(middleHighP))
-						g.setColor(Color.YELLOW);
-
-					g.fillRoundRect(x, y, 56, 100, 5, 5);
-					g.drawRoundRect(x, y, 56, 100, 5, 5);
-					g.setColor(Color.BLACK);
-					CenteredText cardNum = new CenteredText(card.getShown(),
-							56, 100, g);
-					g.drawString(card.getShown(), x + cardNum.x, y + 60);
-
+						g.fillRoundRect(x, y, 56, 100, 5, 5);
+						g.drawRoundRect(x, y, 56, 100, 5, 5);
+						g.setColor(Color.BLACK);
+						CenteredText cardNum = new CenteredText(
+								card.getShown(), 56, 100, g);
+						g.drawString(card.getShown(), x + cardNum.x, y + 60);
+					}
 					m++;
-				}
+
+//				}
 
 			}
 
@@ -274,7 +275,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 					middleHighP = new Card(true);
 					middleHighPNum = 0;
 					for (int i = 0; i < numOfPlayers; i++) {
-						if (playerCards.get(i).size() > 0) {
+//						if (playerCards.get(i).size() > 0) {
 							Card card = playerCards.get(i).get(0);
 							middle.add(card);
 							if (card.getCard() == middleHighP.getCard()
@@ -288,7 +289,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 							playerCards.get(i).remove(card);
 							middleShow = true;
-						}
+//						}
 					}
 				} else {
 					middleShow = false;
