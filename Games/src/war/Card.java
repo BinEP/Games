@@ -16,7 +16,7 @@ public class Card {
 	public Card() {
 
 		suit = (int) (Math.random() * 4) + 1;
-		card = (int) (Math.random() * 13) + 2;
+		card = (int) (Math.random() * 13) + 1;
 		shown = getCardFace() + getSuitIcon();
 		col = Color.WHITE;
 		selected = false;
@@ -24,13 +24,6 @@ public class Card {
 		//diamonds
 		//clubs
 		//spades
-		
-	}
-	
-	public Card(boolean t) {
-		
-		suit = 0;
-		card = 0;
 		
 	}
 	
@@ -91,7 +84,7 @@ public class Card {
 	public String getCardFace() {
 		
 		String cardFace = "A";
-		if (card < 11 && card != 14) {
+		if (card < 11 && card != 1) {
 
 			return String.valueOf(card);
 
