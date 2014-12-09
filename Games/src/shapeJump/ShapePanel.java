@@ -16,7 +16,7 @@ import java.util.Arrays;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import utilityClasses.CenteredText;
+import utilityClasses.*;
 
 public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
@@ -62,17 +62,23 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	private boolean glitch = false;
 
+	private boolean nameEnter = false;
+	private boolean highScores = false;
+
+	private ScoreInfo scores = new ScoreInfo("shape");
+	private String pName = "";
+	private Character letter;
+
 	public ShapePanel() {
 
 		setBackground(Color.BLACK);
 		shapeGroupX.add(500);
 		shapeGroupX.add(500 + spacing);
-//		shapeGroupX.add(500 + spacing * 2);
-		
+		// shapeGroupX.add(500 + spacing * 2);
 
 		shapeBlocks.add(new Shape());
 		shapeBlocks.add(new Shape());
-//		shapeBlocks.add(new Shape());
+		// shapeBlocks.add(new Shape());
 
 		setFocusable(true);
 		addKeyListener(this);
@@ -93,7 +99,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (playing) {
 			if (shapeGroupX.contains(0)) {
-				shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1) + spacing);
+				shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1)
+						+ spacing);
 				shapeGroupX.remove(0);
 				shapeBlocks.add(new Shape());
 				shapeBlocks.remove(0);
@@ -102,26 +109,26 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			for (int i = 0; i < shapeGroupX.size(); i++) {
 				shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
 			}
-			
+
 			setGroundY();
-//			System.out.println(groundY);
-			if (blockY + 1 < groundY) jumping = true;
+			// System.out.println(groundY);
+			if (blockY + 1 < groundY)
+				jumping = true;
 			if (jumping) {
-				
+
 				deltaY += gravity;
 				blockY += deltaY;
-				
-				
+
 				if (blockY > groundY) {
-					
+
 					blockY = groundY - 1;
 					deltaY = 0;
 					jumping = false;
 				}
-				
+
 			}
-			
-			//Keeps track of time
+
+			// Keeps track of time
 			timeSplit++;
 			if (timeSplit == 60) {
 				timeSplit = 0;
@@ -137,7 +144,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		for (int i = 0; i < x.length; i++) {
 			g.setColor(Color.WHITE);
-			
+
 			int x1 = pos + (x[i] - 1) * blockSize;
 			int y1 = ground - y[i] * blockSize;
 
@@ -185,7 +192,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
 
 			g.fillRect(blockX - 20, blockY - 20, blockWidth, blockWidth);
-			
 
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
@@ -216,36 +222,43 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			CenteredText restart = new CenteredText("Enter to Restart", 500,
 					500, g, true, 320);
 
+		} else if (nameEnter) {
+
+			scores.enterName(g, 500, 500, timeSeconds, pName);
+
+		} else if (highScores) {
+
+			// scores.setScores(timeSeconds, pName);
+			scores.drawScores(g);
 		}
 
 	}
-	
+
 	public void setGroundY() {
-		
+
 		int shapeGroupStart = shapeGroupX.get(0);
-		
-		int shapeGroupEnd = (shapeBlocks.get(0).w * blockSize) + shapeGroupStart;
-//		System.out.println(shapeGroupStart + ", " + shapeGroupEnd);
-		
+
+		int shapeGroupEnd = (shapeBlocks.get(0).w * blockSize)
+				+ shapeGroupStart;
+		// System.out.println(shapeGroupStart + ", " + shapeGroupEnd);
+
 		groundY = 400;
 		for (int[] xy : shapeBlocks.get(0).topXY) {
-		
+
 			int x = (xy[0] - 1) * blockSize + shapeGroupStart;
 			int y = 400 - (xy[1]) * blockSize;
 			if (blockX > x && blockX - 20 < shapeGroupEnd) {
 				groundY = y;
 				if (getColor(blockX + 2, blockY + 2).equals(Color.WHITE)) {
 					playing = false;
-					endGame = true;
+					nameEnter = true;
 					return;
 				}
 				return;
 			}
-			
-			
+
 		}
-		
-		
+
 	}
 
 	public int nextBlockX() {
@@ -284,6 +297,16 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				playing = true;
 				paused = false;
 			}
+		} else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD
+				&& nameEnter) {
+
+			if (pName.length() < 10) {
+				letter = e.getKeyChar();
+
+				letter = Character.toUpperCase(letter);
+				pName = pName.concat(letter.toString());
+			}
+
 		}
 	}
 
@@ -303,9 +326,32 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
 			reset();
-			startGame = false;
-			endGame = false;
-			playing = true;
+			if (endGame) {
+
+				startGame = false;
+				playing = true;
+				nameEnter = false;
+				highScores = false;
+				endGame = false;
+				pName = "";
+
+			} else if (nameEnter) {
+				nameEnter = false;
+				highScores = true;
+				scores.setScores(timeSeconds, pName);
+				
+				
+			} else if (highScores) {
+
+				highScores = false;
+				endGame = true;
+			} else {
+				timeSplit = 0;
+				timeSeconds = 0;
+				startGame = false;
+				playing = true;
+
+			}
 
 		}
 
@@ -321,15 +367,15 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		shapeGroupX.clear();
 		shapeGroupX.add(500);
 		shapeGroupX.add(500 + spacing);
-//		shapeGroupX.add(500 + spacing * 2);
+		// shapeGroupX.add(500 + spacing * 2);
 
 		shapeBlocks.clear();
 		shapeBlocks.add(new Shape());
 		shapeBlocks.add(new Shape());
-//		shapeBlocks.add(new Shape());
+		// shapeBlocks.add(new Shape());
 
-		timeSplit = 0;
-		timeSeconds = 0;
+		//timeSplit = 0;
+		//timeSeconds = 0;
 
 	}
 
@@ -338,7 +384,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		int width = (shapeWidth + borderThickness) * shapeBlocks.get(0).w + 20;
 		int[] x = { shapeGroupX.get(0) - 20, width };
 		Arrays.sort(x);
-//		System.out.println("[" + x[0] + ", " + x[1] + "]");
+		// System.out.println("[" + x[0] + ", " + x[1] + "]");
 		return x;
 
 	}
