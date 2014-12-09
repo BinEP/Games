@@ -1,21 +1,21 @@
-package goFish;
+package war;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-public class GoFishRunner {
+public class WarRunner {
 
 	public static void main(String[] args) {
 
 		
-		JFrame frame = new JFrame("GO FISH");
+		JFrame frame = new JFrame("WAR");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.setAlwaysOnTop(true);
+		//frame.setAlwaysOnTop(true);
 		
-		GoFishPanel GoFishPanel = new GoFishPanel();
-		frame.add(GoFishPanel, BorderLayout.CENTER);
+		WarPanel WarPanel = new WarPanel();
+		frame.add(WarPanel, BorderLayout.CENTER);
 		
 		frame.setSize(500, 500);
 		frame.setVisible(true);
