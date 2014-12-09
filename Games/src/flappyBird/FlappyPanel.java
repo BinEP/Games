@@ -27,7 +27,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean nameEnter = false;
 	private boolean highScores = false;
 
-	private ScoreInfo scores = new ScoreInfo("gameName");
+	private ScoreInfo scores = new ScoreInfo("flappy");
 	private String pName = "";
 	private Character letter;
 
@@ -50,6 +50,10 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 
 	private int ballSpeed = 5;
 	private int holeSpeed = 4;
+
+	private int pVelocity = 0;
+	private int jumpVelocity = -10;
+	private double gravity = 1;
 
 	private int timeSplit = 0;
 	private int timeSeconds = 0;
@@ -82,56 +86,37 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 			int nextBallCenterX = nextBallX + diameter / 2;
 			int nextBallCenterY = nextBallY + diameter / 2;
 
-			int leftX = ballX + deltaX;
-			int rightX = ballX + deltaX + diameter;
-			int topY = ballY + deltaY;
-			int bottomY = ballY + deltaY + diameter;
-			/*
-			 * Color topLeftColor = getColor(leftX + buffer, topY + buffer);
-			 * Color topRightColor = getColor(rightX - buffer, topY + buffer);
-			 * Color bottomLeftColor = getColor(leftX + buffer, bottomY -
-			 * buffer); Color bottomRightColor = getColor(rightX - buffer,
-			 * bottomY - buffer);
-			 */
-			// System.out.println(topRightColor.toString() + "   ");
+			deltaY += gravity;
+			// ballY += deltaY;
 
-			/*
-			 * if (topLeftColor.equals(Color.WHITE) ||
-			 * topRightColor.equals(Color.WHITE) ||
-			 * bottomLeftColor.equals(Color.WHITE) ||
-			 * bottomRightColor.equals(Color.WHITE)) { playing = false; endGame
-			 * = true;
-			 * 
-			 * }
-			 */
+//			int leftX = ballX + deltaX;
+//			int rightX = ballX + deltaX + diameter;
+//			int topY = ballY + deltaY;
+//			int bottomY = ballY + deltaY + diameter;
+//
+//			Color topLeftColor = getColor(leftX, topY);
+//			Color topRightColor = getColor(rightX, topY);
+//			Color bottomLeftColor = getColor(leftX, bottomY);
+//			Color bottomRightColor = getColor(rightX, bottomY);
+//
+//			// System.out.println(topRightColor.toString() + "   ");
+//
+//			if (topLeftColor.equals(Color.WHITE)
+//					|| topRightColor.equals(Color.WHITE)
+//					|| bottomLeftColor.equals(Color.WHITE)
+//					|| bottomRightColor.equals(Color.WHITE)) {
+//				playing = false;
+//				nameEnter = true;
+//
+//			}
+			ballY += deltaY;
 
-			if (UpPressed) {
-				deltaY = -ballSpeed;
-			} else if (DownPressed) {
-				deltaY = ballSpeed;
-			} else {
-				deltaY = 0;
-			}
-
-			// int holeLeft = holesX[currentHole];
-			// int holeRight = holesX[currentHole] + 15;
-			// int holeMiddleY = 50 + holesY[currentHole];
-			//
-			// if (holeLeft < rightX) {
-			// if (leftX < holeRight) {
-			// if ( distance(nextBallCenterX, nextBallCenterY, holeLeft + 7,
-			// holeMiddleY) > 40) {
-			// playing = false;
-			// endGame = true;
-			// }
+			// if (UpPressed) {
+			// deltaY = -ballSpeed;
+			// } else if (DownPressed) {
 			//
 			// } else {
-			// currentHole = (currentHole == 2) ? 0 : currentHole + 1;
-			// }
-			//
-			//
-			//
-			//
+			// deltaY = 0;
 			// }
 
 			for (int i = 0; i < holesX.length; i++) {
@@ -139,19 +124,6 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 				if (holesX[i] <= 0) {
 					holesX[i] = 500;
 					holesY[i] = randomY(i);
-
-				}
-
-				if (distance(nextBallCenterX, nextBallCenterY, holesX[i] + 7,
-						holesY[i]) - diameter / 2 < 0
-						|| distance(nextBallCenterX, nextBallCenterY,
-								holesX[i] + 7, holesY[i] + 100) - diameter / 2 < 0
-						|| getColor(ballX + deltaX + diameter,
-								ballY + deltaY + diameter / 2).equals(
-								Color.WHITE)) {
-
-					playing = false;
-					nameEnter = true;
 
 				}
 
@@ -170,8 +142,10 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 			if (ballY + deltaY + diameter > 0)
 				ballY += deltaY;
 
-			// int ballSpeedChange = (int) (timeSeconds / 10);
-			// System.out.println(ballSpeed);
+			if (ballY > 460) {
+				playing = false;
+				nameEnter = true;
+			}
 
 		}
 		repaint();
@@ -217,7 +191,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 			 * g.fillRect(rightX, topY, 1, 1); g.fillRect(rightX, bottomY, 1,
 			 * 1);
 			 */
-
+			g.fillRect(0, 460, 500, 20);
 			for (int i = 0; i < holesX.length; i++) {
 
 				g.setColor(Color.WHITE);
@@ -267,19 +241,20 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	public void keyPressed(KeyEvent e) {
 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			UpPressed = true;
+			// UpPressed = true;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			DownPressed = true;
+			// DownPressed = true;
 
 		} else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD
-				&& nameEnter) {
+
+		&& nameEnter) {
 
 			if (pName.length() < 10) {
 				letter = e.getKeyChar();
@@ -294,10 +269,16 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			UpPressed = false;
+			// UpPressed = false;
+			// pVelocity = -10;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			DownPressed = false;
+			// DownPressed = false;
+
+		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+
+			deltaY = jumpVelocity;
+			System.out.println(deltaY);
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
@@ -309,6 +290,9 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 				}
 				holeSpeed = 4;
 				ballSpeed = 5;
+				ballY = 250;
+				pVelocity = 0;
+				deltaY = 0;
 				timeSplit = 0;
 				timeSeconds = 0;
 				startGame = false;
@@ -329,6 +313,12 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 			} else {
 				startGame = false;
 				playing = true;
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 
