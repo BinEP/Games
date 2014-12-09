@@ -266,7 +266,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == prevLoseKey) {
 
 			playing = false;
-			endGame = true;
+			nameEnter = true;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
 
