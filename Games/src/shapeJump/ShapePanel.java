@@ -36,6 +36,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int shapeSpeed = 5;
 	private int spacing = 250;
+	private int numOfShapes = 2;
 	// private int pos = nextBlockX();
 
 	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>();
@@ -72,12 +73,14 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	public ShapePanel() {
 
 		setBackground(Color.BLACK);
-		shapeGroupX.add(500);
-		shapeGroupX.add(500 + spacing);
+		for (int i = 0; i < numOfShapes; i++) {
+		shapeGroupX.add(500 + spacing * i);
+		shapeBlocks.add(new Shape());
+		}
 		// shapeGroupX.add(500 + spacing * 2);
 
-		shapeBlocks.add(new Shape());
-		shapeBlocks.add(new Shape());
+		
+//		shapeBlocks.add(new Shape());
 		// shapeBlocks.add(new Shape());
 
 		setFocusable(true);
@@ -365,13 +368,16 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	public void reset() {
 
 		shapeGroupX.clear();
-		shapeGroupX.add(500);
-		shapeGroupX.add(500 + spacing);
+		shapeBlocks.clear();
+		for (int i = 0; i < numOfShapes; i++) {
+			shapeGroupX.add(500 + spacing * i);
+			shapeBlocks.add(new Shape());
+			}
 		// shapeGroupX.add(500 + spacing * 2);
 
-		shapeBlocks.clear();
-		shapeBlocks.add(new Shape());
-		shapeBlocks.add(new Shape());
+		
+//		shapeBlocks.add(new Shape());
+//		shapeBlocks.add(new Shape());
 		// shapeBlocks.add(new Shape());
 
 		//timeSplit = 0;
