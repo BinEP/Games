@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 import pong.PongPanel;
 
-public class HoleRunner {
+public class FlappyRunner {
 
 	public static void main(String[] args) {
 
@@ -15,9 +15,9 @@ public class HoleRunner {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		
-		HolePanel HolePanel = new HolePanel();
+		FlappyPanel FlappyPanel = new FlappyPanel();
 		//wWebPong pongPanel = new WebPong();
-		frame.add(HolePanel, BorderLayout.CENTER);
+		frame.add(FlappyPanel, BorderLayout.CENTER);
 		
 		frame.setSize(500, 500);
 		frame.setVisible(true);

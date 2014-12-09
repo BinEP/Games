@@ -16,7 +16,7 @@ import javax.swing.Timer;
 
 import utilityClasses.*;
 
-public class HolePanel extends JPanel implements ActionListener, KeyListener {
+public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 
 	private boolean UpPressed = false;
 	private boolean DownPressed = false;
@@ -55,7 +55,7 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 	private int timeSeconds = 0;
 	private boolean paused = false;
 
-	public HolePanel() {
+	public FlappyPanel() {
 
 		setBackground(Color.BLACK);
 
