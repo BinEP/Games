@@ -7,6 +7,7 @@ public class Shape {
 	public int h;
 	public int w;
 	public int numOfShapes = 20;
+	public int[][] topXY;
 
 	public Shape() {
 		int shapeNum = (int) (Math.random() * (numOfShapes + 1));
@@ -89,6 +90,8 @@ public class Shape {
 		y = y1;
 		h = 1;
 		w = 1;
+		int[][] topXYf = {{1, 1}};
+		topXY = topXYf;
 
 	}
 
@@ -102,6 +105,8 @@ public class Shape {
 		y = y1;
 		h = 2;
 		w = 1;
+		int[][] topXYf = {{1, 2}};
+		topXY = topXYf;
 	}
 
 	public void OnexThree() {
@@ -114,6 +119,8 @@ public class Shape {
 		y = y1;
 		h = 3;
 		w = 1;
+		int[][] topXYf = {{1, 3}};
+		topXY = topXYf;
 		
 	}
 
@@ -125,6 +132,8 @@ public class Shape {
 		y = y1;
 		h = 1;
 		w = 2;
+		int[][] topXYf = {{1, 1}, {2, 1}};
+		topXY = topXYf;
 	}
 
 	public void TwoxTwo() {
@@ -136,6 +145,8 @@ public class Shape {
 		y = y1;
 		h = 2;
 		w = 2;
+		int[][] topXYf = {{1, 2}, {2, 2}};
+		topXY = topXYf;
 	}
 
 	public void TwoxThree() {
@@ -148,6 +159,8 @@ public class Shape {
 		y = y1;
 		h = 3;
 		w = 2;
+		int[][] topXYf = {{1, 3}, {2, 3}};
+		topXY = topXYf;
 	}
 
 	public void ThreexOne() {
@@ -158,6 +171,8 @@ public class Shape {
 		y = y1;
 		h = 1;
 		w = 3;
+		int[][] topXYf = {{1, 1}, {2, 1}, {3, 1}};
+		topXY = topXYf;
 	}
 
 	public void ThreexTwo() {
@@ -169,6 +184,8 @@ public class Shape {
 		y = y1;
 		h = 2;
 		w = 3;
+		int[][] topXYf = {{1, 2}, {2, 2}, {3, 2}};
+		topXY = topXYf;
 	}
 
 	public void ThreexThree() {
@@ -181,6 +198,8 @@ public class Shape {
 		y = y1;
 		h = 3;
 		w = 3;
+		int[][] topXYf = {{1, 3}, {2, 3}, {3, 3}};
+		topXY = topXYf;
 	}
 
 	public void TwoStep() {
@@ -193,6 +212,8 @@ public class Shape {
 		y = y1;
 		h = 2;
 		w = 2;
+		int[][] topXYf = {{1, 1}, {2, 2}};
+		topXY = topXYf;
 
 	}
 	
@@ -206,6 +227,8 @@ public class Shape {
 		y = y1;
 		h = 2;
 		w = 2;
+		int[][] topXYf = {{1, 2}, {2, 1}};
+		topXY = topXYf;
 
 	}
 
@@ -220,6 +243,8 @@ public class Shape {
 		y = y1;
 		h = 3;
 		w = 3;
+		int[][] topXYf = {{1, 1}, {2, 2}, {3, 3}};
+		topXY = topXYf;
 
 	}
 
@@ -234,6 +259,8 @@ public class Shape {
 		y = y1;
 		h = 3;
 		w = 3;
+		int[][] topXYf = {{1, 3}, {2, 2}, {3, 1}};
+		topXY = topXYf;
 
 	}
 	
@@ -248,6 +275,8 @@ public class Shape {
 		y = y1;
 		h = 2;
 		w = 3;
+		int[][] topXYf = {{1, 1}, {2, 2}, {3, 1}};
+		topXY = topXYf;
 
 	}
 	
@@ -262,6 +291,8 @@ public class Shape {
 		y = y1;
 		h = 2;
 		w = 3;
+		int[][] topXYf = {{1, 2}, {2, 2}, {3, 2}};
+		topXY = topXYf;
 
 	}
 	
@@ -276,6 +307,8 @@ public class Shape {
 		y = y1;
 		h = 3;
 		w = 3;
+		int[][] topXYf = {{1, 1}, {2, 3}, {3, 1}};
+		topXY = topXYf;
 
 	}
 	
@@ -290,6 +323,8 @@ public class Shape {
 		y = y1;
 		h = 3;
 		w = 3;
+		int[][] topXYf = {{1, 3}, {2, 3}, {3, 3}};
+		topXY = topXYf;
 
 	}
 	
@@ -304,6 +339,8 @@ public class Shape {
 		y = y1;
 		h = 2;
 		w = 3;
+		int[][] topXYf = {{1, 2}, {2, 2}, {3, 1}};
+		topXY = topXYf;
 
 	}
 	
@@ -318,6 +355,8 @@ public class Shape {
 		y = y1;
 		h = 2;
 		w = 3;
+		int[][] topXYf = {{1, 1}, {2, 2}, {3, 2}};
+		topXY = topXYf;
 
 	}
 	
@@ -332,6 +371,8 @@ public class Shape {
 		y = y1;
 		h = 3;
 		w = 3;
+		int[][] topXYf = {{1, 2}, {2, 3}, {3, 2}};
+		topXY = topXYf;
 
 	}
 
