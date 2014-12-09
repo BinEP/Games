@@ -175,6 +175,7 @@ public class ScoreInfo {
 				dots = dots.concat(".");
 			}
 			dots = dots.concat(".");
+
 			// CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
 			// System.out.println(pIndex);
 			// Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;

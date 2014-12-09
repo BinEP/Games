@@ -1,1 +1,4 @@
 bin/
+*.class
+
+Games/bin/chooseYourOwnAdventure/ChooseYourOwnAdventureRunner.class
