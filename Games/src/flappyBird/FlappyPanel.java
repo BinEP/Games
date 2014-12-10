@@ -26,6 +26,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean endGame = false;
 	private boolean nameEnter = false;
 	private boolean highScores = false;
+	private boolean firstJump = false;
 
 	private ScoreInfo scores = new ScoreInfo("flappy");
 	private String pName = "";
@@ -40,9 +41,9 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	private int[] holesY = { 220, 270, 250 };
 
 	private int ballX = 20;
-	private int ballY = 240;
+	private double ballY = 240;
 	private int deltaX = 0;
-	private int deltaY = 0;
+	private double deltaY = 0;
 	private int diameter = 20;
 	private int buffer = 0;
 
@@ -52,8 +53,11 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	private int holeSpeed = 4;
 
 	private int pVelocity = 0;
-	private int jumpVelocity = -10;
-	private double gravity = 1;
+	private int jumpVelocity = -5;
+	private double gravity = .3;
+	private double gravityUp = .6;
+	private double gravityDown = .6;
+	private double prevBallY = ballY;
 
 	private int timeSplit = 0;
 	private int timeSeconds = 0;
@@ -80,35 +84,40 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void moves() {
 
-		if (playing) {
-			int nextBallX = ballX + deltaX;
-			int nextBallY = ballY + deltaY;
-			int nextBallCenterX = nextBallX + diameter / 2;
-			int nextBallCenterY = nextBallY + diameter / 2;
+		if (playing && firstJump) {
+//			int nextBallX = ballX + deltaX;
+//			int nextBallY = (int) (ballY + deltaY);
+//			int nextBallCenterX = nextBallX + diameter / 2;
+//			int nextBallCenterY = nextBallY + diameter / 2;
+			prevBallY = ballY;
+			
+			if (deltaY < -jumpVelocity + (int) (jumpVelocity/5)) {
 
-			deltaY += gravity;
+				deltaY += gravity;
+			}
+			System.out.println(deltaY);
 			// ballY += deltaY;
 
-//			int leftX = ballX + deltaX;
-//			int rightX = ballX + deltaX + diameter;
-//			int topY = ballY + deltaY;
-//			int bottomY = ballY + deltaY + diameter;
-//
-//			Color topLeftColor = getColor(leftX, topY);
-//			Color topRightColor = getColor(rightX, topY);
-//			Color bottomLeftColor = getColor(leftX, bottomY);
-//			Color bottomRightColor = getColor(rightX, bottomY);
-//
-//			// System.out.println(topRightColor.toString() + "   ");
-//
-//			if (topLeftColor.equals(Color.WHITE)
-//					|| topRightColor.equals(Color.WHITE)
-//					|| bottomLeftColor.equals(Color.WHITE)
-//					|| bottomRightColor.equals(Color.WHITE)) {
-//				playing = false;
-//				nameEnter = true;
-//
-//			}
+			// int leftX = ballX + deltaX;
+			// int rightX = ballX + deltaX + diameter;
+			// int topY = ballY + deltaY;
+			// int bottomY = ballY + deltaY + diameter;
+			//
+			// Color topLeftColor = getColor(leftX, topY);
+			// Color topRightColor = getColor(rightX, topY);
+			// Color bottomLeftColor = getColor(leftX, bottomY);
+			// Color bottomRightColor = getColor(rightX, bottomY);
+			//
+			// // System.out.println(topRightColor.toString() + "   ");
+			//
+			// if (topLeftColor.equals(Color.WHITE)
+			// || topRightColor.equals(Color.WHITE)
+			// || bottomLeftColor.equals(Color.WHITE)
+			// || bottomRightColor.equals(Color.WHITE)) {
+			// playing = false;
+			// nameEnter = true;
+			//
+			// }
 			ballY += deltaY;
 
 			// if (UpPressed) {
@@ -167,10 +176,10 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
-			CenteredText title1 = new CenteredText("HOLE IN THE", 500, 500, g,
+			CenteredText title1 = new CenteredText("FLAPPY", 500, 500, g,
 					true, 150);
 			// g.drawString("HOLE IN THE", 60, 210);
-			CenteredText title2 = new CenteredText("WALL", 500, 500, g, true,
+			CenteredText title2 = new CenteredText("BIRD", 500, 500, g, true,
 					200);
 			// g.drawString("WALL", 180, 260);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
@@ -202,7 +211,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 			}
 			g.setColor(Color.WHITE);
 
-			g.fillOval(ballX, ballY, diameter, diameter);
+			g.fillOval(ballX, (int) prevBallY, diameter, diameter);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 15));
 			g.drawString(String.valueOf(timeSeconds), 5, 15);
@@ -241,7 +250,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -278,7 +287,8 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 
 			deltaY = jumpVelocity;
-			System.out.println(deltaY);
+			firstJump = true;
+//			System.out.println(deltaY);
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
@@ -300,6 +310,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 				nameEnter = false;
 				highScores = false;
 				endGame = false;
+				firstJump = false;
 				pName = "";
 
 			} else if (nameEnter) {
@@ -313,12 +324,6 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 			} else {
 				startGame = false;
 				playing = true;
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
 			}
 
