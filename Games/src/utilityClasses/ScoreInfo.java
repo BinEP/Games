@@ -19,18 +19,21 @@ import java.lang.Class;
 public class ScoreInfo {
 
 	private String gameName;
+	private String gameScores;
+	private String gamePeople;
 
 	private Character letter;
 	private boolean nameEnter = false;
 
 	public ScoreInfo(String gN) {
 		gameName = gN;
+		gameScores = gameName.concat("Scores.txt");
+		gamePeople = gameName.concat("People.txt");
+		verifyFile();
+		
 	}
 
 	public void setScores(int score, String person) {
-
-		String gameScores = gameName.concat("Scores.txt");
-		String gamePeople = gameName.concat("People.txt");
 
 		try {
 			Scanner scoreContents = new Scanner(new File(gameScores));
@@ -82,8 +85,6 @@ public class ScoreInfo {
 
 	public ArrayList<String[]> getScores() {
 
-		String gameScores = gameName.concat("Scores.txt");
-		String gamePeople = gameName.concat("People.txt");
 		try {
 			Scanner scoreContents = new Scanner(new File(gameScores));
 
@@ -153,7 +154,7 @@ public class ScoreInfo {
 	public void drawScores(Graphics g) {
 
 		ArrayList<String[]> results = getScores();
-		g.setFont(new Font("Joystix", Font.BOLD, 20));
+		g.setFont(new Font("Joystix", Font.BOLD, 17));
 		int i = 0;
 		int yStart = 40;
 		int xStart = 30;
@@ -174,7 +175,8 @@ public class ScoreInfo {
 			for (int n = 0; n < 11 - c[1].length() - m + 1; n++) {
 				dots = dots.concat(".");
 			}
-			dots = dots.concat("...");
+			dots = dots.concat(".");
+
 			// CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
 			// System.out.println(pIndex);
 			// Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;
@@ -208,6 +210,24 @@ public class ScoreInfo {
 			}
 			g.fillRect((barSpace * i) + startText, 442, barWidth, 8);
 		}
+	}
+	
+	public void verifyFile() {
+		
+		File scoreFile = new File(gameScores);
+		File peopleFile = new File(gamePeople);
+		
+			try {
+				scoreFile.createNewFile();
+				peopleFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
+		
+		
 	}
 
 	// public static void main(String[] args) {
