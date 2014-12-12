@@ -1,6 +1,6 @@
 package goFish;
 
-import utilityClasses.CenteredText;
+import utilityClasses.*;
 
 import java.awt.Color;
 import java.awt.Font;

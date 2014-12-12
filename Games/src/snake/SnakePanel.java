@@ -77,7 +77,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 
 		moves();
 	}
@@ -89,7 +88,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			head.x += deltaX;
 			head.y += deltaY;
 
-			// System.out.println("(" + head.x + ", " + head.y + ")");
 
 			for (int i = snakeBody.size() - 1; i > 0; i--) {
 
@@ -100,41 +98,14 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				}
 				snakeBody.set(i, snakeBody.get(i - 1));
 
-				// System.out.print("(" + x.x + ", " + x.y + ") ");
 
 			}
 			snakeBody.set(0, new Point(head.x, head.y));
 
-			/*
-			 * for (Point x : snakeBody) { //snakeBody.set(i,
-			 * snakeBody.get(i-1));
-			 * 
-			 * 
-			 * System.out.print("(" + x.x + ", " + x.y + ") ");
-			 * 
-			 * }
-			 */
-			// System.out.println();
-
-			// System.out.println();
-
-			/*
-			 * for (int i = 0; i < snakeBody.size(); i++) {
-			 * 
-			 * Point body = snakeBody.get(i); body.x += deltaX; body.y +=
-			 * deltaY;
-			 * 
-			 * snakeBody.set(i, body); }
-			 */
-			/*
-			 * Point headOfBody = new Point(); headOfBody = snakeBody.get(0);
-			 */
+		
 			int nextHeadX = head.x + deltaX;
 			int nextHeadY = head.y + deltaY;
-			/*
-			 * if (Math.abs(nextHeadX - fruitX) < 5 && Math.abs(nextHeadY -
-			 * fruitY) < 5) { addBodySquare(); }
-			 */
+			
 
 			if (Math.abs(head.x - fruitX) < 5 && Math.abs(head.y - fruitY) < 5) {
 				addBodySquare();
@@ -250,15 +221,15 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				// g.setColor(Color.WHITE);
 				g.setColor(fruitColor);
 				g.fillRect(fruitX + 1, fruitY + 1, bodySize - 2, bodySize - 2);
+				
+			}
+			if (paused) {
+				g.setFont(new Font("Joystix", Font.BOLD, 60));
+				g.setColor(Color.WHITE);
+				CenteredText pause = new CenteredText("Paused", 500, 500,
+						g, true, 200);
 
-				if (paused) {
-					g.setFont(new Font("Joystix", Font.BOLD, 60));
-					g.setColor(Color.WHITE);
-					CenteredText pause = new CenteredText("Paused", 500, 500,
-							g, true, 200);
-
-					drawColorOptions(g, 300);
-				}
+				drawColorOptions(g, 300);
 			}
 
 		} else if (endGame) {
@@ -295,7 +266,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == prevLoseKey) {
 
 			playing = false;
-			endGame = true;
+			nameEnter = true;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
 
@@ -346,7 +317,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			} else if (nameEnter) {
 				nameEnter = false;
 				highScores = true;
-				scores.setScores(snakeBody.size(), pName);
+				scores.setScores(score, pName);
 			} else if (highScores) {
 
 				highScores = false;
