@@ -6,7 +6,6 @@ public class ChooseYourOwnAdventureRunner {
 
 	public static void main(String[] args) throws InterruptedException {
 		
-		@SuppressWarnings("resource")
 		Scanner console = new Scanner(System.in);
 		String answer = "";
 		int choice = 0;
