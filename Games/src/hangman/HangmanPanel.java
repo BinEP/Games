@@ -24,7 +24,7 @@ import javax.swing.Timer;
 import utilityClasses.*;
 
 @SuppressWarnings("serial")
-public class Hangman extends JPanel implements KeyListener, ActionListener {
+public class HangmanPanel extends JPanel implements KeyListener, ActionListener {
 
 	public static ArrayList<Integer[]> drawHangman = new ArrayList<Integer[]>();
 	private boolean startGame = true;
@@ -87,7 +87,7 @@ public class Hangman extends JPanel implements KeyListener, ActionListener {
 	private Color endLetters = Color.WHITE;
 	private Color endUnderlines = Color.WHITE;	
 
-	public Hangman() throws FileNotFoundException {
+	public HangmanPanel() throws FileNotFoundException {
 
 		newWordSetup();
 
