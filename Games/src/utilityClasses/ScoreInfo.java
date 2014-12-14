@@ -224,10 +224,6 @@ public class ScoreInfo {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		
-		
-		
 	}
 
 	// public static void main(String[] args) {
