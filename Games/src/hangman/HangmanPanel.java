@@ -1,4 +1,5 @@
 package hangman;
+
 //New hangman Game!!!
 //Added a comment!!!
 import java.awt.Color;
@@ -30,12 +31,12 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 	private boolean startGame = true;
 	private boolean playing = false;
 	private boolean endGame = false;
-	
+
 	private boolean waitForLetter = true;
 	private boolean guessError = false;
 	private boolean nameEnter = false;
 	private boolean highScores = false;
-	
+
 	Scanner console = new Scanner(System.in);
 	private int wSW = 700;
 	private int wSH = 700;
@@ -48,44 +49,50 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 	private String pName = "";
 	private int pIndex = 0;
 
+	private int age = 0;
+	private String ageS = "";
+	private Character ageL;
+	private boolean ageEnter = false;
+
 	private boolean win;
 	private ScoreInfo scores = new ScoreInfo("hangman");
-	
+
 	private Color background = Color.BLACK;
-	
+
 	private Color topHang = Color.WHITE;
 	private Color sideHang = Color.WHITE;
 	private Color bottomHang = Color.WHITE;
-	
-//	private Color head = Color.RED;
-//	private Color chest = Color.GREEN;
-//	private Color arms = Color.RED;
-//	private Color legs = Color.RED;
-//	private Color shoulders = Color.GREEN;
+
+	// private Color head = Color.RED;
+	// private Color chest = Color.GREEN;
+	// private Color arms = Color.RED;
+	// private Color legs = Color.RED;
+	// private Color shoulders = Color.GREEN;
 	private Color head = Color.WHITE;
 	private Color chest = Color.WHITE;
 	private Color arms = Color.WHITE;
 	private Color legs = Color.WHITE;
 	private Color shoulders = Color.WHITE;
 	private Color addedLimb = Color.WHITE;
-	private Color[] body = {legs, legs, arms, shoulders, arms, shoulders, chest, head};
-	
+	private Color[] body = { legs, legs, arms, shoulders, arms, shoulders,
+			chest, head };
+
 	private Color startTitle = Color.WHITE;
 	private Color startEnter = Color.WHITE;
-	
+
 	private Color wordText = Color.WHITE;
 	private Color guessText = Color.WHITE;
 	private Color underlines = Color.WHITE;
 	private Color guessInst = Color.WHITE;
-	
+
 	private Color enterNameInst = Color.WHITE;
 	private Color nameUnder = Color.WHITE;
 	private Color nameLetters = Color.WHITE;
-	
+
 	private Color endNotif = Color.WHITE;
 	private Color endRestart = Color.WHITE;
 	private Color endLetters = Color.WHITE;
-	private Color endUnderlines = Color.WHITE;	
+	private Color endUnderlines = Color.WHITE;
 
 	public HangmanPanel() throws FileNotFoundException {
 
@@ -100,36 +107,38 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 		timer.start();
 
 	}
-	
-	public ArrayList<String[]> scoreOrder(ArrayList<Integer> scores, ArrayList<String> people) {
-		
+
+	public ArrayList<String[]> scoreOrder(ArrayList<Integer> scores,
+			ArrayList<String> people) {
+
 		ArrayList<String[]> results = new ArrayList<String[]>();
 		for (int i = 0; i < people.size(); i++) {
-			
-			String[] sp = {scores.get(i).toString(), people.get(i)};
+
+			String[] sp = { scores.get(i).toString(), people.get(i) };
 			results.add(sp);
-			
+
 		}
-		
-		Collections.sort(results, new Comparator<String[]>(){
-			   @Override
-			   public int compare(String[] person1, String[] person2) {
-			         return person1[1].compareTo(person2[1]);
-			     }
-			 });
-		Collections.sort(results, new Comparator<String[]>(){
-			   @Override
-			   public int compare(String[] score1, String[] score2) {
-			         return Integer.parseInt(score1[0]) - Integer.parseInt(score2[0]);
-			     }
-			 });
-		
+
+		Collections.sort(results, new Comparator<String[]>() {
+			@Override
+			public int compare(String[] person1, String[] person2) {
+				return person1[1].compareTo(person2[1]);
+			}
+		});
+		Collections.sort(results, new Comparator<String[]>() {
+			@Override
+			public int compare(String[] score1, String[] score2) {
+				return Integer.parseInt(score1[0])
+						- Integer.parseInt(score2[0]);
+			}
+		});
+
 		return results;
 	}
 
 	public void newWordSetup() throws FileNotFoundException {
 
-		NewWord getWords = new NewWord();
+		NewWord getWords = new NewWord(age);
 		word = getWords.newWord();
 		allChars = getWords.getCharList();
 		guesses = new ArrayList<Character>();
@@ -138,9 +147,9 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 	}
 
 	public void Game() throws FileNotFoundException {
-		
+
 		if (playing) {
-			
+
 			if (!waitForLetter) {
 
 				if (!guesses.contains(letter)) {
@@ -169,7 +178,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			}
 
 		} else if (nameEnter) {
-			
+
 		}
 		repaint();
 
@@ -210,9 +219,9 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 				int x = n[0] + baseX, y = n[1] + baseY, h = n[2], w = n[3];
 				g.setColor(body[n[5]]);
 				switch (n[4]) {
-				
+
 				case 1: // square
-					
+
 					g.fillRect(x, y, w, h);
 					break;
 				case 2: // circle
@@ -222,20 +231,21 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 				}
 				i++;
 			}
-			
+
 			g.setFont(new Font("Joystix", Font.BOLD, 35));
 			i = 0;
 			for (Character c : allChars) {
-				
+
 				int x = (55 * i) + 40;
 				g.setColor(wordText);
 				CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
-				if (guesses.contains(c)) g.drawString(c.toString(), x + lx.x, 613);
+				if (guesses.contains(c))
+					g.drawString(c.toString(), x + lx.x, 613);
 				g.setColor(underlines);
 				g.fillRect(x, 615, 45, 8);
 				i++;
 			}
-			
+
 			g.setFont(new Font("Joystix", Font.BOLD, 35));
 			i = 0;
 			int yStart = 100;
@@ -244,31 +254,33 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			int l = 0;
 			g.setColor(guessInst);
 			for (Character c : guesses) {
-				
+
 				if (i > 4) {
 					l++;
 					i = 0;
 				}
 				int x = (55 * i) + xStart;
-				
+
 				CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
 				g.drawString(c.toString(), x + lx.x, (yStart - 2) + (l * lineH));
-				
+
 				i++;
 			}
 			g.setColor(guessInst);
 			g.setFont(new Font("Joystix", Font.BOLD, 18));
 			if (guessError) {
-				
-				CenteredText guess = new CenteredText("Already Guessed", 250, 200, g);
+
+				CenteredText guess = new CenteredText("Already Guessed", 250,
+						200, g);
 				g.drawString("Already Guessed", guess.x + 450, 500);
-				
+
 				CenteredText guess1 = new CenteredText("Try again", 250, 200, g);
 				g.drawString("Try Again", guess1.x + 450, 550);
 
 			} else if (waitForLetter) {
 
-				CenteredText guess = new CenteredText("Guess a Letter", 250, 150, g);
+				CenteredText guess = new CenteredText("Guess a Letter", 250,
+						150, g);
 				g.drawString("Guess a Letter", guess.x + 450, guess.y + 475);
 
 			}
@@ -282,93 +294,123 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			if (win) {
 				CenteredText win = new CenteredText("You Win!", wSW, wSH, g,
 						true, 170);
-				
+
 			} else {
-			CenteredText lose = new CenteredText("You Lose!", wSW, wSH, g,
-					true, 170);
+				CenteredText lose = new CenteredText("You Lose!", wSW, wSH, g,
+						true, 170);
 			}
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 			g.setColor(endRestart);
-			CenteredText restart = new CenteredText("Enter to Restart", wSW, wSH, g, true, 320);
+			CenteredText restart = new CenteredText("Enter to Restart", wSW,
+					wSH, g, true, 320);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 35));
 			int i = 0;
 			int tw = allChars.size() * 55;
-			int startText = (wSW - tw)/2;
+			int startText = (wSW - tw) / 2;
 			g.setColor(endLetters);
 			for (Character c : allChars) {
-				
+
 				int x = (55 * i) + startText;
-				
+
 				CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
 				g.drawString(c.toString(), x + lx.x, 470);
-				
+
 				g.fillRect(x, 472, 45, 8);
 				i++;
 			}
-			
+
 		} else if (nameEnter) {
-			
+
 			g.setColor(enterNameInst);
 			g.setFont(new Font("Joystix", Font.BOLD, 80));
-			CenteredText enter = new CenteredText("Enter", wSW, wSH, g, true, 150);
-			CenteredText enter1 = new CenteredText("Your Name", wSW, wSH, g, true, 250);
-			
+			CenteredText enter = new CenteredText("Enter", wSW, wSH, g, true,
+					150);
+			CenteredText enter1 = new CenteredText("Your Name", wSW, wSH, g,
+					true, 250);
+
 			int tw = 550;
-			int startText = (wSW - tw)/2;
+			int startText = (wSW - tw) / 2;
 			g.setFont(new Font("Joystix", Font.BOLD, 35));
-			
+
 			for (int i = 0; i < 10; i++) {
 				g.setColor(nameLetters);
 				if (pName.length() > i) {
-					CenteredText lx = new CenteredText(Character.toString(pName.charAt(i)), 45, 8, g);
-					g.drawString(Character.toString(pName.charAt(i)), (55 * i) + startText + lx.x, 470);
+					CenteredText lx = new CenteredText(Character.toString(pName
+							.charAt(i)), 45, 8, g);
+					g.drawString(Character.toString(pName.charAt(i)), (55 * i)
+							+ startText + lx.x, 470);
 				}
 				g.setColor(nameUnder);
 				g.fillRect((55 * i) + startText, 472, 45, 8);
 			}
-//			try {
-//				getScores();
-//			} catch (FileNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			// try {
+			// getScores();
+			// } catch (FileNotFoundException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
 		} else if (highScores) {
-			
-				ArrayList<String[]> results = scores.getScores();
-				pName = "";
-				g.setFont(new Font("Joystix", Font.BOLD, 20));
-				int i = 0;
-				int yStart = 40;
-				int xStart = 30;
-				int lineH = 50;
-				int l = 0;
-				int r = 1;
-				g.setColor(Color.WHITE);
-				for (String[] c : results) {
-					
-					if (l > 12) {
-						i++;
-						l = 0;
-					}
-					int x = (340 * i) + xStart;
-					String dots = "";
-					int m = String.valueOf(r).length();
-					//System.out.println(m);
-					for (int n = 0; n < 11 - c[1].length() - m + 1; n++) {
-						dots = dots.concat(".");
-					}
-					dots = dots.concat("...");
-					//CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
-					//System.out.println(pIndex);
-					Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;
-					g.setColor(col);
-					g.drawString(r + ". " + c[1] + dots + c[0], x, (yStart - 2) + (l * lineH));
-					
-					l++;
-					r++;
+
+			ArrayList<String[]> results = scores.getScores();
+			pName = "";
+			g.setFont(new Font("Joystix", Font.BOLD, 20));
+			int i = 0;
+			int yStart = 40;
+			int xStart = 30;
+			int lineH = 50;
+			int l = 0;
+			int r = 1;
+			g.setColor(Color.WHITE);
+			for (String[] c : results) {
+
+				if (l > 12) {
+					i++;
+					l = 0;
 				}
+				int x = (340 * i) + xStart;
+				String dots = "";
+				int m = String.valueOf(r).length();
+				// System.out.println(m);
+				for (int n = 0; n < 11 - c[1].length() - m + 1; n++) {
+					dots = dots.concat(".");
+				}
+				dots = dots.concat("...");
+				// CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
+				// System.out.println(pIndex);
+				Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;
+				g.setColor(col);
+				g.drawString(r + ". " + c[1] + dots + c[0], x, (yStart - 2)
+						+ (l * lineH));
+
+				l++;
+				r++;
+			}
+		} else if (ageEnter) {
+
+			g.setFont(new Font("Joystix", Font.BOLD, 40));
+			CenteredText enter = new CenteredText("Enter", wSW, wSH, g, true,
+					100);
+			CenteredText enter1 = new CenteredText("Your Age", wSW, wSH, g,
+					true, 170);
+
+			int barWidth = 35;
+			int barSpace = 10 + barWidth;
+			int letterNum = 3;
+			int tw = letterNum * barSpace;
+			int startText = (wSW - tw) / 2;
+			g.setFont(new Font("Joystix", Font.BOLD, 20));
+			for (int i = 0; i < letterNum; i++) {
+				if (ageS.length() > i) {
+					CenteredText lx = new CenteredText(Character.toString(ageS
+							.charAt(i)), barWidth, 8, g);
+					g.drawString(Character.toString(ageS.charAt(i)),
+							(barSpace * i) + startText + lx.x, 440);
+				}
+				g.fillRect((barSpace * i) + startText, 442, barWidth, 8);
+			}
+
 		}
 
 	}
@@ -391,11 +433,11 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 		switch (incorrect) {
 
 		case 6:
-//			String rightLeg = 
-//			"      \\\\\n" + 
-//			"       \\\\\n" + 
-//			"        \\\\\n" + 
-//			"         \\\\\n";
+			// String rightLeg =
+			// "      \\\\\n" +
+			// "       \\\\\n" +
+			// "        \\\\\n" +
+			// "         \\\\\n";
 			values[0] = 55;
 			values[1] = 245;
 			values[2] = 150;
@@ -404,11 +446,11 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			values[5] = 0;
 			drawHangman.add(values.clone());
 		case 5:
-//			String leftLeg = 
-//			"    //\n" + 
-//			"   //  \n" + 
-//			"  //    \n" + 
-//			" //      \n";
+			// String leftLeg =
+			// "    //\n" +
+			// "   //  \n" +
+			// "  //    \n" +
+			// " //      \n";
 			values[0] = -10;
 			values[1] = 245;
 			values[2] = 150;
@@ -417,12 +459,12 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			values[5] = 1;
 			drawHangman.add(values.clone());
 		case 4:
-//			String rightArm = 
-//			"       \\\\\n" + 
-//			"        \\\\\n" + 
-//			"         \\\\\n" + 
-//			"       \n";
-			//shoulder
+			// String rightArm =
+			// "       \\\\\n" +
+			// "        \\\\\n" +
+			// "         \\\\\n" +
+			// "       \n";
+			// shoulder
 			values[0] = 80;
 			values[1] = 95;
 			values[2] = 25;
@@ -430,7 +472,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			values[4] = 1;
 			values[5] = 2;
 			drawHangman.add(values.clone());
-			//arm
+			// arm
 			values[0] = 95;
 			values[1] = 120;
 			values[2] = 115;
@@ -439,12 +481,12 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			values[5] = 3;
 			drawHangman.add(values.clone());
 		case 3:
-//			String leftArm = 
-//			"   //\n" + 
-//			"  // \n" + 
-//			" //  \n" + 
-//			"     \n";
-			//shoulder
+			// String leftArm =
+			// "   //\n" +
+			// "  // \n" +
+			// " //  \n" +
+			// "     \n";
+			// shoulder
 			values[0] = -50;
 			values[1] = 95;
 			values[2] = 25;
@@ -452,7 +494,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			values[4] = 1;
 			values[5] = 4;
 			drawHangman.add(values.clone());
-			//arm
+			// arm
 			values[0] = -50;
 			values[1] = 120;
 			values[2] = 115;
@@ -461,25 +503,25 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			values[5] = 5;
 			drawHangman.add(values.clone());
 		case 2:
-//			String body = 
-//			"     ||\n" + 
-//			"     ||\n" + 
-//			"     ||\n" + 
-//			"     ||\n";
+			// String body =
+			// "     ||\n" +
+			// "     ||\n" +
+			// "     ||\n" +
+			// "     ||\n";
 			values[0] = -10;
 			values[1] = 95;
 			values[2] = 150;
 			values[3] = 90;
 			values[4] = 1;
 			values[5] = 6;
-//			g.setColor(chest);
+			// g.setColor(chest);
 			drawHangman.add(values.clone());
 		case 1:
-//			String head = 
-//			"    ____\n" + 
-//			"   /    \\\n" + 
-//			"  |      |\n" + 
-//			"   \\____/\n";
+			// String head =
+			// "    ____\n" +
+			// "   /    \\\n" +
+			// "  |      |\n" +
+			// "   \\____/\n";
 
 			values[0] = 0;
 			values[1] = 0;
@@ -487,12 +529,12 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			values[3] = 75;
 			values[4] = 2;
 			values[5] = 7;
-//			g.setColor(head);
+			// g.setColor(head);
 			drawHangman.add(values.clone());
 		}
 
-		
 	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 
@@ -514,20 +556,33 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 					e1.printStackTrace();
 				}
 			} else if (nameEnter) {
-				
+
 				nameEnter = false;
 				highScores = true;
-//				endGame = true;
-				
-					scores.setScores(wrongs.size(), pName);
-					
+				// endGame = true;
+
+				scores.setScores(wrongs.size(), pName);
+
 			} else if (highScores) {
-				
+
 				highScores = false;
 				endGame = true;
-//				endGame = true;
-					
+				// endGame = true;
+
+			} else if (ageEnter) {
+
+				ageEnter = false;
+				playing = true;
+				age = Integer.parseInt(ageS);
+				try {
+					newWordSetup();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 			} else {
+
 				try {
 					Game();
 				} catch (FileNotFoundException e1) {
@@ -536,20 +591,42 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			}
 
 		} else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD) {
-			
+
 			if (nameEnter) {
 				if (pName.length() < 10) {
-				letter = e.getKeyChar();
+					letter = e.getKeyChar();
 
-				letter = Character.toUpperCase(letter);
-				pName = pName.concat(letter.toString());
+					letter = Character.toUpperCase(letter);
+					pName = pName.concat(letter.toString());
+				}
+			} else if (ageEnter) {
+
+				ageL = e.getKeyChar();
+
+				ageL = Character.toUpperCase(ageL);
+				try {
+
+					Integer.parseInt(ageL.toString());
+					if (ageS.length() < 3)
+						ageS = ageS.concat(ageL.toString());
+
+				} catch (NumberFormatException e2) {
+
+				}
+
+			} else if (startGame) {
+				if (e.getKeyChar() == 'a') {
+					startGame = false;
+					ageEnter = true;
 				}
 			} else {
-			letter = e.getKeyChar();
-			letter = Character.toUpperCase(letter);
-			waitForLetter = false;
+
+				letter = e.getKeyChar();
+				letter = Character.toUpperCase(letter);
+				waitForLetter = false;
 			}
 		}
+
 	}
 
 	@Override

@@ -143,8 +143,8 @@ public class ScoreInfo {
 		Collections.sort(results, new Comparator<String[]>() {
 			@Override
 			public int compare(String[] score1, String[] score2) {
-				return Integer.parseInt(score2[0])
-						- Integer.parseInt(score1[0]);
+				return Integer.parseInt(score1[0])
+						- Integer.parseInt(score2[0]);
 			}
 		});
 
