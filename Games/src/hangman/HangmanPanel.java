@@ -108,34 +108,6 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 
 	}
 
-	public ArrayList<String[]> scoreOrder(ArrayList<Integer> scores,
-			ArrayList<String> people) {
-
-		ArrayList<String[]> results = new ArrayList<String[]>();
-		for (int i = 0; i < people.size(); i++) {
-
-			String[] sp = { scores.get(i).toString(), people.get(i) };
-			results.add(sp);
-
-		}
-
-		Collections.sort(results, new Comparator<String[]>() {
-			@Override
-			public int compare(String[] person1, String[] person2) {
-				return person1[1].compareTo(person2[1]);
-			}
-		});
-		Collections.sort(results, new Comparator<String[]>() {
-			@Override
-			public int compare(String[] score1, String[] score2) {
-				return Integer.parseInt(score1[0])
-						- Integer.parseInt(score2[0]);
-			}
-		});
-
-		return results;
-	}
-
 	public void newWordSetup() throws FileNotFoundException {
 
 		NewWord getWords = new NewWord(age);
@@ -380,7 +352,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 				// CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
 				// System.out.println(pIndex);
 				Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;
-				g.setColor(col);
+//				g.setColor(col);
 				g.drawString(r + ". " + c[1] + dots + c[0], x, (yStart - 2)
 						+ (l * lineH));
 
