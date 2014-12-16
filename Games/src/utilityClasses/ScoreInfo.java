@@ -22,13 +22,10 @@ public class ScoreInfo {
 	private String gameScores;
 	private String gamePeople;
 
-	private Character letter;
-	private boolean nameEnter = false;
-
 	public ScoreInfo(String gN) {
 		gameName = gN;
-		gameScores = gameName.concat("Scores.txt");
-		gamePeople = gameName.concat("People.txt");
+		gameScores = "InfoFiles/" + gameName.concat("Scores.txt");
+		gamePeople = "InfoFiles/" + gameName.concat("People.txt");
 		verifyFile();
 		
 	}
