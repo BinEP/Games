@@ -136,10 +136,12 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 						playing = false;
 						win = true;
 						nameEnter = true;
+						clearConsole();
 					} else if (wrongs.size() > 6) {
 						playing = false;
 						win = false;
 						nameEnter = true;
+						clearConsole();
 					}
 
 				} else {
@@ -525,6 +527,17 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 
 	}
 
+	public void clearConsole() {
+		
+		
+		int i = 0;
+		while (i < 100) {
+			System.out.println();
+			i++;
+		}
+		
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 
