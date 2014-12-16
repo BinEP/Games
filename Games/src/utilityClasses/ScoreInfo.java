@@ -22,13 +22,10 @@ public class ScoreInfo {
 	private String gameScores;
 	private String gamePeople;
 
-	private Character letter;
-	private boolean nameEnter = false;
-
 	public ScoreInfo(String gN) {
 		gameName = gN;
-		gameScores = gameName.concat("Scores.txt");
-		gamePeople = gameName.concat("People.txt");
+		gameScores = "InfoFiles/" + gameName.concat("Scores.txt");
+		gamePeople = "InfoFiles/" + gameName.concat("People.txt");
 		verifyFile();
 		
 	}
@@ -143,8 +140,8 @@ public class ScoreInfo {
 		Collections.sort(results, new Comparator<String[]>() {
 			@Override
 			public int compare(String[] score1, String[] score2) {
-				return Integer.parseInt(score2[0])
-						- Integer.parseInt(score1[0]);
+				return Integer.parseInt(score1[0])
+						- Integer.parseInt(score2[0]);
 			}
 		});
 
@@ -224,10 +221,6 @@ public class ScoreInfo {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		
-		
-		
 	}
 
 	// public static void main(String[] args) {
