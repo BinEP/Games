@@ -53,6 +53,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 	private String ageS = "";
 	private Character ageL;
 	private boolean ageEnter = false;
+	private boolean specialGame = false;
 
 	private boolean win;
 	private ScoreInfo scores = new ScoreInfo("hangman");
@@ -352,7 +353,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 				// CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
 				// System.out.println(pIndex);
 				Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;
-//				g.setColor(col);
+				// g.setColor(col);
 				g.drawString(r + ". " + c[1] + dots + c[0], x, (yStart - 2)
 						+ (l * lineH));
 
@@ -383,6 +384,23 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 				g.fillRect((barSpace * i) + startText, 442, barWidth, 8);
 			}
 
+		} else if (specialGame) {
+			
+			g.setFont(new Font("Joystix", Font.BOLD, 40));
+			
+			CenteredText s1 = new CenteredText("This is a special", wSW, wSH, g,
+					true, 150);
+			CenteredText s2 = new CenteredText("Game just for", wSW, wSH, g,
+					true, 250);
+			CenteredText s3 = new CenteredText("your age group", wSW, wSH, g,
+					true, 350);
+			
+			g.setFont(new Font("Joystix", Font.BOLD, 50));
+			CenteredText enter1 = new CenteredText("Enter to begin", wSW, wSH, g,
+					true, 500);
+			
+			
+			
 		}
 
 	}
@@ -544,7 +562,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			} else if (ageEnter) {
 
 				ageEnter = false;
-				playing = true;
+				specialGame = true;
 				age = Integer.parseInt(ageS);
 				try {
 					newWordSetup();
@@ -553,6 +571,12 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 					e1.printStackTrace();
 				}
 
+			} else if (specialGame) {
+
+				specialGame = false;
+				playing = true;
+				
+				
 			} else {
 
 				try {
