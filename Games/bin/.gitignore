@@ -1,7 +1,3 @@
-/chooseYourOwnAdventure/
-/holeInTheWall/
-/pong/
-/snake/
-/tunnelRunner/
-/utilityClasses/
-/curvedPong/
+/Games/bin/
+*.class
+.DS_Store
