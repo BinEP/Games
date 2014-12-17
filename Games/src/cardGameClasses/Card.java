@@ -27,6 +27,16 @@ public class Card {
 		
 	}
 	
+	public Card(int s, int c) {
+		
+		suit = s;
+		card = c;
+		shown = getCardFace() + getSuitIcon();
+		col = Color.WHITE;
+		selected = false;
+		
+	}
+	
 	public String getShown() {
 		
 		return shown;
