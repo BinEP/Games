@@ -1,1 +1,4 @@
-bin/
+/Games/bin/
+*.class
+.DS_Store
+Games/.DS_Store
