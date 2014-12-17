@@ -1,7 +1,5 @@
 package cardGameClasses;
 
-import goFish.Card;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -39,7 +37,8 @@ public class Hand {
 	
 	
 	
-	public static void main(String[] args) {
-		
-	}
+//	public static void main(String[] args) {
+//		Deck d = new Deck();
+//		System.out.println(d.getDeck());
+//	}
 }

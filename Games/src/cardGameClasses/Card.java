@@ -151,7 +151,7 @@ public class Card {
 	       
 	       @Override
 	       public String toString() {
-	           return card + getSuitIcon();
+	           return getCardFace() + getSuitIcon();
 	       }
 	       
 	       @Override
@@ -166,10 +166,7 @@ public class Card {
 	    	   
 	       }
 
-	public static void main(String[] args) {
-		System.out.println('\u2665');
-		System.out.println("\u2663");
-		System.out.println("\u2666");
-		System.out.println("\u2660");
-	}
+//	public static void main(String[] args) {
+//		System.out.println(new Card());
+//	}
 }
