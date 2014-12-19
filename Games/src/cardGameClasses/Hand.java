@@ -23,7 +23,7 @@ public class Hand extends CardStack {
 		
 			hand = new ArrayList<Card>();
 			hand = subDeck(7);
-			hand.sort();
+			//hand.sort();
 			
 			Collections.sort(hand, Card.CardNumComparator);
 			Collections.sort(hand, Card.CardSuitComparator);
