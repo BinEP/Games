@@ -3,7 +3,7 @@ package cardGameClasses;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Deck {
+public class Deck extends CardStack  {
 
 	private ArrayList<Card> deck = new ArrayList<Card>();
 
@@ -45,12 +45,23 @@ public class Deck {
 
 	public ArrayList<Card> findMatches(Card card) {
 
-		boolean allSame = true;
 		ArrayList<Card> matches = new ArrayList<Card>();
 		matches.add(card);
-		int i = 1;
 		for (Card checkCard : deck) {
-			if (card.getCard() == checkCard.getCard()) {
+			if (card.equalRank(checkCard)) {
+				matches.add(checkCard);
+			}
+
+		}
+
+		return matches;
+	}
+	
+	public ArrayList<Card> findMatches(int c) {
+
+		ArrayList<Card> matches = new ArrayList<Card>();
+		for (Card checkCard : deck) {
+			if (c == checkCard.getCard()) {
 				matches.add(checkCard);
 			}
 
@@ -69,12 +80,6 @@ public class Deck {
 		return deck.size();
 	}
 	
-	public void shuffle() {
-		
-		Collections.shuffle(deck);
-		
-	}
-	
 	public Card drawCard() {
 		Card c = deck.get(0);
 		deck.remove(0);
@@ -85,12 +90,20 @@ public class Deck {
 		return deck.get(i);
 	}
 	
-//	public static void main(String[] args) {
-//		
-//		Deck d = new Deck();
-//		System.out.println(d.getDeck());
-//		
-//		
-//	}
+	public ArrayList<Card> shuffle() {
+
+		Collections.shuffle(deck);
+		return deck;
+
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		Deck d = new Deck();
+		System.out.println(d.getDeck());
+		
+		
+	}
 
 }

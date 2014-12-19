@@ -2,7 +2,7 @@ package cardGameClasses;
 
 import java.util.ArrayList;
 
-public class Middle {
+public class Middle extends CardStack  {
 
 	private ArrayList<Card> middle;
 

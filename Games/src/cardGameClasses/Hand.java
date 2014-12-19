@@ -3,7 +3,7 @@ package cardGameClasses;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Hand {
+public class Hand extends CardStack {
 
 	private Deck deck;
 	private ArrayList<Card> hand;
