@@ -34,22 +34,12 @@ public class Discard extends CardStack  {
 
 	public ArrayList<Card> discard(Card card) {
 
-		discard.add(card);
+		super.add(card);
+		
 		return discard;
 
 	}
 
-	public ArrayList<Card> getDiscard() {
-
-		return discard;
-
-	}
-	
-	public void clear() {
-		
-		discard.clear();
-		
-	}
 
 //	public static void main(String[] args) {
 //		

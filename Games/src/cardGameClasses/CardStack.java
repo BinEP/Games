@@ -3,7 +3,7 @@ package cardGameClasses;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CardStack {
+public class CardStack extends CardStackMethods {
 
 	protected ArrayList<Card> cardStack;
 
@@ -19,6 +19,59 @@ public class CardStack {
 		cardStack.addAll(cards);
 
 	}
+
+	public ArrayList<Card> newStack() {
+
+		cardStack.clear();
+		Card card = new Card();
+		for (int i = 0; i < 52; i++) {
+			while (cardStack.contains(card)) {
+				card = new Card();
+			}
+			cardStack.add(card);
+		}
+
+		return cardStack;
+
+	}
+
+	public ArrayList<Card> newStack(int cardNum) {
+		cardStack.clear();
+		Card card = new Card();
+		for (int i = 0; i < cardNum; i++) {
+			while (cardStack.contains(card)) {
+				card = new Card();
+			}
+			cardStack.add(card);
+		}
+		return cardStack;
+	}
+	
+	public ArrayList<Card> subDeck() {
+	
+		ArrayList < Card > subCards = new ArrayList<Card>();
+		subCards = (ArrayList<Card>) cardStack.subList(0, 7);
+		cardStack.removeAll(subCards);
+		return subCards;
+		
+	
+	
+	}
+	
+	public ArrayList<Card> subDeck(int cardNum) {
+		
+		
+		ArrayList < Card > subCards = new ArrayList<Card>();
+		subCards = (ArrayList<Card>) cardStack.subList(0, cardNum);
+		cardStack.removeAll(subCards);
+		return subCards;
+		
+		
+		
+		
+	}
+	
+	
 
 	public ArrayList<Card> addAll(ArrayList<Card> cards) {
 
@@ -38,6 +91,28 @@ public class CardStack {
 		Card c = cardStack.get(0);
 		cardStack.remove(0);
 		return c;
+	}
+	
+	public ArrayList<Card> nextCardList() {
+		
+		ArrayList < Card > subCards = new ArrayList<Card>();
+		subCards = (ArrayList<Card>) cardStack.subList(0, 7);
+		return subCards;
+		
+	
+	
+	}
+	
+	public ArrayList<Card> nextCardList(int cardNum) {
+		
+		
+		ArrayList < Card > subCards = new ArrayList<Card>();
+		subCards = (ArrayList<Card>) cardStack.subList(0, cardNum);
+		return subCards;
+		
+		
+		
+		
 	}
 
 	public boolean removeMatches(Card checkCard) {
@@ -79,7 +154,7 @@ public class CardStack {
 
 		return matches;
 	}
-	
+
 	public ArrayList<Card> findMatches(int c) {
 
 		ArrayList<Card> matches = new ArrayList<Card>();
@@ -92,11 +167,9 @@ public class CardStack {
 
 		return matches;
 	}
-	
+
 	public boolean equals(Card card) {
-		
-		
-		
+
 		return true;
 	}
 
@@ -117,7 +190,7 @@ public class CardStack {
 		Collections.sort(cardStack, Card.CardSuitComparator);
 		return cardStack;
 	}
-
+	
 	public static void main(String[] args) {
 
 	}

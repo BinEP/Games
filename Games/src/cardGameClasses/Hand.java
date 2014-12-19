@@ -22,10 +22,8 @@ public class Hand extends CardStack {
 		
 		
 			hand = new ArrayList<Card>();
-			for (int i = 0; i < 7; i++) {
-				hand.add(deck.getDeck().get(0));
-				deck.getDeck().remove(0);
-			}
+			hand = subDeck(7);
+			hand.sort();
 			
 			Collections.sort(hand, Card.CardNumComparator);
 			Collections.sort(hand, Card.CardSuitComparator);

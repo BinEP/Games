@@ -18,25 +18,7 @@ public class Middle extends CardStack  {
 		middle.addAll(cards);
 
 	}
-
-	public ArrayList<Card> addToMiddle(ArrayList<Card> cards) {
-
-		middle.addAll(cards);
-		return middle;
-
-	}
-
-	public void clear() {
-
-		middle.clear();
-	}
-
-	public ArrayList<Card> getMiddle() {
-		
-		return middle;
-		
-	}
-
+	
 	public static void main(String[] args) {
 
 	}
