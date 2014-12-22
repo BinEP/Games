@@ -1,13 +1,3 @@
-/chooseYourOwnAdventure/
-/holeInTheWall/
-/pong/
-/snake/
-/utilityClasses/
-/tunnelRunner/
-/caffeine/
-/caffeineFiles/
-/caffein/
-/shapeJump/
-/goFish/
-/mousePong/
-/curvedPong/
+/Games/bin/
+*.class
+.DS_Store

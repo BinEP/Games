@@ -1,4 +1,4 @@
-package holeInTheWall;
+package flappyBird;
 
 import java.awt.AWTException;
 import java.awt.Color;
@@ -16,7 +16,7 @@ import javax.swing.Timer;
 
 import utilityClasses.*;
 
-public class HolePanel extends JPanel implements ActionListener, KeyListener {
+public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 
 	private boolean UpPressed = false;
 	private boolean DownPressed = false;
@@ -26,8 +26,9 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 	private boolean endGame = false;
 	private boolean nameEnter = false;
 	private boolean highScores = false;
+	private boolean firstJump = false;
 
-	private ScoreInfo scores = new ScoreInfo("gameName");
+	private ScoreInfo scores = new ScoreInfo("flappy");
 	private String pName = "";
 	private Character letter;
 
@@ -40,9 +41,9 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 	private int[] holesY = { 220, 270, 250 };
 
 	private int ballX = 20;
-	private int ballY = 240;
+	private double ballY = 240;
 	private int deltaX = 0;
-	private int deltaY = 0;
+	private double deltaY = 0;
 	private int diameter = 20;
 	private int buffer = 0;
 
@@ -51,11 +52,18 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 	private int ballSpeed = 5;
 	private int holeSpeed = 4;
 
+	private int pVelocity = 0;
+	private int jumpVelocity = -5;
+	private double gravity = .3;
+	private double gravityUp = .6;
+	private double gravityDown = .6;
+	private double prevBallY = ballY;
+
 	private int timeSplit = 0;
 	private int timeSeconds = 0;
 	private boolean paused = false;
 
-	public HolePanel() {
+	public FlappyPanel() {
 
 		setBackground(Color.BLACK);
 
@@ -76,62 +84,48 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void moves() {
 
-		if (playing) {
-			int nextBallX = ballX + deltaX;
-			int nextBallY = ballY + deltaY;
-			int nextBallCenterX = nextBallX + diameter / 2;
-			int nextBallCenterY = nextBallY + diameter / 2;
+		if (playing && firstJump) {
+//			int nextBallX = ballX + deltaX;
+//			int nextBallY = (int) (ballY + deltaY);
+//			int nextBallCenterX = nextBallX + diameter / 2;
+//			int nextBallCenterY = nextBallY + diameter / 2;
+			prevBallY = ballY;
+			
+			if (deltaY < -jumpVelocity + (int) (jumpVelocity/5)) {
 
-			int leftX = ballX + deltaX;
-			int rightX = ballX + deltaX + diameter;
-			int topY = ballY + deltaY;
-			int bottomY = ballY + deltaY + diameter;
-			/*
-			 * Color topLeftColor = getColor(leftX + buffer, topY + buffer);
-			 * Color topRightColor = getColor(rightX - buffer, topY + buffer);
-			 * Color bottomLeftColor = getColor(leftX + buffer, bottomY -
-			 * buffer); Color bottomRightColor = getColor(rightX - buffer,
-			 * bottomY - buffer);
-			 */
-			// System.out.println(topRightColor.toString() + "   ");
-
-			/*
-			 * if (topLeftColor.equals(Color.WHITE) ||
-			 * topRightColor.equals(Color.WHITE) ||
-			 * bottomLeftColor.equals(Color.WHITE) ||
-			 * bottomRightColor.equals(Color.WHITE)) { playing = false; endGame
-			 * = true;
-			 * 
-			 * }
-			 */
-
-			if (UpPressed) {
-				deltaY = -ballSpeed;
-			} else if (DownPressed) {
-				deltaY = ballSpeed;
-			} else {
-				deltaY = 0;
+				deltaY += gravity;
 			}
+			System.out.println(deltaY);
+			// ballY += deltaY;
 
-			// int holeLeft = holesX[currentHole];
-			// int holeRight = holesX[currentHole] + 15;
-			// int holeMiddleY = 50 + holesY[currentHole];
+			// int leftX = ballX + deltaX;
+			// int rightX = ballX + deltaX + diameter;
+			// int topY = ballY + deltaY;
+			// int bottomY = ballY + deltaY + diameter;
 			//
-			// if (holeLeft < rightX) {
-			// if (leftX < holeRight) {
-			// if ( distance(nextBallCenterX, nextBallCenterY, holeLeft + 7,
-			// holeMiddleY) > 40) {
+			// Color topLeftColor = getColor(leftX, topY);
+			// Color topRightColor = getColor(rightX, topY);
+			// Color bottomLeftColor = getColor(leftX, bottomY);
+			// Color bottomRightColor = getColor(rightX, bottomY);
+			//
+			// // System.out.println(topRightColor.toString() + "   ");
+			//
+			// if (topLeftColor.equals(Color.WHITE)
+			// || topRightColor.equals(Color.WHITE)
+			// || bottomLeftColor.equals(Color.WHITE)
+			// || bottomRightColor.equals(Color.WHITE)) {
 			// playing = false;
-			// endGame = true;
+			// nameEnter = true;
+			//
 			// }
+			ballY += deltaY;
+
+			// if (UpPressed) {
+			// deltaY = -ballSpeed;
+			// } else if (DownPressed) {
 			//
 			// } else {
-			// currentHole = (currentHole == 2) ? 0 : currentHole + 1;
-			// }
-			//
-			//
-			//
-			//
+			// deltaY = 0;
 			// }
 
 			for (int i = 0; i < holesX.length; i++) {
@@ -139,19 +133,6 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 				if (holesX[i] <= 0) {
 					holesX[i] = 500;
 					holesY[i] = randomY(i);
-
-				}
-
-				if (distance(nextBallCenterX, nextBallCenterY, holesX[i] + 7,
-						holesY[i]) - diameter / 2 < 0
-						|| distance(nextBallCenterX, nextBallCenterY,
-								holesX[i] + 7, holesY[i] + 100) - diameter / 2 < 0
-						|| getColor(ballX + deltaX + diameter,
-								ballY + deltaY + diameter / 2).equals(
-								Color.WHITE)) {
-
-					playing = false;
-					nameEnter = true;
 
 				}
 
@@ -170,8 +151,10 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			if (ballY + deltaY + diameter > 0)
 				ballY += deltaY;
 
-			// int ballSpeedChange = (int) (timeSeconds / 10);
-			// System.out.println(ballSpeed);
+			if (ballY > 460) {
+				playing = false;
+				nameEnter = true;
+			}
 
 		}
 		repaint();
@@ -193,10 +176,10 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
-			CenteredText title1 = new CenteredText("HOLE IN THE", 500, 500, g,
+			CenteredText title1 = new CenteredText("FLAPPY", 500, 500, g,
 					true, 150);
 			// g.drawString("HOLE IN THE", 60, 210);
-			CenteredText title2 = new CenteredText("WALL", 500, 500, g, true,
+			CenteredText title2 = new CenteredText("BIRD", 500, 500, g, true,
 					200);
 			// g.drawString("WALL", 180, 260);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
@@ -217,7 +200,7 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			 * g.fillRect(rightX, topY, 1, 1); g.fillRect(rightX, bottomY, 1,
 			 * 1);
 			 */
-
+			g.fillRect(0, 460, 500, 20);
 			for (int i = 0; i < holesX.length; i++) {
 
 				g.setColor(Color.WHITE);
@@ -228,7 +211,7 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			g.setColor(Color.WHITE);
 
-			g.fillOval(ballX, ballY, diameter, diameter);
+			g.fillOval(ballX, (int) prevBallY, diameter, diameter);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 15));
 			g.drawString(String.valueOf(timeSeconds), 5, 15);
@@ -273,13 +256,14 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			UpPressed = true;
+			// UpPressed = true;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			DownPressed = true;
+			// DownPressed = true;
 
 		} else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD
-				&& nameEnter) {
+
+		&& nameEnter) {
 
 			if (pName.length() < 10) {
 				letter = e.getKeyChar();
@@ -294,10 +278,17 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			UpPressed = false;
+			// UpPressed = false;
+			// pVelocity = -10;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			DownPressed = false;
+			// DownPressed = false;
+
+		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+
+			deltaY = jumpVelocity;
+			firstJump = true;
+//			System.out.println(deltaY);
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
@@ -309,6 +300,9 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 				}
 				holeSpeed = 4;
 				ballSpeed = 5;
+				ballY = 250;
+				pVelocity = 0;
+				deltaY = 0;
 				timeSplit = 0;
 				timeSeconds = 0;
 				startGame = false;
@@ -316,6 +310,7 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 				nameEnter = false;
 				highScores = false;
 				endGame = false;
+				firstJump = false;
 				pName = "";
 
 			} else if (nameEnter) {
