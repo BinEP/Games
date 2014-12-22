@@ -25,6 +25,7 @@ public class NewWord {
 
 	public void getNewWord() throws FileNotFoundException {
 
+		wordFile = "InfoFiles/" + wordFile;
 		Scanner input = new Scanner(new File(wordFile));
 		while (input.hasNext()) {
 			allWords.add(input.next());
