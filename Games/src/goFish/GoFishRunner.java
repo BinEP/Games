@@ -1,22 +1,22 @@
-package snake;
+package goFish;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-public class SnakeRunner {
+public class GoFishRunner {
 
 	public static void main(String[] args) {
 
-		JFrame frame = new JFrame("SNAKE!");
-
+		
+		JFrame frame = new JFrame("GO FISH");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.setAlwaysOnTop(true);
-
-		SnakePanel SnakePanel = new SnakePanel();
-		frame.add(SnakePanel, BorderLayout.CENTER);
-
+		
+		GoFishPanel GoFishPanel = new GoFishPanel();
+		frame.add(GoFishPanel, BorderLayout.CENTER);
+		
 		frame.setSize(500, 500);
 		frame.setVisible(true);
 	}
