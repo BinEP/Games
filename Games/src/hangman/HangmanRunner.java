@@ -13,8 +13,8 @@ public class HangmanRunner {
 		frame.setLayout(new BorderLayout());
 		frame.setAlwaysOnTop(true);
 		
-		Hangman Hangman = new Hangman();
-		frame.add(Hangman, BorderLayout.CENTER);
+		HangmanPanel HangmanPanel = new HangmanPanel();
+		frame.add(HangmanPanel, BorderLayout.CENTER);
 		
 		frame.setSize(700, 700);
 		frame.setVisible(true);
