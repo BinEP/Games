@@ -23,11 +23,29 @@ public class ComputerPlayer {
 	//
 	// }
 	//
-//	 public ArrayList<Card> getPairs(int pairNum) {
-//	
-//		 
-//		 
-//	 }
+	 public ArrayList<Card> getPairs(int pairNum) {
+	
+		 for (int i = 0; i < hand.size(); i++) {
+			 
+			 Card checkCard = hand.get(i);
+			 
+			 for (int k = i + 1; k < hand.size(); k++) {
+				 
+				 Card matchCard = hand.get(k);
+				 
+				 if (checkCard.equalRank(matchCard)) {
+					 
+				 }
+				 
+				 
+				 
+			 }
+			 
+			 
+			 
+		 }
+		 
+	 }
 
 	public int getNumOfPairs() {
 
@@ -55,6 +73,12 @@ public class ComputerPlayer {
 			hand = hand1;
 		}
 		// System.out.println(hands);
+	}
+	
+	public void setHand(ArrayList < Card > newHand) {
+		
+		hand = newHand;
+		
 	}
 
 	public void newDeck() {
