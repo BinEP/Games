@@ -23,9 +23,9 @@ public class ComputerPlayer {
 	//
 	// }
 	//
-	 public ArrayList<Card> getPairs(int pairNum) {
+	 public ArrayList<Card> getPairs(int i, ArrayList<Card> hand) {
 	
-		 for (int i = 0; i < hand.size(); i++) {
+		 
 			 
 			 Card checkCard = hand.get(i);
 			 
@@ -34,16 +34,18 @@ public class ComputerPlayer {
 				 Card matchCard = hand.get(k);
 				 
 				 if (checkCard.equalRank(matchCard)) {
-					 
+					 checkCard.selected = true;
+					 matchCard.selected = true;
 				 }
 				 
 				 
 				 
-			 }
+			 
 			 
 			 
 			 
 		 }
+			 return hand;
 		 
 	 }
 

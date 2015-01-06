@@ -407,6 +407,16 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		sortCards();
 
 	}
+	
+	public void computerPlayer() {
+		
+		
+		
+		
+		
+		
+		
+	}
 
 	// //////////////////////////////////////////////
 
