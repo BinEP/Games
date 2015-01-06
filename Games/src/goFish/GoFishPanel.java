@@ -380,6 +380,8 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		turn++;
 		if (turn > numOfPlayers)
 			turn = 1;
+		
+		if (turn == 2) computerPlayer();
 
 	}
 
@@ -410,10 +412,20 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 	
 	public void computerPlayer() {
 		
+		for (int i = 0; i < hands.get(1).size(); i++) {
+			
+			ComputerPlayer cp = new ComputerPlayer(hands.get(1));
+			
+			cp.getPairs(i, hands.get(1));
+			pairings();
+			
+		}
 		
-		
-		
-		
+		while (turn == 2) {
+		int guessCard = (int) (Math.random() * hands.get(1).size());
+		hands.get(1).get(guessCard).selected = true;
+		asking();
+		}
 		
 		
 	}
