@@ -321,8 +321,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == prevLoseKey) {
 
-			playing = false;
-			nameEnter = true;
+//			playing = false;
+//			nameEnter = true;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
 
