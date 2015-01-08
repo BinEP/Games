@@ -155,7 +155,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return card + getSuitIcon();
+		return getCardFace() + getSuitIcon();
 	}
 
 	@Override

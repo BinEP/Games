@@ -1,7 +1,5 @@
 package cardClasses;
 
-import goFish.Card;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -18,6 +16,27 @@ public class CardStack {
 
 	protected ArrayList<Card> cardStack = new ArrayList<Card>();
 
+	public CardStack() {
+
+		newStack();
+
+	}
+
+	public CardStack(int numOfCards) {
+
+		
+			double deckCount = Math.ceil((double)numOfCards/52);
+			System.out.println(deckCount);
+			for (int i = 0; i < deckCount; i++) {
+			
+				 cardStack.addAll(newStackList(52));
+			}
+			cardStack.subList(numOfCards, cardStack.size()).clear();
+			System.out.println(cardStack.toString());
+			System.out.println(cardStack.size());
+		
+	}
+
 	public ArrayList<Card> newStack() {
 
 		Card card = new Card();
@@ -33,6 +52,35 @@ public class CardStack {
 
 	public ArrayList<Card> newStack(int numOfCards) {
 
+		Card card = new Card();
+		for (int i = 0; i < numOfCards; i++) {
+			while (cardStack.contains(card)) {
+				card = new Card();
+			}
+			cardStack.add(card);
+		}
+
+		return cardStack;
+
+	}
+	
+	public ArrayList<Card> newStackList() {
+
+		ArrayList<Card> cardStack = new ArrayList<Card>();
+		Card card = new Card();
+		for (int i = 0; i < 52; i++) {
+			while (cardStack.contains(card)) {
+				card = new Card();
+			}
+			cardStack.add(card);
+		}
+
+		return cardStack;
+	}
+
+	public ArrayList<Card> newStackList(int numOfCards) {
+
+		ArrayList<Card> cardStack = new ArrayList<Card>();
 		Card card = new Card();
 		for (int i = 0; i < numOfCards; i++) {
 			while (cardStack.contains(card)) {
@@ -120,82 +168,90 @@ public class CardStack {
 		return hand;
 	}
 
-	public ArrayList < Card > sortStack() {
+	public ArrayList<Card> sortStack() {
 
 		Collections.sort(cardStack, Card.CardSuitComparator);
 		Collections.sort(cardStack, Card.CardNumComparator);
 		return cardStack;
 	}
-	
-	public ArrayList < Card >  sortStackSuit() {
+
+	public ArrayList<Card> sortStackSuit() {
 
 		Collections.sort(cardStack, Card.CardNumComparator);
 		Collections.sort(cardStack, Card.CardSuitComparator);
 		return cardStack;
 	}
-	
-	public ArrayList < Card > sortStack(ArrayList < Card > stack) {
+
+	public ArrayList<Card> sortStack(ArrayList<Card> stack) {
 
 		Collections.sort(stack, Card.CardSuitComparator);
 		Collections.sort(stack, Card.CardNumComparator);
 		return stack;
 	}
-	
-	public ArrayList < Card >  sortStackSuit(ArrayList < Card > stack) {
+
+	public ArrayList<Card> sortStackSuit(ArrayList<Card> stack) {
 
 		Collections.sort(stack, Card.CardNumComparator);
 		Collections.sort(stack, Card.CardSuitComparator);
 		return stack;
 	}
-	
+
 	public int cardsLeft() {
-		
+
 		return cardStack.size();
-		
+
 	}
-	
-	public Card deal() {
-		
-		return cardStack.remove(0);
-		
+
+	public Card drawCard() {
+
+		Card c = cardStack.remove(0);
+		return c;
+
 	}
-	
-public Card getCard(int cardIndex) {
-		
+
+	public Card getCard(int cardIndex) {
+
 		return cardStack.get(cardIndex);
+
+	}
+
+	public Card getNextCard() {
+
+		return cardStack.get(0);
+
+	}
+
+	public ArrayList<Card> addCard(Card c) {
+
+		cardStack.add(c);
+		return cardStack;
+
+	}
+
+	public ArrayList<Card> getStack() {
+
+		return cardStack;
 		
 	}
 
-public Card getNextCard() {
-	
-	return cardStack.get(0);
-	
-}
+	public void clearStack() {
+		cardStack.clear();
+	}
 
-public ArrayList < Card > addCard(Card c) {
-	
-	cardStack.add(c);
-	return cardStack;
-	
-}
+	public ArrayList<Card> removeCard(Card c) {
 
-public ArrayList < Card > getStack() {
+		cardStack.remove(c);
+		return cardStack;
+	}
 	
-	return cardStack;
-}
-
-public void clearStack() {
-	cardStack.clear();
-}
-
-public ArrayList < Card > removeCard(Card c) {
-	
-	
-	cardStack.remove(c);
-	return cardStack;
-}
+	public String toString() {
+		
+		return cardStack.toString();
+		
+		
+	}
 
 	public static void main(String[] args) {
-
+		new CardStack(52);
 	}
 }
