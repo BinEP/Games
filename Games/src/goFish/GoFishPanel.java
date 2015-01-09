@@ -468,10 +468,11 @@ ComputerPlayer cp = new ComputerPlayer(hands.get(1));
 		asking();
 		
 		cp.getPairsT(hands.get(1));
-		System.out.println(hands.get(1));
+		
 		}
 
 		cp.getPairsT(hands.get(1));
+		System.out.println(hands.get(1));
 	}
 	
 	
