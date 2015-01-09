@@ -478,9 +478,12 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 	public void keyPressed(KeyEvent e) {
 
 		if (startGame) {
+			
 			startGame = false;
 			playing = true;
+			
 		} else if (endGame) {
+			
 			endGame = false;
 			playing = true;
 
