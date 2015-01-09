@@ -9,6 +9,7 @@ public class Deck extends CardStack {
 	}
 
 	public Deck() {
+
 		super(52);
 
 	}
@@ -17,6 +18,7 @@ public class Deck extends CardStack {
 
 		super(numOfCards);
 
+
 	}
 
 	public ArrayList<Card> reshuffle() {
@@ -24,9 +26,11 @@ public class Deck extends CardStack {
 		this.shuffle();
 		return cardStack;
 	}
+
 	
 	//returns array list of array list of cards
 	//all deal methods are variatioins of this
+
 
 	public ArrayList<ArrayList<Card>> deal(ArrayList<ArrayList<Card>> allHands,
 			int handSize) {
@@ -64,6 +68,18 @@ public class Deck extends CardStack {
 			for (int i = 0; i < handSize; i++) {
 				hand.add(drawCard());
 			}
+		}
+		return allHands;
+	}
+
+	public ArrayList<ArrayList<Card>> deal(int handNum, int handSize) {
+
+		ArrayList<ArrayList<Card>> allHands = new ArrayList<ArrayList<Card>>();
+
+		for (int h = 0; h < handNum; h++) {
+			for (int i = 0; i < handSize; i++) {
+				allHands.get(h).add(drawCard());
+			}
 
 		}
 
@@ -71,20 +87,23 @@ public class Deck extends CardStack {
 
 	}
 
+
 	public ArrayList<ArrayList<Card>> deal() {
 
 		int handSize = 7;
+
+		int handNum = 2;
 		ArrayList<ArrayList<Card>> allHands = new ArrayList<ArrayList<Card>>();
 
-		for (ArrayList<Card> hand : allHands) {
+		for (int h = 0; h < handNum; h++) {
+			allHands.add(new ArrayList < Card >());
 			for (int i = 0; i < handSize; i++) {
-				System.out.println(cardStack);
-				System.out.println(allHands.toString());
-				hand.add(drawCard());
+				
+				allHands.get(h).add(drawCard());
 			}
 
 		}
-
+	
 		return allHands;
 
 	}

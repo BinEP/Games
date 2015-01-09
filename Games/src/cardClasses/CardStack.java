@@ -22,6 +22,7 @@ public class CardStack {
 
 		newStack();
 
+
 	}
 
 	public CardStack(int numOfCards) {
@@ -71,8 +72,10 @@ public class CardStack {
 
 	}
 	
+
 	//just returns a 52 random cards, doesn't modify cardStack
 	
+
 	public ArrayList<Card> newStackList() {
 
 		ArrayList<Card> cardStack = new ArrayList<Card>();
@@ -87,7 +90,9 @@ public class CardStack {
 		return cardStack;
 	}
 
+
 	//just returns a bunch of random cards, doesn't modify cardStack - n number of cards
+
 	public ArrayList<Card> newStackList(int numOfCards) {
 
 		ArrayList<Card> cardStack = new ArrayList<Card>();
@@ -195,6 +200,7 @@ public class CardStack {
 	
 	//sorts by suit
 
+
 	public ArrayList<Card> sortStackSuit() {
 
 		Collections.sort(cardStack, Card.CardNumComparator);
@@ -203,6 +209,7 @@ public class CardStack {
 	}
 	
 	//sorts specified card stack
+
 
 	public ArrayList<Card> sortStack(ArrayList<Card> stack) {
 
@@ -227,6 +234,7 @@ public class CardStack {
 	public Card drawCard() {
 
 		return cardStack.remove(0);
+		
 
 	}
 
@@ -243,7 +251,7 @@ public class CardStack {
 
 	}
 
-	public ArrayList<Card> addCard(Card c) {
+    public ArrayList<Card> addCard(Card c) {
 
 		cardStack.add(c);
 		return cardStack;
@@ -253,6 +261,7 @@ public class CardStack {
 	public ArrayList<Card> getStack() {
 
 		return cardStack;
+
 	}
 
 	public void clearStack() {
