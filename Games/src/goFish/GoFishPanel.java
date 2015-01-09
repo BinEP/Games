@@ -457,8 +457,24 @@ for (int i = 0; i < hands.get(1).size(); i++) {
 		
 	}
 	
-//	public void pairOff() {
-//		
+public void computerPlayerT() {
+		
+ComputerPlayer cp = new ComputerPlayer(hands.get(1));
+		cp.getPairsT(hands.get(1));
+		while (turn == 2) {
+		
+		int guessCard = (int) (Math.random() * hands.get(1).size());
+		hands.get(1).get(guessCard).selected = true;
+		asking();
+		
+		cp.getPairsT(hands.get(1));
+		System.out.println(hands.get(1));
+		}
+
+		cp.getPairsT(hands.get(1));
+	}
+	
+	
 
 	
 	

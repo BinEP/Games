@@ -49,6 +49,19 @@ public class ComputerPlayer {
 		 
 	 }
 
+	 public ArrayList<Card> getPairsT(ArrayList<Card> hand) {
+			
+		 
+		 for (Card checkCard : hand) {
+		 
+		 
+			 hand.removeIf(c -> c.getCard() == checkCard.getCard());
+			 
+	 }
+		 return hand;
+	 
+ }
+	 
 	public int getNumOfPairs() {
 
 		ArrayList<Integer> matchNums = new ArrayList<Integer>();
