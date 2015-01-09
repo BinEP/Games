@@ -1,4 +1,4 @@
-package goFish;
+package cardClasses;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -8,7 +8,6 @@ public class Card {
 
 	private int suit;
 	private int card;
-	private int point;
 	private String shown;
 	private Color col = Color.WHITE;
 	private Rectangle picCard = new Rectangle();
@@ -21,40 +20,52 @@ public class Card {
 		shown = getCardFace() + getSuitIcon();
 		col = Color.WHITE;
 		selected = false;
-		getCardFace();
 		// hearts
 		// diamonds
 		// clubs
 		// spades
 
 	}
+	
+	//gets what would be on an actual playing card - AKQJ10 9 8 ... and the suit
 
 	public String getShown() {
 
 		return shown;
 
 	}
+	
+	//gets suit number
 
 	public int getSuit() {
 		return suit;
 	}
 
+	//for goFish - to be selected color
 	public Color getColor() {
 		return col;
 	}
+	
+	//rectangle of the card that can be used to be drawn
 
 	public Rectangle getRectangle() {
 		return picCard;
 	}
+	
+	//sets rectangle of position and size of card on screen
 
 	public void setRectangle(int x, int y, int w, int h) {
 		picCard = new Rectangle(x, y, w, h);
 	}
+	
+	//selected or not selected color
 
 	public void setColor(Color color) {
 
 		col = color;
 	}
+	
+	//ascii character for suit
 
 	public String getSuitIcon() {
 		String suitChar = "J";
@@ -76,6 +87,8 @@ public class Card {
 		return suitChar;
 
 	}
+	
+	//returns card number - j = 11, q = 12 ...
 
 	public int getCard() {
 
@@ -83,13 +96,12 @@ public class Card {
 
 	}
 
+	//returns the letter or number for the card
 	public String getCardFace() {
 
 		String cardFace = "A";
-		point = 11;
 		if (card < 11 && card != 1) {
-			
-			point = card;
+
 			return String.valueOf(card);
 
 		} else {
@@ -98,19 +110,15 @@ public class Card {
 
 			case 11:
 				cardFace = "J";
-				point = 10;
 				break;
 			case 12:
 				cardFace = "Q";
-				point = 10;
 				break;
 			case 13:
 				cardFace = "K";
-				point = 10;
 				break;
 			default:
 				cardFace = "A";
-				point = 11;
 				break;
 
 			}
@@ -119,12 +127,16 @@ public class Card {
 		}
 
 	}
+	
+	//checks if same card by number
 
 	public boolean equalRank(Card c) {
 
 		return this.getCard() == c.getCard();
 
 	}
+	
+	//checks for suit
 
 	public boolean sameSuit(Card c) {
 
@@ -132,11 +144,7 @@ public class Card {
 
 	}
 	
-	public int getPoint() {
-		return point;
-		
-		
-	}
+	//for sorting, which card suit is above, used by the sort method
 
 	public static Comparator<Card> CardSuitComparator = new Comparator<Card>() {
 
@@ -152,6 +160,9 @@ public class Card {
 		}
 	};
 
+	//for sorting, which card number is above, used by the sort method
+
+	
 	public static Comparator<Card> CardNumComparator = new Comparator<Card>() {
 
 		public int compare(Card c1, Card c2) {
@@ -167,11 +178,13 @@ public class Card {
 		}
 	};
 
+	//the tostring retuns string of what would appear on a playing card
 	@Override
 	public String toString() {
 		return getCardFace() + getSuitIcon();
 	}
 
+	//for checking if exactly same card
 	@Override
 	public boolean equals(Object o) {
 
