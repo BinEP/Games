@@ -26,33 +26,46 @@ public class Card {
 		// spades
 
 	}
+	
+	//gets what would be on an actual playing card - AKQJ10 9 8 ... and the suit
 
 	public String getShown() {
 
 		return shown;
 
 	}
+	
+	//gets suit number
 
 	public int getSuit() {
 		return suit;
 	}
 
+	//for goFish - to be selected color
 	public Color getColor() {
 		return col;
 	}
+	
+	//rectangle of the card that can be used to be drawn
 
 	public Rectangle getRectangle() {
 		return picCard;
 	}
+	
+	//sets rectangle of position and size of card on screen
 
 	public void setRectangle(int x, int y, int w, int h) {
 		picCard = new Rectangle(x, y, w, h);
 	}
+	
+	//selected or not selected color
 
 	public void setColor(Color color) {
 
 		col = color;
 	}
+	
+	//ascii character for suit
 
 	public String getSuitIcon() {
 		String suitChar = "J";
@@ -74,6 +87,8 @@ public class Card {
 		return suitChar;
 
 	}
+	
+	//returns card number - j = 11, q = 12 ...
 
 	public int getCard() {
 
@@ -81,6 +96,7 @@ public class Card {
 
 	}
 
+	//returns the letter or number for the card
 	public String getCardFace() {
 
 		String cardFace = "A";
@@ -111,18 +127,24 @@ public class Card {
 		}
 
 	}
+	
+	//checks if same card by number
 
 	public boolean equalRank(Card c) {
 
 		return this.getCard() == c.getCard();
 
 	}
+	
+	//checks for suit
 
 	public boolean sameSuit(Card c) {
 
 		return this.getSuit() == c.getSuit();
 
 	}
+	
+	//for sorting, which card suit is above, used by the sort method
 
 	public static Comparator<Card> CardSuitComparator = new Comparator<Card>() {
 
@@ -138,6 +160,9 @@ public class Card {
 		}
 	};
 
+	//for sorting, which card number is above, used by the sort method
+
+	
 	public static Comparator<Card> CardNumComparator = new Comparator<Card>() {
 
 		public int compare(Card c1, Card c2) {
@@ -153,11 +178,13 @@ public class Card {
 		}
 	};
 
+	//the tostring retuns string of what would appear on a playing card
 	@Override
 	public String toString() {
-		return card + getSuitIcon();
+		return getCardFace() + getSuitIcon();
 	}
 
+	//for checking if exactly same card
 	@Override
 	public boolean equals(Object o) {
 
