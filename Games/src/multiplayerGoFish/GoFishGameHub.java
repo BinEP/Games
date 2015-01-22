@@ -15,7 +15,7 @@ import netgame.common.Hub;
 public class GoFishGameHub extends Hub {
     
     private GoFishGameState state;  // Records the state of the game.
-
+    private int numberOfPlayers;
     /**
      * Create a hub, listening on the specified port.  Note that this
      * method calls setAutoreset(true), which will cause the output stream
@@ -25,8 +25,9 @@ public class GoFishGameHub extends Hub {
      * @param port the port number on which the hub will listen.
      * @throws IOException if a listener cannot be opened on the specified port.
      */
-    public GoFishGameHub(int port) throws IOException {
+    public GoFishGameHub(int port, int numOfPlayers) throws IOException {
         super(port);
+        numberOfPlayers = numOfPlayers;
         state = new GoFishGameState();
         setAutoreset(true);
     }
@@ -49,9 +50,9 @@ public class GoFishGameHub extends Hub {
      * now in progress -- is transmitted to both players.
      */
     protected void playerConnected(int playerID) {
-        if (getPlayerList().length == 2) {
+        if (getPlayerList().length == numberOfPlayers) {
             shutdownServerSocket();
-            state.startFirstGame();
+            state.startFirstGame(numberOfPlayers);
             sendToAll(state);
         }
     }

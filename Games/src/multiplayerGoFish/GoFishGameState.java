@@ -178,6 +178,26 @@ public class GoFishGameState implements Serializable {
 			deck.add(card);
 		}
 	}
+	
+	public void newMultipleDecks(int numOfDecks) {
+		
+		for (int k = 0; k < numOfDecks; k++) {
+			ArrayList<Card> deckNum = new ArrayList<Card>();
+			Card card = new Card();
+			for (int i = 0; i < 52; i++) {
+				while (deckNum.contains(card)) {
+					card = new Card();
+				}
+				deckNum.add(card);
+			}
+			
+			deck.addAll(deckNum);
+			deckNum.clear();
+			
+			
+		}
+		
+	}
 
 	public void newHands() {
 		for (int n = 0; n < numOfPlayers; n++) {
@@ -215,7 +235,11 @@ public class GoFishGameState implements Serializable {
 		messageFromServer[1] = "New Deck made";
 		messageFromServer[0] = "Hands dealt";
 		
-		newDeck();
+		if (numOfPlayers > 2) {
+			newMultipleDecks(((numOfPlayers - 1) / 2) + 1);
+		} else {
+			newDeck();
+		}
 		newHands();
 		deckPairsSetup();
 		setUpButtons();
@@ -247,7 +271,9 @@ public class GoFishGameState implements Serializable {
 	 * This package private method is called by the hub when the second player
 	 * connects. It's purpose is to start the first game.
 	 */
-	void startFirstGame() {
+	void startFirstGame(int numberOfPlayers) {
+		numOfPlayers = numberOfPlayers;
+		
 		newGame();
 	}
 

@@ -28,7 +28,7 @@ public class ScanNetwork {
 	public void runFromMain() {
 		// TODO Auto-generated method stub
 
-//		checkHosts();
+checkHosts();
 //		checkHostsAtPort(45017);
 //		getPublicIP();
 //		getGateway();

@@ -36,7 +36,7 @@ public class PlayGoFish {
         
         JLabel message = new JLabel("Welcome to Networked Go Fish!", JLabel.CENTER);
         message.setFont(new Font("Serif", Font.BOLD, 16));
-        
+        final JTextField numberOfPlayers = new JTextField("2");
         final JTextField listeningPortInput = new JTextField("" + DEFAULT_PORT, 5);
 //        final JTextField hostInput = new JTextField("localhost", 30);
         final JComboBox hostInput = new JComboBox();
@@ -63,6 +63,7 @@ public class PlayGoFish {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == selectServerMode) {
                     listeningPortInput.setEnabled(true);
+                    numberOfPlayers.setEnabled(true);
                     hostInput.setEnabled(false);
                     connectPortInput.setEnabled(false);
                     listeningPortInput.setEditable(true);
@@ -71,6 +72,7 @@ public class PlayGoFish {
                 }
                 else {
                     listeningPortInput.setEnabled(false);
+                    numberOfPlayers.setEnabled(false);
                     hostInput.setEnabled(true);
                     connectPortInput.setEnabled(true);
                     listeningPortInput.setEditable(false);
@@ -97,7 +99,7 @@ public class PlayGoFish {
         inputPanel.add(message);
         
         JPanel row;
-        
+        inputPanel.add(numberOfPlayers);
         inputPanel.add(selectServerMode);
         
         row = new JPanel();
@@ -156,7 +158,7 @@ public class PlayGoFish {
                 Hub hub;
                 Hub chatHub;
                 try {
-                    hub = new GoFishGameHub(port);
+                    hub = new GoFishGameHub(port, Integer.parseInt(numberOfPlayers.getText().trim()));
                     chatHub = new Hub(CHAT_PORT); 
                 }
                 catch (Exception e) {
