@@ -177,7 +177,7 @@ public class GoFishWindow extends JFrame {
 				g.setColor(Color.WHITE);
 
 				
-				drawPlayerPairs(g);
+				drawPlayerInfo(g);
 //				CenteredText leftPairs = new CenteredText(""
 //						+ state.restOfDeck.get(myID - 1).size(), 60, 50, g);
 //
@@ -228,15 +228,15 @@ public class GoFishWindow extends JFrame {
 
 		}
 		
-		public void drawPlayerPairs(Graphics g) {
+		public void drawPlayerInfo(Graphics g) {
 			
 			g.setColor(Color.WHITE);
 			
 			int stringSpace = 120 / state.numOfPlayers;
 			int gaps = 120 / (state.numOfPlayers + 1);
 			
-			System.out.println(stringSpace);
-			System.out.println(gaps);
+//			System.out.println(stringSpace);
+//			System.out.println(gaps);
 			
 			for (int i = 0; i < state.numOfPlayers; i++) {
 			CenteredText playerPairs = new CenteredText("" + state.restOfDeck.get(myID - 1).size(), stringSpace, 50, g);
@@ -247,14 +247,22 @@ public class GoFishWindow extends JFrame {
 //			CenteredText rightPairNum = new CenteredText("P" + ((myID == 1) ? 2 : 1), stringSpace, 50, g);
 			
 			int x = 130 + gaps * (i + 1) + (stringSpace * i);
-			System.out.println(x);
+//			System.out.println(x);
 			
 			g.drawString(playerPairs.text, x + playerPairs.x , 270);
 //			g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
 
 			g.drawString(playerPairNum.text, x + playerPairNum.x, 240);
+			
+			
 //			g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
 			
+			
+			if (i + 1 == state.turn) {
+				g.setColor(Color.YELLOW);
+				g.fillRect(x + ((stringSpace - 40) / 2), 290, 40, 10);
+				g.setColor(Color.WHITE);
+			}
 			
 			}
 			
@@ -596,6 +604,7 @@ public class GoFishWindow extends JFrame {
 			if (matchingCards.isEmpty())
 				nextTurn();
 		}
+		connection.send(state);
 	}
 
 	public void setWon(int i) {
@@ -626,7 +635,7 @@ public class GoFishWindow extends JFrame {
 		ArrayList<Card> selectedCards = new ArrayList<Card>();
 		selectedCards = getSelected();
 
-		if (getSelected().size() > 2) {
+		if (getSelected().size() > 2 && getSelected().size() % 2 != 0) {
 
 			selectedCards.subList(2, selectedCards.size()).clear();
 
@@ -646,13 +655,14 @@ public class GoFishWindow extends JFrame {
 			newMessageLog("Player " + myID + " paired " + selectedCards.size()
 					+ " " + selectedCards.get(0).getCardFace() + "s");
 		}
+		connection.send(state);
 	}
 
 	public void newMessageLog(String theMessage) {
 
 		state.messageFromServer[1] = state.messageFromServer[0];
 		state.messageFromServer[0] = theMessage;
-
+		connection.send(state);
 	}
 
 	public void resetColors() {
