@@ -1,6 +1,7 @@
 package multiplayerGoFish;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,6 +60,8 @@ public class GoFishGameState implements Serializable {
 	public ArrayList<Button> button = new ArrayList<Button>();
 	public ArrayList<ArrayList<Card>> restOfDeck = new ArrayList<ArrayList<Card>>();
 
+	public Rectangle[] handBounds;
+	
 	public int turn;
 
 	public boolean startGame = true;
@@ -98,7 +101,7 @@ public class GoFishGameState implements Serializable {
 			playerNumOfCards = theState.playerNumOfCards;
 			deck = theState.deck;
 			turn = theState.turn;
-			
+//			numOfPlayers = theState.numOfPlayers;
 			restOfDeck = theState.restOfDeck;
 			// setHandSizes(playerNumOfCards);
 			// newHands();
@@ -243,7 +246,45 @@ public class GoFishGameState implements Serializable {
 		newHands();
 		deckPairsSetup();
 		setUpButtons();
+		setHandBounds();
 
+	}
+
+	private void setHandBounds() {
+		// TODO Auto-generated method stub
+		handBounds = new Rectangle[numOfPlayers];
+		int y = 10;
+		int startX = 20;
+		int spacing = getSpacing(hands.size());
+		for(int i = 0; i < numOfPlayers - 1; i++) {
+			int x = getXCenter(numOfPlayers-1, startX) + (spacing * i);
+			handBounds[i] = new Rectangle(x, y, 56, 100);
+		
+		}
+		
+	}
+
+	public int getXCenter(int numObjects, int startX) {
+
+		int size = numObjects;
+		if (size > 7)
+			size = 7;
+
+		int width = size * 62 - 6;
+		startX += (460 - width) / 2;
+
+		return startX;
+	}
+
+	public int getSpacing(int numObjects) {
+
+		if (numObjects < 8)
+			return 62;
+		int size = numObjects + 1;
+
+		int cardWidth = size * 56;
+		int space = 460 - cardWidth;
+		return (int) (56 + space / (size - 1));
 	}
 
 	public void setUpButtons() {
@@ -273,7 +314,6 @@ public class GoFishGameState implements Serializable {
 	 */
 	void startFirstGame(int numberOfPlayers) {
 		numOfPlayers = numberOfPlayers;
-		
 		newGame();
 	}
 

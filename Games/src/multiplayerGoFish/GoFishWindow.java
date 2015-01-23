@@ -50,8 +50,10 @@ public class GoFishWindow extends JFrame {
 	private static final String Font_File_Name = "joystix";
 
 	private GoFishClient connection; // The Client object for sending and
-										// receiving
-										// network messages.
+
+	// receiving
+
+	// network messages.
 
 	/**
 	 * This class defines the client object that handles communication with the
@@ -100,6 +102,10 @@ public class GoFishWindow extends JFrame {
 			});
 		}
 
+		protected int getNumOfPlayers() {
+			return connectedPlayerIDs.length;
+		}
+
 	}
 
 	/**
@@ -132,6 +138,10 @@ public class GoFishWindow extends JFrame {
 					CenteredText messageFromTheHub = new CenteredText(
 							"Waiting for Others...", 500, 500, g, true, 440);
 
+					CenteredText playerNum = new CenteredText(""
+							+ connection.getNumOfPlayers(), 500, 500, g, true,
+							460);
+
 				} else {
 
 					CenteredText messageFromTheHub = new CenteredText(
@@ -154,7 +164,8 @@ public class GoFishWindow extends JFrame {
 			if (state.playing) {
 
 				drawPlayerHand(myID - 1, g, 350);
-				
+
+				drawOtherPlayerHands(myID - 1, g, 10);
 				// drawPlayerHand(1, g, 10);
 				// drawPlayerHand(2, g, 350);
 
@@ -164,23 +175,28 @@ public class GoFishWindow extends JFrame {
 				g.fillRect(10, 40 + ((state.turn == myID) ? 1 : 0) * 350, 10,
 						30);
 				g.setColor(Color.WHITE);
-				
-				CenteredText leftPairs = new CenteredText("" + state.restOfDeck.get(myID - 1).size(), 60, 50, g);
-				
-				CenteredText rightPairs = new CenteredText("" + state.restOfDeck.get((myID == 1) ? 1 : 0).size(), 60, 50, g);
 
-				CenteredText leftPairNum = new CenteredText("P" + myID, 60, 50,
-						g);
-				CenteredText rightPairNum = new CenteredText("P"
-						+ ((myID == 1) ? 2 : 1), 60, 50, g);
-
-				g.drawString(leftPairs.text, 170 + leftPairs.x, 270);
-				g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
 				
-				g.drawString(leftPairNum.text, 170 + leftPairNum.x, 240);
-				g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
+				drawPlayerPairs(g);
+//				CenteredText leftPairs = new CenteredText(""
+//						+ state.restOfDeck.get(myID - 1).size(), 60, 50, g);
+//
+//				CenteredText rightPairs = new CenteredText(""
+//						+ state.restOfDeck.get((myID == 1) ? 1 : 0).size(), 60,
+//						50, g);
+//
+//				CenteredText leftPairNum = new CenteredText("P" + myID, 60, 50,
+//						g);
+//				CenteredText rightPairNum = new CenteredText("P"
+//						+ ((myID == 1) ? 2 : 1), 60, 50, g);
+//
+//				g.drawString(leftPairs.text, 170 + leftPairs.x, 270);
+//				g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
+//
+//				g.drawString(leftPairNum.text, 170 + leftPairNum.x, 240);
+//				g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
 
-				drawHandCover((myID == 1) ? 2 : 1, g);
+//				drawHandCover((myID == 1) ? 2 : 1, g);
 				g.setColor(Color.WHITE);
 				g.setFont(new Font(customFontName, Font.PLAIN, 15));
 				if (state != null) {
@@ -211,6 +227,34 @@ public class GoFishWindow extends JFrame {
 			}
 
 		}
+		
+		public void drawPlayerPairs(Graphics g) {
+			
+			g.setColor(Color.WHITE);
+			
+			int stringSpace = 120 / state.numOfPlayers;
+			int gaps = 120 / state.numOfPlayers + 1;
+			
+			for (int i = 0; i < state.numOfPlayers; i++) {
+			CenteredText playerPairs = new CenteredText("" + state.restOfDeck.get(myID - 1).size(), stringSpace, 50, g);
+
+//			CenteredText rightPairs = new CenteredText("" + state.restOfDeck.get((myID == 1) ? 1 : 0).size(), stringSpace, 50, g);
+
+			CenteredText playerPairNum = new CenteredText("P" + (i + 1), stringSpace, 50, g);
+//			CenteredText rightPairNum = new CenteredText("P" + ((myID == 1) ? 2 : 1), stringSpace, 50, g);
+			
+			int x = 130 + gaps * (i + 1) + stringSpace * i - 7 * state.numOfPlayers;
+			
+			g.drawString(playerPairs.text, x + playerPairs.x , 270);
+//			g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
+
+			g.drawString(playerPairNum.text, x + playerPairNum.x, 240);
+//			g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
+			
+			
+			}
+			
+		}
 
 		public void drawHandCover(int pNum, Graphics g) {
 
@@ -219,10 +263,10 @@ public class GoFishWindow extends JFrame {
 			int y = 10;
 			int i = 0;
 			int startX = 20;
-			int spacing = getSpacing(hand);
+			int spacing = getSpacing(hand.size());
 			for (Card card : hand) {
 
-				int x = getXCenter(hand, startX) + (spacing * i);
+				int x = getXCenter(hand.size(), startX) + (spacing * i);
 
 				g.setColor(Color.BLUE);
 				g.fillRoundRect(x, y, 56, 100, 5, 5);
@@ -233,9 +277,36 @@ public class GoFishWindow extends JFrame {
 			}
 		}
 
-		public int getXCenter(ArrayList<Card> hand, int startX) {
+		public void drawOtherPlayerHands(int pNum, Graphics g, int y) {
 
-			int size = hand.size();
+			int j = 0;
+			for (int i = 0; i < state.numOfPlayers; i++) {
+
+				if (i != pNum) {
+					Rectangle r = state.handBounds[j];
+					int x = r.x;
+					y = r.y;
+					int w = r.width;
+					int h = r.height;
+
+					g.setColor(Color.CYAN);
+					g.fillRoundRect(x, y, w, h, 5, 5);
+					g.drawRoundRect(x, y, w, h, 5, 5);
+					g.setColor(Color.BLACK);
+					g.drawRoundRect(x, y, w, h, 5, 5);
+
+					CenteredText out = new CenteredText(""
+							+ state.hands.get(i).size(), w, h, g);
+
+					g.drawString(out.text, x + out.x, y + 56);
+					j++;
+				}
+			}
+		}
+
+		public int getXCenter(int numObjects, int startX) {
+
+			int size = numObjects;
 			if (size > 7)
 				size = 7;
 
@@ -245,11 +316,11 @@ public class GoFishWindow extends JFrame {
 			return startX;
 		}
 
-		public int getSpacing(ArrayList<Card> hand) {
+		public int getSpacing(int numObjects) {
 
-			if (hand.size() < 8)
+			if (numObjects < 8)
 				return 62;
-			int size = hand.size() + 1;
+			int size = numObjects + 1;
 
 			int cardWidth = size * 56;
 			int space = 460 - cardWidth;
@@ -265,25 +336,22 @@ public class GoFishWindow extends JFrame {
 
 			int startX = 20;
 
-			int spacing = getSpacing(hand);
+			int spacing = getSpacing(hand.size());
 			for (Card card : hand) {
 
-				int x = getXCenter(hand, startX) + (spacing * i);
+				int x = getXCenter(hand.size(), startX) + (spacing * i);
 				int y = startY;
 
 				CenteredText out = new CenteredText(card.getCardFace()
 						+ card.getSuitIcon(), 56, 100, g);
-				
-				
+
 				g.setColor(card.getColor());
 				g.fillRoundRect(x, y, 56, 100, 5, 5);
 				g.drawRoundRect(x, y, 56, 100, 5, 5);
-				
-				
+
 				g.setColor(Color.BLACK);
 				g.drawRoundRect(x, y, 56, 100, 5, 5);
-				
-				
+
 				g.setColor((card.getSuit() % 2 == 0) ? Color.RED : Color.BLACK);
 				g.drawString(card.getCardFace() + card.getSuitIcon(),
 						x + out.x, y + 56);
@@ -311,15 +379,12 @@ public class GoFishWindow extends JFrame {
 					.deriveFont(Font.BOLD);
 
 			ge.registerFont(customFont);
-			
-			
-			
+
 			customFontName = customFont.getFamily();
-			
+
 			String[] defaultFonts = { "Serif", "SansSerif", "Monospace",
 					"Dialog", "DialogInput" };
-			
-			
+
 			for (int i = 0; i < defaultFonts.length; i++) {
 				if (customFontName.contains(defaultFonts[i])) {
 
@@ -556,7 +621,7 @@ public class GoFishWindow extends JFrame {
 
 		ArrayList<Card> selectedCards = new ArrayList<Card>();
 		selectedCards = getSelected();
-		
+
 		if (getSelected().size() > 2) {
 
 			selectedCards.subList(2, selectedCards.size()).clear();

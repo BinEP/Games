@@ -1,4 +1,4 @@
-package multiplayerGoFish;
+package networkGoFish;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,7 +76,7 @@ public class ChatCensor {
 	
 	public boolean checkPartialWord(int indexOfBadWord, String badWord, String checkString) {
 		
-		
+		if (true) return true;
 		if (indexOfBadWord != -1 && checkString.length() == badWord.length()) return true;
 		if (checkString.charAt(indexOfBadWord + 1) != ' ') return false;
 		
