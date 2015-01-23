@@ -233,7 +233,10 @@ public class GoFishWindow extends JFrame {
 			g.setColor(Color.WHITE);
 			
 			int stringSpace = 120 / state.numOfPlayers;
-			int gaps = 120 / state.numOfPlayers + 1;
+			int gaps = 120 / (state.numOfPlayers + 1);
+			
+			System.out.println(stringSpace);
+			System.out.println(gaps);
 			
 			for (int i = 0; i < state.numOfPlayers; i++) {
 			CenteredText playerPairs = new CenteredText("" + state.restOfDeck.get(myID - 1).size(), stringSpace, 50, g);
@@ -243,7 +246,8 @@ public class GoFishWindow extends JFrame {
 			CenteredText playerPairNum = new CenteredText("P" + (i + 1), stringSpace, 50, g);
 //			CenteredText rightPairNum = new CenteredText("P" + ((myID == 1) ? 2 : 1), stringSpace, 50, g);
 			
-			int x = 130 + gaps * (i + 1) + stringSpace * i - 7 * state.numOfPlayers;
+			int x = 130 + gaps * (i + 1) + (stringSpace * i);
+			System.out.println(x);
 			
 			g.drawString(playerPairs.text, x + playerPairs.x , 270);
 //			g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
