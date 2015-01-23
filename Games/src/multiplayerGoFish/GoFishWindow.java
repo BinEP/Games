@@ -140,7 +140,7 @@ public class GoFishWindow extends JFrame {
 
 					CenteredText playerNum = new CenteredText(""
 							+ connection.getNumOfPlayers(), 500, 500, g, true,
-							460);
+							470);
 
 				} else {
 
@@ -239,7 +239,7 @@ public class GoFishWindow extends JFrame {
 //			System.out.println(gaps);
 			
 			for (int i = 0; i < state.numOfPlayers; i++) {
-			CenteredText playerPairs = new CenteredText("" + state.restOfDeck.get(myID - 1).size(), stringSpace, 50, g);
+			CenteredText playerPairs = new CenteredText("" + state.restOfDeck.get(i).size(), stringSpace, 50, g);
 
 //			CenteredText rightPairs = new CenteredText("" + state.restOfDeck.get((myID == 1) ? 1 : 0).size(), stringSpace, 50, g);
 

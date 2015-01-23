@@ -60,7 +60,7 @@ public class GoFishGameState implements Serializable {
 	public ArrayList<Button> button = new ArrayList<Button>();
 	public ArrayList<ArrayList<Card>> restOfDeck = new ArrayList<ArrayList<Card>>();
 
-	public Rectangle[] handBounds;
+	public CustomRectangle[] handBounds;
 	
 	public int turn;
 
@@ -252,13 +252,13 @@ public class GoFishGameState implements Serializable {
 
 	private void setHandBounds() {
 		// TODO Auto-generated method stub
-		handBounds = new Rectangle[numOfPlayers];
+		handBounds = new CustomRectangle[numOfPlayers];
 		int y = 10;
 		int startX = 20;
 		int spacing = getSpacing(hands.size());
 		for(int i = 0; i < numOfPlayers - 1; i++) {
 			int x = getXCenter(numOfPlayers-1, startX) + (spacing * i);
-			handBounds[i] = new Rectangle(x, y, 56, 100);
+			handBounds[i] = new CustomRectangle(x, y, 56, 100);
 		
 		}
 		
