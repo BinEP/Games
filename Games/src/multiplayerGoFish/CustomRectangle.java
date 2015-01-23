@@ -1,12 +1,14 @@
 package multiplayerGoFish;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 public class CustomRectangle extends Rectangle {
 
-	public boolean selected;
+	public boolean selected = false;
+	public Color handCol = Color.CYAN;
 	
 	public static void main(String[] args) {
 		CustomRectangle runIt = new CustomRectangle();
@@ -55,6 +57,12 @@ public class CustomRectangle extends Rectangle {
 		super(x, y, width, height);
 		this.selected = selected;
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void setColor(Color c) {
+		
+		this.handCol = c;
+		
 	}
 
 }

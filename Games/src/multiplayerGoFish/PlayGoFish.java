@@ -173,6 +173,10 @@ public class PlayGoFish {
                 try {
                 	ChatRoomWindow.newChat("localhost");
                     new GoFishWindow("localhost", port);
+///////////////////////////////////////////////////////////////////////////////////////////////////
+                    new GoFishWindow("localhost", port);
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
                     
                 }
                 catch (IOException e) {
