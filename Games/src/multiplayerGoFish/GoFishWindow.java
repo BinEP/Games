@@ -447,7 +447,7 @@ public class GoFishWindow extends JFrame {
 	}
 
 	public int askGetSelected() {
-
+		System.out.println("askFetSelected method");
 		int i = 0;
 		int j = -1;
 		boolean select = false;
@@ -460,15 +460,14 @@ public class GoFishWindow extends JFrame {
 			i++;
 		}
 
-		System.out.println(j);
 		if (j >= myID - 1)
 			j++;
-		System.out.println(j);
 		return j;
 	}
 
 	public void goFish() {
 
+		System.out.println("goFish method");
 		if (!state.deck.isEmpty()) {
 			state.hands.get(myID - 1).add(state.deck.get(0));
 			state.deck.remove(0);
@@ -600,11 +599,12 @@ public class GoFishWindow extends JFrame {
 	}
 
 	public void asking() {
+		System.out.println("asking method");
 		if (askGetSelected() != -1 && !getSelected().isEmpty()) {
 			
 			int askP = askGetSelected();
-			System.out.println("Turn: " + state.turn);
-			System.out.println("Asking player " + (askP + 1));
+//			System.out.println("Turn: " + state.turn);
+//			System.out.println("Asking player " + (askP + 1));
 			ArrayList<Card> matchingCards = new ArrayList<Card>();
 			Card selectedCard = getSelected().get(0);
 
@@ -646,7 +646,7 @@ public class GoFishWindow extends JFrame {
 	}
 
 	public void nextTurn() {
-
+		System.out.println("nextTurn method");
 		goFish();
 		// sortCards();
 		state.turn++;
@@ -654,7 +654,7 @@ public class GoFishWindow extends JFrame {
 		
 		if (state.turn > state.numOfPlayers)
 			state.turn = 1;
-		System.out.println(state.turn);
+//		System.out.println(state.turn);
 		newMessageLog("Player " + myID + " drew a Card. Next player");
 		connection.send(state);
 
