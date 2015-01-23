@@ -56,6 +56,7 @@ public class GoFishGameHub extends Hub {
             
             sendToAll(state);
         }
+        sendToAll(state);
     }
 
     /**

@@ -42,17 +42,14 @@ public class PlayGoFish {
         final JComboBox hostInput = new JComboBox();
 //        final String[] choices = {"A", "B"};
         ScanNetwork scanning = new ScanNetwork();
-        final String[] choices = scanning.checkHostsAtPort(DEFAULT_PORT);
+//        final String[] choices = scanning.checkHostsAtPort(DEFAULT_PORT);
+        final String[] choices = {"10.42.5.24"};
         boolean showServer = true;
 		if (!choices[0].equals("localhost")) showServer = false;
         hostInput.setModel(new DefaultComboBoxModel(choices));
         hostInput.setSelectedIndex(0);
         
         final JTextField connectPortInput = new JTextField("" + DEFAULT_PORT, 5);
-        
-        
-        
-        
         
         final JRadioButton selectServerMode = new JRadioButton("Start a new game");
         final JRadioButton selectClientMode = new JRadioButton("Connect to existing game");
