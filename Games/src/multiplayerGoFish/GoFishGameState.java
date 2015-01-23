@@ -60,8 +60,8 @@ public class GoFishGameState implements Serializable {
 	public ArrayList<Button> button = new ArrayList<Button>();
 	public ArrayList<ArrayList<Card>> restOfDeck = new ArrayList<ArrayList<Card>>();
 
-	public CustomRectangle[] handBounds;
-
+	public Rectangle[] handBounds;
+	
 	public int turn;
 
 	public boolean startGame = true;
@@ -74,7 +74,7 @@ public class GoFishGameState implements Serializable {
 	public int[] playerNumOfCards;
 	public Winner playerWon;
 	public boolean playerDisconnected;
-	public String[] messageFromServer = { " ", " " };
+	public String[] messageFromServer = {" ", " "};
 	public boolean netGame = true;
 
 	// ----------- the method that is called by the Hub to react to messages
@@ -93,7 +93,7 @@ public class GoFishGameState implements Serializable {
 	 *            the message that was received from that player.
 	 */
 	public void applyMessage(int sender, Object message) {
-
+		
 		if (message instanceof GoFishGameState) {
 
 			GoFishGameState theState = (GoFishGameState) message;
@@ -101,8 +101,7 @@ public class GoFishGameState implements Serializable {
 			playerNumOfCards = theState.playerNumOfCards;
 			deck = theState.deck;
 			turn = theState.turn;
-			handBounds = theState.handBounds;
-			// numOfPlayers = theState.numOfPlayers;
+//			numOfPlayers = theState.numOfPlayers;
 			restOfDeck = theState.restOfDeck;
 			// setHandSizes(playerNumOfCards);
 			// newHands();
@@ -116,17 +115,18 @@ public class GoFishGameState implements Serializable {
 			messageFromServer = theState.messageFromServer;
 			checkIfWon();
 			resetColors();
-//			resetHandColors();
-//			System.out.println(theState);
-//			System.out.println(hands.toString());
+			System.out.println(hands.toString());
 
 		} else if (message instanceof String) {
-
-			if (message.equals("newgame"))
-				newGame();
-
+			
+			if (message.equals("newgame")) newGame();
+			
+			
+			
 		}
 	}
+
+	
 
 	public void resetColors() {
 
@@ -145,17 +145,7 @@ public class GoFishGameState implements Serializable {
 		}
 
 	}
-
-	public void resetHandColors() {
-
-		for (CustomRectangle r : handBounds) {
-
-			r.selected = false;
-			r.setColor(Color.CYAN);
-		}
-
-	}
-
+	
 	public boolean checkIfWon() {
 
 		int i = 1;
@@ -170,15 +160,18 @@ public class GoFishGameState implements Serializable {
 		}
 		return false;
 	}
-
+	
 	public void setWon(int i) {
 		winner = i;
 		won = true;
 		playing = false;
 		endGame = true;
+		
+		
 
 	}
 
+	
 	public void newDeck() {
 		Card card = new Card();
 		for (int i = 0; i < 52; i++) {
@@ -188,9 +181,9 @@ public class GoFishGameState implements Serializable {
 			deck.add(card);
 		}
 	}
-
+	
 	public void newMultipleDecks(int numOfDecks) {
-
+		
 		for (int k = 0; k < numOfDecks; k++) {
 			ArrayList<Card> deckNum = new ArrayList<Card>();
 			Card card = new Card();
@@ -200,12 +193,13 @@ public class GoFishGameState implements Serializable {
 				}
 				deckNum.add(card);
 			}
-
+			
 			deck.addAll(deckNum);
 			deckNum.clear();
-
+			
+			
 		}
-
+		
 	}
 
 	public void newHands() {
@@ -215,7 +209,7 @@ public class GoFishGameState implements Serializable {
 				hand.add(deck.get(0));
 				deck.remove(0);
 			}
-
+			
 			hands.add(hand);
 			sortCards();
 		}
@@ -240,10 +234,10 @@ public class GoFishGameState implements Serializable {
 		playing = true;
 		endGame = false;
 		startGame = false;
-
+		
 		messageFromServer[1] = "New Deck made";
 		messageFromServer[0] = "Hands dealt";
-
+		
 		if (numOfPlayers > 2) {
 			newMultipleDecks(((numOfPlayers - 1) / 2) + 1);
 		} else {
@@ -258,16 +252,16 @@ public class GoFishGameState implements Serializable {
 
 	private void setHandBounds() {
 		// TODO Auto-generated method stub
-		handBounds = new CustomRectangle[numOfPlayers - 1];
+		handBounds = new Rectangle[numOfPlayers];
 		int y = 10;
 		int startX = 20;
 		int spacing = getSpacing(hands.size());
-		for (int i = 0; i < numOfPlayers - 1; i++) {
-			int x = getXCenter(numOfPlayers - 1, startX) + (spacing * i);
-			handBounds[i] = new CustomRectangle(x, y, 56, 100);
-
+		for(int i = 0; i < numOfPlayers - 1; i++) {
+			int x = getXCenter(numOfPlayers-1, startX) + (spacing * i);
+			handBounds[i] = new Rectangle(x, y, 56, 100);
+		
 		}
-
+		
 	}
 
 	public int getXCenter(int numObjects, int startX) {

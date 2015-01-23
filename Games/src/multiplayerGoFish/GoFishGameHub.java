@@ -53,10 +53,8 @@ public class GoFishGameHub extends Hub {
         if (getPlayerList().length == numberOfPlayers) {
             shutdownServerSocket();
             state.startFirstGame(numberOfPlayers);
-            
             sendToAll(state);
         }
-        sendToAll(state);
     }
 
     /**

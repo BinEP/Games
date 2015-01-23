@@ -140,7 +140,7 @@ public class GoFishWindow extends JFrame {
 
 					CenteredText playerNum = new CenteredText(""
 							+ connection.getNumOfPlayers(), 500, 500, g, true,
-							470);
+							460);
 
 				} else {
 
@@ -176,27 +176,27 @@ public class GoFishWindow extends JFrame {
 						30);
 				g.setColor(Color.WHITE);
 
+				
 				drawPlayerInfo(g);
-				// CenteredText leftPairs = new CenteredText(""
-				// + state.restOfDeck.get(myID - 1).size(), 60, 50, g);
-				//
-				// CenteredText rightPairs = new CenteredText(""
-				// + state.restOfDeck.get((myID == 1) ? 1 : 0).size(), 60,
-				// 50, g);
-				//
-				// CenteredText leftPairNum = new CenteredText("P" + myID, 60,
-				// 50,
-				// g);
-				// CenteredText rightPairNum = new CenteredText("P"
-				// + ((myID == 1) ? 2 : 1), 60, 50, g);
-				//
-				// g.drawString(leftPairs.text, 170 + leftPairs.x, 270);
-				// g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
-				//
-				// g.drawString(leftPairNum.text, 170 + leftPairNum.x, 240);
-				// g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
+//				CenteredText leftPairs = new CenteredText(""
+//						+ state.restOfDeck.get(myID - 1).size(), 60, 50, g);
+//
+//				CenteredText rightPairs = new CenteredText(""
+//						+ state.restOfDeck.get((myID == 1) ? 1 : 0).size(), 60,
+//						50, g);
+//
+//				CenteredText leftPairNum = new CenteredText("P" + myID, 60, 50,
+//						g);
+//				CenteredText rightPairNum = new CenteredText("P"
+//						+ ((myID == 1) ? 2 : 1), 60, 50, g);
+//
+//				g.drawString(leftPairs.text, 170 + leftPairs.x, 270);
+//				g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
+//
+//				g.drawString(leftPairNum.text, 170 + leftPairNum.x, 240);
+//				g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
 
-				// drawHandCover((myID == 1) ? 2 : 1, g);
+//				drawHandCover((myID == 1) ? 2 : 1, g);
 				g.setColor(Color.WHITE);
 				g.setFont(new Font(customFontName, Font.PLAIN, 15));
 				if (state != null) {
@@ -227,48 +227,45 @@ public class GoFishWindow extends JFrame {
 			}
 
 		}
-
+		
 		public void drawPlayerInfo(Graphics g) {
-
+			
 			g.setColor(Color.WHITE);
-
+			
 			int stringSpace = 120 / state.numOfPlayers;
 			int gaps = 120 / (state.numOfPlayers + 1);
-
-			// System.out.println(stringSpace);
-			// System.out.println(gaps);
-
+			
+//			System.out.println(stringSpace);
+//			System.out.println(gaps);
+			
 			for (int i = 0; i < state.numOfPlayers; i++) {
-				CenteredText playerPairs = new CenteredText(""
-						+ state.restOfDeck.get(i).size(), stringSpace, 50, g);
+			CenteredText playerPairs = new CenteredText("" + state.restOfDeck.get(myID - 1).size(), stringSpace, 50, g);
 
-				// CenteredText rightPairs = new CenteredText("" +
-				// state.restOfDeck.get((myID == 1) ? 1 : 0).size(),
-				// stringSpace, 50, g);
+//			CenteredText rightPairs = new CenteredText("" + state.restOfDeck.get((myID == 1) ? 1 : 0).size(), stringSpace, 50, g);
 
-				CenteredText playerPairNum = new CenteredText("P" + (i + 1),
-						stringSpace, 50, g);
-				// CenteredText rightPairNum = new CenteredText("P" + ((myID ==
-				// 1) ? 2 : 1), stringSpace, 50, g);
+			CenteredText playerPairNum = new CenteredText("P" + (i + 1), stringSpace, 50, g);
+//			CenteredText rightPairNum = new CenteredText("P" + ((myID == 1) ? 2 : 1), stringSpace, 50, g);
+			
+			int x = 130 + gaps * (i + 1) + (stringSpace * i);
+//			System.out.println(x);
+			
+			g.drawString(playerPairs.text, x + playerPairs.x , 270);
+//			g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
 
-				int x = 130 + gaps * (i + 1) + (stringSpace * i);
-				// System.out.println(x);
-
-				g.drawString(playerPairs.text, x + playerPairs.x, 270);
-				// g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
-
-				g.drawString(playerPairNum.text, x + playerPairNum.x, 240);
-
-				// g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
-
-				if (i + 1 == state.turn) {
-					g.setColor(Color.YELLOW);
-					g.fillRect(x + ((stringSpace - 40) / 2), 290, 40, 10);
-					g.setColor(Color.WHITE);
-				}
-
+			g.drawString(playerPairNum.text, x + playerPairNum.x, 240);
+			
+			
+//			g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
+			
+			
+			if (i + 1 == state.turn) {
+				g.setColor(Color.YELLOW);
+				g.fillRect(x + ((stringSpace - 40) / 2), 290, 40, 10);
+				g.setColor(Color.WHITE);
 			}
-
+			
+			}
+			
 		}
 
 		public void drawHandCover(int pNum, Graphics g) {
@@ -298,13 +295,13 @@ public class GoFishWindow extends JFrame {
 			for (int i = 0; i < state.numOfPlayers; i++) {
 
 				if (i != pNum) {
-					CustomRectangle r = state.handBounds[j];
+					Rectangle r = state.handBounds[j];
 					int x = r.x;
 					y = r.y;
 					int w = r.width;
 					int h = r.height;
-					
-					g.setColor((state.turn == myID && r.selected) ? Color.RED : Color.CYAN);
+
+					g.setColor(Color.CYAN);
 					g.fillRoundRect(x, y, w, h, 5, 5);
 					g.drawRoundRect(x, y, w, h, 5, 5);
 					g.setColor(Color.BLACK);
@@ -446,28 +443,8 @@ public class GoFishWindow extends JFrame {
 		return selected;
 	}
 
-	public int askGetSelected() {
-		System.out.println("askFetSelected method");
-		int i = 0;
-		int j = -1;
-		boolean select = false;
-		for (CustomRectangle cr : state.handBounds) {
-
-			if (cr.selected && !select) {
-				select = true;
-				j = i;
-			}
-			i++;
-		}
-
-		if (j >= myID - 1)
-			j++;
-		return j;
-	}
-
 	public void goFish() {
 
-		System.out.println("goFish method");
 		if (!state.deck.isEmpty()) {
 			state.hands.get(myID - 1).add(state.deck.get(0));
 			state.deck.remove(0);
@@ -513,10 +490,10 @@ public class GoFishWindow extends JFrame {
 		super("Network Go Fish");
 		connection = new GoFishClient(hostName, serverPortNumber);
 		myID = connection.getID();
-		board = new Board();
+
 		makeCustomFont(Font_File_Name);
 
-		
+		board = new Board();
 		message = new JLabel("Waiting for two players to connect.",
 				JLabel.CENTER);
 		board.setBackground(Color.BLACK);
@@ -580,7 +557,7 @@ public class GoFishWindow extends JFrame {
 		});
 		setLocation(30, 100);
 		setVisible(true);
-//		board.repaint();
+		board.repaint();
 	}
 
 	public boolean checkIfWon() {
@@ -599,35 +576,30 @@ public class GoFishWindow extends JFrame {
 	}
 
 	public void asking() {
-		System.out.println("asking method");
-		if (askGetSelected() != -1 && !getSelected().isEmpty()) {
-			
-			int askP = askGetSelected();
-//			System.out.println("Turn: " + state.turn);
-//			System.out.println("Asking player " + (askP + 1));
-			ArrayList<Card> matchingCards = new ArrayList<Card>();
+		if (!getSelected().isEmpty()) {
 			Card selectedCard = getSelected().get(0);
+			ArrayList<Card> matchingCards = new ArrayList<Card>();
 
-			
-				
+			int i = 0;
+			for (ArrayList<Card> currentHand : state.hands) {
+				if (i != myID - 1) {
 
-					for (Card currentCard : state.hands.get(askP)) {
-						
+					for (Card currentCard : currentHand) {
+
 						if (selectedCard.getCard() == currentCard.getCard())
 							matchingCards.add(currentCard);
 					}
-				
-				for (Card matchCard : matchingCards) {
-					state.hands.get(askP).remove(matchCard);
 				}
-				
-			
+				for (Card matchCard : matchingCards) {
+					currentHand.remove(matchCard);
+				}
+				i++;
+			}
 
 			state.hands.get(myID - 1).addAll(matchingCards);
 
 			sortCards();
-			resetHandColors();
-			newMessageLog("Player " + myID + " asked P" + (askP + 1) + " for a "
+			newMessageLog("Player " + myID + " asked for a "
 					+ selectedCard.getCardFace());
 			if (matchingCards.isEmpty())
 				nextTurn();
@@ -646,15 +618,13 @@ public class GoFishWindow extends JFrame {
 	}
 
 	public void nextTurn() {
-		System.out.println("nextTurn method");
+
 		goFish();
 		// sortCards();
 		state.turn++;
-		resetHandColors();
-		
 		if (state.turn > state.numOfPlayers)
 			state.turn = 1;
-//		System.out.println(state.turn);
+
 		newMessageLog("Player " + myID + " drew a Card. Next player");
 		connection.send(state);
 
@@ -709,16 +679,6 @@ public class GoFishWindow extends JFrame {
 		}
 
 	}
-	
-	public void resetHandColors() {
-
-		for (CustomRectangle r : state.handBounds) {
-
-			r.selected = false;
-			r.setColor(Color.CYAN);
-		}
-
-	}
 
 	public void sortCards() {
 
@@ -747,8 +707,6 @@ public class GoFishWindow extends JFrame {
 				if (!checkIfWon() && state.playing) {
 
 					highlightClickedCards(x, y);
-
-					highlightClickedHands(x, y);
 
 					doClickedButtonAction(x, y);
 
@@ -782,19 +740,6 @@ public class GoFishWindow extends JFrame {
 
 		}
 
-	}
-
-	public void highlightClickedHands(int x, int y) {
-
-		
-		for (CustomRectangle r : state.handBounds) {
-			if (r.contains(new Point(x, y))) {
-
-				r.selected = !r.selected;
-				r.setColor((r.selected) ? Color.RED : Color.CYAN);
-			}
-
-		}
 	}
 
 	public void doClickedButtonAction(int x, int y) {
@@ -839,7 +784,7 @@ public class GoFishWindow extends JFrame {
 		}
 		this.state = state;
 		board.repaint();
-		if (state.hands == null || state.deck == null || message == null) {
+		if (state.hands == null || state.deck == null) {
 			return; // haven't started yet -- waiting for 2nd player
 		} else if (state.endGame) {
 			setTitle("Game Over");
