@@ -513,10 +513,10 @@ public class GoFishWindow extends JFrame {
 		super("Network Go Fish");
 		connection = new GoFishClient(hostName, serverPortNumber);
 		myID = connection.getID();
-
+		board = new Board();
 		makeCustomFont(Font_File_Name);
 
-		board = new Board();
+		
 		message = new JLabel("Waiting for two players to connect.",
 				JLabel.CENTER);
 		board.setBackground(Color.BLACK);
@@ -580,7 +580,7 @@ public class GoFishWindow extends JFrame {
 		});
 		setLocation(30, 100);
 		setVisible(true);
-		board.repaint();
+//		board.repaint();
 	}
 
 	public boolean checkIfWon() {
@@ -839,7 +839,7 @@ public class GoFishWindow extends JFrame {
 		}
 		this.state = state;
 		board.repaint();
-		if (state.hands == null || state.deck == null) {
+		if (state.hands == null || state.deck == null || message == null) {
 			return; // haven't started yet -- waiting for 2nd player
 		} else if (state.endGame) {
 			setTitle("Game Over");

@@ -117,6 +117,7 @@ public class GoFishGameState implements Serializable {
 			checkIfWon();
 			resetColors();
 //			resetHandColors();
+//			System.out.println(theState);
 //			System.out.println(hands.toString());
 
 		} else if (message instanceof String) {

@@ -174,7 +174,7 @@ public class PlayGoFish {
                 	ChatRoomWindow.newChat("localhost");
                     new GoFishWindow("localhost", port);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-                    new GoFishWindow("localhost", port);
+//                    new GoFishWindow("localhost", port);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
                     
