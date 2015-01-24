@@ -121,38 +121,17 @@ public String getCensoredString(String checkString) {
 
 	public void getCensoredWords() {
 
+		
 		wordFile = "swearWords.txt";
-		Scanner input;
-		try {
-			input = new Scanner(new File(wordFile));
-			while (input.hasNext()) {
-				allSwearWords.add(input.next());
-			}
-			input.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		GetFileContentList file = new GetFileContentList(wordFile);
+		allSwearWords = file.getFileList();
+		
 	}
 	
 	public void getFunnyWords() {
 
 		wordFile = "funnyWords.txt";
-		Scanner input;
-		try {
-			input = new Scanner(new File(wordFile));
-			while (input.hasNext()) {
-				allFunnyWords.add(input.next());
-			}
-			input.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		GetFileContentList file = new GetFileContentList(wordFile);
+		allFunnyWords = file.getFileList();
 	}
-
 }
