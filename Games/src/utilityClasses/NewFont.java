@@ -41,7 +41,7 @@ public class NewFont {
 
 		try {
 
-			fontPath = "Fonts/" + fontPath + ".ttf";
+			fontPath = "InfoFiles/Fonts/" + fontPath + ".ttf";
 			this.path = fontPath;
 
 			InputStream fontStream = new BufferedInputStream(

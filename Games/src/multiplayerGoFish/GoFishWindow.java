@@ -291,14 +291,15 @@ public class GoFishWindow extends JFrame {
 			int j = 0;
 			
 			int y = 10;
+			int k = 0;
 			int startX = 20;
-			int spacing = getSpacing(state.hands.size());
+			int spacing = getSpacing(state.numOfPlayers);
 			
 			for (int i = 0; i < state.numOfPlayers; i++) {
 
 				if (i != pNum) {
-					
-					int x = getXCenter(state.hands.get(i).size(), startX) + (spacing * i);					
+					k = (i > pNum) ? -1 : 0;
+					int x = getXCenter(state.numOfPlayers - 1, startX) + (spacing * (i + k));					
 					
 					g.setColor(state.hands.get(i).getColor());
 					g.fillRoundRect(x, y, 56, 100, 5, 5);
@@ -383,7 +384,7 @@ public class GoFishWindow extends JFrame {
 
 		try {
 
-			fontPath = "Fonts/" + fontPath + ".ttf";
+			fontPath = "InfoFiles/Fonts/" + fontPath + ".ttf";
 
 			InputStream fontStream = new BufferedInputStream(
 					new FileInputStream(fontPath));
@@ -678,8 +679,9 @@ public class GoFishWindow extends JFrame {
 
 	public void resetColors() {
 
-		for (ArrayList<Card> currentHand : state.hands) {
-
+		for (Hand currentHand : state.hands) {
+			currentHand.selected = false;
+			currentHand.setColor(Color.CYAN);
 			for (Card currentCard : currentHand) {
 
 				currentCard.selected = false;
