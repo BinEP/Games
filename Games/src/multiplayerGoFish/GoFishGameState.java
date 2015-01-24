@@ -55,8 +55,9 @@ public class GoFishGameState implements Serializable {
 	//
 	public ArrayList<Card> deck = new ArrayList<Card>();
 	public int numOfPlayers = 2;
-	public ArrayList<ArrayList<Card>> hands = new ArrayList<ArrayList<Card>>(
-			numOfPlayers);
+//	public ArrayList<ArrayList<Card>> hands = new ArrayList<ArrayList<Card>>(numOfPlayers);
+	
+	public ArrayList<Hand> hands = new ArrayList<Hand>(numOfPlayers);
 	public ArrayList<Button> button = new ArrayList<Button>();
 	public ArrayList<ArrayList<Card>> restOfDeck = new ArrayList<ArrayList<Card>>();
 
@@ -204,7 +205,7 @@ public class GoFishGameState implements Serializable {
 
 	public void newHands() {
 		for (int n = 0; n < numOfPlayers; n++) {
-			ArrayList<Card> hand = new ArrayList<Card>();
+			Hand hand = new Hand();
 			for (int i = 0; i < 7; i++) {
 				hand.add(deck.get(0));
 				deck.remove(0);

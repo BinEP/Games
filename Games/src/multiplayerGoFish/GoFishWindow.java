@@ -165,7 +165,7 @@ public class GoFishWindow extends JFrame {
 
 				drawPlayerHand(myID - 1, g, 350);
 
-				drawOtherPlayerHands(myID - 1, g, 10);
+				drawOtherPlayerHands(myID - 1, g);
 				// drawPlayerHand(1, g, 10);
 				// drawPlayerHand(2, g, 350);
 
@@ -177,7 +177,7 @@ public class GoFishWindow extends JFrame {
 				g.setColor(Color.WHITE);
 
 				
-				drawPlayerPairs(g);
+				drawPlayerInfo(g);
 //				CenteredText leftPairs = new CenteredText(""
 //						+ state.restOfDeck.get(myID - 1).size(), 60, 50, g);
 //
@@ -228,12 +228,12 @@ public class GoFishWindow extends JFrame {
 
 		}
 		
-		public void drawPlayerPairs(Graphics g) {
+		public void drawPlayerInfo(Graphics g) {
 			
 			g.setColor(Color.WHITE);
 			
 			int stringSpace = 120 / state.numOfPlayers;
-			int gaps = 120 / state.numOfPlayers + 1;
+			int gaps = 120 / (state.numOfPlayers + 1);
 			
 			for (int i = 0; i < state.numOfPlayers; i++) {
 			CenteredText playerPairs = new CenteredText("" + state.restOfDeck.get(myID - 1).size(), stringSpace, 50, g);
@@ -243,7 +243,7 @@ public class GoFishWindow extends JFrame {
 			CenteredText playerPairNum = new CenteredText("P" + (i + 1), stringSpace, 50, g);
 //			CenteredText rightPairNum = new CenteredText("P" + ((myID == 1) ? 2 : 1), stringSpace, 50, g);
 			
-			int x = 130 + gaps * (i + 1) + stringSpace * i - 7 * state.numOfPlayers;
+			int x = 130 + gaps * (i + 1) + stringSpace * i;
 			
 			g.drawString(playerPairs.text, x + playerPairs.x , 270);
 //			g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
@@ -252,7 +252,16 @@ public class GoFishWindow extends JFrame {
 //			g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
 			
 			
+			if (i + 1 == state.turn) {
+				g.setColor(Color.YELLOW);
+				g.fillRect(x + ((stringSpace - 40) / 2), 290, 40, 10);
+				g.setColor(Color.WHITE);
 			}
+
+			
+			}
+			
+			
 			
 		}
 
@@ -277,29 +286,35 @@ public class GoFishWindow extends JFrame {
 			}
 		}
 
-		public void drawOtherPlayerHands(int pNum, Graphics g, int y) {
+		public void drawOtherPlayerHands(int pNum, Graphics g) {
 
 			int j = 0;
+			
+			int y = 10;
+			int startX = 20;
+			int spacing = getSpacing(state.hands.size());
+			
 			for (int i = 0; i < state.numOfPlayers; i++) {
 
 				if (i != pNum) {
-					Rectangle r = state.handBounds[j];
-					int x = r.x;
-					y = r.y;
-					int w = r.width;
-					int h = r.height;
-
-					g.setColor(Color.CYAN);
-					g.fillRoundRect(x, y, w, h, 5, 5);
-					g.drawRoundRect(x, y, w, h, 5, 5);
+					
+					int x = getXCenter(state.hands.get(i).size(), startX) + (spacing * i);					
+					
+					g.setColor(state.hands.get(i).getColor());
+					g.fillRoundRect(x, y, 56, 100, 5, 5);
+					g.drawRoundRect(x, y, 56, 100, 5, 5);
 					g.setColor(Color.BLACK);
-					g.drawRoundRect(x, y, w, h, 5, 5);
+					g.drawRoundRect(x, y, 56, 100, 5, 5);
 
 					CenteredText out = new CenteredText(""
-							+ state.hands.get(i).size(), w, h, g);
+							+ state.hands.get(i).size(), 56, 100, g);
 
 					g.drawString(out.text, x + out.x, y + 56);
 					j++;
+				
+					state.hands.get(i).setBounds(x, y, 56, 100);
+				} else {
+					state.hands.get(i).setBounds(new Rectangle());
 				}
 			}
 		}
@@ -426,6 +441,19 @@ public class GoFishWindow extends JFrame {
 
 			if (currentCard.selected)
 				selected.add(currentCard);
+		}
+
+		return selected;
+	}
+	
+	public ArrayList<Hand> getSelectedHands() {
+
+		ArrayList<Hand> selected = new ArrayList<Hand>();
+
+		for (Hand currentHand : state.hands) {
+
+			if (currentHand.selected)
+				selected.add(currentHand);
 		}
 
 		return selected;
@@ -564,25 +592,22 @@ public class GoFishWindow extends JFrame {
 	}
 
 	public void asking() {
-		if (!getSelected().isEmpty()) {
+		if (!getSelected().isEmpty() && !getSelectedHands().isEmpty()) {
 			Card selectedCard = getSelected().get(0);
+			Hand currentHand = getSelectedHands().get(0);
 			ArrayList<Card> matchingCards = new ArrayList<Card>();
-
-			int i = 0;
-			for (ArrayList<Card> currentHand : state.hands) {
-				if (i != myID - 1) {
-
+			
 					for (Card currentCard : currentHand) {
 
-						if (selectedCard.getCard() == currentCard.getCard())
+						if (selectedCard.getCard() == currentCard.getCard()) {
 							matchingCards.add(currentCard);
+						}
 					}
-				}
+				
 				for (Card matchCard : matchingCards) {
 					currentHand.remove(matchCard);
 				}
-				i++;
-			}
+			
 
 			state.hands.get(myID - 1).addAll(matchingCards);
 
@@ -622,7 +647,7 @@ public class GoFishWindow extends JFrame {
 		ArrayList<Card> selectedCards = new ArrayList<Card>();
 		selectedCards = getSelected();
 
-		if (getSelected().size() > 2) {
+		if (getSelected().size() > 2 && getSelected().size() % 2 != 0) {
 
 			selectedCards.subList(2, selectedCards.size()).clear();
 
@@ -693,6 +718,8 @@ public class GoFishWindow extends JFrame {
 				if (!checkIfWon() && state.playing) {
 
 					highlightClickedCards(x, y);
+					
+					highlightClickedHands(x, y);
 
 					doClickedButtonAction(x, y);
 
@@ -711,6 +738,24 @@ public class GoFishWindow extends JFrame {
 			}
 		}
 
+	}
+
+	private void highlightClickedHands(int x, int y) {
+		// TODO Auto-generated method stub
+		
+		for (Hand r : state.hands) {
+			
+			if (r.getBounds().contains(new Point(x, y))) {
+
+				r.selected = !r.selected;
+				r.setColor((r.selected) ? Color.RED : Color.CYAN);
+			}
+			
+			
+		}
+		
+		
+		
 	}
 
 	public void highlightClickedCards(int x, int y) {

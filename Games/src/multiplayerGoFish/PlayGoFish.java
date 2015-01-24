@@ -177,7 +177,10 @@ public class PlayGoFish {
                 }
                 try {
                 	ChatRoomWindow.newChat("localhost");
-                    new GoFishWindow("localhost", port);
+                	for (int i = 0; i < Integer.parseInt(numberOfPlayers.getText().trim()); i++) {
+                    	new GoFishWindow("localhost", port);
+                    	}
+//                    new GoFishWindow("localhost", port);
                     
                 }
                 catch (IOException e) {
@@ -216,8 +219,7 @@ public class PlayGoFish {
                 }
                 try {
                 	ChatRoomWindow.newChat(host);
-                    new GoFishWindow(host,port);
-                    
+                	new GoFishWindow(host,port);
                     
                 }
                 catch (IOException e) {
