@@ -36,7 +36,7 @@ public class PlayGoFish {
         
         JLabel message = new JLabel("Welcome to Networked Go Fish!", JLabel.CENTER);
         message.setFont(new Font("Serif", Font.BOLD, 16));
-        
+//        final JTextField numberOfPlayers = new JTextField("2", 2);
         final JTextField listeningPortInput = new JTextField("" + DEFAULT_PORT, 5);
 //        final JTextField hostInput = new JTextField("localhost", 30);
         final JComboBox hostInput = new JComboBox();
@@ -62,18 +62,28 @@ public class PlayGoFish {
         ActionListener radioListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == selectServerMode) {
-                    listeningPortInput.setEnabled(true);
+                	
+//                  Host settings
+                	listeningPortInput.setEnabled(true);
+//                    numberOfPlayers.setEnabled(true);
+                    listeningPortInput.setEditable(true);
+                    
+//                  Client settings
                     hostInput.setEnabled(false);
                     connectPortInput.setEnabled(false);
-                    listeningPortInput.setEditable(true);
                     hostInput.setEditable(false);
                     connectPortInput.setEditable(false);
                 }
                 else {
+                	
+//                  Host settings
                     listeningPortInput.setEnabled(false);
+//                    numberOfPlayers.setEnabled(false);
+                    listeningPortInput.setEditable(false);
+                    
+//                  Client settings
                     hostInput.setEnabled(true);
                     connectPortInput.setEnabled(true);
-                    listeningPortInput.setEditable(false);
                     hostInput.setEditable(true);
                     connectPortInput.setEditable(true);
                 }
@@ -81,7 +91,10 @@ public class PlayGoFish {
         };
         selectServerMode.addActionListener(radioListener);
         selectClientMode.addActionListener(radioListener);
+        
         selectServerMode.setSelected(true);
+        
+//      Client Settings disabled
         hostInput.setEnabled(false);
         connectPortInput.setEnabled(false);
         hostInput.setEditable(false);
@@ -89,6 +102,7 @@ public class PlayGoFish {
         
         
         JPanel inputPanel = new JPanel();
+        
         inputPanel.setLayout(new GridLayout(0,1,5,5));
         inputPanel.setBorder(BorderFactory.createCompoundBorder(
                      BorderFactory.createLineBorder(Color.BLACK, 2),
@@ -96,32 +110,16 @@ public class PlayGoFish {
         
         inputPanel.add(message);
         
-        JPanel row;
         
         inputPanel.add(selectServerMode);
         
-        row = new JPanel();
-        row.setLayout(new FlowLayout(FlowLayout.LEFT));
-        row.add(Box.createHorizontalStrut(40));
-        row.add(new JLabel("Listen on port: "));
-        row.add(listeningPortInput);
-        inputPanel.add(row);
+//        inputPanel.add(createRow("Players: ", numberOfPlayers));
+        inputPanel.add(createRow("Listen on port: ", listeningPortInput));
         
         inputPanel.add(selectClientMode);
         
-        row = new JPanel();
-        row.setLayout(new FlowLayout(FlowLayout.LEFT));        
-        row.add(Box.createHorizontalStrut(40));
-        row.add(new JLabel("Computer: "));
-        row.add(hostInput);
-        inputPanel.add(row);
-
-        row = new JPanel();
-        row.setLayout(new FlowLayout(FlowLayout.LEFT));
-        row.add(Box.createHorizontalStrut(40));
-        row.add(new JLabel("Port Number: "));
-        row.add(connectPortInput);
-        inputPanel.add(row);
+        inputPanel.add(createRow("Computer: ", hostInput));
+        inputPanel.add(createRow("Port Number: ", connectPortInput));
         
         // Show the dialog, get the user's response and -- if the user doesn't
         // cancel -- start a game.  If the user chooses to run as the server
@@ -221,5 +219,16 @@ public class PlayGoFish {
             }
         }
         
+    }
+    
+    public static JPanel createRow(String labelText, JComponent field) {
+    	JPanel row = new JPanel();
+    	 row = new JPanel();
+         row.setLayout(new FlowLayout(FlowLayout.LEFT));        
+         row.add(Box.createHorizontalStrut(40));
+         row.add(new JLabel(labelText));
+         row.add(field);
+         return row;
+    	
     }
 }
