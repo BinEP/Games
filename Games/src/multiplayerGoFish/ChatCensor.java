@@ -1,4 +1,4 @@
-package multiplayerGoFish;
+package networkGoFish;
 
 import java.io.File;
 import java.io.FileNotFoundException;

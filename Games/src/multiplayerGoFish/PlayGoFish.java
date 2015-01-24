@@ -43,8 +43,7 @@ public class PlayGoFish {
 //        final String[] choices = {"A", "B"};
         ScanNetwork scanning = new ScanNetwork();
         final String[] choices = scanning.checkHostsAtPort(DEFAULT_PORT);
-        boolean showServer = true;
-		if (!choices[0].equals("localhost")) showServer = false;
+        
         hostInput.setModel(new DefaultComboBoxModel(choices));
         hostInput.setSelectedIndex(0);
         
@@ -93,19 +92,13 @@ public class PlayGoFish {
         selectServerMode.addActionListener(radioListener);
         selectClientMode.addActionListener(radioListener);
         
-        selectServerMode.setSelected(showServer);
-        selectClientMode.setSelected(!showServer);
+        selectServerMode.setSelected(true);
         
-//      Host Settings state
-        listeningPortInput.setEnabled(showServer);
-        numberOfPlayers.setEnabled(showServer);
-        listeningPortInput.setEditable(showServer);
-        
-//      Client Settings state
-        hostInput.setEnabled(!showServer);
-        connectPortInput.setEnabled(!showServer);
-        hostInput.setEditable(!showServer);
-        connectPortInput.setEditable(!showServer);
+//      Client Settings disabled
+        hostInput.setEnabled(false);
+        connectPortInput.setEnabled(false);
+        hostInput.setEditable(false);
+        connectPortInput.setEditable(false);
         
         
         JPanel inputPanel = new JPanel();
