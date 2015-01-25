@@ -191,8 +191,9 @@ checkHosts();
 			        st.nextToken();
 			        gateway = st.nextToken();
 			        System.out.printf("The gateway is %s\n", gateway);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				gateway = "127.0.0.1";
 				e.printStackTrace();
 			}
 	       
