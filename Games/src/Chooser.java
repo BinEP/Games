@@ -15,6 +15,8 @@ import shapeJump.*;
 import tunnelRunner.*;
 import utilityClasses.*;
 import war.*;
+import pong.*;
+import holeInTheWall.*;
 //grrrr
 
 public class Chooser {
