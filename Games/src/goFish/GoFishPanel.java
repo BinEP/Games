@@ -550,9 +550,12 @@ ComputerPlayer cp = new ComputerPlayer(hands.get(1));
 	public void keyPressed(KeyEvent e) {
 
 		if (startGame) {
+			
 			startGame = false;
 			playing = true;
+			
 		} else if (endGame) {
+			
 			endGame = false;
 			playing = true;
 
