@@ -452,7 +452,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("O", 410, colorY);
 		// g.setColor(Color.BLACK);
 		// g.drawString("W", 500, colorY);
-
+		
 		g.setColor(Color.WHITE);
 
 	}

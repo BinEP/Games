@@ -78,8 +78,7 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 				hand.add(deck.get(0));
 				deck.remove(0);
 			}
-			Collections.sort(hand, Card.CardNumComparator);
-			Collections.sort(hand, Card.CardSuitComparator);
+			sortCards();
 			hands.add(hand);
 		}
 		System.out.println(hands);
@@ -139,7 +138,7 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 	}
 
 	public void drawPlayerHand(int pNum, Graphics g, int startY) {
-
+		
 		ArrayList<Card> hand = hands.get(pNum - 1);
 
 		g.setFont(new Font("Joystix", Font.BOLD, 20));
@@ -330,8 +329,9 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 	public void sortCards() {
 
 		for (ArrayList<Card> theCards : hands) {
-			Collections.sort(theCards, Card.CardNumComparator);
+			
 			Collections.sort(theCards, Card.CardSuitComparator);
+			Collections.sort(theCards, Card.CardNumComparator);
 		}
 
 	}
@@ -376,10 +376,14 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 
 	public void nextTurn() {
 
+		
 		goFish();
+		//sortCards();
 		turn++;
 		if (turn > numOfPlayers)
 			turn = 1;
+		
+		if (turn == 2) computerPlayer();
 
 	}
 
@@ -407,6 +411,74 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 		sortCards();
 
 	}
+	
+	public void computerPlayer() {
+		
+//		pairOff();
+		
+for (int i = 0; i < hands.get(1).size(); i++) {
+			
+			ComputerPlayer cp = new ComputerPlayer(hands.get(1));
+			
+			cp.getPairs(i, hands.get(1));
+			pairings();
+			System.out.println(hands.get(1));
+		}
+for (int i = 0; i < hands.get(1).size(); i++) {
+	
+	ComputerPlayer cp = new ComputerPlayer(hands.get(1));
+	
+	cp.getPairs(i, hands.get(1));
+	pairings();
+	System.out.println(hands.get(1));
+}
+		
+//	}
+		
+		while (turn == 2) {
+		
+		int guessCard = (int) (Math.random() * hands.get(1).size());
+		hands.get(1).get(guessCard).selected = true;
+		asking();
+		
+		System.out.println(hands.get(1));
+		}
+//		turn = 2;
+//		for (int i = 0; i < hands.get(1).size(); i++) {
+//			
+//			ComputerPlayer cp = new ComputerPlayer(hands.get(1));
+//			
+//			cp.getPairs(i, hands.get(1));
+//			pairings();
+//			System.out.println(hands.get(1));
+//		}
+//		turn = 1;
+//pairOff();
+		
+	}
+	
+public void computerPlayerT() {
+		
+ComputerPlayer cp = new ComputerPlayer(hands.get(1));
+		cp.getPairsT(hands.get(1));
+		while (turn == 2) {
+		
+		int guessCard = (int) (Math.random() * hands.get(1).size());
+		hands.get(1).get(guessCard).selected = true;
+		asking();
+		
+		cp.getPairsT(hands.get(1));
+		
+		}
+
+		cp.getPairsT(hands.get(1));
+		System.out.println(hands.get(1));
+	}
+	
+	
+
+	
+	
 
 	// //////////////////////////////////////////////
 
