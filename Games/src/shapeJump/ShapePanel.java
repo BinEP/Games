@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +39,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	private int numOfShapes = 2;
 
 	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>();
-	private ArrayList<Shape> shapeBlocks = new ArrayList<Shape>();
+	private ArrayList<CustomShape> shapeBlocks = new ArrayList<CustomShape>();
 
 	private int blockY = ground - 1;
 	private int blockX = 80;
@@ -68,7 +69,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		setBackground(Color.BLACK);
 		for (int i = 0; i < numOfShapes; i++) {
 		shapeGroupX.add(500 + spacing * i);
-		shapeBlocks.add(new Shape());
+		shapeBlocks.add(new CustomShape());
 		}
 		setFocusable(true);
 		addKeyListener(this);
@@ -89,7 +90,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1)
 						+ spacing);
 				shapeGroupX.remove(0);
-				shapeBlocks.add(new Shape());
+				shapeBlocks.add(new CustomShape());
 				shapeBlocks.remove(0);
 			}
 
@@ -138,6 +139,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 			g.fillRect(x1 + borderThickness, y1 + borderThickness, shapeWidth,
 					shapeWidth);
+			Polygon theShape = new Polygon();
+		
 
 			g.setColor(Color.BLACK);
 			g.drawRect(x1 + borderThickness / 2, y1 + borderThickness / 2,
@@ -341,7 +344,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		angle = 0;
 		for (int i = 0; i < numOfShapes; i++) {
 			shapeGroupX.add(500 + spacing * i);
-			shapeBlocks.add(new Shape());
+			shapeBlocks.add(new CustomShape());
 			}
 	}
 
