@@ -14,4 +14,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>InfoFiles</name>
+			<value>file:/Users/88713791/git/Games/Games/Infofiles</value>
+		</variable>
+	</variableList>
 </projectDescription>
