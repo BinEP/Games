@@ -1,10 +1,11 @@
-package goFish;
+package multiplayerGoFish;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class Card {
+public class Card implements Serializable  {
 
 	private int suit;
 	private int card;
