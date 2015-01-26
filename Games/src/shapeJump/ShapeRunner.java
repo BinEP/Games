@@ -22,5 +22,6 @@ public class ShapeRunner {
 		
 		frame.setSize(500, 500);
 		frame.setVisible(true);
+		//grrrrr
 	}
 }
