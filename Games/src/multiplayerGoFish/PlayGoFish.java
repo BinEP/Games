@@ -44,7 +44,8 @@ public class PlayGoFish {
         final JComboBox hostInput = new JComboBox();
 //        final String[] choices = {"A", "B"};
         ScanNetwork scanning = new ScanNetwork();
-        final String[] choices = scanning.checkHostsAtPort(DEFAULT_PORT);
+        String[] choices = scanning.checkHostsAtPort(DEFAULT_PORT);
+        choices = scanning.addRecentServers(choices);
         
         boolean showServer = true;
 		if (!choices[0].equals("localhost")) showServer = false;
@@ -178,9 +179,9 @@ public class PlayGoFish {
                 }
                 try {
                 	ChatRoomWindow.newChat("localhost");
-                	for (int i = 0; i < Integer.parseInt(numberOfPlayers.getText().trim()); i++) {
+//                	for (int i = 0; i < Integer.parseInt(numberOfPlayers.getText().trim()); i++) {
                     	new GoFishWindow("localhost", port);
-                    	}
+//                    	}
 //                    new GoFishWindow("localhost", port);
                     
                 }
@@ -219,6 +220,7 @@ public class PlayGoFish {
                     continue;
                 }
                 try {
+                	scanning.addServer(host);
                 	ChatRoomWindow.newChat(host);
                 	new GoFishWindow(host,port);
                     

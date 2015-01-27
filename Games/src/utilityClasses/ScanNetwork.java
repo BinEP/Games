@@ -229,23 +229,29 @@ checkHosts();
 	public String[] addRecentServers(String[] scannedIPS) {
 		
 		FileList servers = new FileList("recentServers");
-		String[] serverList = servers.get();
 		
-		ArrayList<String> scannedList = (ArrayList<String>) Arrays.asList(scannedIPS);
+		ArrayList<String> recentList = servers.getFileList();
 		
-		for (String currentServer : serverList) {
+		for (String currentServer : scannedIPS) {
 			
-			if (!scannedList.contains(currentServer)) {
+			if (!recentList.contains(currentServer)) {
 				
-				scannedList.add(currentServer);
+				servers.writeToFile(currentServer);
 				
 			}
 		}
-		scannedIPS = scannedList.toArray(scannedIPS);
+		scannedIPS = recentList.toArray(scannedIPS);
 		return scannedIPS;
 		
 	}
-
+	
+	public void addServer(String server) {
+		
+		String[] s = {server};
+		addRecentServers(s);
+		
+		
+	}
 	public ScanNetwork() {
 		// TODO Auto-generated constructor stub
 
