@@ -1,5 +1,7 @@
 package multiplayerGoFish;
 
+import goFishCommons.Card;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;

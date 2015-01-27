@@ -1,5 +1,7 @@
 package networkGoFish;
 
+import goFishCommons.ChatRoomWindow;
+
 import java.awt.*;
 import java.awt.event.*;
 
