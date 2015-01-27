@@ -56,6 +56,14 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private int deltaY = -bodySize;
 
 	private int prevLoseKey = KeyEvent.VK_DOWN;
+	
+	private int upKey = KeyEvent.VK_UP; 	
+	private int downKey = KeyEvent.VK_DOWN;
+	private int leftKey = KeyEvent.VK_LEFT;
+	private int rightKey = KeyEvent.VK_RIGHT;
+	private int[] keyMap = {KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT};
+	
+	private int keyIndex = 0;
 
 	private Timer timer;
 	private int origSpeed = 10;
@@ -225,6 +233,16 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 //		timer.start();
 
 	}
+	
+	public void setKeys() {
+		
+		upKey = keyMap[0];
+		rightKey = keyMap[1];
+		downKey = keyMap[2];
+		leftKey = keyMap[3];
+		
+		
+	}
 
 	public int randNum() {
 
@@ -319,34 +337,40 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getKeyCode() == prevLoseKey) {
+		if (startGame && e.getKeyCode() != KeyEvent.VK_ENTER) {
+			
+			keyMap[keyIndex] = e.getKeyCode();
+			keyIndex++;
+			if (keyIndex > 3) keyIndex = 0;
+			
+		} else if (e.getKeyCode() == prevLoseKey) {
 
 //			playing = false;
 //			nameEnter = true;
 
-		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+		} else if (e.getKeyCode() == upKey) {
 
 			deltaX = 0;
 			deltaY = -bodySize;
-			prevLoseKey = KeyEvent.VK_DOWN;
+			prevLoseKey = downKey;
 
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+		} else if (e.getKeyCode() == downKey) {
 
 			deltaX = 0;
 			deltaY = bodySize;
-			prevLoseKey = KeyEvent.VK_UP;
+			prevLoseKey = upKey;
 
-		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+		} else if (e.getKeyCode() == leftKey) {
 
 			deltaY = 0;
 			deltaX = -bodySize;
-			prevLoseKey = KeyEvent.VK_RIGHT;
+			prevLoseKey = rightKey;
 
-		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		} else if (e.getKeyCode() == rightKey) {
 
 			deltaY = 0;
 			deltaX = bodySize;
-			prevLoseKey = KeyEvent.VK_LEFT;
+			prevLoseKey = leftKey;
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
@@ -354,6 +378,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 				playing = true;
 				startGame = false;
+				setKeys();
 
 			} else if (endGame) {
 
@@ -398,7 +423,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				pName = pName.concat(letter.toString());
 			}
 
-		} else if (e.getKeyCode() == KeyEvent.VK_A && playing) {
+		} else if (e.getKeyCode() == KeyEvent.VK_M && playing) {
 
 			autoPlay = !autoPlay;
 
