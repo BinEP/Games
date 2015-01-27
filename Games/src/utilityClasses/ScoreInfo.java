@@ -19,21 +19,30 @@ import java.lang.Class;
 public class ScoreInfo {
 
 	private String gameName;
-	private String gameScores;
-	private String gamePeople;
+	private File gameScores;
+	private File gamePeople;
 
 	public ScoreInfo(String gN) {
 		gameName = gN;
-		gameScores = "InfoFiles/" + gameName.concat("Scores.txt");
-		gamePeople = "InfoFiles/" + gameName.concat("People.txt");
-		verifyFile();
+		gameScores = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("Scores.txt"));
+		gamePeople = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("People.txt"));
 		
 	}
 
 	public void setScores(int score, String person) {
 
 		try {
-			Scanner scoreContents = new Scanner(new File(gameScores));
+			if (!gameScores.exists()) {
+				gameScores.getParentFile().mkdirs();
+				gameScores.createNewFile();
+			}
+			if (!gamePeople.exists()) {
+				gamePeople.getParentFile().mkdirs();
+				gamePeople.createNewFile();
+			}
+			Scanner scoreContents = new Scanner(gameScores);
+//			Scanner scoreContents = new Scanner(new File(getClass().getResource(gameScores)));
+			
 
 			ArrayList<Integer> scores = new ArrayList<Integer>();
 
@@ -44,7 +53,7 @@ public class ScoreInfo {
 			scores.add(score);
 
 			// ///////////////////////////////////////////////////////////
-			Scanner peopleContents = new Scanner(new File(gamePeople));
+			Scanner peopleContents = new Scanner(gamePeople);
 
 			ArrayList<String> people = new ArrayList<String>();
 
@@ -83,7 +92,7 @@ public class ScoreInfo {
 	public ArrayList<String[]> getScores() {
 
 		try {
-			Scanner scoreContents = new Scanner(new File(gameScores));
+			Scanner scoreContents = new Scanner(gameScores);
 
 			ArrayList<Integer> scores = new ArrayList<Integer>();
 
@@ -91,7 +100,7 @@ public class ScoreInfo {
 				scores.add(Integer.parseInt(scoreContents.next()));
 			}
 
-			Scanner peopleContents = new Scanner(new File(gamePeople));
+			Scanner peopleContents = new Scanner(gamePeople);
 
 			ArrayList<String> people = new ArrayList<String>();
 
@@ -113,7 +122,7 @@ public class ScoreInfo {
 			return results;
 		} catch (FileNotFoundException e) {
 			ArrayList<String[]> n = new ArrayList<String[]>();
-			String[] m = { "0", "UNK" };
+			String[] m = { "45", "Brady" };
 			n.add(m);
 			return n;
 		}
@@ -208,19 +217,16 @@ public class ScoreInfo {
 		}
 	}
 	
-	public void verifyFile() {
-		
-		File scoreFile = new File(gameScores);
-		File peopleFile = new File(gamePeople);
-		
-			try {
-				scoreFile.createNewFile();
-				peopleFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}
+//	public void verifyFile() {
+//		
+//			try {
+//				gameScores.createNewFile();
+//				gamePeople.createNewFile();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	}
 
 	// public static void main(String[] args) {
 	//

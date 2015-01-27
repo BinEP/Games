@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Games" default="build" basedir=".">
+	<target name="build">
+		<jar jarfile="dist/Play Games.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="Chooser" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="bundle" depends="build">
+		<bundleapp outputdirectory="dist" name="Play Games"
+			displayname="Play Games" identifier="stoffel.PlayGames"
+			icon="Infofiles/AppIcon.icns"
+			mainclassname="Chooser">
+			<classpath file="dist/Play Games.jar" />
+		</bundleapp>
+		<exec executable="open">
+			<arg value="./dist" />
+		</exec>
+	</target>
+
+	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask"
+		classpath="lib/appbundler-1.0.jar" />
+</project>
