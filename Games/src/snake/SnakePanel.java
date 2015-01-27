@@ -128,7 +128,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				int fx = fruitX.get(i);
 				int fy = fruitY.get(i);
 			if (Math.abs(head.x - fx) < 5 && Math.abs(head.y - fy) < 5) {
-				addBodySquare();
+				addBodySquare(i);
 			}
 			}
 			
@@ -191,7 +191,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public void addBodySquare() {
+	public void addBodySquare(int fruitIndex) {
 
 		int lastBodyX = snakeBody.get(snakeBody.size() - 1).x;
 		int lastBodyY = snakeBody.get(snakeBody.size() - 1).y;
@@ -202,10 +202,10 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		int changeY = lastBodyY - secondLastBodyY;
 
 		snakeBody.add(new Point(lastBodyX + changeX, lastBodyY + changeY));
-		snakeColor.add(fruitColor);
-		fruitX = randNum();
-		fruitY = randNum();
-		fruitColor = randColor();
+		snakeColor.add(fruitColor.get(fruitIndex));
+		fruitX.set(fruitIndex, randNum());
+		fruitY.set(fruitIndex, randNum());
+		fruitColor.set(fruitIndex, randColor());
 
 		speed += .5;
 		// System.out.println(speed);
