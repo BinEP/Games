@@ -123,7 +123,7 @@ public String getCensoredString(String checkString) {
 
 		
 		wordFile = "swearWords.txt";
-		GetFileContentList file = new GetFileContentList(wordFile);
+		FileList file = new FileList(wordFile);
 		allSwearWords = file.getFileList();
 		
 	}
@@ -131,7 +131,7 @@ public String getCensoredString(String checkString) {
 	public void getFunnyWords() {
 
 		wordFile = "funnyWords.txt";
-		GetFileContentList file = new GetFileContentList(wordFile);
+		FileList file = new FileList(wordFile);
 		allFunnyWords = file.getFileList();
 	}
 }

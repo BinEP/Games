@@ -11,6 +11,7 @@ import java.net.SocketAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class ScanNetwork {
@@ -224,7 +225,33 @@ checkHosts();
 		
 		
 	}
-
+	
+	public String[] addRecentServers(String[] scannedIPS) {
+		
+		FileList servers = new FileList("recentServers");
+		
+		ArrayList<String> recentList = servers.getFileList();
+		
+		for (String currentServer : scannedIPS) {
+			
+			if (!recentList.contains(currentServer)) {
+				
+				servers.writeToFile(currentServer);
+				
+			}
+		}
+		scannedIPS = recentList.toArray(scannedIPS);
+		return scannedIPS;
+		
+	}
+	
+	public void addServer(String server) {
+		
+		String[] s = {server};
+		addRecentServers(s);
+		
+		
+	}
 	public ScanNetwork() {
 		// TODO Auto-generated constructor stub
 
