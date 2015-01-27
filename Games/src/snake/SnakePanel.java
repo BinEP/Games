@@ -158,31 +158,31 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		if ((head.x < 1 + bodySize || head.x > 485 - bodySize) && deltaX != 0) {
 
 			deltaX = 0;
-			deltaY = (head.y - fruitY > 0) ? -bodySize : bodySize;
+			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
 		}
 		if ((head.y < 8 + bodySize || head.y > 465 - bodySize) && deltaY != 0) {
 
 			deltaY = 0;
-			deltaX = (head.x - fruitX > 0) ? -bodySize : bodySize;
+			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
 		}
 		
 //		if ((head.y < 8 + bodySize || head.y > 465 - bodySize) && (head.x < 1 + bodySize || head.x > 485 - bodySize)) {	
 //		}
 
 		
-		if (Math.abs(head.x - fruitX) < 5) {
+		if (Math.abs(head.x - fruitX.get(0)) < 5) {
 
 			deltaX = 0;
-			deltaY = (head.y - fruitY > 0) ? -bodySize : bodySize;
+			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
 			// deltaY = (head.y - fruitY == 0) ? deltaY : (head.y - fruitY > 0)
 			// ? -bodySize : bodySize;
 
 			// addBodySquare();
 		}
-		if (Math.abs(head.y - fruitY) < 5) {
+		if (Math.abs(head.y - fruitY.get(0)) < 5) {
 
 			deltaY = 0;
-			deltaX = (head.x - fruitX > 0) ? -bodySize : bodySize;
+			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
 			// deltaX = (head.x - fruitX == 0) ? deltaX : (head.x - fruitX > 0)
 			// ? -bodySize : bodySize;
 
