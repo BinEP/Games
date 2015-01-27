@@ -27,7 +27,7 @@ public class Chooser {
 
 		String[] choices = { "Snake", "Choose Your Own Adventure",
 				"Flappy Bird", "Go Fish", "Hangman", "Hole In The Wall",
-				"Pong", "Shape Jump", "Tunnel Runner", "War" };
+				"Pong", "Shape Jump", "Tunnel Runner", "War", "Go Fish", "Network Go Fish", "Multiplayer Go Fish" };
 		Object choice = JOptionPane.showInputDialog(null, "Choose a game",
 				"Brady's Game Chooser", 1, null, choices, choices[0]);
 
@@ -46,7 +46,7 @@ public class Chooser {
 			FlappyRunner flappy = new FlappyRunner();
 			flappy.main(null);
 		} else if (choice == choices[3]) {
-			GoFishRunner goFish = new GoFishRunner();
+			PlayGoFish goFish = new PlayGoFish();
 			goFish.main(null);
 		} else if (choice == choices[4]) {
 			HangmanRunner hangman = new HangmanRunner();
@@ -71,6 +71,15 @@ public class Chooser {
 		} else if (choice == choices[9]) {
 			WarRunner war = new WarRunner();
 			war.main(null);
+		} else if (choice == choices[10]) {
+			goFish.PlayGoFish goFish = new goFish.PlayGoFish();
+			goFish.main(null);
+		} else if (choice == choices[11]) {
+			networkGoFish.PlayGoFish netGoFish = new networkGoFish.PlayGoFish();
+			netGoFish.main(null);
+		} else if (choice == choices[12]) {
+			multiplayerGoFish.PlayGoFish multiplayerGoFish = new multiplayerGoFish.PlayGoFish();
+			multiplayerGoFish.main(null);
 		}
 
 	}
