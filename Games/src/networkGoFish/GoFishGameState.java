@@ -1,5 +1,9 @@
 package networkGoFish;
 
+import goFishCommons.Button;
+import goFishCommons.Card;
+import goFishCommons.Winner;
+
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;

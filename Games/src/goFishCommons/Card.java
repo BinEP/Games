@@ -1,4 +1,4 @@
-package networkGoFish;
+package goFishCommons;
 
 import java.awt.Color;
 import java.awt.Rectangle;

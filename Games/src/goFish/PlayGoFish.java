@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-public class GoFishRunner {
+public class PlayGoFish {
 
 	public static void main(String[] args) {
 

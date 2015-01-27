@@ -47,10 +47,15 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			Color.YELLOW, Color.ORANGE, Color.WHITE };
 	private int bodySize = 10;
 	private Point head = new Point(250, 250);
+	private int numOfFruits = 4;
 
-	private int fruitX = 300;
-	private int fruitY = 200;
-	private Color fruitColor = Color.WHITE;
+//	private int fruitX = 300;
+//	private int fruitY = 200;
+	private ArrayList<Integer> fruitX = new ArrayList<Integer>();
+	private ArrayList<Integer> fruitY = new ArrayList<Integer>();
+
+//	private Color fruitColor = Color.WHITE;
+	private ArrayList<Color> fruitColor = new ArrayList<Color>();
 
 	private int deltaX = 0;
 	private int deltaY = -bodySize;
@@ -73,17 +78,17 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public SnakePanel() {
 
-		
-		for (Point x : snakeBody) {
-
-			// System.out.print(x.x + "  " + x.y);
-			// System.out.println();
-
-		}
+//		
+//		for (Point x : snakeBody) {
+//
+//			// System.out.print(x.x + "  " + x.y);
+//			// System.out.println();
+//
+//		}
 		setBackground(Color.BLACK);
 		setFocusable(true);
 		addKeyListener(this);
-
+		randFruitSetup();
 		timer = new Timer((int) (1000 / speed), this);
 		resetBody();
 		timer.start();
@@ -120,8 +125,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			int nextHeadX = head.x + deltaX;
 			int nextHeadY = head.y + deltaY;
 
-			if (Math.abs(head.x - fruitX) < 5 && Math.abs(head.y - fruitY) < 5) {
-				addBodySquare();
+			for (int i = 0; i < fruitX.size(); i++) {
+				int fx = fruitX.get(i);
+				int fy = fruitY.get(i);
+			if (Math.abs(head.x - fx) < 5 && Math.abs(head.y - fy) < 5) {
+				addBodySquare(i);
+			}
 			}
 			
 			if (autoPlay) {
@@ -150,31 +159,31 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		if ((head.x < 1 + bodySize || head.x > 485 - bodySize) && deltaX != 0) {
 
 			deltaX = 0;
-			deltaY = (head.y - fruitY > 0) ? -bodySize : bodySize;
+			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
 		}
 		if ((head.y < 8 + bodySize || head.y > 465 - bodySize) && deltaY != 0) {
 
 			deltaY = 0;
-			deltaX = (head.x - fruitX > 0) ? -bodySize : bodySize;
+			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
 		}
 		
 //		if ((head.y < 8 + bodySize || head.y > 465 - bodySize) && (head.x < 1 + bodySize || head.x > 485 - bodySize)) {	
 //		}
 
 		
-		if (Math.abs(head.x - fruitX) < 5) {
+		if (Math.abs(head.x - fruitX.get(0)) < 5) {
 
 			deltaX = 0;
-			deltaY = (head.y - fruitY > 0) ? -bodySize : bodySize;
+			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
 			// deltaY = (head.y - fruitY == 0) ? deltaY : (head.y - fruitY > 0)
 			// ? -bodySize : bodySize;
 
 			// addBodySquare();
 		}
-		if (Math.abs(head.y - fruitY) < 5) {
+		if (Math.abs(head.y - fruitY.get(0)) < 5) {
 
 			deltaY = 0;
-			deltaX = (head.x - fruitX > 0) ? -bodySize : bodySize;
+			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
 			// deltaX = (head.x - fruitX == 0) ? deltaX : (head.x - fruitX > 0)
 			// ? -bodySize : bodySize;
 
@@ -183,7 +192,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public void addBodySquare() {
+	public void addBodySquare(int fruitIndex) {
 
 		int lastBodyX = snakeBody.get(snakeBody.size() - 1).x;
 		int lastBodyY = snakeBody.get(snakeBody.size() - 1).y;
@@ -194,10 +203,10 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		int changeY = lastBodyY - secondLastBodyY;
 
 		snakeBody.add(new Point(lastBodyX + changeX, lastBodyY + changeY));
-		snakeColor.add(fruitColor);
-		fruitX = randNum();
-		fruitY = randNum();
-		fruitColor = randColor();
+		snakeColor.add(fruitColor.get(fruitIndex));
+		fruitX.set(fruitIndex, randNum());
+		fruitY.set(fruitIndex, randNum());
+		fruitColor.set(fruitIndex, randColor());
 
 		speed += .5;
 		// System.out.println(speed);
@@ -218,6 +227,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		for (int i = 0; i < snakeBody.size(); i++) {
 			// Whoop
+//			snakeColor.add(randColor());
 			snakeColor.add(Color.WHITE);
 
 		}
@@ -252,6 +262,27 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	public Color randColor() {
 
 		return Colors[(int) (Math.random() * Colors.length)];
+	}
+	
+	public void randFruitSetup() {
+		
+		fruitX.clear();
+		fruitY.clear();
+		for (int i = 0; i < numOfFruits; i++) {
+			
+			fruitX.add(randNum());
+			fruitY.add(randNum());
+			fruitColor.add(randColor());
+		}
+		
+		
+		
+	}
+	
+	public int randFruitNum() {
+		
+		
+		return (int) (Math.random() * fruitColor.size());
 	}
 
 	public void paintComponent(Graphics g) {
@@ -294,13 +325,22 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				g.fillRect(body.x, body.y, bodySize, bodySize);
 				g.setColor(Color.BLACK);
 				g.drawRect(body.x, body.y, bodySize, bodySize);
-				g.drawRect(fruitX, fruitY, bodySize, bodySize);
-
-				// g.setColor(Color.WHITE);
-				g.setColor(fruitColor);
-				g.fillRect(fruitX + 1, fruitY + 1, bodySize - 2, bodySize - 2);
+				
 
 			}
+			for (i = 0; i < fruitX.size(); i++) {
+				g.setColor(Color.BLACK);
+				int fx = fruitX.get(i);
+				int fy = fruitY.get(i);
+					g.drawRect(fx, fy, bodySize, bodySize);
+
+				// g.setColor(Color.WHITE);
+				g.setColor(fruitColor.get(i));
+				
+				g.fillRect(fx + 1, fy + 1, bodySize - 2, bodySize - 2);
+				
+				
+				}
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
 				g.setColor(Color.WHITE);
@@ -393,9 +433,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				highScores = false;
 				endGame = false;
 				pName = "";
-				fruitX = randNum();
-				fruitY = randNum();
-				fruitColor = randColor();
+				randFruitSetup();
 				speed = 10;
 				score = 0;
 
@@ -436,27 +474,27 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			switch (e.getKeyCode()) {
 
 			case KeyEvent.VK_R:
-				fruitColor = Color.RED;
+				fruitColor.set(randFruitNum(), Color.RED);
 
 				break;
 			case KeyEvent.VK_G:
-				fruitColor = Color.GREEN;
+				fruitColor.set(randFruitNum(), Color.GREEN);
 
 				break;
 			case KeyEvent.VK_B:
-				fruitColor = Color.CYAN;
+				fruitColor.set(randFruitNum(), Color.CYAN);
 
 				break;
 			case KeyEvent.VK_Y:
-				fruitColor = Color.YELLOW;
+				fruitColor.set(randFruitNum(), Color.YELLOW);
 
 				break;
 			case KeyEvent.VK_O:
-				fruitColor = Color.ORANGE;
+				fruitColor.set(randFruitNum(), Color.ORANGE);
 
 				break;
 			case KeyEvent.VK_W: // VK_W - White is default case
-				fruitColor = Color.WHITE;
+				fruitColor.set(randFruitNum(), Color.WHITE);
 
 				break;
 

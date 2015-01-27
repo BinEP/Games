@@ -1,5 +1,9 @@
 package multiplayerGoFish;
 
+import goFishCommons.Button;
+import goFishCommons.Card;
+import goFishCommons.Winner;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.io.Serializable;
