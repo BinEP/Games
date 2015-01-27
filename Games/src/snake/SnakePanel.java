@@ -50,6 +50,9 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int fruitX = 300;
 	private int fruitY = 200;
+	private ArrayList<Integer> fruitXs = new ArrayList<Integer>();
+	private ArrayList<Integer> fruitYs = new ArrayList<Integer>();
+
 	private Color fruitColor = Color.WHITE;
 
 	private int deltaX = 0;
@@ -73,13 +76,13 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public SnakePanel() {
 
-		
-		for (Point x : snakeBody) {
-
-			// System.out.print(x.x + "  " + x.y);
-			// System.out.println();
-
-		}
+//		
+//		for (Point x : snakeBody) {
+//
+//			// System.out.print(x.x + "  " + x.y);
+//			// System.out.println();
+//
+//		}
 		setBackground(Color.BLACK);
 		setFocusable(true);
 		addKeyListener(this);
@@ -218,7 +221,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		for (int i = 0; i < snakeBody.size(); i++) {
 			// Whoop
-			snakeColor.add(Color.WHITE);
+			snakeColor.add(randColor());
 
 		}
 
