@@ -275,6 +275,10 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 					g, true, 300);
 			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
 					330);
+			
+			g.setFont(new Font("Joystix", Font.BOLD, 12));
+			
+			CenteredText keyMapInstruct = new CenteredText("Press keys Up, Right, Down, Left to map new keys", 500, 500, g, true, 30);
 
 		} else if (playing || paused) {
 
