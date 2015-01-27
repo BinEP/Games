@@ -34,6 +34,8 @@ public class ScoreInfo {
 
 		try {
 			Scanner scoreContents = new Scanner(new File(gameScores));
+//			Scanner scoreContents = new Scanner(new File(getClass().getResource(gameScores)));
+			
 
 			ArrayList<Integer> scores = new ArrayList<Integer>();
 
@@ -113,7 +115,7 @@ public class ScoreInfo {
 			return results;
 		} catch (FileNotFoundException e) {
 			ArrayList<String[]> n = new ArrayList<String[]>();
-			String[] m = { "0", "UNK" };
+			String[] m = { "45", "Brady" };
 			n.add(m);
 			return n;
 		}

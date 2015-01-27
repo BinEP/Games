@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Games" default="build" basedir=".">
+  <target name ="build">
+    <jar jarfile="dist/Play Games.jar" includes="*.class" basedir="bin"/>
+  </target>
+  <target name="bundle" depends="build">
+  	<bundleapp outputdirectory="dist"
+            name="PlayGames"
+            displayname="Play Games"
+            identifier="stoffle.PlayGames"
+            mainclassname="Chooser">
+            <classpath file="dist/Play Games.jar" />
+        </bundleapp>
+  </target>
+  
+  <taskdef name="bundleapp"
+             classname="com.oracle.appbundler.AppBundlerTask"   
+             classpath="lib/appbundler-1.0.jar" />
+</project>
