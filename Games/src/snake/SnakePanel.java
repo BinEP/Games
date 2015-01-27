@@ -265,6 +265,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	
 	public void randFruitSetup() {
 		
+		fruitX.clear();
+		fruitY.clear();
 		for (int i = 0; i < 5; i++) {
 			
 			fruitX.add(randNum());
