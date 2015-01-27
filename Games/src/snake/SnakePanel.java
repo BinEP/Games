@@ -274,6 +274,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		
 		
 	}
+	
+	public int randFruitNum() {
+		
+		
+		return (int) (Math.random() * fruitColor.size());
+	}
 
 	public void paintComponent(Graphics g) {
 
@@ -419,9 +425,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				highScores = false;
 				endGame = false;
 				pName = "";
-				fruitX = randNum();
-				fruitY = randNum();
-				fruitColor = randColor();
+				randFruitSetup();
 				speed = 10;
 				score = 0;
 
@@ -462,27 +466,27 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			switch (e.getKeyCode()) {
 
 			case KeyEvent.VK_R:
-				fruitColor = Color.RED;
+				fruitColor.set(randFruitNum(), Color.RED);
 
 				break;
 			case KeyEvent.VK_G:
-				fruitColor = Color.GREEN;
+				fruitColor.set(randFruitNum(), Color.GREEN);
 
 				break;
 			case KeyEvent.VK_B:
-				fruitColor = Color.CYAN;
+				fruitColor.set(randFruitNum(), Color.CYAN);
 
 				break;
 			case KeyEvent.VK_Y:
-				fruitColor = Color.YELLOW;
+				fruitColor.set(randFruitNum(), Color.YELLOW);
 
 				break;
 			case KeyEvent.VK_O:
-				fruitColor = Color.ORANGE;
+				fruitColor.set(randFruitNum(), Color.ORANGE);
 
 				break;
 			case KeyEvent.VK_W: // VK_W - White is default case
-				fruitColor = Color.WHITE;
+				fruitColor.set(randFruitNum(), Color.WHITE);
 
 				break;
 
