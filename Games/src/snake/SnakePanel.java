@@ -47,6 +47,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			Color.YELLOW, Color.ORANGE, Color.WHITE };
 	private int bodySize = 10;
 	private Point head = new Point(250, 250);
+	private int numOfFruits = 4;
 
 //	private int fruitX = 300;
 //	private int fruitY = 200;
@@ -267,7 +268,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		
 		fruitX.clear();
 		fruitY.clear();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < numOfFruits; i++) {
 			
 			fruitX.add(randNum());
 			fruitY.add(randNum());

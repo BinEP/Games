@@ -24,8 +24,8 @@ public class ScoreInfo {
 
 	public ScoreInfo(String gN) {
 		gameName = gN;
-		gameScores = "InfoFiles/" + gameName.concat("Scores.txt");
-		gamePeople = "InfoFiles/" + gameName.concat("People.txt");
+		gameScores = "Infofiles/" + gameName.concat("Scores.txt");
+		gamePeople = "Infofiles/" + gameName.concat("People.txt");
 		verifyFile();
 		
 	}
