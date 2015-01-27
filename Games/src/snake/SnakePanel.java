@@ -226,7 +226,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		for (int i = 0; i < snakeBody.size(); i++) {
 			// Whoop
-			snakeColor.add(randColor());
+//			snakeColor.add(randColor());
+			snakeColor.add(Color.WHITE);
 
 		}
 
