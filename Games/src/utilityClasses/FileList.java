@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GetFileContentList {
+public class FileList {
 
 	private String folderPath = "InfoFiles/";
 	private String fileName;
@@ -13,7 +13,7 @@ public class GetFileContentList {
 	private ArrayList<String> wordList = new ArrayList<String>();
 	
 	public static void main(String[] args) {
-		GetFileContentList runIt = new GetFileContentList();
+		FileList runIt = new FileList();
 		runIt.runFromMain();
 	}
 
@@ -21,8 +21,13 @@ public class GetFileContentList {
 
 	}
 
-	public GetFileContentList(String fileName) {
+	public FileList(String fileName) {
 		// TODO Auto-generated constructor stub
+		
+		if (fileName.indexOf('.') == -1) {
+			
+			fileName = fileName.concat(".txt");
+		}
 		
 		this.fileName = fileName;
 		this.filePath = folderPath + fileName;
@@ -31,7 +36,7 @@ public class GetFileContentList {
 		
 	}
 	
-	public GetFileContentList() {
+	public FileList() {
 		// TODO Auto-generated constructor stub
 		
 		
@@ -57,9 +62,23 @@ public class GetFileContentList {
 
 	}
 	
+	public String[] get() {
+
+	return getArray();
+	}
+	
+	public String[] getArray() {
+
+		
+		String[] list = new String[wordList.size()];
+		wordList.toArray(list);
+		
+		return list;
+		}
+	
 	public ArrayList<String> getFileList() {
 
-	return wordList;
-	}
+		return wordList;
+		}
 
 }
