@@ -48,12 +48,13 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private int bodySize = 10;
 	private Point head = new Point(250, 250);
 
-	private int fruitX = 300;
-	private int fruitY = 200;
-	private ArrayList<Integer> fruitXs = new ArrayList<Integer>();
-	private ArrayList<Integer> fruitYs = new ArrayList<Integer>();
+//	private int fruitX = 300;
+//	private int fruitY = 200;
+	private ArrayList<Integer> fruitX = new ArrayList<Integer>();
+	private ArrayList<Integer> fruitY = new ArrayList<Integer>();
 
-	private Color fruitColor = Color.WHITE;
+//	private Color fruitColor = Color.WHITE;
+	private ArrayList<Color> fruitColor = new ArrayList<Color>();
 
 	private int deltaX = 0;
 	private int deltaY = -bodySize;
@@ -86,7 +87,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		setBackground(Color.BLACK);
 		setFocusable(true);
 		addKeyListener(this);
-
+		randFruitSetup();
 		timer = new Timer((int) (1000 / speed), this);
 		resetBody();
 		timer.start();
@@ -123,8 +124,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			int nextHeadX = head.x + deltaX;
 			int nextHeadY = head.y + deltaY;
 
-			if (Math.abs(head.x - fruitX) < 5 && Math.abs(head.y - fruitY) < 5) {
+			for (int i = 0; i < fruitX.size(); i++) {
+				int fx = fruitX.get(i);
+				int fy = fruitY.get(i);
+			if (Math.abs(head.x - fx) < 5 && Math.abs(head.y - fy) < 5) {
 				addBodySquare();
+			}
 			}
 			
 			if (autoPlay) {
@@ -255,6 +260,19 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	public Color randColor() {
 
 		return Colors[(int) (Math.random() * Colors.length)];
+	}
+	
+	public void randFruitSetup() {
+		
+		for (int i = 0; i < 5; i++) {
+			
+			fruitX.add(randNum());
+			fruitY.add(randNum());
+			fruitColor.add(randColor());
+		}
+		
+		
+		
 	}
 
 	public void paintComponent(Graphics g) {
