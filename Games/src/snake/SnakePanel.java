@@ -315,11 +315,16 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				g.fillRect(body.x, body.y, bodySize, bodySize);
 				g.setColor(Color.BLACK);
 				g.drawRect(body.x, body.y, bodySize, bodySize);
-				g.drawRect(fruitX, fruitY, bodySize, bodySize);
+				for (i = 0; i < fruitX.size(); i++) {
+				int fx = fruitX.get(i);
+				int fy = fruitY.get(i);
+					g.drawRect(fx, fy, bodySize, bodySize);
 
 				// g.setColor(Color.WHITE);
-				g.setColor(fruitColor);
-				g.fillRect(fruitX + 1, fruitY + 1, bodySize - 2, bodySize - 2);
+				g.setColor(fruitColor.get(i));
+				
+				g.fillRect(fx + 1, fy + 1, bodySize - 2, bodySize - 2);
+				}
 
 			}
 			if (paused) {
