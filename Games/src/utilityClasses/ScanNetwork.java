@@ -224,6 +224,16 @@ checkHosts();
 		
 		
 	}
+	
+	public String[] addRecentServers(String[] scannedIPS) {
+		
+		FileList servers = new FileList("recentServers");
+		String[] serverList = servers.get();
+		
+		
+		
+		
+	}
 
 	public ScanNetwork() {
 		// TODO Auto-generated constructor stub
