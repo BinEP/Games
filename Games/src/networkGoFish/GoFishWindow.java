@@ -1,5 +1,8 @@
 package networkGoFish;
 
+import goFishCommons.Button;
+import goFishCommons.Card;
+
 import java.awt.*;
 import java.awt.event.*;
 

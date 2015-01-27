@@ -1,4 +1,4 @@
-package multiplayerGoFish;
+package goFishCommons;
 
 import java.io.Serializable;
 

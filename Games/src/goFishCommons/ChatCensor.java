@@ -1,4 +1,4 @@
-package networkGoFish;
+package goFishCommons;
 
 import java.io.File;
 import java.io.FileNotFoundException;
