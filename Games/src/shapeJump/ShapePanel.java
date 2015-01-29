@@ -25,6 +25,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	private boolean startGame = true;
 	private boolean playing = false;
+	private boolean playPause = false;
 	private boolean endGame = false;
 	private boolean paused = false;
 
@@ -71,7 +72,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	public ShapePanel() {
 
 		 setBackground(Color.BLACK);
-//		setBackground(Color.WHITE);
+//		setBackground(Color.CYAN);
 
 		for (int i = 0; i < numOfShapes; i++) {
 			prevX = 500 + spacing * i;
@@ -106,10 +107,11 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			Polygon theShape = shapes.get(0);
-			if (theShape.intersects(new Rectangle(blockX - 2, blockY - 2, shapeWidth, shapeWidth))) {
+			if (theShape.intersects(new Rectangle(blockX - 20, blockY - 19, blockWidth, blockWidth))) {
 				
 				System.out.println("Uh Oh");
 				playing = false;
+				playPause = false;
 				endGame = true;
 				
 				
@@ -341,7 +343,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		int x = shape.xpoints[0];
 		for (int i = x; i < x + blockSize * 4; i += blockSize) {
-			g.fillRect(i, 400 - blockSize * 3, borderThickness * 3,
+			g.fillRect(i - 3, 400 - blockSize * 3, borderThickness * 3,
 					blockSize * 3);
 
 		}
@@ -398,7 +400,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+		if (e.getKeyCode() == KeyEvent.VK_SPACE && playPause) {
 			if (!paused) {
 				playing = false;
 				paused = true;
@@ -451,6 +453,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				timeSeconds = 0;
 				startGame = false;
 				playing = true;
+				playPause = true;
 
 			}
 
@@ -467,7 +470,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		shapes.clear();
 		angle = 0;
 		for (int i = 0; i < numOfShapes; i++) {
-			newRandomShape(500 + spacing * i);
+			prevX = 500 + spacing * i;
+			newRandomShape(prevX);
 		}
 	}
 
