@@ -70,7 +70,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	public ShapePanel() {
 
 		setBackground(Color.BLACK);
-		
+
 		for (int i = 0; i < numOfShapes; i++) {
 			prevX = 500 + spacing * i;
 			newRandomShape(prevX);
@@ -91,34 +91,32 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	public void moves() {
 
 		if (playing) {
-			
+
 			prevX -= shapeSpeed;
-			
+
 			Polygon shape = shapes.get(0);
 			if (shape.contains(-70, 390)) {
-				
+
 				prevX += spacing;
 				newRandomShape(prevX);
-				
+
 				shapes.remove(0);
 			}
 
-//			for (int i = 0; i < shapeGroupX.size(); i++) {
-//				shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
-//			}
-//
-//			for (int i = 0; i < shapeBlocks.size(); i++) {
-//				shapeBlocks.get(i).theShape.translate(-shapeSpeed, 0);
-//			}
+			// for (int i = 0; i < shapeGroupX.size(); i++) {
+			// shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
+			// }
+			//
+			// for (int i = 0; i < shapeBlocks.size(); i++) {
+			// shapeBlocks.get(i).theShape.translate(-shapeSpeed, 0);
+			// }
 
 			// setGroundY();
-			
+
 			for (int i = 0; i < shapes.size(); i++) {
-				shapes.get(i).translate(-shapeSpeed, 0);				
+				shapes.get(i).translate(-shapeSpeed, 0);
 			}
-			
-			
-			
+
 			if (blockY + 1 < groundY)
 				jumping = true;
 			if (jumping) {
@@ -248,16 +246,16 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		ArrayList<Integer> xCoordVals = new ArrayList<Integer>();
 		ArrayList<Integer> yCoordVals = new ArrayList<Integer>();
-		
+
 		int col = (int) (Math.random() * 3 + 1);
 		int prevRow = 0;
 		for (int c = 0; c < col + 1; c++) {
-			
+
 			int row = (int) (Math.random() * 3 + 1);
 			for (int r = prevRow; r < row + 1; r++) {
 
-//				xCoordVals.add((c - 1) * 22 + xCoord);
-//				yCoordVals.add(400 - r * 22);
+				xCoordVals.add((c - 1) * 22 + xCoord);
+				yCoordVals.add(400 - r * 22);
 
 				xCoordVals.add(c * 22 + xCoord);
 				yCoordVals.add(400 - r * 22);
@@ -285,39 +283,71 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-//	public void setGroundY() {
-//
-//		int shapeGroupStart = shapeGroupX.get(0);
-//
-//		int shapeGroupEnd = (shapeBlocks.get(0).w * blockSize)
-//				+ shapeGroupStart;
-//
-//		groundY = 400;
-//		for (int[] xy : shapeBlocks.get(0).topXY) {
-//
-//			int x = (xy[0] - 1) * blockSize + shapeGroupStart;
-//			int y = 400 - (xy[1]) * blockSize;
-//			if (blockX > x && blockX - 20 < shapeGroupEnd) {
-//				groundY = y;
-//				if (getColor(blockX + 2, blockY + 2).equals(Color.WHITE)) {
-//					playing = false;
-//					nameEnter = true;
-//					return;
-//				}
-//				return;
-//			}
-//
-//		}
-//
-//	}
+	public void addColumn(int col, int row, int prevRow,
+			ArrayList<Integer> xCoordVals, ArrayList<Integer> yCoordVals,
+			int xCoord) {
 
-//	public int nextBlockX() {
-//
-//		shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1) + spacing);
-//		shapeGroupX.remove(0);
-//		return shapeGroupX.get(shapeGroupX.size() - 1);
-//
-//	}
+		if (prevRow > row) {
+
+			for (int r = prevRow; r > row; r--) {
+
+				if (r >= row) {
+					xCoordVals.add((col - 1) * 22 + xCoord);
+					yCoordVals.add(400 - r * 22);
+
+				}
+
+			}
+
+		}
+
+		for (int r = 0; r < row + 1; r++) {
+
+			if (r >= prevRow) {
+				xCoordVals.add((col - 1) * 22 + xCoord);
+				yCoordVals.add(400 - r * 22);
+
+			}
+
+		}
+		xCoordVals.add((col) * 22 + xCoord);
+		yCoordVals.add(400 - row * 22);
+
+	}
+
+	// public void setGroundY() {
+	//
+	// int shapeGroupStart = shapeGroupX.get(0);
+	//
+	// int shapeGroupEnd = (shapeBlocks.get(0).w * blockSize)
+	// + shapeGroupStart;
+	//
+	// groundY = 400;
+	// for (int[] xy : shapeBlocks.get(0).topXY) {
+	//
+	// int x = (xy[0] - 1) * blockSize + shapeGroupStart;
+	// int y = 400 - (xy[1]) * blockSize;
+	// if (blockX > x && blockX - 20 < shapeGroupEnd) {
+	// groundY = y;
+	// if (getColor(blockX + 2, blockY + 2).equals(Color.WHITE)) {
+	// playing = false;
+	// nameEnter = true;
+	// return;
+	// }
+	// return;
+	// }
+	//
+	// }
+	//
+	// }
+
+	// public int nextBlockX() {
+	//
+	// shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1) + spacing);
+	// shapeGroupX.remove(0);
+	// return shapeGroupX.get(shapeGroupX.size() - 1);
+	//
+	// }
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -408,14 +438,14 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 
-//	public int[] getXRange() {
-//
-//		int width = (shapeWidth + borderThickness) * shapeBlocks.get(0).w + 20;
-//		int[] x = { shapeGroupX.get(0) - 20, width };
-//		Arrays.sort(x);
-//		return x;
-//
-//	}
+	// public int[] getXRange() {
+	//
+	// int width = (shapeWidth + borderThickness) * shapeBlocks.get(0).w + 20;
+	// int[] x = { shapeGroupX.get(0) - 20, width };
+	// Arrays.sort(x);
+	// return x;
+	//
+	// }
 
 	public static Color getColor(int x, int y) {
 		try {
