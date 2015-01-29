@@ -126,6 +126,13 @@ public class CustomShape extends JPanel {
 		
 
 	}
+	
+	public CustomShape(int n) {
+		
+		newRandomShape();
+		theShape.translate(n, 0);
+		
+	}
 
 	public void OnexOne() {
 
