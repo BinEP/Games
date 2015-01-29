@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,7 +70,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	public ShapePanel() {
 
-		setBackground(Color.BLACK);
+		 setBackground(Color.BLACK);
+//		setBackground(Color.WHITE);
 
 		for (int i = 0; i < numOfShapes; i++) {
 			prevX = 500 + spacing * i;
@@ -101,6 +103,16 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				newRandomShape(prevX);
 
 				shapes.remove(0);
+			}
+			
+			Polygon theShape = shapes.get(0);
+			if (theShape.intersects(new Rectangle(blockX - 2, blockY - 2, shapeWidth, shapeWidth))) {
+				
+				System.out.println("Uh Oh");
+				playing = false;
+				endGame = true;
+				
+				
 			}
 
 			// for (int i = 0; i < shapeGroupX.size(); i++) {
@@ -134,6 +146,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				}
 
 			}
+			
+			
 
 			// Keeps track of time
 			timeSplit++;
@@ -196,11 +210,15 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		} else if (playing || paused) {
 
+			
 			for (Polygon shape : shapes) {
+				g.setColor(Color.WHITE);
 				g.fillPolygon(shape);
+				g.setColor(Color.BLACK);
+				drawVerticalLines(g, shape);
 			}
 
-			drawLines(g, 30);
+			drawHorizontalLines(g);
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
@@ -215,7 +233,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 			g2d.rotate(angle, blockX - 20 + blockWidth / 2, blockY - 20
 					+ blockWidth / 2);
-			g2d.fillRect(blockX - 20, blockY - 20, blockWidth, blockWidth);
+			g2d.fillRect(blockX - 20, blockY - 19, blockWidth, blockWidth);
 
 		} else if (endGame) {
 
@@ -256,10 +274,9 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			addColumn(c, row, prevRow, xCoordVals, yCoordVals, xCoord);
 			prevRow = row;
 		}
-		
+
 		xCoordVals.add((col) * 22 + xCoord);
-		yCoordVals.add(400
-				);
+		yCoordVals.add(400);
 
 		Integer[] xC = new Integer[xCoordVals.size()];
 		xCoordVals.toArray(xC);
@@ -300,30 +317,35 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		for (int r = prevRow; r < row + 1; r++) {
 
-				xCoordVals.add((col - 1) * 22 + xCoord);
-				yCoordVals.add(400 - r * 22);
-
-			
+			xCoordVals.add((col - 1) * 22 + xCoord);
+			yCoordVals.add(400 - r * 22);
 
 		}
 		xCoordVals.add((col) * 22 + xCoord);
 		yCoordVals.add(400 - row * 22);
 
 	}
-	
-	public void drawLines(Graphics g, int xCoord) {
-		
-		
+
+	public void drawHorizontalLines(Graphics g) {
+
 		for (int i = 0; i < 4; i++) {
-			 
-			 g.setColor(Color.BLACK);
-			 g.drawRect(0 , 400 - (i * blockSize + borderThickness / 2),
-			 500, borderThickness);
-			
-			 }
-		
-		
-		
+
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 400 - (i * blockSize + borderThickness), 500,
+					borderThickness * 3);
+
+		}
+	}
+	
+	public void drawVerticalLines(Graphics g, Polygon shape) {
+
+		int x = shape.xpoints[0];
+		for (int i = x; i < x + blockSize * 4; i += blockSize) {
+			g.fillRect(i, 400 - blockSize * 3, borderThickness * 3,
+					blockSize * 3);
+
+		}
+
 	}
 
 	// public void setGroundY() {
