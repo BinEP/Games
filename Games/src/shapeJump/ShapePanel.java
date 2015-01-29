@@ -252,12 +252,14 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		for (int c = 1; c < col + 1; c++) {
 
 			int row = (int) (Math.random() * 3 + 1);
+			System.out.println("Prev: " + prevRow + "\t Row: " + row);
 			addColumn(c, row, prevRow, xCoordVals, yCoordVals, xCoord);
 			prevRow = row;
 		}
 		
 		xCoordVals.add((col) * 22 + xCoord);
-		yCoordVals.add(400);
+		yCoordVals.add(400
+				);
 
 		Integer[] xC = new Integer[xCoordVals.size()];
 		xCoordVals.toArray(xC);
@@ -284,7 +286,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (prevRow > row) {
 
-			for (int r = prevRow; r > row; r--) {
+			for (int r = prevRow; r >= row; r--) {
 
 				if (r >= row) {
 					xCoordVals.add((col - 1) * 22 + xCoord);
