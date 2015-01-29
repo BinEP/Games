@@ -24,11 +24,8 @@ public class ScoreInfo {
 
 	public ScoreInfo(String gN) {
 		gameName = gN;
-//		gameScores = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("Scores.txt"));
-//		gamePeople = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("People.txt"));
-		
-		gameScores = new File("Infofiles/" + gameName.concat("Scores.txt"));
-		gamePeople = new File("Infofiles/" + gameName.concat("People.txt"));
+		gameScores = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("Scores.txt"));
+		gamePeople = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("People.txt"));
 		
 	}
 
