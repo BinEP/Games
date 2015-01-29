@@ -1,11 +1,18 @@
 package shapeJump;
 
+//Test 1 commit
+//Test 2 commit
+
+//New Test 1 commit
+//New Test 2 commit
+
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +31,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	private boolean startGame = true;
 	private boolean playing = false;
+	private boolean playPause = false;
 	private boolean endGame = false;
 	private boolean paused = false;
 
@@ -36,17 +44,20 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int shapeSpeed = 5;
 	private int spacing = 250;
-	private int numOfShapes = 2;
+	private int numOfShapes = 3;
 
-	private ArrayList<Integer> shapeGroupX = new ArrayList<Integer>();
-	private ArrayList<CustomShape> shapeBlocks = new ArrayList<CustomShape>();
+	ArrayList<Integer> xVals = new ArrayList<Integer>();
+	ArrayList<Integer> yVals = new ArrayList<Integer>();
+
+	public ArrayList<Polygon> shapes = new ArrayList<Polygon>();
+	public int prevX = 500;
 
 	private int blockY = ground - 1;
 	private int blockX = 80;
 	private int deltaY = 0;
 	private int blockWidth = shapeWidth - 1;
 	private boolean jumping = false;
-	
+
 	private double angle = 0;
 
 	private int gravity = 1;
@@ -66,10 +77,13 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	public ShapePanel() {
 
-		setBackground(Color.BLACK);
+		 setBackground(Color.BLACK);
+//		setBackground(Color.CYAN);
+
 		for (int i = 0; i < numOfShapes; i++) {
-		shapeGroupX.add(500 + spacing * i);
-		shapeBlocks.add(new CustomShape());
+			prevX = 500 + spacing * i;
+			newRandomShape(prevX);
+
 		}
 		setFocusable(true);
 		addKeyListener(this);
@@ -86,23 +100,47 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	public void moves() {
 
 		if (playing) {
-			if (shapeGroupX.contains(0)) {
-				shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1)
-						+ spacing);
-				shapeGroupX.remove(0);
-				shapeBlocks.add(new CustomShape());
-				shapeBlocks.remove(0);
+
+			prevX -= shapeSpeed;
+
+			Polygon shape = shapes.get(0);
+			if (shape.contains(-70, 390)) {
+
+				prevX += spacing;
+				newRandomShape(prevX);
+
+				shapes.remove(0);
+			}
+			
+			Polygon theShape = shapes.get(0);
+			if (theShape.intersects(new Rectangle(blockX - 20, blockY - 19, blockWidth, blockWidth))) {
+				
+				System.out.println("Uh Oh");
+				playing = false;
+				playPause = false;
+				endGame = true;
+				
+				
 			}
 
-			for (int i = 0; i < shapeGroupX.size(); i++) {
-				shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
+			// for (int i = 0; i < shapeGroupX.size(); i++) {
+			// shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
+			// }
+			//
+			// for (int i = 0; i < shapeBlocks.size(); i++) {
+			// shapeBlocks.get(i).theShape.translate(-shapeSpeed, 0);
+			// }
+
+			// setGroundY();
+
+			for (int i = 0; i < shapes.size(); i++) {
+				shapes.get(i).translate(-shapeSpeed, 0);
 			}
 
-			setGroundY();
 			if (blockY + 1 < groundY)
 				jumping = true;
 			if (jumping) {
-				
+
 				angle += Math.PI / 36;
 				deltaY += gravity;
 				blockY += deltaY;
@@ -116,6 +154,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				}
 
 			}
+			
+			
 
 			// Keeps track of time
 			timeSplit++;
@@ -129,26 +169,30 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public void drawShape(int[] x, int[] y, int pos, Graphics g) {
-
-		for (int i = 0; i < x.length; i++) {
-			g.setColor(Color.WHITE);
-
-			int x1 = pos + (x[i] - 1) * blockSize;
-			int y1 = ground - y[i] * blockSize;
-
-			g.fillRect(x1 + borderThickness, y1 + borderThickness, shapeWidth,
-					shapeWidth);
-			Polygon theShape = new Polygon();
-		
-
-			g.setColor(Color.BLACK);
-			g.drawRect(x1 + borderThickness / 2, y1 + borderThickness / 2,
-					shapeWidth, shapeWidth);
-
-		}
-
-	}
+	// public void drawShape(int[] x, int[] y, int pos, Graphics g) {
+	//
+	// for (int i = 0; i < x.length; i++) {
+	// g.setColor(Color.WHITE);
+	//
+	// int x1 = pos + (x[i] - 1) * blockSize;
+	// int y1 = ground - y[i] * blockSize;
+	//
+	// g.fillRect(x1 + borderThickness, y1 + borderThickness, shapeWidth,
+	// shapeWidth);
+	//
+	//
+	//
+	// g.setColor(Color.BLACK);
+	// g.drawRect(x1 + borderThickness / 2, y1 + borderThickness / 2,
+	// shapeWidth, shapeWidth);
+	//
+	// }
+	//
+	// CustomShape cs = new CustomShape();
+	// Polygon theShape = cs.theShape;
+	// g.drawPolygon(theShape);
+	//
+	// }
 
 	@SuppressWarnings("unused")
 	public void paintComponent(Graphics g) {
@@ -173,28 +217,31 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 					330);
 
 		} else if (playing || paused) {
-			int i = 0;
-			for (Integer n : shapeGroupX) {
-				drawShape(shapeBlocks.get(i).x, shapeBlocks.get(i).y, n, g);
-				i++;
+
+			
+			for (Polygon shape : shapes) {
+				g.setColor(Color.WHITE);
+				g.fillPolygon(shape);
+				g.setColor(Color.BLACK);
+				drawVerticalLines(g, shape);
 			}
 
+			drawHorizontalLines(g);
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
-
-			
 
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
 				CenteredText pause = new CenteredText("Paused", 500, 500, g,
 						true, 200);
 			}
-			
+
 			Graphics2D g2d = (Graphics2D) g;
-			
-			g2d.rotate(angle, blockX - 20 + blockWidth/2, blockY - 20 + blockWidth/2);
-			g2d.fillRect(blockX - 20, blockY - 20, blockWidth, blockWidth);
+
+			g2d.rotate(angle, blockX - 20 + blockWidth / 2, blockY - 20
+					+ blockWidth / 2);
+			g2d.fillRect(blockX - 20, blockY - 19, blockWidth, blockWidth);
 
 		} else if (endGame) {
 
@@ -222,39 +269,126 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public void setGroundY() {
+	public void newRandomShape(int xCoord) {
 
-		int shapeGroupStart = shapeGroupX.get(0);
+		ArrayList<Integer> xCoordVals = new ArrayList<Integer>();
+		ArrayList<Integer> yCoordVals = new ArrayList<Integer>();
 
-		int shapeGroupEnd = (shapeBlocks.get(0).w * blockSize)
-				+ shapeGroupStart;
+		int col = (int) (Math.random() * 3 + 1);
+		int prevRow = 0;
+		for (int c = 1; c < col + 1; c++) {
 
-		groundY = 400;
-		for (int[] xy : shapeBlocks.get(0).topXY) {
+			int row = (int) (Math.random() * 3 + 1);
+			addColumn(c, row, prevRow, xCoordVals, yCoordVals, xCoord);
+			prevRow = row;
+		}
 
-			int x = (xy[0] - 1) * blockSize + shapeGroupStart;
-			int y = 400 - (xy[1]) * blockSize;
-			if (blockX > x && blockX - 20 < shapeGroupEnd) {
-				groundY = y;
-				if (getColor(blockX + 2, blockY + 2).equals(Color.WHITE)) {
-					playing = false;
-					nameEnter = true;
-					return;
+		xCoordVals.add((col) * 22 + xCoord);
+		yCoordVals.add(400);
+
+		Integer[] xC = new Integer[xCoordVals.size()];
+		xCoordVals.toArray(xC);
+		int[] x = new int[xC.length];
+
+		Integer[] yC = new Integer[yCoordVals.size()];
+		yCoordVals.toArray(yC);
+		int[] y = new int[yC.length];
+
+		for (int i = 0; i < xC.length; i++) {
+
+			x[i] = xC[i];
+			y[i] = yC[i];
+
+		}
+
+		shapes.add(new Polygon(x, y, x.length));
+
+	}
+
+	public void addColumn(int col, int row, int prevRow,
+			ArrayList<Integer> xCoordVals, ArrayList<Integer> yCoordVals,
+			int xCoord) {
+
+		if (prevRow > row) {
+
+			for (int r = prevRow; r >= row; r--) {
+
+				if (r >= row) {
+					xCoordVals.add((col - 1) * 22 + xCoord);
+					yCoordVals.add(400 - r * 22);
+
 				}
-				return;
+
 			}
+
+		}
+
+		for (int r = prevRow; r < row + 1; r++) {
+
+			xCoordVals.add((col - 1) * 22 + xCoord);
+			yCoordVals.add(400 - r * 22);
+
+		}
+		xCoordVals.add((col) * 22 + xCoord);
+		yCoordVals.add(400 - row * 22);
+
+	}
+
+	public void drawHorizontalLines(Graphics g) {
+
+		for (int i = 0; i < 4; i++) {
+
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 400 - (i * blockSize + borderThickness), 500,
+					borderThickness * 3);
+
+		}
+	}
+	
+	public void drawVerticalLines(Graphics g, Polygon shape) {
+
+		int x = shape.xpoints[0];
+		for (int i = x; i < x + blockSize * 4; i += blockSize) {
+			g.fillRect(i - 3, 400 - blockSize * 3, borderThickness * 3,
+					blockSize * 3);
 
 		}
 
 	}
 
-	public int nextBlockX() {
+	// public void setGroundY() {
+	//
+	// int shapeGroupStart = shapeGroupX.get(0);
+	//
+	// int shapeGroupEnd = (shapeBlocks.get(0).w * blockSize)
+	// + shapeGroupStart;
+	//
+	// groundY = 400;
+	// for (int[] xy : shapeBlocks.get(0).topXY) {
+	//
+	// int x = (xy[0] - 1) * blockSize + shapeGroupStart;
+	// int y = 400 - (xy[1]) * blockSize;
+	// if (blockX > x && blockX - 20 < shapeGroupEnd) {
+	// groundY = y;
+	// if (getColor(blockX + 2, blockY + 2).equals(Color.WHITE)) {
+	// playing = false;
+	// nameEnter = true;
+	// return;
+	// }
+	// return;
+	// }
+	//
+	// }
+	//
+	// }
 
-		shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1) + spacing);
-		shapeGroupX.remove(0);
-		return shapeGroupX.get(shapeGroupX.size() - 1);
-
-	}
+	// public int nextBlockX() {
+	//
+	// shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1) + spacing);
+	// shapeGroupX.remove(0);
+	// return shapeGroupX.get(shapeGroupX.size() - 1);
+	//
+	// }
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -272,7 +406,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+		if (e.getKeyCode() == KeyEvent.VK_SPACE && playPause) {
 			if (!paused) {
 				playing = false;
 				paused = true;
@@ -315,8 +449,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				nameEnter = false;
 				highScores = true;
 				scores.setScores(timeSeconds, pName);
-				
-				
+
 			} else if (highScores) {
 
 				highScores = false;
@@ -326,6 +459,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				timeSeconds = 0;
 				startGame = false;
 				playing = true;
+				playPause = true;
 
 			}
 
@@ -339,23 +473,22 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void reset() {
 
-		shapeGroupX.clear();
-		shapeBlocks.clear();
+		shapes.clear();
 		angle = 0;
 		for (int i = 0; i < numOfShapes; i++) {
-			shapeGroupX.add(500 + spacing * i);
-			shapeBlocks.add(new CustomShape());
-			}
+			prevX = 500 + spacing * i;
+			newRandomShape(prevX);
+		}
 	}
 
-	public int[] getXRange() {
-
-		int width = (shapeWidth + borderThickness) * shapeBlocks.get(0).w + 20;
-		int[] x = { shapeGroupX.get(0) - 20, width };
-		Arrays.sort(x);
-		return x;
-
-	}
+	// public int[] getXRange() {
+	//
+	// int width = (shapeWidth + borderThickness) * shapeBlocks.get(0).w + 20;
+	// int[] x = { shapeGroupX.get(0) - 20, width };
+	// Arrays.sort(x);
+	// return x;
+	//
+	// }
 
 	public static Color getColor(int x, int y) {
 		try {
