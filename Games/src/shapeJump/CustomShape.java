@@ -27,6 +27,13 @@ public class CustomShape extends JPanel {
 	public int[][] topXY;
 	public int[][] outXY;
 	ArrayList<Point> outline = new ArrayList<Point>();
+	ArrayList<Integer> xVals = new ArrayList<Integer>();
+	ArrayList<Integer> yVals = new ArrayList<Integer>();
+	
+	ArrayList<Integer> xCoordVals = new ArrayList<Integer>();
+	ArrayList<Integer> yCoordVals = new ArrayList<Integer>();
+	
+	public Polygon theShape;
 	
 
 	public CustomShape() {
@@ -100,6 +107,8 @@ public class CustomShape extends JPanel {
 
 		}
 		
+		newRandomShape();
+		
 //		JFrame frame = new JFrame("Shape Jumper");
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		frame.setLayout(new BorderLayout());
@@ -116,6 +125,13 @@ public class CustomShape extends JPanel {
 
 		
 
+	}
+	
+	public CustomShape(int n) {
+		
+		newRandomShape();
+		theShape.translate(n, 0);
+		
 	}
 
 	public void OnexOne() {
@@ -558,20 +574,22 @@ public class CustomShape extends JPanel {
 	
 	public void runFromMain() {
 		
-		getOutside();
-		convertCoords();
-//		Polygon shapeOutline = new Polygon(x, y, x.length);
-		Polygon shapeOutline = new Polygon(xCoord, yCoord, xCoord.length);
-		
-//		System.out.println("X and Y coords: ");
-//		System.out.println(Arrays.toString(xCoord));
-//		System.out.println(Arrays.toString(yCoord));
+//		getOutside();
+//		convertCoords();
+////		Polygon shapeOutline = new Polygon(x, y, x.length);
+//		Polygon shapeOutline = new Polygon(xCoord, yCoord, xCoord.length);
 //		
-		System.out.println("X and Y Polygon coords: ");
-		System.out.println(Arrays.toString(shapeOutline.xpoints));
-		System.out.println(Arrays.toString(shapeOutline.ypoints));
-		
-		System.out.println(shapeOutline.getBounds());
+////		System.out.println("X and Y coords: ");
+////		System.out.println(Arrays.toString(xCoord));
+////		System.out.println(Arrays.toString(yCoord));
+////		
+//		System.out.println("X and Y Polygon coords: ");
+//		System.out.println(Arrays.toString(shapeOutline.xpoints));
+//		System.out.println(Arrays.toString(shapeOutline.ypoints));
+//		
+//		System.out.println(shapeOutline.getBounds());
+//		
+		newRandomShape();
 		
 		repaint();
 		
@@ -646,10 +664,74 @@ public int[][] outlineToArraysT() {
 		
 		
 	}
+
+
+public void newRandomShape() {
+	
+	int col = (int) (Math.random() * 3 + 1);
+	for (int c = 1; c < col + 1; c++) {
+		
+		int row = (int) (Math.random() * 3 + 1);
+		for (int r = 0; r < row + 1; r++) {
+			
+			xVals.add(c - 1);
+			yVals.add(r);
+			
+			xVals.add(c);
+			yVals.add(r);
+			
+			
+			xCoordVals.add((c - 1) * 22 + 30);
+			yCoordVals.add(400 - r * 22);
+			
+			xCoordVals.add(c * 22 + 30);
+			yCoordVals.add(400 - r * 22);
+			
+		}
+		
+	}
+	
+	Integer[] xC = new Integer[xCoordVals.size()];
+	xCoordVals.toArray(xC);
+	x = new int[xC.length];
+	
+	Integer[] yC = new Integer[yCoordVals.size()];
+	yCoordVals.toArray(yC);
+	y = new int[yC.length];
+	
+	
+	
+	for (int i = 0; i < xC.length; i++) {
+		
+		x[i] = xC[i];
+		y[i] = yC[i];
+		
+		
+	}
+	
+	theShape = new Polygon(x, y, x.length);
+		
+}
 	
 	public void paintComponent(Graphics g) {
 		
-		g.drawPolygon(new Polygon(xCoord, yCoord, x.length));
+		Integer[] xC = new Integer[xCoordVals.size()];
+		xCoordVals.toArray(xC);
+		int[] xCa = new int[xC.length];
+		
+		Integer[] yC = new Integer[yCoordVals.size()];
+		xCoordVals.toArray(yC);
+		int[] yCa = new int[yC.length];
+		
+		for (int i = 0; i < xC.length; i++) {
+			
+			xCa[i] = xC[i];
+			yCa[i] = yC[i];
+			
+			
+		}
+		
+		g.drawPolygon(new Polygon(xCa, yCa, xCa.length));
 		
 		
 		
