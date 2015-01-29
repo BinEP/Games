@@ -252,7 +252,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		for (int c = 1; c < col + 1; c++) {
 
 			int row = (int) (Math.random() * 3 + 1);
-			System.out.println("Prev: " + prevRow + "\t Row: " + row);
 			addColumn(c, row, prevRow, xCoordVals, yCoordVals, xCoord);
 			prevRow = row;
 		}
@@ -298,18 +297,32 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 
-		for (int r = 0; r < row + 1; r++) {
+		for (int r = prevRow; r < row + 1; r++) {
 
-			if (r >= prevRow) {
 				xCoordVals.add((col - 1) * 22 + xCoord);
 				yCoordVals.add(400 - r * 22);
 
-			}
+			
 
 		}
 		xCoordVals.add((col) * 22 + xCoord);
 		yCoordVals.add(400 - row * 22);
 
+	}
+	
+	public void drawLines(Graphics g, int xCoord) {
+		
+		
+		for (int i = 0; i < 4; i++) {
+			 
+			 g.setColor(Color.BLACK);
+			 g.drawRect(x1 + borderThickness / 2, y1 + borderThickness / 2,
+			 shapeWidth, shapeWidth);
+			
+			 }
+		
+		
+		
 	}
 
 	// public void setGroundY() {
