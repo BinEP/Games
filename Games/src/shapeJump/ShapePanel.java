@@ -200,6 +200,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				g.fillPolygon(shape);
 			}
 
+			drawLines(g, 30);
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.drawString(String.valueOf(timeSeconds), 5, 20);
@@ -316,8 +317,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		for (int i = 0; i < 4; i++) {
 			 
 			 g.setColor(Color.BLACK);
-			 g.drawRect(x1 + borderThickness / 2, y1 + borderThickness / 2,
-			 shapeWidth, shapeWidth);
+			 g.drawRect(0 , 400 - (i * blockSize + borderThickness / 2),
+			 500, borderThickness);
 			
 			 }
 		
