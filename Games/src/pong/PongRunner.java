@@ -13,7 +13,8 @@ public class PongRunner {
 		JFrame frame = new JFrame("PONG!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		
+//		frame.setAlwaysOnTop(true);
+
 		PongPanel pongPanel = new PongPanel();
 		//wWebPong pongPanel = new WebPong();
 		frame.add(pongPanel, BorderLayout.CENTER);
