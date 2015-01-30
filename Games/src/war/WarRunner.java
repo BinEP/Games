@@ -12,7 +12,7 @@ public class WarRunner {
 		JFrame frame = new JFrame("WAR");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		//frame.setAlwaysOnTop(true);
+//		frame.setAlwaysOnTop(true);
 		
 		WarPanel WarPanel = new WarPanel();
 		frame.add(WarPanel, BorderLayout.CENTER);
