@@ -1,5 +1,11 @@
 package shapeJump;
 
+//Test 1 commit
+//Test 2 commit
+
+//New Test 1 commit
+//New Test 2 commit
+
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Font;
@@ -126,6 +132,14 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			// }
 
 			// setGroundY();
+			if (getColor(blockX, blockY + 10).equals(Color.WHITE) || getColor(blockX - 20, blockY + 10).equals(Color.WHITE)) {
+				
+				groundY = blockY;
+				blockY = groundY - 1;
+				deltaY = 0;
+				angle = 0;
+				jumping = false;
+			}
 
 			for (int i = 0; i < shapes.size(); i++) {
 				shapes.get(i).translate(-shapeSpeed, 0);
@@ -193,7 +207,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		super.paintComponent(g);
 		g.setColor(Color.WHITE);
-		g.fillRect(0, ground, getWidth(), 10);
+		g.fillRect(0, ground + 2, getWidth(), 10);
 
 		if (startGame) {
 
@@ -231,6 +245,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 						true, 200);
 			}
 
+//			g.drawRect(blockX - 20, blockY + 10, 1, 1);
+			
 			Graphics2D g2d = (Graphics2D) g;
 
 			g2d.rotate(angle, blockX - 20 + blockWidth / 2, blockY - 20
