@@ -12,7 +12,7 @@ public class BlackjackRunner {
 		JFrame frame = new JFrame("GO FISH");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.setAlwaysOnTop(true);
+//		frame.setAlwaysOnTop(true);
 		
 		BlackjackPanel BlackjackPanel = new BlackjackPanel();
 		frame.add(BlackjackPanel, BorderLayout.CENTER);
