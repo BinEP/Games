@@ -173,20 +173,20 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			int fruitXx = fruitX.get(i);
 			int fruitYy = fruitY.get(i);
 			
-			if (Math.abs(head.x - fruitX.get(0)) < 5) {
+			if (Math.abs(head.x - fruitXx) < 5) {
 
 				deltaX = 0;
-				deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
+				deltaY = (head.y - fruitYy > 0) ? -bodySize : bodySize;
 				// deltaY = (head.y - fruitY == 0) ? deltaY : (head.y - fruitY >
 				// 0)
 				// ? -bodySize : bodySize;
 
 				// addBodySquare();
 			}
-			if (Math.abs(head.y - fruitY.get(0)) < 5) {
+			if (Math.abs(head.y - fruitYy) < 5) {
 
 				deltaY = 0;
-				deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
+				deltaX = (head.x - fruitXx > 0) ? -bodySize : bodySize;
 				// deltaX = (head.x - fruitX == 0) ? deltaX : (head.x - fruitX >
 				// 0)
 				// ? -bodySize : bodySize;
