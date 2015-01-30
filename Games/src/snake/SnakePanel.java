@@ -58,6 +58,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int deltaX = 0;
 	private int deltaY = -bodySize;
+	
+	private Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 	private int prevLoseKey = KeyEvent.VK_DOWN;
 
@@ -106,6 +108,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			head.x += deltaX;
 			head.y += deltaY;
+			nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 			for (int i = snakeBody.size() - 1; i > 0; i--) {
 
@@ -199,25 +202,26 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 		
-		System.out.println("prevX: " + prevDeltaX);
-		System.out.println("deltaX: " + deltaX);
-		
-		System.out.println("prevY: " + prevDeltaY);
-		System.out.println("deltaY: " + deltaY);
-		
-		
 		if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY && deltaY != 0)) {
-			System.out.println("switch");
+			
+			System.out.println("prevX: " + prevDeltaX);
+			System.out.println("deltaX: " + deltaX);
+			
+			System.out.println("prevY: " + prevDeltaY);
+			System.out.println("deltaY: " + deltaY);
+			
 			deltaX = -deltaX;
 			deltaY = -deltaY;
 			
 		}
+		
+		checkSelf();
 
 	}
 	
 	public void checkSelf() {
 		
-		Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
+//		Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 		if (snakeBody.contains(nextHead)) {
 
