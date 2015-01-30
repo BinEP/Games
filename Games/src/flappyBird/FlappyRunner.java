@@ -14,6 +14,7 @@ public class FlappyRunner {
 		JFrame frame = new JFrame("JUMPY BALL!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
+//		frame.setAlwaysOnTop(true);
 		
 		FlappyPanel FlappyPanel = new FlappyPanel();
 		//wWebPong pongPanel = new WebPong();

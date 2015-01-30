@@ -14,7 +14,7 @@ public class ShapeRunner {
 		JFrame frame = new JFrame("Shape Jumper");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.setAlwaysOnTop(true);
+//		frame.setAlwaysOnTop(true);
 		
 		ShapePanel shapePanel = new ShapePanel();
 		//wWebPong pongPanel = new WebPong();

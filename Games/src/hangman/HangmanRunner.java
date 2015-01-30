@@ -11,7 +11,7 @@ public class HangmanRunner {
 		JFrame frame = new JFrame("HANGMAN!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.setAlwaysOnTop(true);
+//		frame.setAlwaysOnTop(true);
 		
 		HangmanPanel HangmanPanel = new HangmanPanel();
 		frame.add(HangmanPanel, BorderLayout.CENTER);

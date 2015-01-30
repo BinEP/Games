@@ -12,7 +12,7 @@ public class SnakeRunner {
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.setAlwaysOnTop(true);
+//		frame.setAlwaysOnTop(true);
 
 		SnakePanel SnakePanel = new SnakePanel();
 		frame.add(SnakePanel, BorderLayout.CENTER);
