@@ -179,7 +179,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		int prevDeltaX = deltaX;
 		int prevDeltaY = deltaY;
 		
-
+		
 		for (int i = 0; i < fruitX.size(); i++) {
 			int fruitXx = fruitX.get(i);
 			int fruitYy = fruitY.get(i);
@@ -199,12 +199,19 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 		
-//		if (prevDeltaX == -deltaX || prevDeltaY == -deltaY) {
-//			
-//			deltaX = -deltaX;
-//			deltaY = -deltaY;
-//			
-//		}
+		System.out.println("prevX: " + prevDeltaX);
+		System.out.println("deltaX: " + deltaX);
+		
+		System.out.println("prevY: " + prevDeltaY);
+		System.out.println("deltaY: " + deltaY);
+		
+		
+		if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY && deltaY != 0)) {
+			System.out.println("switch");
+			deltaX = -deltaX;
+			deltaY = -deltaY;
+			
+		}
 
 	}
 	
