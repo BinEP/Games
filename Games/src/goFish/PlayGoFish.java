@@ -12,7 +12,7 @@ public class PlayGoFish {
 		JFrame frame = new JFrame("GO FISH");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.setAlwaysOnTop(true);
+//		frame.setAlwaysOnTop(true);
 		
 		GoFishPanel GoFishPanel = new GoFishPanel();
 		frame.add(GoFishPanel, BorderLayout.CENTER);
