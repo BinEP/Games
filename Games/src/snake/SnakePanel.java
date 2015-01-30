@@ -152,8 +152,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		int nextHeadX = head.x + deltaX;
 		int nextHeadY = head.y + deltaY;
 
-		// if (Math.abs(head.x - fruitX) < 5 || Math.abs(head.y - fruitY) < 5) {
-
 		// If hit wall while moving sideways, change deltaX to 0 and deltaY
 		// positive or
 		// negative depending on nearest fruit
@@ -173,6 +171,35 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			deltaY = 0;
 			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
 		}
+		
+		
+//		checkSelf();
+		
+		
+		
+
+		for (int i = 0; i < fruitX.size(); i++) {
+			int fruitXx = fruitX.get(i);
+			int fruitYy = fruitY.get(i);
+
+			if (Math.abs(head.x - fruitXx) < 5) {
+
+				deltaX = 0;
+				deltaY = (head.y - fruitYy > 0) ? -bodySize : bodySize;
+				
+			}
+			if (Math.abs(head.y - fruitYy) < 5) {
+
+				deltaY = 0;
+				deltaX = (head.x - fruitXx > 0) ? -bodySize : bodySize;
+				
+			}
+
+		}
+
+	}
+	
+	public void checkSelf() {
 		
 		Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
@@ -206,37 +233,11 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 
-		// if ((head.y < 8 + bodySize || head.y > 465 - bodySize) && (head.x < 1
-		// + bodySize || head.x > 485 - bodySize)) {
-		// }
-
-		for (int i = 0; i < fruitX.size(); i++) {
-			int fruitXx = fruitX.get(i);
-			int fruitYy = fruitY.get(i);
-
-			if (Math.abs(head.x - fruitXx) < 5) {
-
-				deltaX = 0;
-				deltaY = (head.y - fruitYy > 0) ? -bodySize : bodySize;
-				// deltaY = (head.y - fruitY == 0) ? deltaY : (head.y - fruitY >
-				// 0)
-				// ? -bodySize : bodySize;
-
-				// addBodySquare();
-			}
-			if (Math.abs(head.y - fruitYy) < 5) {
-
-				deltaY = 0;
-				deltaX = (head.x - fruitXx > 0) ? -bodySize : bodySize;
-				// deltaX = (head.x - fruitX == 0) ? deltaX : (head.x - fruitX >
-				// 0)
-				// ? -bodySize : bodySize;
-
-				// addBodySquare();
-			}
-
-		}
-
+		
+		
+		
+		
+		
 	}
 
 	public void addBodySquare(int fruitIndex) {
