@@ -14,7 +14,8 @@ public class HoleRunner {
 		JFrame frame = new JFrame("HOLE IN THE WALL!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		
+//		frame.setAlwaysOnTop(true);
+
 		HolePanel HolePanel = new HolePanel();
 		//wWebPong pongPanel = new WebPong();
 		frame.add(HolePanel, BorderLayout.CENTER);
