@@ -202,18 +202,18 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 		
-		if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY && deltaY != 0)) {
-			
-			System.out.println("prevX: " + prevDeltaX);
-			System.out.println("deltaX: " + deltaX);
-			
-			System.out.println("prevY: " + prevDeltaY);
-			System.out.println("deltaY: " + deltaY);
-			
-			deltaX = -deltaX;
-			deltaY = -deltaY;
-			
-		}
+//		if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY && deltaY != 0)) {
+//			
+//			System.out.println("prevX: " + prevDeltaX);
+//			System.out.println("deltaX: " + deltaX);
+//			
+//			System.out.println("prevY: " + prevDeltaY);
+//			System.out.println("deltaY: " + deltaY);
+//			
+//			deltaX = -deltaX;
+//			deltaY = -deltaY;
+//			
+//		}
 		
 		checkSelf();
 
