@@ -9,10 +9,10 @@ public class BlackjackRunner {
 	public static void main(String[] args) {
 
 		
-		JFrame frame = new JFrame("GO FISH");
+		JFrame frame = new JFrame("Black Jack");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.setAlwaysOnTop(true);
+//		frame.setAlwaysOnTop(true);
 		
 		BlackjackPanel BlackjackPanel = new BlackjackPanel();
 		frame.add(BlackjackPanel, BorderLayout.CENTER);
