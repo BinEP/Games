@@ -199,12 +199,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 		
-		if (prevDeltaX == -deltaX || prevDeltaY == -deltaY) {
-			
-			deltaX = -deltaX;
-			deltaY = -deltaY;
-			
-		}
+//		if (prevDeltaX == -deltaX || prevDeltaY == -deltaY) {
+//			
+//			deltaX = -deltaX;
+//			deltaY = -deltaY;
+//			
+//		}
 
 	}
 	
