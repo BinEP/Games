@@ -215,6 +215,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 //			
 //		}
 		
+		//Yay!!!
 		checkSelf();
 
 	}
