@@ -154,15 +154,54 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		// if (Math.abs(head.x - fruitX) < 5 || Math.abs(head.y - fruitY) < 5) {
 
+		// If hit wall while moving sideways, change deltaX to 0 and deltaY
+		// positive or
+		// negative depending on nearest fruit
+
 		if ((head.x < 1 + bodySize || head.x > 485 - bodySize) && deltaX != 0) {
 
 			deltaX = 0;
 			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
 		}
+
+		// If hit wall while moving sideways, change deltaY to 0 and deltaX
+		// positive or
+		// negative depending on nearest fruit
+
 		if ((head.y < 8 + bodySize || head.y > 465 - bodySize) && deltaY != 0) {
 
 			deltaY = 0;
 			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
+		}
+
+		if (snakeBody.contains(head)) {
+
+			for (Point p : snakeBody) {
+
+				if (deltaX != 0) {
+
+					if (head.x == p.x) {
+
+						deltaX = 0;
+						deltaY = (head.y - p.y > 0) ? -bodySize : bodySize;
+
+					}
+
+				}
+
+				if (deltaY != 0) {
+
+					if (head.y == p.y) {
+
+						deltaY = 0;
+						deltaX = (head.x - p.x > 0) ? -bodySize : bodySize;
+
+					}
+
+				}
+
+			}
+
 		}
 
 		// if ((head.y < 8 + bodySize || head.y > 465 - bodySize) && (head.x < 1
@@ -172,7 +211,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		for (int i = 0; i < fruitX.size(); i++) {
 			int fruitXx = fruitX.get(i);
 			int fruitYy = fruitY.get(i);
-			
+
 			if (Math.abs(head.x - fruitXx) < 5) {
 
 				deltaX = 0;
