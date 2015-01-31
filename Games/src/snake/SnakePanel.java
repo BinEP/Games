@@ -390,7 +390,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		
 		fruitX.set(fruitIndex, x);
-		fruitY.set(fruitIndex, x);
+		fruitY.set(fruitIndex, y);
 
 	}
 
