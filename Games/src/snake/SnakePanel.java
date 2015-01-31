@@ -58,6 +58,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int deltaX = 0;
 	private int deltaY = -bodySize;
+	
+	private Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 	private int prevLoseKey = KeyEvent.VK_DOWN;
 
@@ -106,6 +108,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			head.x += deltaX;
 			head.y += deltaY;
+			nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 			for (int i = snakeBody.size() - 1; i > 0; i--) {
 
@@ -152,50 +155,110 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		int nextHeadX = head.x + deltaX;
 		int nextHeadY = head.y + deltaY;
 
-		// if (Math.abs(head.x - fruitX) < 5 || Math.abs(head.y - fruitY) < 5) {
+		// If hit wall while moving sideways, change deltaX to 0 and deltaY
+		// positive or
+		// negative depending on nearest fruit
 
 		if ((head.x < 1 + bodySize || head.x > 485 - bodySize) && deltaX != 0) {
 
 			deltaX = 0;
 			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
 		}
+
+		// If hit wall while moving sideways, change deltaY to 0 and deltaX
+		// positive or
+		// negative depending on nearest fruit
+
 		if ((head.y < 8 + bodySize || head.y > 465 - bodySize) && deltaY != 0) {
 
 			deltaY = 0;
 			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
 		}
-
-		// if ((head.y < 8 + bodySize || head.y > 465 - bodySize) && (head.x < 1
-		// + bodySize || head.x > 485 - bodySize)) {
-		// }
-
+		
+		
+//		checkSelf();
+		
+		
+		int prevDeltaX = deltaX;
+		int prevDeltaY = deltaY;
+		
+		
 		for (int i = 0; i < fruitX.size(); i++) {
 			int fruitXx = fruitX.get(i);
 			int fruitYy = fruitY.get(i);
-			
-			if (Math.abs(head.x - fruitXx) < 5) {
+
+			if (Math.abs(head.x - fruitXx) < 5 && deltaX != 0) {
 
 				deltaX = 0;
 				deltaY = (head.y - fruitYy > 0) ? -bodySize : bodySize;
-				// deltaY = (head.y - fruitY == 0) ? deltaY : (head.y - fruitY >
-				// 0)
-				// ? -bodySize : bodySize;
-
-				// addBodySquare();
+				
 			}
-			if (Math.abs(head.y - fruitYy) < 5) {
+			if (Math.abs(head.y - fruitYy) < 5 && deltaY != 0) {
 
 				deltaY = 0;
 				deltaX = (head.x - fruitXx > 0) ? -bodySize : bodySize;
-				// deltaX = (head.x - fruitX == 0) ? deltaX : (head.x - fruitX >
-				// 0)
-				// ? -bodySize : bodySize;
+				
+			}
 
-				// addBodySquare();
+		}
+		
+//		if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY && deltaY != 0)) {
+//			
+//			System.out.println("prevX: " + prevDeltaX);
+//			System.out.println("deltaX: " + deltaX);
+//			
+//			System.out.println("prevY: " + prevDeltaY);
+//			System.out.println("deltaY: " + deltaY);
+//			
+//			deltaX = -deltaX;
+//			deltaY = -deltaY;
+//			
+//		}
+		
+		//Yay!!!
+		checkSelf();
+
+	}
+	
+	public void checkSelf() {
+		
+//		Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
+		
+		if (snakeBody.contains(nextHead)) {
+			
+			for (Point p : snakeBody) {
+
+				if (deltaX != 0) {
+
+					if (nextHead.x == p.x) {
+
+						deltaX = 0;
+						deltaY = (nextHead.y - p.y > 0) ? -bodySize : bodySize;
+
+					}
+
+				}
+
+				if (deltaY != 0) {
+
+					if (nextHead.y == p.y) {
+
+						deltaY = 0;
+						deltaX = (nextHead.x - p.x < 0) ? -bodySize : bodySize;
+
+					}
+
+				}
+
 			}
 
 		}
 
+		
+		
+		
+		
+		
 	}
 
 	public void addBodySquare(int fruitIndex) {
