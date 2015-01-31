@@ -178,13 +178,13 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			int fruitXx = fruitX.get(i);
 			int fruitYy = fruitY.get(i);
 
-				if (Math.abs(head.x - fruitXx) < 5 && deltaX != 0) {
+			if (Math.abs(head.x - fruitXx) < 5 && deltaX != 0) {
 
-					deltaX = 0;
-					deltaY = (head.y - fruitYy > 0) ? -bodySize : bodySize;
+				deltaX = 0;
+				deltaY = (head.y - fruitYy > 0) ? -bodySize : bodySize;
 
-				}
-			
+			}
+
 			if (Math.abs(head.y - fruitYy) < 5 && deltaY != 0) {
 
 				deltaY = 0;
@@ -261,8 +261,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		snakeBody.add(new Point(lastBodyX + changeX, lastBodyY + changeY));
 		snakeColor.add(fruitColor.get(fruitIndex));
-		fruitX.set(fruitIndex, randNum());
-		fruitY.set(fruitIndex, randNum());
+
+		addGoodFruit(fruitIndex);
+		
+//		fruitX.set(fruitIndex, randNum());
+//		fruitY.set(fruitIndex, randNum());
+
 		fruitColor.set(fruitIndex, randColor());
 
 		speed += .5;
@@ -336,6 +340,58 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	public int randFruitNum() {
 
 		return (int) (Math.random() * fruitColor.size());
+	}
+
+	public void addGoodFruit(int fruitIndex) {
+
+		int x = randNum();
+		int y = randNum();
+
+		if (deltaX != 0 && head.y == y) {
+
+			if (deltaX > 0) {
+
+				while (x < head.x) {
+
+					x = randNum();
+
+				}
+
+			} else {
+
+				while (x > head.x) {
+
+					x = randNum();
+
+				}
+
+			}
+
+		} else if (deltaY != 0 && head.x == x) {
+
+			if (deltaY > 0) {
+
+				while (y < head.y) {
+
+					y = randNum();
+
+				}
+
+			} else {
+
+				while (y > head.x) {
+
+					y = randNum();
+
+				}
+
+			}
+
+		}
+		
+		fruitX.set(fruitIndex, x);
+		fruitY.set(fruitIndex, x);
+
 	}
 
 	public void paintComponent(Graphics g) {
