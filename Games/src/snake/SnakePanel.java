@@ -58,7 +58,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int deltaX = 0;
 	private int deltaY = -bodySize;
-	
+
 	private Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 	private int prevLoseKey = KeyEvent.VK_DOWN;
@@ -152,9 +152,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void autonomous() {
 
-		int nextHeadX = head.x + deltaX;
-		int nextHeadY = head.y + deltaY;
-
 		// If hit wall while moving sideways, change deltaX to 0 and deltaY
 		// positive or
 		// negative depending on nearest fruit
@@ -174,58 +171,54 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			deltaY = 0;
 			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
 		}
-		
-		
-//		checkSelf();
-		
-		
-		int prevDeltaX = deltaX;
-		int prevDeltaY = deltaY;
-		
-		
+
+		// checkSelf();
+
 		for (int i = 0; i < fruitX.size(); i++) {
 			int fruitXx = fruitX.get(i);
 			int fruitYy = fruitY.get(i);
 
-			if (Math.abs(head.x - fruitXx) < 5 && deltaX != 0) {
+				if (Math.abs(head.x - fruitXx) < 5 && deltaX != 0) {
 
-				deltaX = 0;
-				deltaY = (head.y - fruitYy > 0) ? -bodySize : bodySize;
-				
-			}
+					deltaX = 0;
+					deltaY = (head.y - fruitYy > 0) ? -bodySize : bodySize;
+
+				}
+			
 			if (Math.abs(head.y - fruitYy) < 5 && deltaY != 0) {
 
 				deltaY = 0;
 				deltaX = (head.x - fruitXx > 0) ? -bodySize : bodySize;
-				
+
 			}
 
 		}
-		
-//		if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY && deltaY != 0)) {
-//			
-//			System.out.println("prevX: " + prevDeltaX);
-//			System.out.println("deltaX: " + deltaX);
-//			
-//			System.out.println("prevY: " + prevDeltaY);
-//			System.out.println("deltaY: " + deltaY);
-//			
-//			deltaX = -deltaX;
-//			deltaY = -deltaY;
-//			
-//		}
-		
-		//Yay!!!
+
+		// if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY
+		// && deltaY != 0)) {
+		//
+		// System.out.println("prevX: " + prevDeltaX);
+		// System.out.println("deltaX: " + deltaX);
+		//
+		// System.out.println("prevY: " + prevDeltaY);
+		// System.out.println("deltaY: " + deltaY);
+		//
+		// deltaX = -deltaX;
+		// deltaY = -deltaY;
+		//
+		// }
+
+		// Yay!!!
 		checkSelf();
 
 	}
-	
+
 	public void checkSelf() {
-		
-//		Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
-		
+
+		// Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
+
 		if (snakeBody.contains(nextHead)) {
-			
+
 			for (Point p : snakeBody) {
 
 				if (deltaX != 0) {
@@ -254,11 +247,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 
-		
-		
-		
-		
-		
 	}
 
 	public void addBodySquare(int fruitIndex) {
