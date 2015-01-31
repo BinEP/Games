@@ -237,7 +237,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 					if (nextHead.y == p.y) {
 
 						deltaY = 0;
-						deltaX = (nextHead.x - p.x < 0) ? -bodySize : bodySize;
+						deltaX = (nextHead.x - p.x > 0) ? -bodySize : bodySize;
 
 					}
 
