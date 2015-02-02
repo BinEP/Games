@@ -138,11 +138,11 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				autonomous();
 			}
 
-//			if (head.x < 1 || head.x > 485 || head.y < 8 || head.y > 465) {
-//
-//				playing = false;
-//				nameEnter = true;
-//			}
+			// if (head.x < 1 || head.x > 485 || head.y < 8 || head.y > 465) {
+			//
+			// playing = false;
+			// nameEnter = true;
+			// }
 
 		}
 
@@ -156,7 +156,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		// positive or
 		// negative depending on nearest fruit
 
-		if ((head.x < 8 + bodySize || head.x > 492 - 2 * bodySize) && deltaX != 0) {
+		if ((head.x < 8 + bodySize || head.x > 492 - 2 * bodySize)
+				&& deltaX != 0) {
 
 			deltaX = 0;
 			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
@@ -212,38 +213,40 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		checkSelf();
 
 	}
-	
+
 	public void up() {
-		
-		deltaX = 0;
-		deltaY = -bodySize;
-		
-		
+
+		if (deltaY != bodySize) {
+			deltaX = 0;
+			deltaY = -bodySize;
+		}
+
 	}
 
-public void down() {
-		
-		
-	deltaX = 0;
-	deltaY = bodySize;
-		
+	public void down() {
+
+		if (deltaY != -bodySize) {
+			deltaX = 0;
+			deltaY = bodySize;
+		}
 	}
 
-public void left() {
-	
-	deltaX = -bodySize;
-	deltaY = 0;
-	
-	
-}
+	public void left() {
 
-public void right() {
-	
-	deltaX = bodySize;
-	deltaY = 0;
-	
-	
-}
+		if (deltaX != bodySize) {
+			deltaX = -bodySize;
+			deltaY = 0;
+		}
+
+	}
+
+	public void right() {
+		if (deltaX != -bodySize) {
+			deltaX = bodySize;
+			deltaY = 0;
+		}
+
+	}
 
 	public void checkSelf() {
 
@@ -295,9 +298,9 @@ public void right() {
 		snakeColor.add(fruitColor.get(fruitIndex));
 
 		addGoodFruit(fruitIndex);
-		
-//		fruitX.set(fruitIndex, randNum());
-//		fruitY.set(fruitIndex, randNum());
+
+		// fruitX.set(fruitIndex, randNum());
+		// fruitY.set(fruitIndex, randNum());
 
 		fruitColor.set(fruitIndex, randColor());
 
@@ -420,7 +423,7 @@ public void right() {
 			}
 
 		}
-		
+
 		fruitX.set(fruitIndex, x);
 		fruitY.set(fruitIndex, y);
 
