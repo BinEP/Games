@@ -49,7 +49,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	ArrayList<Integer> xVals = new ArrayList<Integer>();
 	ArrayList<Integer> yVals = new ArrayList<Integer>();
 
-	public ArrayList<Polygon> shapes = new ArrayList<Polygon>();
+	public ArrayList<CustomPolygon> shapes = new ArrayList<CustomPolygon>();
 	public int prevX = 500;
 
 	private int blockY = ground - 1;
@@ -170,6 +170,15 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		repaint();
 
 	}
+	
+	
+	public void newRandomShape(int xCoord) {
+		
+		
+		
+		
+		
+	}
 
 	// public void drawShape(int[] x, int[] y, int pos, Graphics g) {
 	//
@@ -273,70 +282,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public void newRandomShape(int xCoord) {
-
-		ArrayList<Integer> xCoordVals = new ArrayList<Integer>();
-		ArrayList<Integer> yCoordVals = new ArrayList<Integer>();
-
-		int col = (int) (Math.random() * 3 + 1);
-		int prevRow = 0;
-		for (int c = 1; c < col + 1; c++) {
-
-			int row = (int) (Math.random() * 3 + 1);
-			addColumn(c, row, prevRow, xCoordVals, yCoordVals, xCoord);
-			prevRow = row;
-		}
-
-		xCoordVals.add((col) * 22 + xCoord);
-		yCoordVals.add(400);
-
-		Integer[] xC = new Integer[xCoordVals.size()];
-		xCoordVals.toArray(xC);
-		int[] x = new int[xC.length];
-
-		Integer[] yC = new Integer[yCoordVals.size()];
-		yCoordVals.toArray(yC);
-		int[] y = new int[yC.length];
-
-		for (int i = 0; i < xC.length; i++) {
-
-			x[i] = xC[i];
-			y[i] = yC[i];
-
-		}
-
-		shapes.add(new Polygon(x, y, x.length));
-
-	}
-
-	public void addColumn(int col, int row, int prevRow,
-			ArrayList<Integer> xCoordVals, ArrayList<Integer> yCoordVals,
-			int xCoord) {
-
-		if (prevRow > row) {
-
-			for (int r = prevRow; r >= row; r--) {
-
-				if (r >= row) {
-					xCoordVals.add((col - 1) * 22 + xCoord);
-					yCoordVals.add(400 - r * 22);
-
-				}
-
-			}
-
-		}
-
-		for (int r = prevRow; r < row + 1; r++) {
-
-			xCoordVals.add((col - 1) * 22 + xCoord);
-			yCoordVals.add(400 - r * 22);
-
-		}
-		xCoordVals.add((col) * 22 + xCoord);
-		yCoordVals.add(400 - row * 22);
-
-	}
+	
 
 	public void drawHorizontalLines(Graphics g) {
 
