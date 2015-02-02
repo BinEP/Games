@@ -534,30 +534,18 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		} else if (e.getKeyCode() == upKey) {
 
-//			deltaX = 0;
-//			deltaY = -bodySize;
-//			prevLoseKey = downKey;
 			up();
 
 		} else if (e.getKeyCode() == downKey) {
 
-//			deltaX = 0;
-//			deltaY = bodySize;
-//			prevLoseKey = upKey;
 			down();
 
 		} else if (e.getKeyCode() == leftKey) {
 
-//			deltaY = 0;
-//			deltaX = -bodySize;
-//			prevLoseKey = rightKey;
 			left();
 
 		} else if (e.getKeyCode() == rightKey) {
 
-//			deltaY = 0;
-//			deltaX = bodySize;
-//			prevLoseKey = leftKey;
 			right();
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
