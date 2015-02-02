@@ -8,8 +8,7 @@ public class CustomPolygon extends Polygon {
 
 	public ArrayList<Integer> height = new ArrayList<Integer>();
 	public ArrayList<Rectangle> columns = new ArrayList<Rectangle>();
-	
-	
+
 	public static void main(String[] args) {
 		CustomPolygon runIt = new CustomPolygon();
 		runIt.runFromMain();
@@ -18,21 +17,17 @@ public class CustomPolygon extends Polygon {
 	public void runFromMain() {
 
 	}
-	
+
 	public CustomPolygon() {
-		
-		
-		
-		
+
 	}
 
 	public CustomPolygon(int xCoord) {
-		
+
 		newRandomShape(xCoord);
-		
-		
+
 	}
-	
+
 	public void newRandomShape(int xCoord) {
 
 		ArrayList<Integer> xCoordVals = new ArrayList<Integer>();
@@ -44,12 +39,13 @@ public class CustomPolygon extends Polygon {
 
 			int row = (int) (Math.random() * 3 + 1);
 			addColumn(c, row, prevRow, xCoordVals, yCoordVals, xCoord);
-			
+
 			int rowHeight = 400 - row * 22;
 			height.add(rowHeight);
-			
-			columns.add(new Rectangle((col - 1) * 22 + xpoints[0], rowHeight, 22, row * 22));
-			
+
+			columns.add(new Rectangle((col - 1) * 22 + xpoints[0], rowHeight,
+					22, row * 22));
+
 			prevRow = row;
 		}
 
@@ -74,7 +70,6 @@ public class CustomPolygon extends Polygon {
 		this.xpoints = x;
 		this.ypoints = y;
 		this.npoints = x.length;
-		
 
 	}
 
@@ -106,28 +101,38 @@ public class CustomPolygon extends Polygon {
 		yCoordVals.add(400 - row * 22);
 
 	}
-	
+
 	public int getColIndex(int xCoord) {
+
+		int i = 0;
+		for (Rectangle r : columns) {
+			if (xCoord >= r.getY() && xCoord <= r.getY() + r.getWidth())
+				break;
+
+			i++;
+
+		}
+		return i;
+	}
+	
+	public int getColumnY(int xCoord) {
 		
+		int index = getColIndex(xCoord);
 		
-		
-		
-		
+		return (int) columns.get(index).getY();
 		
 		
 	}
-	
+
 	public void translate(int dx, int dy) {
-		
+
 		super.translate(dx, dy);
-		
+
 		for (Rectangle r : columns) {
-			
+
 			r.translate(dx, dy);
 		}
-		
-		
-		
+
 	}
 
 }
