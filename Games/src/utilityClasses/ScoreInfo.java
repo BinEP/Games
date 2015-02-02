@@ -166,7 +166,7 @@ public class ScoreInfo {
 		g.setFont(new Font("Joystix", Font.BOLD, 17));
 		int i = 0;
 		int yStart = 40;
-		int xStart = 30;
+		int xStart = 40;
 		int lineH = 50;
 		int l = 0;
 		int r = 1;
