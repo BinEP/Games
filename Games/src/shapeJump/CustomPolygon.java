@@ -115,8 +115,9 @@ public class CustomPolygon extends Polygon {
 		return i;
 	}
 	
-	public int getColumnY(int xCoord) {
+	public int getColumnY(int xCoord, int currentGround) {
 		
+		if (xCoord <= columns.get(0).getY()) return currentGround;
 		int index = getColIndex(xCoord);
 		
 		return (int) columns.get(index).getY();
