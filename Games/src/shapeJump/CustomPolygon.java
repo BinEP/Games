@@ -1,10 +1,15 @@
 package shapeJump;
 
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class CustomPolygon extends Polygon {
 
+	public ArrayList<Integer> height = new ArrayList<Integer>();
+	public ArrayList<Rectangle> columns = new ArrayList<Rectangle>();
+	
+	
 	public static void main(String[] args) {
 		CustomPolygon runIt = new CustomPolygon();
 		runIt.runFromMain();
@@ -39,6 +44,12 @@ public class CustomPolygon extends Polygon {
 
 			int row = (int) (Math.random() * 3 + 1);
 			addColumn(c, row, prevRow, xCoordVals, yCoordVals, xCoord);
+			
+			int rowHeight = 400 - row * 22;
+			height.add(rowHeight);
+			
+			columns.add(new Rectangle((col - 1) * 22 + xpoints[0], rowHeight, 22, row * 22));
+			
 			prevRow = row;
 		}
 
@@ -94,6 +105,29 @@ public class CustomPolygon extends Polygon {
 		xCoordVals.add((col) * 22 + xCoord);
 		yCoordVals.add(400 - row * 22);
 
+	}
+	
+	public int getColIndex(int xCoord) {
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	public void translate(int dx, int dy) {
+		
+		super.translate(dx, dy);
+		
+		for (Rectangle r : columns) {
+			
+			r.translate(dx, dy);
+		}
+		
+		
+		
 	}
 
 }
