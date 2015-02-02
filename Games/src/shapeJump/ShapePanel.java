@@ -49,7 +49,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	ArrayList<Integer> xVals = new ArrayList<Integer>();
 	ArrayList<Integer> yVals = new ArrayList<Integer>();
 
-	public ArrayList<Polygon> shapes = new ArrayList<Polygon>();
+	public ArrayList<CustomPolygon> shapes = new ArrayList<CustomPolygon>();
 	public int prevX = 500;
 
 	private int blockY = ground - 1;
@@ -103,7 +103,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 			prevX -= shapeSpeed;
 
-			Polygon shape = shapes.get(0);
+			CustomPolygon shape = shapes.get(0);
 			if (shape.contains(-70, 390)) {
 
 				prevX += spacing;
@@ -115,24 +115,15 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			Polygon theShape = shapes.get(0);
 			if (theShape.intersects(new Rectangle(blockX - 20, blockY - 19, blockWidth, blockWidth))) {
 				
-				System.out.println("Uh Oh");
 				playing = false;
 				playPause = false;
-				endGame = true;
+				nameEnter = true;
 				
 				
 			}
 
-			// for (int i = 0; i < shapeGroupX.size(); i++) {
-			// shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
-			// }
-			//
-			// for (int i = 0; i < shapeBlocks.size(); i++) {
-			// shapeBlocks.get(i).theShape.translate(-shapeSpeed, 0);
-			// }
-
-			// setGroundY();
-
+			 setGroundY();
+			
 			for (int i = 0; i < shapes.size(); i++) {
 				shapes.get(i).translate(-shapeSpeed, 0);
 			}
@@ -168,38 +159,21 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		repaint();
 
 	}
-
-	// public void drawShape(int[] x, int[] y, int pos, Graphics g) {
-	//
-	// for (int i = 0; i < x.length; i++) {
-	// g.setColor(Color.WHITE);
-	//
-	// int x1 = pos + (x[i] - 1) * blockSize;
-	// int y1 = ground - y[i] * blockSize;
-	//
-	// g.fillRect(x1 + borderThickness, y1 + borderThickness, shapeWidth,
-	// shapeWidth);
-	//
-	//
-	//
-	// g.setColor(Color.BLACK);
-	// g.drawRect(x1 + borderThickness / 2, y1 + borderThickness / 2,
-	// shapeWidth, shapeWidth);
-	//
-	// }
-	//
-	// CustomShape cs = new CustomShape();
-	// Polygon theShape = cs.theShape;
-	// g.drawPolygon(theShape);
-	//
-	// }
+	
+	public void newRandomShape(int xCoord) {
+		
+		
+		shapes.add(new CustomPolygon(xCoord));
+		
+		
+	}
 
 	@SuppressWarnings("unused")
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
 		g.setColor(Color.WHITE);
-		g.fillRect(0, ground, getWidth(), 10);
+		g.fillRect(0, ground + 2, getWidth(), 10);
 
 		if (startGame) {
 
@@ -219,7 +193,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (playing || paused) {
 
 			
-			for (Polygon shape : shapes) {
+			for (CustomPolygon shape : shapes) {
 				g.setColor(Color.WHITE);
 				g.fillPolygon(shape);
 				g.setColor(Color.BLACK);
@@ -237,6 +211,8 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 						true, 200);
 			}
 
+//			g.drawRect(blockX - 20, blockY + 10, 1, 1);
+			
 			Graphics2D g2d = (Graphics2D) g;
 
 			g2d.rotate(angle, blockX - 20 + blockWidth / 2, blockY - 20
@@ -269,71 +245,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public void newRandomShape(int xCoord) {
-
-		ArrayList<Integer> xCoordVals = new ArrayList<Integer>();
-		ArrayList<Integer> yCoordVals = new ArrayList<Integer>();
-
-		int col = (int) (Math.random() * 3 + 1);
-		int prevRow = 0;
-		for (int c = 1; c < col + 1; c++) {
-
-			int row = (int) (Math.random() * 3 + 1);
-			addColumn(c, row, prevRow, xCoordVals, yCoordVals, xCoord);
-			prevRow = row;
-		}
-
-		xCoordVals.add((col) * 22 + xCoord);
-		yCoordVals.add(400);
-
-		Integer[] xC = new Integer[xCoordVals.size()];
-		xCoordVals.toArray(xC);
-		int[] x = new int[xC.length];
-
-		Integer[] yC = new Integer[yCoordVals.size()];
-		yCoordVals.toArray(yC);
-		int[] y = new int[yC.length];
-
-		for (int i = 0; i < xC.length; i++) {
-
-			x[i] = xC[i];
-			y[i] = yC[i];
-
-		}
-
-		shapes.add(new Polygon(x, y, x.length));
-
-	}
-
-	public void addColumn(int col, int row, int prevRow,
-			ArrayList<Integer> xCoordVals, ArrayList<Integer> yCoordVals,
-			int xCoord) {
-
-		if (prevRow > row) {
-
-			for (int r = prevRow; r >= row; r--) {
-
-				if (r >= row) {
-					xCoordVals.add((col - 1) * 22 + xCoord);
-					yCoordVals.add(400 - r * 22);
-
-				}
-
-			}
-
-		}
-
-		for (int r = prevRow; r < row + 1; r++) {
-
-			xCoordVals.add((col - 1) * 22 + xCoord);
-			yCoordVals.add(400 - r * 22);
-
-		}
-		xCoordVals.add((col) * 22 + xCoord);
-		yCoordVals.add(400 - row * 22);
-
-	}
-
 	public void drawHorizontalLines(Graphics g) {
 
 		for (int i = 0; i < 4; i++) {
@@ -356,39 +267,13 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	// public void setGroundY() {
-	//
-	// int shapeGroupStart = shapeGroupX.get(0);
-	//
-	// int shapeGroupEnd = (shapeBlocks.get(0).w * blockSize)
-	// + shapeGroupStart;
-	//
-	// groundY = 400;
-	// for (int[] xy : shapeBlocks.get(0).topXY) {
-	//
-	// int x = (xy[0] - 1) * blockSize + shapeGroupStart;
-	// int y = 400 - (xy[1]) * blockSize;
-	// if (blockX > x && blockX - 20 < shapeGroupEnd) {
-	// groundY = y;
-	// if (getColor(blockX + 2, blockY + 2).equals(Color.WHITE)) {
-	// playing = false;
-	// nameEnter = true;
-	// return;
-	// }
-	// return;
-	// }
-	//
-	// }
-	//
-	// }
-
-	// public int nextBlockX() {
-	//
-	// shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1) + spacing);
-	// shapeGroupX.remove(0);
-	// return shapeGroupX.get(shapeGroupX.size() - 1);
-	//
-	// }
+	public void setGroundY() {
+		
+		CustomPolygon theShape = shapes.get(0);
+		
+		groundY = theShape.getColumnY(blockX, ground);
+		
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -480,15 +365,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			newRandomShape(prevX);
 		}
 	}
-
-	// public int[] getXRange() {
-	//
-	// int width = (shapeWidth + borderThickness) * shapeBlocks.get(0).w + 20;
-	// int[] x = { shapeGroupX.get(0) - 20, width };
-	// Arrays.sort(x);
-	// return x;
-	//
-	// }
 
 	public static Color getColor(int x, int y) {
 		try {
