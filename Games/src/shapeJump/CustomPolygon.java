@@ -34,7 +34,7 @@ public class CustomPolygon extends Polygon {
 			int rowHeight = 400 - row * 22;
 			height.add(rowHeight);
 
-			columns.add(new Rectangle((c - 1) * 22 + xpoints[0], rowHeight,
+			columns.add(new Rectangle((c - 1) * 22 + xCoord, rowHeight,
 					22, row * 22));
 
 			prevRow = row;
@@ -97,10 +97,12 @@ public class CustomPolygon extends Polygon {
 
 		int i = 0;
 		for (Rectangle r : columns) {
-			if (xCoord >= r.getY() && xCoord <= r.getY() + r.getWidth())
+			if (xCoord >= r.getY() && xCoord <= r.getY() + r.getWidth()) {
 				break;
-
+			}
+			
 			i++;
+			System.out.println(i);
 
 		}
 		return i;
@@ -109,7 +111,7 @@ public class CustomPolygon extends Polygon {
 	public int getColumnY(int xCoord, int ground) {
 		
 		if (xCoord <= columns.get(0).getX()) return ground;
-		
+		System.out.println(columns.get(0).getX());
 		int index = getColIndex(xCoord);
 		
 		System.out.println(height.toString());
