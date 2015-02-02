@@ -9,15 +9,6 @@ public class CustomPolygon extends Polygon {
 	public ArrayList<Integer> height = new ArrayList<Integer>();
 	public ArrayList<Rectangle> columns = new ArrayList<Rectangle>();
 
-	public static void main(String[] args) {
-		CustomPolygon runIt = new CustomPolygon();
-		runIt.runFromMain();
-	}
-
-	public void runFromMain() {
-
-	}
-
 	public CustomPolygon() {
 
 	}
@@ -43,7 +34,7 @@ public class CustomPolygon extends Polygon {
 			int rowHeight = 400 - row * 22;
 			height.add(rowHeight);
 
-			columns.add(new Rectangle((col - 1) * 22 + xpoints[0], rowHeight,
+			columns.add(new Rectangle((c - 1) * 22 + xpoints[0], rowHeight,
 					22, row * 22));
 
 			prevRow = row;
@@ -117,10 +108,15 @@ public class CustomPolygon extends Polygon {
 	
 	public int getColumnY(int xCoord, int ground) {
 		
-		if (xCoord <= columns.get(0).getY()) return ground;
+		if (xCoord <= columns.get(0).getX()) return ground;
+		
 		int index = getColIndex(xCoord);
 		
-		return (int) columns.get(index).getY();
+		System.out.println(height.toString());
+		System.out.println(columns.toString());
+		
+		
+		return (int) height.get(index);
 		
 		
 	}

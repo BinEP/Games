@@ -347,7 +347,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		CustomPolygon theShape = shapes.get(0);
 		
 		groundY = theShape.getColumnY(blockX, ground);
-		
+		System.out.println(groundY);
 		
 	}
 
