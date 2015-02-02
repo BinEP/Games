@@ -102,12 +102,6 @@ public class CustomPolygon extends Polygon {
 		int i = 0;
 		for (Rectangle r : columns) {
 			if (xCoord >= r.getX() && xCoord < r.getX() + r.getWidth()) {
-
-				System.out.print(xCoord + "\t");
-				System.out.print(r.getX() + "\t");
-				System.out.print(r.getX() + r.getWidth() + "\t");
-				System.out.println(i);
-
 				break;
 			}
 
