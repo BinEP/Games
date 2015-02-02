@@ -212,6 +212,38 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		checkSelf();
 
 	}
+	
+	public void up() {
+		
+		deltaX = 0;
+		deltaY = -bodySize;
+		
+		
+	}
+
+public void down() {
+		
+		
+	deltaX = 0;
+	deltaY = bodySize;
+		
+	}
+
+public void left() {
+	
+	deltaX = -bodySize;
+	deltaY = 0;
+	
+	
+}
+
+public void right() {
+	
+	deltaX = bodySize;
+	deltaY = 0;
+	
+	
+}
 
 	public void checkSelf() {
 
