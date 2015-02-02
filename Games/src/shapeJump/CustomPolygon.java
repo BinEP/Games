@@ -38,13 +38,11 @@ public class CustomPolygon extends Polygon {
 			rh = rowHeight;
 			height.add(rowHeight);
 
-			columns.add(new Rectangle((c - 1) * 22 + xCoord, rowHeight,
-					22, row * 22));
+			columns.add(new Rectangle((c - 1) * 22 + xCoord, rowHeight, 22,
+					row * 22));
 
 			prevRow = row;
 		}
-		columns.add(new Rectangle((col) * 22 + xCoord, rh,
-				22, r * 22));
 
 		xCoordVals.add((col) * 22 + xCoord);
 		yCoordVals.add(400);
@@ -104,29 +102,41 @@ public class CustomPolygon extends Polygon {
 		int i = 0;
 		for (Rectangle r : columns) {
 			if (xCoord >= r.getX() && xCoord < r.getX() + r.getWidth()) {
-				
+
 				System.out.print(xCoord + "\t");
 				System.out.print(r.getX() + "\t");
 				System.out.print(r.getX() + r.getWidth() + "\t");
 				System.out.println(i);
-				
+
 				break;
 			}
-			
+
 			i++;
 
 		}
 		return i;
 	}
-	
+
 	public int getColumnY(int xCoord, int ground) {
-		
-		if (xCoord <= columns.get(0).getX() || xCoord > 22 * (columns.size()) + columns.get(0).getX()) return ground;
-		int index = getColIndex(xCoord);
-		
+
+		int index;
+		int index1;
+		if (xCoord <= columns.get(0).getX()
+				|| xCoord > 22 * (columns.size() + 1) + columns.get(0).getX())
+			return ground;
+		if ((xCoord > 22 * (columns.size()) + columns.get(0).getX()
+				&& xCoord < 22 * (columns.size() + 1) + columns.get(0).getX())) {
+
+			index = getColIndex(xCoord - 22);
+
+		} else {
+			
+			index = getColIndex(xCoord);
+			index1 = getColIndex(xCoord - 22);
+			if (index1 < index) index = index1;
+		}
 		return (int) height.get(index);
-		
-		
+
 	}
 
 	public void translate(int dx, int dy) {
