@@ -123,23 +123,17 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				
 			}
 
-			// for (int i = 0; i < shapeGroupX.size(); i++) {
-			// shapeGroupX.set(i, shapeGroupX.get(i) - shapeSpeed);
-			// }
-			//
-			// for (int i = 0; i < shapeBlocks.size(); i++) {
-			// shapeBlocks.get(i).theShape.translate(-shapeSpeed, 0);
-			// }
-
 			// setGroundY();
-			if (getColor(blockX, blockY + 10).equals(Color.WHITE) || getColor(blockX - 20, blockY + 10).equals(Color.WHITE)) {
-				
-				groundY = blockY;
-				blockY = groundY - 1;
-				deltaY = 0;
-				angle = 0;
-				jumping = false;
-			}
+			
+			
+//			if (getColor(blockX, blockY + 10).equals(Color.WHITE) || getColor(blockX - 20, blockY + 10).equals(Color.WHITE)) {
+//				
+//				groundY = blockY;
+//				blockY = groundY - 1;
+//				deltaY = 0;
+//				angle = 0;
+//				jumping = false;
+//			}
 
 			for (int i = 0; i < shapes.size(); i++) {
 				shapes.get(i).translate(-shapeSpeed, 0);
