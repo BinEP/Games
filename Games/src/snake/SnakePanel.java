@@ -181,21 +181,23 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			if (Math.abs(head.x - fruitXx) < 5 && deltaX != 0) {
 
-				if (head.y - fruitYy > 0) {
-					up();
-				} else {
-					down();
-				}
+				upOrDown(head.y - fruitYy);
+				// if (head.y - fruitYy > 0) {
+				// up();
+				// } else {
+				// down();
+				// }
 
 			}
 
 			if (Math.abs(head.y - fruitYy) < 5 && deltaY != 0) {
 
-				if (head.x - fruitXx > 0) {
-					left();
-				} else {
-					right();
-				}
+				leftOrRight(head.x - fruitXx);
+				// if (head.x - fruitXx > 0) {
+				// left();
+				// } else {
+				// right();
+				// }
 
 			}
 
@@ -219,34 +221,33 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		checkSelf();
 
 	}
-	
+
 	public void checkSelf() {
 
 		// Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 		if (snakeBody.contains(nextHead)) {
+			Point p = snakeBody.get(snakeBody.indexOf(nextHead));
 
-			for (Point p : snakeBody) {
+			if (deltaX != 0) {
 
-				if (deltaX != 0) {
+				if (nextHead.x == p.x) {
 
-					if (nextHead.x == p.x) {
-
-						deltaX = 0;
-						deltaY = (nextHead.y - p.y > 0) ? -bodySize : bodySize;
-
-					}
+					// deltaX = 0;
+					// deltaY = (nextHead.y - p.y > 0) ? -bodySize : bodySize;
+					upOrDown(nextHead.y - p.y);
 
 				}
 
-				if (deltaY != 0) {
+			}
 
-					if (nextHead.y == p.y) {
+			if (deltaY != 0) {
 
-						deltaY = 0;
-						deltaX = (nextHead.x - p.x > 0) ? -bodySize : bodySize;
+				if (nextHead.y == p.y) {
 
-					}
+					// deltaY = 0;
+					// deltaX = (nextHead.x - p.x > 0) ? -bodySize : bodySize;
+					leftOrRight(nextHead.x - p.x);
 
 				}
 
@@ -289,36 +290,34 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 	}
-	
+
 	public void upOrDown(int i) {
-		
-		if (i < 0) {
-			
+
+		if (i > 0) {
+
 			up();
-			
+
 		} else {
-			
+
 			down();
-			
+
 		}
-		
-	}
-	
-public void leftOrRight(int i) {
-		
-		if (i < 0) {
-			
-			left();
-			
-		} else {
-			
-			right();
-			
-		}
-		
+
 	}
 
-	
+	public void leftOrRight(int i) {
+
+		if (i > 0) {
+
+			left();
+
+		} else {
+
+			right();
+
+		}
+
+	}
 
 	public void addBodySquare(int fruitIndex) {
 
