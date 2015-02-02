@@ -173,7 +173,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 		super.paintComponent(g);
 		g.setColor(Color.WHITE);
-		g.fillRect(0, ground + 2, getWidth(), 10);
+		if (startGame || playing) g.fillRect(0, ground + 2, getWidth(), 10);
 
 		if (startGame) {
 
