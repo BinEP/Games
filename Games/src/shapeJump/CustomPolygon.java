@@ -124,17 +124,17 @@ public class CustomPolygon extends Polygon {
 		if (xCoord <= columns.get(0).getX()
 				|| xCoord > 22 * (columns.size() + 1) + columns.get(0).getX())
 			return ground;
-		if ((xCoord > 22 * (columns.size()) + columns.get(0).getX()
-				&& xCoord < 22 * (columns.size() + 1) + columns.get(0).getX())) {
-
-			index = getColIndex(xCoord - 22);
-
-		} else {
+//		if ((xCoord > 22 * (columns.size()) + columns.get(0).getX()
+//				&& xCoord < 22 * (columns.size() + 1) + columns.get(0).getX())) {
+//
+//			index = getColIndex(xCoord - 22);
+//
+//		} else {
 			
 			index = getColIndex(xCoord);
 			index1 = getColIndex(xCoord - 22);
 			if (index1 < index) index = index1;
-		}
+//		}
 		return (int) height.get(index);
 
 	}
