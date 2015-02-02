@@ -115,7 +115,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			Polygon theShape = shapes.get(0);
 			if (theShape.intersects(new Rectangle(blockX - 20, blockY - 19, blockWidth, blockWidth))) {
 				
-				System.out.println("Uh Oh");
 				playing = false;
 				playPause = false;
 				nameEnter = true;
