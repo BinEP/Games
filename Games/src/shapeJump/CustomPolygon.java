@@ -24,14 +24,18 @@ public class CustomPolygon extends Polygon {
 		ArrayList<Integer> xCoordVals = new ArrayList<Integer>();
 		ArrayList<Integer> yCoordVals = new ArrayList<Integer>();
 
+		int rh = 0;
+		int r = 0;
 		int col = (int) (Math.random() * 3 + 1);
 		int prevRow = 0;
 		for (int c = 1; c < col + 1; c++) {
 
 			int row = (int) (Math.random() * 3 + 1);
+			r = row;
 			addColumn(c, row, prevRow, xCoordVals, yCoordVals, xCoord);
 
 			int rowHeight = 400 - row * 22;
+			rh = rowHeight;
 			height.add(rowHeight);
 
 			columns.add(new Rectangle((c - 1) * 22 + xCoord, rowHeight,
@@ -39,6 +43,8 @@ public class CustomPolygon extends Polygon {
 
 			prevRow = row;
 		}
+		columns.add(new Rectangle((col) * 22 + xCoord, rh,
+				22, r * 22));
 
 		xCoordVals.add((col) * 22 + xCoord);
 		yCoordVals.add(400);
@@ -97,12 +103,17 @@ public class CustomPolygon extends Polygon {
 
 		int i = 0;
 		for (Rectangle r : columns) {
-			if (xCoord >= r.getX() && xCoord <= r.getX() + r.getWidth()) {
+			if (xCoord >= r.getX() && xCoord < r.getX() + r.getWidth()) {
+				
+				System.out.print(xCoord + "\t");
+				System.out.print(r.getX() + "\t");
+				System.out.print(r.getX() + r.getWidth() + "\t");
+				System.out.println(i);
+				
 				break;
 			}
 			
 			i++;
-			System.out.println(i);
 
 		}
 		return i;
@@ -110,13 +121,8 @@ public class CustomPolygon extends Polygon {
 	
 	public int getColumnY(int xCoord, int ground) {
 		
-		if (xCoord <= columns.get(0).getX()) return ground;
-		System.out.println(columns.get(0).getX());
+		if (xCoord <= columns.get(0).getX() || xCoord > 22 * (columns.size()) + columns.get(0).getX()) return ground;
 		int index = getColIndex(xCoord);
-		
-		System.out.println(height.toString());
-		System.out.println(columns.toString());
-		
 		
 		return (int) height.get(index);
 		
