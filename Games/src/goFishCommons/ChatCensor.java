@@ -88,24 +88,6 @@ public class ChatCensor {
 		
 		
 	}
-	
-	public String getCensoredString() {
-		
-		DoubleMetaphone censorString = new DoubleMetaphone();
-		String filteredString = censorString.doubleMetaphone(checkString);
-		
-		
-		return filteredString;
-	}
-	
-public String getCensoredString(String checkString) {
-		
-		DoubleMetaphone censorString = new DoubleMetaphone();
-		String filteredString = censorString.doubleMetaphone(checkString);
-		
-		return filteredString;
-		
-	}
 
 	public String[] arrayOfSwears() {
 
