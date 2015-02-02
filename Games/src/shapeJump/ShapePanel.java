@@ -175,7 +175,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	public void newRandomShape(int xCoord) {
 		
 		
-		
+		shapes.add(new CustomPolygon(xCoord));
 		
 		
 	}
