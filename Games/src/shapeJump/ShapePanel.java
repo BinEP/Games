@@ -118,23 +118,13 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				System.out.println("Uh Oh");
 				playing = false;
 				playPause = false;
-				endGame = true;
+				nameEnter = true;
 				
 				
 			}
 
 			 setGroundY();
 			
-			
-//			if (getColor(blockX, blockY + 10).equals(Color.WHITE) || getColor(blockX - 20, blockY + 10).equals(Color.WHITE)) {
-//				
-//				groundY = blockY;
-//				blockY = groundY - 1;
-//				deltaY = 0;
-//				angle = 0;
-//				jumping = false;
-//			}
-
 			for (int i = 0; i < shapes.size(); i++) {
 				shapes.get(i).translate(-shapeSpeed, 0);
 			}
@@ -171,7 +161,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 	
-	
 	public void newRandomShape(int xCoord) {
 		
 		
@@ -179,31 +168,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		
 		
 	}
-
-	// public void drawShape(int[] x, int[] y, int pos, Graphics g) {
-	//
-	// for (int i = 0; i < x.length; i++) {
-	// g.setColor(Color.WHITE);
-	//
-	// int x1 = pos + (x[i] - 1) * blockSize;
-	// int y1 = ground - y[i] * blockSize;
-	//
-	// g.fillRect(x1 + borderThickness, y1 + borderThickness, shapeWidth,
-	// shapeWidth);
-	//
-	//
-	//
-	// g.setColor(Color.BLACK);
-	// g.drawRect(x1 + borderThickness / 2, y1 + borderThickness / 2,
-	// shapeWidth, shapeWidth);
-	//
-	// }
-	//
-	// CustomShape cs = new CustomShape();
-	// Polygon theShape = cs.theShape;
-	// g.drawPolygon(theShape);
-	//
-	// }
 
 	@SuppressWarnings("unused")
 	public void paintComponent(Graphics g) {
@@ -282,8 +246,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	
-
 	public void drawHorizontalLines(Graphics g) {
 
 		for (int i = 0; i < 4; i++) {
@@ -306,42 +268,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	// public void setGroundY() {
-	//
-	// int shapeGroupStart = shapeGroupX.get(0);
-	//
-	// int shapeGroupEnd = (shapeBlocks.get(0).w * blockSize)
-	// + shapeGroupStart;
-	//
-	// groundY = 400;
-	// for (int[] xy : shapeBlocks.get(0).topXY) {
-	//
-	// int x = (xy[0] - 1) * blockSize + shapeGroupStart;
-	// int y = 400 - (xy[1]) * blockSize;
-	// if (blockX > x && blockX - 20 < shapeGroupEnd) {
-	// groundY = y;
-	// if (getColor(blockX + 2, blockY + 2).equals(Color.WHITE)) {
-	// playing = false;
-	// nameEnter = true;
-	// return;
-	// }
-	// return;
-	// }
-	//
-	// }
-	//
-	// }
-
-	// public int nextBlockX() {
-	//
-	// shapeGroupX.add(shapeGroupX.get(shapeGroupX.size() - 1) + spacing);
-	// shapeGroupX.remove(0);
-	// return shapeGroupX.get(shapeGroupX.size() - 1);
-	//
-	// }
-	
-	
-	
 	public void setGroundY() {
 		
 		CustomPolygon theShape = shapes.get(0);
@@ -440,15 +366,6 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			newRandomShape(prevX);
 		}
 	}
-
-	// public int[] getXRange() {
-	//
-	// int width = (shapeWidth + borderThickness) * shapeBlocks.get(0).w + 20;
-	// int[] x = { shapeGroupX.get(0) - 20, width };
-	// Arrays.sort(x);
-	// return x;
-	//
-	// }
 
 	public static Color getColor(int x, int y) {
 		try {
