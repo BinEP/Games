@@ -123,7 +123,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 				
 			}
 
-			// setGroundY();
+			 setGroundY();
 			
 			
 //			if (getColor(blockX, blockY + 10).equals(Color.WHITE) || getColor(blockX - 20, blockY + 10).equals(Color.WHITE)) {
@@ -339,6 +339,17 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 	// return shapeGroupX.get(shapeGroupX.size() - 1);
 	//
 	// }
+	
+	
+	
+	public void setGroundY() {
+		
+		CustomPolygon theShape = shapes.get(0);
+		
+		groundY = theShape.getColumnY(blockX, ground);
+		
+		
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
