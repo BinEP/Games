@@ -97,7 +97,7 @@ public class CustomPolygon extends Polygon {
 
 		int i = 0;
 		for (Rectangle r : columns) {
-			if (xCoord >= r.getY() && xCoord <= r.getY() + r.getWidth()) {
+			if (xCoord >= r.getX() && xCoord <= r.getX() + r.getWidth()) {
 				break;
 			}
 			
