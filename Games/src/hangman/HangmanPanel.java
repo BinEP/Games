@@ -328,40 +328,9 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			// }
 		} else if (highScores) {
 
-			ArrayList<String[]> results = scores.getScores();
 			pName = "";
-			g.setFont(new Font("Joystix", Font.BOLD, 20));
-			int i = 0;
-			int yStart = 40;
-			int xStart = 30;
-			int lineH = 50;
-			int l = 0;
-			int r = 1;
-			g.setColor(Color.WHITE);
-			for (String[] c : results) {
-
-				if (l > 12) {
-					i++;
-					l = 0;
-				}
-				int x = (340 * i) + xStart;
-				String dots = "";
-				int m = String.valueOf(r).length();
-				// System.out.println(m);
-				for (int n = 0; n < 11 - c[1].length() - m + 1; n++) {
-					dots = dots.concat(".");
-				}
-				dots = dots.concat("...");
-				// CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
-				// System.out.println(pIndex);
-				Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;
-				// g.setColor(col);
-				g.drawString(r + ". " + c[1] + dots + c[0], x, (yStart - 2)
-						+ (l * lineH));
-
-				l++;
-				r++;
-			}
+			
+			scores.drawScoresHangman(g);
 		} else if (ageEnter) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
