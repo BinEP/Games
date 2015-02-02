@@ -103,7 +103,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 			prevX -= shapeSpeed;
 
-			Polygon shape = shapes.get(0);
+			CustomPolygon shape = shapes.get(0);
 			if (shape.contains(-70, 390)) {
 
 				prevX += spacing;
@@ -230,7 +230,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (playing || paused) {
 
 			
-			for (Polygon shape : shapes) {
+			for (CustomPolygon shape : shapes) {
 				g.setColor(Color.WHITE);
 				g.fillPolygon(shape);
 				g.setColor(Color.BLACK);
