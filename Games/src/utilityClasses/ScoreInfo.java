@@ -24,11 +24,11 @@ public class ScoreInfo {
 
 	public ScoreInfo(String gN) {
 		gameName = gN;
-		gameScores = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("Scores.txt"));
-		gamePeople = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("People.txt"));
+//		gameScores = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("Scores.txt"));
+//		gamePeople = new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("People.txt"));
 		
-//		gameScores = new File("Infofiles/" + gameName.concat("Scores.txt"));
-//		gamePeople = new File("Infofiles/" + gameName.concat("People.txt"));
+		gameScores = new File("Infofiles/" + gameName.concat("Scores.txt"));
+		gamePeople = new File("Infofiles/" + gameName.concat("People.txt"));
 		
 	}
 
@@ -159,8 +159,9 @@ public class ScoreInfo {
 		return results;
 	}
 
-	public void drawScores(Graphics g) {
-
+	public void drawScoresHangman(Graphics g) {
+		
+		
 		ArrayList<String[]> results = getScores();
 		g.setFont(new Font("Joystix", Font.BOLD, 17));
 		int i = 0;
@@ -177,6 +178,46 @@ public class ScoreInfo {
 				l = 0;
 			}
 			int x = (340 * i) + xStart;
+			String dots = "";
+			int m = String.valueOf(r).length();
+			// System.out.println(m);
+			for (int n = 0; n < 11 - c[1].length() - m + 1; n++) {
+				dots = dots.concat(".");
+			}
+			dots = dots.concat(".");
+
+			// CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
+			// System.out.println(pIndex);
+			// Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;
+			// g.setColor(col);
+			g.drawString(r + ". " + c[1] + dots + c[0], x, (yStart - 2)
+					+ (l * lineH));
+
+			l++;
+			r++;
+		}
+	}
+	
+	
+public void drawScores(Graphics g) {
+		
+		
+		ArrayList<String[]> results = getScores();
+		g.setFont(new Font("Joystix", Font.BOLD, 13));
+		int i = 0;
+		int yStart = 35;
+		int xStart = 35;
+		int lineH = 30;
+		int l = 0;
+		int r = 1;
+		g.setColor(Color.WHITE);
+		for (String[] c : results) {
+
+			if (l > 16) {
+				i++;
+				l = 0;
+			}
+			int x = (250 * i) + xStart;
 			String dots = "";
 			int m = String.valueOf(r).length();
 			// System.out.println(m);
