@@ -106,7 +106,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (playing) {
 
-			
+			head.x += deltaX;
+			head.y += deltaY;
 			nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 			for (int i = snakeBody.size() - 1; i > 0; i--) {
@@ -143,8 +144,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			// nameEnter = true;
 			// }
 			
-			head.x += deltaX;
-			head.y += deltaY;
+			
 
 		}
 
