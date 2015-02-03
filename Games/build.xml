@@ -11,7 +11,7 @@
 	<target name="bundle" depends="build">
 		<bundleapp outputdirectory="dist" name="Play Games"
 			displayname="Play Games" identifier="stoffel.PlayGames"
-			icon="Infofiles/AppIcon.icns"
+			icon="Infofiles/AppIcon.png"
 			mainclassname="Chooser">
 			<classpath file="dist/Play Games.jar" />
 		</bundleapp>
