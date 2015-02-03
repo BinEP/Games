@@ -106,8 +106,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (playing) {
 
-			head.x += deltaX;
-			head.y += deltaY;
+			
 			nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 			for (int i = snakeBody.size() - 1; i > 0; i--) {
@@ -143,6 +142,9 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			// playing = false;
 			// nameEnter = true;
 			// }
+			
+			head.x += deltaX;
+			head.y += deltaY;
 
 		}
 
@@ -227,32 +229,34 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		// Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 		if (snakeBody.contains(nextHead)) {
-			Point p = snakeBody.get(snakeBody.indexOf(nextHead));
+			// Point p = snakeBody.get(snakeBody.indexOf(nextHead));
+			for (Point p : snakeBody) {
+				if (deltaX != 0) {
 
-			if (deltaX != 0) {
+					if (nextHead.x == p.x) {
 
-				if (nextHead.x == p.x) {
+						// deltaX = 0;
+						// deltaY = (nextHead.y - p.y > 0) ? -bodySize :
+						// bodySize;
+						upOrDown(nextHead.y - p.y);
 
-					// deltaX = 0;
-					// deltaY = (nextHead.y - p.y > 0) ? -bodySize : bodySize;
-					upOrDown(nextHead.y - p.y);
-
-				}
-
-			}
-
-			if (deltaY != 0) {
-
-				if (nextHead.y == p.y) {
-
-					// deltaY = 0;
-					// deltaX = (nextHead.x - p.x > 0) ? -bodySize : bodySize;
-					leftOrRight(nextHead.x - p.x);
+					}
 
 				}
 
-			}
+				if (deltaY != 0) {
 
+					if (nextHead.y == p.y) {
+
+						// deltaY = 0;
+						// deltaX = (nextHead.x - p.x > 0) ? -bodySize :
+						// bodySize;
+						leftOrRight(nextHead.x - p.x);
+
+					}
+
+				}
+			}
 		}
 
 	}
