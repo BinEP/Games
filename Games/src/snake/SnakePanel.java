@@ -121,7 +121,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			}
 
-			snakeBody.set(0, new Point(head.x, head.y));
+//			snakeBody.set(0, new Point(head.x, head.y));
 
 			int nextHeadX = head.x + deltaX;
 			int nextHeadY = head.y + deltaY;
@@ -143,7 +143,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			// playing = false;
 			// nameEnter = true;
 			// }
-			
+			snakeBody.set(0, new Point(head.x, head.y));
 			
 
 		}
