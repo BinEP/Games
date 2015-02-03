@@ -121,7 +121,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			}
 
-//			snakeBody.set(0, new Point(head.x, head.y));
+			snakeBody.set(0, new Point(head.x, head.y));
 
 			int nextHeadX = head.x + deltaX;
 			int nextHeadY = head.y + deltaY;
@@ -143,7 +143,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			// playing = false;
 			// nameEnter = true;
 			// }
-			snakeBody.set(0, new Point(head.x, head.y));
+			
 			
 
 		}
@@ -161,9 +161,10 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		if ((head.x < 8 + bodySize || head.x > 492 - 2 * bodySize)
 				&& deltaX != 0) {
 
-			deltaX = 0;
-			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
-		}
+//			deltaX = 0;
+//			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
+			upOrDown(head.y - fruitY.get(0));
+		} else 
 
 		// If hit wall while moving sideways, change deltaY to 0 and deltaX
 		// positive or
@@ -171,8 +172,9 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		if ((head.y < 16 || head.y > 492 - (4 * bodySize)) && deltaY != 0) {
 
-			deltaY = 0;
-			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
+//			deltaY = 0;
+//			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
+			leftOrRight(head.x - fruitX.get(0));
 		}
 
 		// checkSelf();
