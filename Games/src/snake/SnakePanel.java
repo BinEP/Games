@@ -73,7 +73,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private int keyIndex = 0;
 
 	private Timer timer;
-	private int origSpeed = 10;
+	private int origSpeed = bodySize;
 	private double speed = origSpeed;
 
 	private int score = 0;
@@ -230,17 +230,18 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		// Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
-		if (snakeBody.contains(nextHead)) {
+		if (snakeBody.subList(1, snakeBody.size()).contains(head)) {
 			// Point p = snakeBody.get(snakeBody.indexOf(nextHead));
-			for (Point p : snakeBody) {
+			for (int i = 1; i < snakeBody.size(); i++) {
+				Point p = snakeBody.get(i);
 				if (deltaX != 0) {
 
-					if (nextHead.x == p.x) {
+					if (head.x == p.x) {
 
 						// deltaX = 0;
 						// deltaY = (nextHead.y - p.y > 0) ? -bodySize :
 						// bodySize;
-						upOrDown(nextHead.y - p.y);
+						upOrDown(head.y - p.y);
 
 					}
 
@@ -265,12 +266,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void up() {
 
-		int nextDeltaX = 0;
-		int nextDeltaY = -bodySize;
-		
-		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
-		
-		if (deltaY != bodySize && !snakeBody.contains(nextHead)) {
+//		int nextDeltaX = 0;
+//		int nextDeltaY = -bodySize;
+//		
+//		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
+//		 && !snakeBody.contains(nextHead)
+		if (deltaY != bodySize) {
 			deltaX = 0;
 			deltaY = -bodySize;
 		}
@@ -279,12 +280,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void down() {
 		
-		int nextDeltaX = 0;
-		int nextDeltaY = bodySize;
-		
-		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
-
-		if (deltaY != -bodySize && !snakeBody.contains(nextHead)) {
+//		int nextDeltaX = 0;
+//		int nextDeltaY = bodySize;
+//		
+//		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
+//		 && !snakeBody.contains(nextHead)
+		if (deltaY != -bodySize) {
 			deltaX = 0;
 			deltaY = bodySize;
 		}
@@ -292,12 +293,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void left() {
 		
-		int nextDeltaX = -bodySize;
-		int nextDeltaY = 0;
-		
-		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
-
-		if (deltaX != bodySize && !snakeBody.contains(nextHead)) {
+//		int nextDeltaX = -bodySize;
+//		int nextDeltaY = 0;
+//		
+//		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
+//		 && !snakeBody.contains(nextHead)
+		if (deltaX != bodySize) {
 			deltaX = -bodySize;
 			deltaY = 0;
 		}
@@ -306,12 +307,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void right() {
 		
-		int nextDeltaX = bodySize;
-		int nextDeltaY = 0;
-		
-		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
-		
-		if (deltaX != -bodySize && !snakeBody.contains(nextHead)) {
+//		int nextDeltaX = bodySize;
+//		int nextDeltaY = 0;
+//		
+//		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
+//		 && !snakeBody.contains(nextHead)
+		if (deltaX != -bodySize) {
 			deltaX = bodySize;
 			deltaY = 0;
 		}
