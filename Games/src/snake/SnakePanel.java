@@ -247,7 +247,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 						// deltaX = 0;
 						// deltaY = (nextHead.y - p.y > 0) ? -bodySize :
 						// bodySize;
-						upOrDown(nextHead.y - p.y);
+						upOrDown(p.y - nextHead.y);
 
 					}
 
@@ -260,7 +260,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 						// deltaY = 0;
 						// deltaX = (nextHead.x - p.x > 0) ? -bodySize :
 						// bodySize;
-						leftOrRight(nextHead.x - p.x);
+						leftOrRight(p.x - nextHead.x);
 
 					}
 
@@ -277,10 +277,18 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 //		
 //		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
 //		 && !snakeBody.contains(nextHead)
+		
+		
+		
+		
+		
 		if (deltaY != bodySize) {
 			deltaX = 0;
 			deltaY = -bodySize;
 		}
+		
+		
+		if (autoPlay) allowedMoves(UP);
 
 		
 	}
@@ -292,10 +300,17 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 //		
 //		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
 //		 && !snakeBody.contains(nextHead)
+		
+		
+		
+		
+		
 		if (deltaY != -bodySize) {
 			deltaX = 0;
 			deltaY = bodySize;
 		}
+		
+		if (autoPlay) allowedMoves(DOWN);
 	}
 
 	public void left() {
@@ -305,10 +320,16 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 //		
 //		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
 //		 && !snakeBody.contains(nextHead)
+		
+		
+		
+		
 		if (deltaX != bodySize) {
 			deltaX = -bodySize;
 			deltaY = 0;
 		}
+		
+		if (autoPlay) allowedMoves(LEFT);
 
 	}
 
@@ -319,10 +340,15 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 //		
 //		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
 //		 && !snakeBody.contains(nextHead)
+		
+		
+		
 		if (deltaX != -bodySize) {
 			deltaX = bodySize;
 			deltaY = 0;
 		}
+		
+		if (autoPlay) allowedMoves(RIGHT);
 
 	}
 
@@ -340,14 +366,14 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void leftOrRight(int i) {
+		
+		if (i < 0) {
 
-		if (i > 0) {
-
-			left();
+			right();
 
 		} else {
 
-			right();
+			left();
 
 		}
 	}
@@ -380,9 +406,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	public void allowedMoves(Point d) {
 		
 		ArrayList<Point> invalidDirections = new ArrayList<Point>();
-		
-		Point direction = getDirection();
-		
+				
 //		if (direction.equals(LEFT)) invalidDirections.add(RIGHT);
 //		if (direction.equals(RIGHT)) invalidDirections.add(LEFT);
 //		if (direction.equals(UP)) invalidDirections.add(DOWN);
