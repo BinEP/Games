@@ -114,8 +114,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 				if (head.x == snakeBody.get(i).x
 						&& head.y == snakeBody.get(i).y) {
-					playing = false;
-					nameEnter = true;
+//					playing = false;
+//					nameEnter = true;
 				}
 				snakeBody.set(i, snakeBody.get(i - 1));
 
