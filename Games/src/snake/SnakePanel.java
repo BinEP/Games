@@ -245,7 +245,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 					}
 
-				}
+				} else
 
 				if (deltaY != 0) {
 
