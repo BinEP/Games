@@ -247,7 +247,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 						// deltaX = 0;
 						// deltaY = (nextHead.y - p.y > 0) ? -bodySize :
 						// bodySize;
-						upOrDown(p.y - nextHead.y);
+						upOrDown(nextHead.y - p.y);
 
 					}
 
@@ -260,7 +260,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 						// deltaY = 0;
 						// deltaX = (nextHead.x - p.x > 0) ? -bodySize :
 						// bodySize;
-						leftOrRight(p.x - nextHead.x);
+						leftOrRight(nextHead.x - p.x);
 
 					}
 
