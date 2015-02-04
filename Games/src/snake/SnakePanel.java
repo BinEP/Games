@@ -58,6 +58,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int deltaX = 0;
 	private int deltaY = -bodySize;
+	
+	private final Point LEFT = new Point(-bodySize, 0);
+	private final Point RIGHT = new Point(bodySize, 0);
+	private final Point UP = new Point(0, -bodySize);
+	private final Point DOWN = new Point(0, bodySize);
+	private Point direction = new Point(deltaX, deltaY);
 
 	private Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
@@ -67,6 +73,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private int downKey = KeyEvent.VK_DOWN;
 	private int leftKey = KeyEvent.VK_LEFT;
 	private int rightKey = KeyEvent.VK_RIGHT;
+	
 	private int[] keyMap = { KeyEvent.VK_UP, KeyEvent.VK_RIGHT,
 			KeyEvent.VK_DOWN, KeyEvent.VK_LEFT };
 
@@ -191,7 +198,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				// } else {
 				// down();
 				// }
-
 			} else 
 
 			if (Math.abs(head.y - fruitYy) < 5 && deltaY != 0) {
@@ -355,6 +361,82 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		
 		
 	}
+	
+	public Point setDirection() {
+		
+		direction = new Point(deltaX, deltaY);
+		return direction;
+	}
+	
+	public void setDelta(Point p) {
+		
+		deltaX = p.x;
+		deltaY = p.y;
+		
+	}
+	
+	public Point getDirection() {
+		
+		return new Point(deltaX, deltaY);
+	}
+	
+	public void allowedMoves(Point d) {
+		
+		ArrayList<Point> invalidDirections = new ArrayList<Point>();
+		
+		Point direction = getDirection();
+		
+//		if (direction.equals(LEFT)) invalidDirections.add(RIGHT);
+//		if (direction.equals(RIGHT)) invalidDirections.add(LEFT);
+//		if (direction.equals(UP)) invalidDirections.add(DOWN);
+//		if (direction.equals(DOWN)) invalidDirections.add(UP);
+		
+		Point head = this.head;
+		
+		//Check Up
+		
+		if (snakeBody.contains(new Point(head.x + UP.x, head.y + UP.y))) {
+			
+			invalidDirections.add(UP);
+			
+		}
+		
+		//Check Down
+		
+		if (snakeBody.contains(new Point(head.x + DOWN.x, head.y + DOWN.y))) {
+			
+			invalidDirections.add(DOWN);
+			
+		}
+		
+		//Check Left
+		
+		if (snakeBody.contains(new Point(head.x + LEFT.x, head.y + LEFT.y))) {
+	
+			invalidDirections.add(LEFT);
+	
+		}
+		
+		//Check Right
+		
+		if (snakeBody.contains(new Point(head.x + RIGHT.x, head.y + RIGHT.y))) {
+	
+			invalidDirections.add(RIGHT);
+	
+		}
+		
+		if (!invalidDirections.contains(d)) {
+			
+			setDelta(d);
+			
+		}
+		
+		
+		
+		
+		
+	}
+	
 
 	public void addBodySquare(int fruitIndex) {
 
