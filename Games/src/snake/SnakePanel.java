@@ -275,6 +275,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			deltaX = 0;
 			deltaY = -bodySize;
 		}
+		nextHeadSet();
 
 	}
 
@@ -289,6 +290,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			deltaX = 0;
 			deltaY = bodySize;
 		}
+		nextHeadSet();
 	}
 
 	public void left() {
@@ -302,6 +304,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			deltaX = -bodySize;
 			deltaY = 0;
 		}
+		nextHeadSet();
 
 	}
 
@@ -316,6 +319,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			deltaX = bodySize;
 			deltaY = 0;
 		}
+		nextHeadSet();
 
 	}
 
@@ -330,7 +334,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			down();
 
 		}
-
 	}
 
 	public void leftOrRight(int i) {
@@ -344,7 +347,13 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			right();
 
 		}
-
+	}
+	
+	public void nextHeadSet() {
+		
+		nextHead = new Point(head.x + deltaX, head.y + deltaY);
+		
+		
 	}
 
 	public void addBodySquare(int fruitIndex) {
