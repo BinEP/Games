@@ -230,18 +230,18 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		// Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
-		if (snakeBody.subList(1, snakeBody.size()).contains(head)) {
+		if (snakeBody.contains(nextHead)) {
 			// Point p = snakeBody.get(snakeBody.indexOf(nextHead));
 			for (int i = 1; i < snakeBody.size(); i++) {
 				Point p = snakeBody.get(i);
 				if (deltaX != 0) {
 
-					if (head.x == p.x) {
+					if (nextHead.x == p.x) {
 
 						// deltaX = 0;
 						// deltaY = (nextHead.y - p.y > 0) ? -bodySize :
 						// bodySize;
-						upOrDown(head.y - p.y);
+						upOrDown(nextHead.y - p.y);
 
 					}
 
