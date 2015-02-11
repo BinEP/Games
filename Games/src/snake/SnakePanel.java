@@ -35,6 +35,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private boolean highScores = false;
 	private boolean autoPlay = false;
 
+	public enum Direction {
+
+		up, down, left, right;
+
+	}
+
 	private ScoreInfo scores = new ScoreInfo("snake");
 
 	private String pName = "";
@@ -58,7 +64,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	private int deltaX = 0;
 	private int deltaY = -bodySize;
-	
+
 	private Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
 	private int prevLoseKey = KeyEvent.VK_DOWN;
@@ -69,6 +75,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private int rightKey = KeyEvent.VK_RIGHT;
 	private int[] keyMap = { KeyEvent.VK_UP, KeyEvent.VK_RIGHT,
 			KeyEvent.VK_DOWN, KeyEvent.VK_LEFT };
+
+	private ArrayList<Direction> nextDirection = new ArrayList<Direction>();
 
 	private int keyIndex = 0;
 
@@ -105,6 +113,9 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	public void moves() {
 
 		if (playing) {
+
+			if (nextDirection.size() > 0)
+				executeDirection();
 
 			head.x += deltaX;
 			head.y += deltaY;
@@ -174,15 +185,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			deltaY = 0;
 			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
 		}
-		
-		
-//		checkSelf();
-		
-		
+
+		// checkSelf();
+
 		int prevDeltaX = deltaX;
 		int prevDeltaY = deltaY;
-		
-		
+
 		for (int i = 0; i < fruitX.size(); i++) {
 			int fruitXx = fruitX.get(i);
 			int fruitYy = fruitY.get(i);
@@ -191,41 +199,42 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 				deltaX = 0;
 				deltaY = (head.y - fruitYy > 0) ? -bodySize : bodySize;
-				
+
 			}
 			if (Math.abs(head.y - fruitYy) < 5 && deltaY != 0) {
 
 				deltaY = 0;
 				deltaX = (head.x - fruitXx > 0) ? -bodySize : bodySize;
-				
+
 			}
 
 		}
-		
-//		if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY && deltaY != 0)) {
-//			
-//			System.out.println("prevX: " + prevDeltaX);
-//			System.out.println("deltaX: " + deltaX);
-//			
-//			System.out.println("prevY: " + prevDeltaY);
-//			System.out.println("deltaY: " + deltaY);
-//			
-//			deltaX = -deltaX;
-//			deltaY = -deltaY;
-//			
-//		}
-		
-		//Yay!!!
+
+		// if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY
+		// && deltaY != 0)) {
+		//
+		// System.out.println("prevX: " + prevDeltaX);
+		// System.out.println("deltaX: " + deltaX);
+		//
+		// System.out.println("prevY: " + prevDeltaY);
+		// System.out.println("deltaY: " + deltaY);
+		//
+		// deltaX = -deltaX;
+		// deltaY = -deltaY;
+		//
+		// }
+
+		// Yay!!!
 		checkSelf();
 
 	}
-	
+
 	public void checkSelf() {
-		
-//		Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
-		
+
+		// Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
+
 		if (snakeBody.contains(nextHead)) {
-			
+
 			for (Point p : snakeBody) {
 
 				if (deltaX != 0) {
@@ -254,11 +263,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 
-		
-		
-		
-		
-		
 	}
 
 	public void addBodySquare(int fruitIndex) {
@@ -348,6 +352,74 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	public int randFruitNum() {
 
 		return (int) (Math.random() * fruitColor.size());
+	}
+
+	public void up() {
+
+		if (deltaX != 0) {
+		deltaX = 0;
+		deltaY = -bodySize;
+		}
+	}
+
+	public void down() {
+
+		if (deltaX != 0) {
+		deltaX = 0;
+		deltaY = bodySize;
+		}
+	}
+
+	public void left() {
+
+		if (deltaY != 0) {
+		deltaY = 0;
+		deltaX = -bodySize;
+		}
+	}
+
+	public void right() {
+		if (deltaY != 0) {
+		deltaY = 0;
+		deltaX = bodySize;
+		}
+	}
+
+	public void executeDirection() {
+
+		Direction d = nextDirection.get(0);
+		nextDirection.remove(0);
+
+		switch (d) {
+
+		case up:
+
+			up();
+
+			break;
+		case down:
+			down();
+
+			break;
+		case left:
+
+			left();
+
+			break;
+		case right:
+
+			right();
+
+		}
+
+	}
+
+	public void addDirection(Direction d) {
+
+		nextDirection.add(d);
+
+		// lastDirection = d;
+
 	}
 
 	public void paintComponent(Graphics g) {
@@ -453,34 +525,36 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			if (keyIndex > 3)
 				keyIndex = 0;
 
-		} else if (e.getKeyCode() == prevLoseKey) {
-
-			// playing = false;
-			// nameEnter = true;
-
 		} else if (e.getKeyCode() == upKey) {
 
-			deltaX = 0;
-			deltaY = -bodySize;
-			prevLoseKey = downKey;
+			// deltaX = 0;
+			// deltaY = -bodySize;
+			// prevLoseKey = downKey;
+			addDirection(Direction.up);
 
 		} else if (e.getKeyCode() == downKey) {
 
-			deltaX = 0;
-			deltaY = bodySize;
-			prevLoseKey = upKey;
+			// deltaX = 0;
+			// deltaY = bodySize;
+			// prevLoseKey = upKey;
+
+			addDirection(Direction.down);
 
 		} else if (e.getKeyCode() == leftKey) {
 
-			deltaY = 0;
-			deltaX = -bodySize;
-			prevLoseKey = rightKey;
+			// deltaY = 0;
+			// deltaX = -bodySize;
+			// prevLoseKey = rightKey;
+
+			addDirection(Direction.left);
 
 		} else if (e.getKeyCode() == rightKey) {
 
-			deltaY = 0;
-			deltaX = bodySize;
-			prevLoseKey = leftKey;
+			// deltaY = 0;
+			// deltaX = bodySize;
+			// prevLoseKey = leftKey;
+
+			addDirection(Direction.right);
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
