@@ -169,19 +169,15 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
-			CenteredText title1 = new CenteredText("TUNNEL", 500, 500, g, true,
-					150);
+			CenteredText.draw("TUNNEL", 150, g);
 			// g.drawString("HOLE IN THE", 60, 210);
-			CenteredText title2 = new CenteredText("RUNNER", 500, 500, g, true,
-					200);
+			CenteredText.draw("RUNNER", 200, g);
 			// g.drawString("WALL", 180, 260);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 
-			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
-					g, true, 300);
+			CenteredText.draw("Press Enter to", 300, g);
 			// g.drawString("Press Enter to", 120, 300);
-			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
-					330);
+			CenteredText.draw("Start", 330, g);
 			// g.drawString("Start", 200, 330);
 
 		} else if (playing || paused) {
@@ -220,8 +216,7 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
-				CenteredText pause = new CenteredText("Paused", 500, 500, g,
-						true, 200);
+				CenteredText.draw("Paused", 200, g);
 			}
 
 		} else if (endGame) {
@@ -232,14 +227,12 @@ public class TunnelPanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 			g.setColor(Color.WHITE);
-			CenteredText lose = new CenteredText("You Lose!", 500, 500, g,
-					true, 170);
+			CenteredText.draw("You Lose!", 170, g);
 			// g.drawString("You Lose!", 50, 270);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 
-			CenteredText restart = new CenteredText("Enter to Restart", 500,
-					500, g, true, 320);
+			CenteredText.draw("Enter to Restart", 320, g);
 			// g.drawString("Enter to Restart", 80, 400);
 
 		} else if (nameEnter) {

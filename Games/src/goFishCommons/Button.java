@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import utilityClasses.CenteredText;
+import utilityClasses.CenteredText.draw;
 
 /*
  * If there is a reason to use this instead of JButton
@@ -76,7 +76,7 @@ public void setColor(Color color) {
 		
 		g.drawRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, 5, 5);
 		g.fillRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, 5, 5);
-		CenteredText t = new CenteredText(text, bounds.width, bounds.height, g, true);
+		CenteredText.draw(text, bounds.width, bounds.height, g, true);
 		g.setColor(Color.BLACK);
 		g.drawString(text, bounds.x + t.x, bounds.y + t.y);
 		g.setColor(Color.WHITE);

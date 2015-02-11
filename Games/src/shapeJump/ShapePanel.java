@@ -204,16 +204,16 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 80));
-			CenteredText title1 = new CenteredText("SHAPE", 500, 500, g, true,
+			CenteredText.draw("SHAPE", 500, 500, g, true,
 					130);
-			CenteredText title2 = new CenteredText("JUMPER", 500, 500, g, true,
+			CenteredText.draw("JUMPER", 500, 500, g, true,
 					200);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 
-			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
+			CenteredText.draw("Press Enter to", 500, 500,
 					g, true, 300);
-			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
+			CenteredText.draw("Start", 500, 500, g, true,
 					330);
 
 		} else if (playing || paused) {
@@ -233,7 +233,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
-				CenteredText pause = new CenteredText("Paused", 500, 500, g,
+				CenteredText.draw("Paused", 500, 500, g,
 						true, 200);
 			}
 
@@ -251,12 +251,12 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 			g.setColor(Color.WHITE);
-			CenteredText lose = new CenteredText("You Lose!", 500, 500, g,
+			CenteredText.draw("You Lose!", 500, 500, g,
 					true, 170);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 
-			CenteredText restart = new CenteredText("Enter to Restart", 500,
+			CenteredText.draw("Enter to Restart", 500,
 					500, g, true, 320);
 
 		} else if (nameEnter) {

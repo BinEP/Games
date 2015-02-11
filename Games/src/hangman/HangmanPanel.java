@@ -169,14 +169,14 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 		if (startGame) {
 			g.setColor(startTitle);
 			g.setFont(new Font("Joystix", Font.BOLD, 80));
-			CenteredText title1 = new CenteredText("HANGMAN!!", wSW, wSH, g,
+			CenteredText.draw("HANGMAN!!", wSW, wSH, g,
 					true, 230);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			g.setColor(startEnter);
-			CenteredText start1 = new CenteredText("Press Enter to", wSW, wSH,
+			CenteredText.draw("Press Enter to", wSW, wSH,
 					g, true, 350);
-			CenteredText start2 = new CenteredText("Start", wSW, wSH, g, true,
+			CenteredText.draw("Start", wSW, wSH, g, true,
 					380);
 
 		} else if (playing) {
@@ -213,7 +213,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 
 				int x = (55 * i) + 40;
 				g.setColor(wordText);
-				CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
+				CenteredText.draw(c.toString(), 45, 8, g);
 				if (guesses.contains(c))
 					g.drawString(c.toString(), x + lx.x, 613);
 				g.setColor(underlines);
@@ -236,7 +236,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 				}
 				int x = (55 * i) + xStart;
 
-				CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
+				CenteredText.draw(c.toString(), 45, 8, g);
 				g.drawString(c.toString(), x + lx.x, (yStart - 2) + (l * lineH));
 
 				i++;
@@ -245,16 +245,16 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			g.setFont(new Font("Joystix", Font.BOLD, 18));
 			if (guessError) {
 
-				CenteredText guess = new CenteredText("Already Guessed", 250,
+				CenteredText.draw("Already Guessed", 250,
 						200, g);
 				g.drawString("Already Guessed", guess.x + 450, 500);
 
-				CenteredText guess1 = new CenteredText("Try again", 250, 200, g);
+				CenteredText.draw("Try again", 250, 200, g);
 				g.drawString("Try Again", guess1.x + 450, 550);
 
 			} else if (waitForLetter) {
 
-				CenteredText guess = new CenteredText("Guess a Letter", 250,
+				CenteredText.draw("Guess a Letter", 250,
 						150, g);
 				g.drawString("Guess a Letter", guess.x + 450, guess.y + 475);
 
@@ -267,17 +267,17 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 			if (win) {
-				CenteredText win = new CenteredText("You Win!", wSW, wSH, g,
+				CenteredText.draw("You Win!", wSW, wSH, g,
 						true, 170);
 
 			} else {
-				CenteredText lose = new CenteredText("You Lose!", wSW, wSH, g,
+				CenteredText.draw("You Lose!", wSW, wSH, g,
 						true, 170);
 			}
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 			g.setColor(endRestart);
-			CenteredText restart = new CenteredText("Enter to Restart", wSW,
+			CenteredText.draw("Enter to Restart", wSW,
 					wSH, g, true, 320);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 35));
@@ -289,7 +289,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 
 				int x = (55 * i) + startText;
 
-				CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
+				CenteredText.draw(c.toString(), 45, 8, g);
 				g.drawString(c.toString(), x + lx.x, 470);
 
 				g.fillRect(x, 472, 45, 8);
@@ -300,9 +300,9 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 
 			g.setColor(enterNameInst);
 			g.setFont(new Font("Joystix", Font.BOLD, 80));
-			CenteredText enter = new CenteredText("Enter", wSW, wSH, g, true,
+			CenteredText.draw("Enter", wSW, wSH, g, true,
 					150);
-			CenteredText enter1 = new CenteredText("Your Name", wSW, wSH, g,
+			CenteredText.draw("Your Name", wSW, wSH, g,
 					true, 250);
 
 			int tw = 550;
@@ -312,7 +312,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			for (int i = 0; i < 10; i++) {
 				g.setColor(nameLetters);
 				if (pName.length() > i) {
-					CenteredText lx = new CenteredText(Character.toString(pName
+					CenteredText.draw(Character.toString(pName
 							.charAt(i)), 45, 8, g);
 					g.drawString(Character.toString(pName.charAt(i)), (55 * i)
 							+ startText + lx.x, 470);
@@ -352,7 +352,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 					dots = dots.concat(".");
 				}
 				dots = dots.concat("...");
-				// CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
+				// CenteredText.draw(c.toString(), 45, 8, g);
 				// System.out.println(pIndex);
 				Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;
 				// g.setColor(col);
@@ -365,9 +365,9 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 		} else if (ageEnter) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
-			CenteredText enter = new CenteredText("Enter", wSW, wSH, g, true,
+			CenteredText.draw("Enter", wSW, wSH, g, true,
 					100);
-			CenteredText enter1 = new CenteredText("Your Age", wSW, wSH, g,
+			CenteredText.draw("Your Age", wSW, wSH, g,
 					true, 170);
 
 			int barWidth = 35;
@@ -378,7 +378,7 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			for (int i = 0; i < letterNum; i++) {
 				if (ageS.length() > i) {
-					CenteredText lx = new CenteredText(Character.toString(ageS
+					CenteredText.draw(Character.toString(ageS
 							.charAt(i)), barWidth, 8, g);
 					g.drawString(Character.toString(ageS.charAt(i)),
 							(barSpace * i) + startText + lx.x, 440);
@@ -390,15 +390,15 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
 			
-			CenteredText s1 = new CenteredText("This is a special", wSW, wSH, g,
+			CenteredText.draw("This is a special", wSW, wSH, g,
 					true, 150);
-			CenteredText s2 = new CenteredText("Game just for", wSW, wSH, g,
+			CenteredText.draw("Game just for", wSW, wSH, g,
 					true, 250);
-			CenteredText s3 = new CenteredText("your age group", wSW, wSH, g,
+			CenteredText.draw("your age group", wSW, wSH, g,
 					true, 350);
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 50));
-			CenteredText enter1 = new CenteredText("Enter to begin", wSW, wSH, g,
+			CenteredText.draw("Enter to begin", wSW, wSH, g,
 					true, 500);
 			
 			

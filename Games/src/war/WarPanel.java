@@ -157,13 +157,13 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
-			CenteredText title1 = new CenteredText("WAR!!", 500, 500, g, true,
+			CenteredText.draw("WAR!!", 500, 500, g, true,
 					230);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
-			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
+			CenteredText.draw("Press Enter to", 500, 500,
 					g, true, 350);
-			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
+			CenteredText.draw("Start", 500, 500, g, true,
 					380);
 
 		} else if (playing) {
@@ -178,7 +178,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 					g.fillRoundRect(x, y, 56, 100, 5, 5);
 					g.drawRoundRect(x, y, 56, 100, 5, 5);
 					g.setColor(Color.BLACK);
-					CenteredText cardNum = new CenteredText(
+					CenteredText.draw(
 							String.valueOf(playerCards.get(i).size()), 56, 100,
 							g);
 					g.drawString(String.valueOf(playerCards.get(i).size()), x
@@ -196,7 +196,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 						g.fillRoundRect(x, y, 56, 100, 5, 5);
 						g.drawRoundRect(x, y, 56, 100, 5, 5);
 						g.setColor(Color.BLACK);
-						CenteredText cardNum = new CenteredText(
+						CenteredText.draw(
 								String.valueOf(playerCards.get(m).size()), 56,
 								100, g);
 						g.drawString(String.valueOf(playerCards.get(m).size()),
@@ -212,7 +212,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 						g.fillRoundRect(x, y, 56, 100, 5, 5);
 						g.drawRoundRect(x, y, 56, 100, 5, 5);
 						g.setColor(Color.BLACK);
-						CenteredText cardNum1 = new CenteredText(
+						CenteredText.draw(
 								card.getShown(), 56, 100, g);
 						g.drawString(card.getShown(), x + cardNum.x, y + 60);
 						
@@ -228,14 +228,14 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 
-			CenteredText win = new CenteredText("Player " + winner, 500, 500,
+			CenteredText.draw("Player " + winner, 500, 500,
 					g, true, 130);
-			CenteredText win1 = new CenteredText("Wins!!", 500, 500, g, true,
+			CenteredText.draw("Wins!!", 500, 500, g, true,
 					210);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 
-			CenteredText restart = new CenteredText("Enter to Restart", 500,
+			CenteredText.draw("Enter to Restart", 500,
 					500, g, true, 350);
 
 		}

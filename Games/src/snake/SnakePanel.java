@@ -616,19 +616,19 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 80));
-			CenteredText title1 = new CenteredText("SNAKE!!", 500, 500, g,
+			CenteredText.draw("SNAKE!!", 500, 500, g,
 					true, 180);
 			drawColorOptions(g, 415);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 
-			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
+			CenteredText.draw("Press Enter to", 500, 500,
 					g, true, 300);
-			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
+			CenteredText.draw("Start", 500, 500, g, true,
 					330);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 12));
 
-			CenteredText keyMapInstruct = new CenteredText(
+			CenteredText.draw(
 					"Press keys Up, Right, Down, Left to map new keys", 500,
 					500, g, true, 30);
 
@@ -636,7 +636,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
 			g.setColor(Color.WHITE);
-			CenteredText score1 = new CenteredText(String.valueOf(score), 500,
+			CenteredText.draw(String.valueOf(score), 500,
 					500, g, true, 450);
 			int i = 0;
 			for (Point body : snakeBody) {
@@ -663,7 +663,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
 				g.setColor(Color.WHITE);
-				CenteredText pause = new CenteredText("Paused", 500, 500, g,
+				CenteredText.draw("Paused", 500, 500, g,
 						true, 200);
 
 				drawColorOptions(g, 300);
@@ -673,17 +673,17 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
 			g.setColor(Color.WHITE);
-			CenteredText score1 = new CenteredText(String.valueOf(score), 500,
+			CenteredText.draw(String.valueOf(score), 500,
 					500, g, true, 450);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 
-			CenteredText lose = new CenteredText("You Lose!", 500, 500, g,
+			CenteredText.draw("You Lose!", 500, 500, g,
 					true, 170);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 
-			CenteredText restart = new CenteredText("Enter to Restart", 500,
+			CenteredText.draw("Enter to Restart", 500,
 					500, g, true, 320);
 		} else if (nameEnter) {
 
