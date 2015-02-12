@@ -591,7 +591,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			}
 
-		} else if (e.getKeyCode() == KeyEvent.VK_SPACE && !nameEnter) {
+		} else if (e.getKeyCode() == KeyEvent.VK_SPACE && (playing || paused)) {
 
 			playing = !playing;
 			paused = !paused;
