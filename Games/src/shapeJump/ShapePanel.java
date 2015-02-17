@@ -364,6 +364,7 @@ public class ShapePanel extends JPanel implements ActionListener, KeyListener {
 			prevX = 500 + spacing * i;
 			newRandomShape(prevX);
 		}
+		timeSeconds = 0;
 	}
 
 	public static Color getColor(int x, int y) {
