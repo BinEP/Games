@@ -133,8 +133,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 				if (head.x == snakeBody.get(i).x
 						&& head.y == snakeBody.get(i).y) {
-					// playing = false;
-					// nameEnter = true;
+					 playing = false;
+					 nameEnter = true;
 				}
 				snakeBody.set(i, snakeBody.get(i - 1));
 
@@ -157,11 +157,11 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				autonomous();
 			}
 
-			// if (head.x < 1 || head.x > 485 || head.y < 8 || head.y > 465) {
-			//
-			// playing = false;
-			// nameEnter = true;
-			// }
+			 if (head.x < 1 || head.x > 485 || head.y < 8 || head.y > 465) {
+			
+			 playing = false;
+			 nameEnter = true;
+			 }
 
 		}
 
