@@ -5,6 +5,7 @@ package hangman;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -213,9 +214,10 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 
 				int x = (55 * i) + 40;
 				g.setColor(wordText);
-				CenteredText.draw(c.toString(), 45, 8, g);
 				if (guesses.contains(c))
-					g.drawString(c.toString(), x + lx.x, 613);
+					CenteredText.draw(c.toString(), new Rectangle(x, 613, 45, 8), g);
+				
+//					g.drawString(c.toString(), x + lx.x, 613);
 				g.setColor(underlines);
 				g.fillRect(x, 615, 45, 8);
 				i++;
@@ -236,8 +238,8 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 				}
 				int x = (55 * i) + xStart;
 
-				CenteredText.draw(c.toString(), 45, 8, g);
-				g.drawString(c.toString(), x + lx.x, (yStart - 2) + (l * lineH));
+				CenteredText.draw(c.toString(), new Rectangle(x, (yStart - 2) + (l * lineH), 45, 8), g);
+//				g.drawString(c.toString(), x + lx.x, );
 
 				i++;
 			}
@@ -245,18 +247,18 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			g.setFont(new Font("Joystix", Font.BOLD, 18));
 			if (guessError) {
 
-				CenteredText.draw("Already Guessed", 250,
-						200, g);
-				g.drawString("Already Guessed", guess.x + 450, 500);
+				CenteredText.draw("Already Guessed", new Rectangle(450, 500, 250,
+						200), g);
+//				g.drawString("Already Guessed", guess.x + 450, 500);
 
-				CenteredText.draw("Try again", 250, 200, g);
-				g.drawString("Try Again", guess1.x + 450, 550);
+				CenteredText.draw("Try again", new Rectangle(450, 550, 250, 200), g);
+//				g.drawString("Try Again", guess1.x + 450, 550);
 
 			} else if (waitForLetter) {
 
-				CenteredText.draw("Guess a Letter", 250,
-						150, g);
-				g.drawString("Guess a Letter", guess.x + 450, guess.y + 475);
+				CenteredText.draw("Guess a Letter", new Rectangle(450, 475, 250,
+						150), g);
+//				g.drawString("Guess a Letter", guess.x + 450, guess.y + 475);
 
 			}
 
@@ -289,8 +291,8 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 
 				int x = (55 * i) + startText;
 
-				CenteredText.draw(c.toString(), 45, 8, g);
-				g.drawString(c.toString(), x + lx.x, 470);
+				CenteredText.draw(c.toString(), new Rectangle(x, 470, 45, 8), g);
+//				g.drawString(c.toString(), x + lx.x, 470);
 
 				g.fillRect(x, 472, 45, 8);
 				i++;
@@ -313,9 +315,9 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 				g.setColor(nameLetters);
 				if (pName.length() > i) {
 					CenteredText.draw(Character.toString(pName
-							.charAt(i)), 45, 8, g);
-					g.drawString(Character.toString(pName.charAt(i)), (55 * i)
-							+ startText + lx.x, 470);
+							.charAt(i)), new Rectangle((55 * i)
+							+ startText, 470, 45, 8), g);
+//					g.drawString(Character.toString(pName.charAt(i)),  + lx.x, 470);
 				}
 				g.setColor(nameUnder);
 				g.fillRect((55 * i) + startText, 472, 45, 8);
@@ -379,9 +381,9 @@ public class HangmanPanel extends JPanel implements KeyListener, ActionListener 
 			for (int i = 0; i < letterNum; i++) {
 				if (ageS.length() > i) {
 					CenteredText.draw(Character.toString(ageS
-							.charAt(i)), barWidth, 8, g);
-					g.drawString(Character.toString(ageS.charAt(i)),
-							(barSpace * i) + startText + lx.x, 440);
+							.charAt(i)), new Rectangle((barSpace * i) + startText, 440, barWidth, 80), g);
+//					g.drawString(Character.toString(ageS.charAt(i)),
+//							 + lx.x, 440);
 				}
 				g.fillRect((barSpace * i) + startText, 442, barWidth, 8);
 			}

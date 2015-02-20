@@ -239,25 +239,26 @@ public class GoFishWindow extends JFrame {
 			int gaps = 120 / (state.numOfPlayers + 1);
 
 			for (int i = 0; i < state.numOfPlayers; i++) {
-				CenteredText.draw(""
-						+ state.restOfDeck.get(myID - 1).size(), stringSpace,
-						50, g);
+//				CenteredText.draw(, stringSpace,
+//						50, g);
 
 				// CenteredText.draw("" +
 				// state.restOfDeck.get((myID == 1) ? 1 : 0).size(),
 				// stringSpace, 50, g);
 
-				CenteredText.draw("P" + (i + 1),
-						stringSpace, 50, g);
+				
 				// CenteredText.draw("P" + ((myID ==
 				// 1) ? 2 : 1), stringSpace, 50, g);
 
 				int x = 130 + gaps * (i + 1) + stringSpace * i;
 
-				g.drawString(playerPairs.text, x + playerPairs.x, 270);
-				// g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
-
-				g.drawString(playerPairNum.text, x + playerPairNum.x, 240);
+//				g.drawString(, x + playerPairs.x, 270);
+				CenteredText.draw("P" + (i + 1), new Rectangle(x, 270,
+						50, 50), g);
+//				// g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
+				CenteredText.draw(""
+						+ state.restOfDeck.get(myID - 1).size(), new Rectangle(x, 240, stringSpace, 50), g);
+//				g.drawString(playerPairNum.text, x + playerPairNum.x, 240);
 				// g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
 
 				if (i + 1 == state.turn) {
@@ -316,10 +317,10 @@ public class GoFishWindow extends JFrame {
 					g.setColor(Color.BLACK);
 					g.drawRoundRect(x, y, 56, 100, 5, 5);
 
-					CenteredText.draw(""
-							+ state.hands.get(i).size(), 56, 100, g);
 
-					g.drawString(out.text, x + out.x, y + 56);
+					CenteredText.draw(""
+							+ state.hands.get(i).size(), new Rectangle(x, y,
+							56, 100), g);
 					j++;
 
 					state.hands.get(i).setBounds(x, y, 56, 100);
@@ -367,9 +368,8 @@ public class GoFishWindow extends JFrame {
 				int x = getXCenter(hand.size(), startX) + (spacing * i);
 				int y = startY;
 
-				CenteredText.draw(card.getCardFace()
-						+ card.getSuitIcon(), 56, 100, g);
-
+				
+				
 				g.setColor(card.getColor());
 				g.fillRoundRect(x, y, 56, 100, 5, 5);
 				g.drawRoundRect(x, y, 56, 100, 5, 5);
@@ -378,8 +378,9 @@ public class GoFishWindow extends JFrame {
 				g.drawRoundRect(x, y, 56, 100, 5, 5);
 
 				g.setColor((card.getSuit() % 2 == 0) ? Color.RED : Color.BLACK);
-				g.drawString(card.getCardFace() + card.getSuitIcon(),
-						x + out.x, y + 56);
+				CenteredText.draw(card.getCardFace()
+						+ card.getSuitIcon(), new Rectangle(x, y,
+						56, 100), g);
 
 				state.hands.get(myID - 1).get(i).setRectangle(x, y, 56, 100);
 

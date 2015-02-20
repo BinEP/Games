@@ -12,7 +12,7 @@ import javax.lang.model.element.Element;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import utilityClasses.CenteredText.draw;
+import utilityClasses.CenteredText;
 
 public class PongPanel extends JPanel implements ActionListener, KeyListener {
 

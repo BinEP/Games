@@ -152,14 +152,16 @@ public class GoFishPanel extends JPanel implements ActionListener, KeyListener,
 			int x = getXCenter(hand, startX) + (spacing * i);
 			int y = startY;
 
-			CenteredText.draw(card.getCardFace()
-					+ card.getSuitIcon(), 56, 100, g);
+			
 			g.setColor(card.getColor());
 			g.fillRoundRect(x, y, 56, 100, 5, 5);
 			g.drawRoundRect(x, y, 56, 100, 5, 5);
+			
 			g.setColor((card.getSuit() % 2 == 0) ? Color.RED : Color.BLACK);
-			g.drawString(card.getCardFace() + card.getSuitIcon(), x + out.x,
-					y + 56);
+			CenteredText.draw(card.getCardFace()
+					+ card.getSuitIcon(), new Rectangle(x, y, 56, 100), g);
+//			g.drawString(card.getCardFace() + card.getSuitIcon(), x + out.x,
+//					y + 56);
 
 			hands.get(pNum - 1).get(i).setRectangle(x, y, 56, 100);
 

@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import utilityClasses.CenteredText.draw;
+import utilityClasses.CenteredText;
 
 public class Buttons {
 
@@ -67,9 +67,9 @@ public void setColor(Color color) {
 		
 		g.drawRoundRect(button.x, button.y, button.width, button.height, 5, 5);
 		g.fillRoundRect(button.x, button.y, button.width, button.height, 5, 5);
-		CenteredText.draw(text, button.width, button.height, g, true);
 		g.setColor(Color.BLACK);
-		g.drawString(text, button.x + t.x, button.y + t.y);
+		CenteredText.draw(text, button, g);
+		
 		g.setColor(Color.WHITE);
 		
 	}
