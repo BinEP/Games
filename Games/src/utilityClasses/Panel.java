@@ -72,15 +72,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 //			System.out.println(a);
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 120));
-			CenteredText pong = new CenteredText("PONG", 500, 500, g, true, 180);
+			CenteredText.draw("PONG", 180, g);
 			//g.drawString("PONG", pong.x, pong.y);
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			
-			CenteredText pressStart = new CenteredText("Press Enter to", 500, 500, g, true, 250);
+			CenteredText.draw("Press Enter to", 250, g);
 			//g.drawString("Press Enter to", pressStart.x, 250);
 			
-			CenteredText start = new CenteredText("Start", 500, 500, g, true, 280);
+			CenteredText.draw("Start", 280, g);
 			//g.drawString("Start", start.x, 280);
 			//System.out.println(deltaX + "\t" + deltaY);
 			
@@ -90,8 +90,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 			
 			
-			CenteredText playWon = new CenteredText("Player 1", 500, 500, g, true, 120);
-			CenteredText win = new CenteredText("You Win!", 500, 500, g, true, 210);
+			CenteredText.draw("Player 1", 120, g);
+			CenteredText.draw("You Win!", 210, g);
 			//g.drawString("Player " + playerWon, playWon.x, 120);
 			
 			
@@ -99,7 +99,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			//g.drawString("You Win!", win.x, 210);
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
-			CenteredText restart = new CenteredText("Enter to restart", 500, 500, g, true, 350);
+			CenteredText.draw("Enter to restart", 350, g);
 			//g.drawString("Enter to Restart", restart.x, 320);
 			
 		

@@ -153,15 +153,15 @@ public class BlackjackPanel extends JPanel implements ActionListener, KeyListene
 			int x = getXCenter(hand, startX) + (spacing * i);
 			int y = startY;
 
-			CenteredText out = new CenteredText(card.getCardFace()
-					+ card.getSuitIcon(), 56, 100, g);
+//			CenteredText.draw(card.getCardFace()
+//					+ card.getSuitIcon(), 56, 100, g);
 			g.setColor(card.getColor());
 			g.fillRoundRect(x, y, 56, 100, 5, 5);
 			g.drawRoundRect(x, y, 56, 100, 5, 5);
 			g.setColor((card.getSuit() % 2 == 0) ? Color.RED : Color.BLACK);
-			g.drawString(card.getCardFace() + card.getSuitIcon(), x + out.x,
-					y + 56);
-
+			g.setColor((card.getSuit() % 2 == 0) ? Color.RED : Color.BLACK);
+			CenteredText.draw(card.getCardFace()
+					+ card.getSuitIcon(), new Rectangle(x, y, 56, 100), g);
 			hands.get(pNum - 1).get(i).setRectangle(x, y, 56, 100);
 
 			i++;
@@ -211,13 +211,13 @@ public class BlackjackPanel extends JPanel implements ActionListener, KeyListene
 
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
-			CenteredText title1 = new CenteredText("GO FISH!!", 500, 500, g,
+			CenteredText.draw("GO FISH!!", 500, 500, g,
 					true, 230);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
-			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
+			CenteredText.draw("Press Enter to", 500, 500,
 					g, true, 350);
-			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
+			CenteredText.draw("Start", 500, 500, g, true,
 					380);
 
 		} else if (playing) {
@@ -238,14 +238,14 @@ public class BlackjackPanel extends JPanel implements ActionListener, KeyListene
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 
-			CenteredText win = new CenteredText("Player " + winner, 500, 500,
+			CenteredText.draw("Player " + winner, 500, 500,
 					g, true, 130);
-			CenteredText win1 = new CenteredText("Wins!!", 500, 500, g, true,
+			CenteredText.draw("Wins!!", 500, 500, g, true,
 					210);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 
-			CenteredText restart = new CenteredText("Enter to Restart", 500,
+			CenteredText.draw("Enter to Restart", 500,
 					500, g, true, 350);
 
 		}

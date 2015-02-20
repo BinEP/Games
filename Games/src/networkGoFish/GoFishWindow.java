@@ -122,25 +122,25 @@ public class GoFishWindow extends JFrame {
 				g.setFont(new Font(customFontName, Font.BOLD, 60));
 				// g.setFont(customFont.deriveFont(Font.BOLD, 60));
 
-				CenteredText title1 = new CenteredText("GO FISH!!", 500, 500,
+				CenteredText.draw("GO FISH!!", 500, 500,
 						g, true, 230);
 
 				g.setFont(new Font(customFontName, Font.BOLD, 20));
 
-				// CenteredText start1 = new CenteredText("Press Enter to", 500,
+				// CenteredText.draw("Press Enter to", 500,
 				// 500, g, true, 350);
-				// CenteredText start2 = new CenteredText("Start", 500, 500, g,
+				// CenteredText.draw("Start", 500, 500, g,
 				// true, 380);
 				if (state == null) {
-					CenteredText messageFromTheHub = new CenteredText(
+					CenteredText.draw(
 							"Waiting for Others...", 500, 500, g, true, 440);
 
 				} else {
 
-					CenteredText messageFromTheHub = new CenteredText(
+					CenteredText.draw(
 							state.messageFromServer[0], 500, 500, g, true, 320);
 
-					CenteredText messageFromTheHub1 = new CenteredText(
+					CenteredText.draw(
 							state.messageFromServer[1], 500, 500, g, true, 350);
 
 				}
@@ -168,30 +168,30 @@ public class GoFishWindow extends JFrame {
 						30);
 				g.setColor(Color.WHITE);
 				
-				CenteredText leftPairs = new CenteredText("" + state.restOfDeck.get(myID - 1).size(), 60, 50, g);
+				CenteredText.draw("" + state.restOfDeck.get(myID - 1).size(), new Rectangle(170, 270, 60, 50), g);
 				
-				CenteredText rightPairs = new CenteredText("" + state.restOfDeck.get((myID == 1) ? 1 : 0).size(), 60, 50, g);
+				CenteredText.draw("" + state.restOfDeck.get((myID == 1) ? 1 : 0).size(), new Rectangle(270, 270, 60, 50), g);
 
-				CenteredText leftPairNum = new CenteredText("P" + myID, 60, 50,
+				CenteredText.draw("P" + myID, new Rectangle(170, 240, 60, 50),
 						g);
-				CenteredText rightPairNum = new CenteredText("P"
-						+ ((myID == 1) ? 2 : 1), 60, 50, g);
+				CenteredText.draw("P"
+						+ ((myID == 1) ? 2 : 1), new Rectangle(270, 220, 60, 50), g);
 
-				g.drawString(leftPairs.text, 170 + leftPairs.x, 270);
-				g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
-				
-				g.drawString(leftPairNum.text, 170 + leftPairNum.x, 240);
-				g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
+//				g.drawString(leftPairs.text, 170 + leftPairs.x, 270);
+//				g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
+//				
+//				g.drawString(leftPairNum.text, 170 + leftPairNum.x, 240);
+//				g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
 
 				drawHandCover((myID == 1) ? 2 : 1, g);
 				g.setColor(Color.WHITE);
 				g.setFont(new Font(customFontName, Font.PLAIN, 15));
 				if (state != null) {
 
-					CenteredText messageFromTheHub = new CenteredText(
+					CenteredText.draw(
 							state.messageFromServer[1], 500, 500, g, true, 140);
 
-					CenteredText messageFromTheHub1 = new CenteredText(
+					CenteredText.draw(
 							state.messageFromServer[0], 500, 500, g, true, 170);
 				}
 
@@ -201,14 +201,14 @@ public class GoFishWindow extends JFrame {
 
 				g.setFont(new Font(customFontName, Font.BOLD, 60));
 
-				CenteredText win = new CenteredText("Player " + state.winner,
+				CenteredText.draw("Player " + state.winner,
 						500, 500, g, true, 130);
-				CenteredText win1 = new CenteredText("Wins!!", 500, 500, g,
+				CenteredText.draw("Wins!!", 500, 500, g,
 						true, 210);
 
 				g.setFont(new Font(customFontName, Font.BOLD, 26));
 
-				CenteredText restart = new CenteredText("Click to Restart",
+				CenteredText.draw("Click to Restart",
 						500, 500, g, true, 350);
 
 			}
@@ -274,10 +274,6 @@ public class GoFishWindow extends JFrame {
 				int x = getXCenter(hand, startX) + (spacing * i);
 				int y = startY;
 
-				CenteredText out = new CenteredText(card.getCardFace()
-						+ card.getSuitIcon(), 56, 100, g);
-				
-				
 				g.setColor(card.getColor());
 				g.fillRoundRect(x, y, 56, 100, 5, 5);
 				g.drawRoundRect(x, y, 56, 100, 5, 5);
@@ -288,8 +284,12 @@ public class GoFishWindow extends JFrame {
 				
 				
 				g.setColor((card.getSuit() % 2 == 0) ? Color.RED : Color.BLACK);
-				g.drawString(card.getCardFace() + card.getSuitIcon(),
-						x + out.x, y + 56);
+				
+
+				CenteredText.draw(card.getCardFace()
+						+ card.getSuitIcon(), new Rectangle(x, y + 56, 56, 100), g);
+//				g.drawString(card.getCardFace() + card.getSuitIcon(),
+//						x + out.x, y + 56);
 
 				state.hands.get(myID - 1).get(i).setRectangle(x, y, 56, 100);
 

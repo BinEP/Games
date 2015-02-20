@@ -208,15 +208,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 //			System.out.println(a);
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 120));
-			CenteredText pong = new CenteredText("PONG", 500, 500, g, true, 180);
+			CenteredText.draw("PONG", 500, 500, g, true, 180);
 			//g.drawString("PONG", pong.x, pong.y);
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 			
-			CenteredText pressStart = new CenteredText("Press Enter to", 500, 500, g, true, 250);
+			CenteredText.draw("Press Enter to", 500, 500, g, true, 250);
 			//g.drawString("Press Enter to", pressStart.x, 250);
 			
-			CenteredText start = new CenteredText("Start", 500, 500, g, true, 280);
+			CenteredText.draw("Start", 500, 500, g, true, 280);
 			//g.drawString("Start", start.x, 280);
 			//System.out.println(deltaX + "\t" + deltaY);
 			
@@ -252,7 +252,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
-				CenteredText pause = new CenteredText("Paused", 500, 500,
+				CenteredText.draw("Paused", 500, 500,
 						g, true, 200);
 			}
 
@@ -263,19 +263,19 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			String playerWon = (player1Score > player2Score) ? "1" : "2";
 			
 			if (!computerPlayer) {
-			CenteredText playWon = new CenteredText("Player " + playerWon, 500, 500, g, true, 120);
-			CenteredText win = new CenteredText("You Win!", 500, 500, g, true, 210);
+			CenteredText.draw("Player " + playerWon, 500, 500, g, true, 120);
+			CenteredText.draw("You Win!", 500, 500, g, true, 210);
 			//g.drawString("Player " + playerWon, playWon.x, 120);
 			} else {
 				
 				if (player1Score > player2Score) {
-				CenteredText playWon = new CenteredText("Computer", 500, 500, g, true, 80);
-				CenteredText playWon1 = new CenteredText("Won!", 500, 500, g, true, 150);
-				CenteredText win = new CenteredText("You Lose!", 500, 500, g, true, 280);
+				CenteredText.draw("Computer", 500, 500, g, true, 80);
+				CenteredText.draw("Won!", 500, 500, g, true, 150);
+				CenteredText.draw("You Lose!", 500, 500, g, true, 280);
 				
 				} else {
 					
-					CenteredText playWon = new CenteredText("You Win!", 500, 500, g, true, 150);
+					CenteredText.draw("You Win!", 500, 500, g, true, 150);
 				}
 				computerPlayer = false;
 			}
@@ -284,7 +284,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			//g.drawString("You Win!", win.x, 210);
 			
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
-			CenteredText restart = new CenteredText("Enter to restart", 500, 500, g, true, 350);
+			CenteredText.draw("Enter to restart", 500, 500, g, true, 350);
 			//g.drawString("Enter to Restart", restart.x, 320);
 			
 		}

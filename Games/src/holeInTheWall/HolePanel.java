@@ -193,18 +193,18 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
-			CenteredText title1 = new CenteredText("HOLE IN THE", 500, 500, g,
+			CenteredText.draw("HOLE IN THE", 500, 500, g,
 					true, 150);
 			// g.drawString("HOLE IN THE", 60, 210);
-			CenteredText title2 = new CenteredText("WALL", 500, 500, g, true,
+			CenteredText.draw("WALL", 500, 500, g, true,
 					200);
 			// g.drawString("WALL", 180, 260);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 
-			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
+			CenteredText.draw("Press Enter to", 500, 500,
 					g, true, 300);
 			// g.drawString("Press Enter to", 120, 300);
-			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
+			CenteredText.draw("Start", 500, 500, g, true,
 					330);
 			// g.drawString("Start", 200, 330);
 
@@ -235,7 +235,7 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
-				CenteredText pause = new CenteredText("Paused", 500, 500, g,
+				CenteredText.draw("Paused", 500, 500, g,
 						true, 200);
 			}
 
@@ -243,13 +243,13 @@ public class HolePanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 
-			CenteredText lose = new CenteredText("You Lose!", 500, 500, g,
+			CenteredText.draw("You Lose!", 500, 500, g,
 					true, 170);
 			// g.drawString("You Lose!", 50, 270);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 
-			CenteredText restart = new CenteredText("Enter to Restart", 500,
+			CenteredText.draw("Enter to Restart", 500,
 					500, g, true, 320);
 			// g.drawString("Enter to Restart", 80, 400);
 
