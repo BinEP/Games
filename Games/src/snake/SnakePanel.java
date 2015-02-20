@@ -175,6 +175,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		// positive or
 		// negative depending on nearest fruit
 
+		
+		
 		if ((head.x < 8 + bodySize || head.x > 492 - 2 * bodySize)
 				&& deltaX != 0) {
 
@@ -246,16 +248,17 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		// }
 
 		// Yay!!!
+		
 		checkSelf();
-
 	}
 
 	public void checkSelf() {
 
 		// Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
-
+		
 		if (snakeBody.contains(nextHead)) {
 			// Point p = snakeBody.get(snakeBody.indexOf(nextHead));
+			nextDirection.clear();
 			for (int i = 1; i < snakeBody.size(); i++) {
 				Point p = snakeBody.get(i);
 				if (deltaX != 0) {
@@ -265,7 +268,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 						// deltaX = 0;
 						// deltaY = (nextHead.y - p.y > 0) ? -bodySize :
 						// bodySize;
-						upOrDown(nextHead.y - p.y);
+						upOrDown(-(nextHead.y - p.y));
 
 					}
 
@@ -278,7 +281,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 						// deltaY = 0;
 						// deltaX = (nextHead.x - p.x > 0) ? -bodySize :
 						// bodySize;
-						leftOrRight(nextHead.x - p.x);
+						leftOrRight(-(nextHead.x - p.x));
 
 					}
 
