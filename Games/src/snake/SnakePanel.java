@@ -17,15 +17,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 //HI
-
-
-
-
 
 import utilityClasses.*;
 
@@ -83,7 +80,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	private int downKey = KeyEvent.VK_DOWN;
 	private int leftKey = KeyEvent.VK_LEFT;
 	private int rightKey = KeyEvent.VK_RIGHT;
-	
+
 	private int[] keyMap = { KeyEvent.VK_UP, KeyEvent.VK_RIGHT,
 			KeyEvent.VK_DOWN, KeyEvent.VK_LEFT };
 
@@ -125,7 +122,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (playing) {
 
-			if (nextDirection.size() > 0) executeDirection();
+			if (nextDirection.size() > 0)
+				executeDirection();
 
 			head.x += deltaX;
 			head.y += deltaY;
@@ -135,8 +133,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 				if (head.x == snakeBody.get(i).x
 						&& head.y == snakeBody.get(i).y) {
-//					playing = false;
-//					nameEnter = true;
+					// playing = false;
+					// nameEnter = true;
 				}
 				snakeBody.set(i, snakeBody.get(i - 1));
 
@@ -164,8 +162,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			// playing = false;
 			// nameEnter = true;
 			// }
-			
-			
 
 		}
 
@@ -182,10 +178,10 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		if ((head.x < 8 + bodySize || head.x > 492 - 2 * bodySize)
 				&& deltaX != 0) {
 
-//			deltaX = 0;
-//			deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
+			// deltaX = 0;
+			// deltaY = (head.y - fruitY.get(0) > 0) ? -bodySize : bodySize;
 			upOrDown(head.y - fruitY.get(0));
-		} else 
+		} else
 
 		// If hit wall while moving sideways, change deltaY to 0 and deltaX
 		// positive or
@@ -193,8 +189,8 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		if ((head.y < 16 || head.y > 492 - (4 * bodySize)) && deltaY != 0) {
 
-//			deltaY = 0;
-//			deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
+			// deltaY = 0;
+			// deltaX = (head.x - fruitX.get(0) > 0) ? -bodySize : bodySize;
 			leftOrRight(head.x - fruitX.get(0));
 		}
 
@@ -203,33 +199,36 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		int prevDeltaX = deltaX;
 		int prevDeltaY = deltaY;
 
+		Random r = new Random();
+		int r1 = r.nextInt(fruitX.size());
 
 		for (int i = 0; i < fruitX.size(); i++) {
-			int fruitXx = fruitX.get(i);
-			int fruitYy = fruitY.get(i);
+			if (i != r1) {
+				int fruitXx = fruitX.get(i);
+				int fruitYy = fruitY.get(i);
 
-			if (Math.abs(head.x - fruitXx) < 5 && deltaX != 0) {
+				if (Math.abs(head.x - fruitXx) < 5 && deltaX != 0) {
 
+					upOrDown(head.y - fruitYy);
+					// if (head.y - fruitYy > 0) {
+					// up();
+					// } else {
+					// down();
+					// }
+				} else
 
-				upOrDown(head.y - fruitYy);
-				// if (head.y - fruitYy > 0) {
-				// up();
-				// } else {
-				// down();
-				// }
-			} else 
+				if (Math.abs(head.y - fruitYy) < 5 && deltaY != 0) {
 
-			if (Math.abs(head.y - fruitYy) < 5 && deltaY != 0) {
+					leftOrRight(head.x - fruitXx);
+					// if (head.x - fruitXx > 0) {
+					// left();
+					// } else {
+					// right();
+					// }
 
-				leftOrRight(head.x - fruitXx);
-				// if (head.x - fruitXx > 0) {
-				// left();
-				// } else {
-				// right();
-				// }
+				}
 
 			}
-
 		}
 
 		// if ((prevDeltaX == -deltaX && deltaX != 0) || (prevDeltaY == -deltaY
@@ -252,7 +251,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void checkSelf() {
-
 
 		// Point nextHead = new Point(head.x + deltaX, head.y + deltaY);
 
@@ -292,83 +290,72 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void up() {
 
-//		int nextDeltaX = 0;
-//		int nextDeltaY = -bodySize;
-//		
-//		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
-//		 && !snakeBody.contains(nextHead)
-		
-		
-		
-		
-		
+		// int nextDeltaX = 0;
+		// int nextDeltaY = -bodySize;
+		//
+		// Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
+		// && !snakeBody.contains(nextHead)
+
 		if (deltaY != bodySize) {
 			deltaX = 0;
 			deltaY = -bodySize;
 		}
-		
-		
-		if (autoPlay) allowedMoves(UP);
 
-		
+		if (autoPlay)
+			allowedMoves(UP);
+
 	}
 
 	public void down() {
-		
-//		int nextDeltaX = 0;
-//		int nextDeltaY = bodySize;
-//		
-//		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
-//		 && !snakeBody.contains(nextHead)
-		
-		
-		
-		
-		
+
+		// int nextDeltaX = 0;
+		// int nextDeltaY = bodySize;
+		//
+		// Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
+		// && !snakeBody.contains(nextHead)
+
 		if (deltaY != -bodySize) {
 			deltaX = 0;
 			deltaY = bodySize;
 		}
-		
-		if (autoPlay) allowedMoves(DOWN);
+
+		if (autoPlay)
+			allowedMoves(DOWN);
 	}
 
 	public void left() {
-		
-//		int nextDeltaX = -bodySize;
-//		int nextDeltaY = 0;
-//		
-//		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
-//		 && !snakeBody.contains(nextHead)
-		
-		
-		
-		
+
+		// int nextDeltaX = -bodySize;
+		// int nextDeltaY = 0;
+		//
+		// Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
+		// && !snakeBody.contains(nextHead)
+
 		if (deltaX != bodySize) {
 			deltaX = -bodySize;
 			deltaY = 0;
 		}
-		
-		if (autoPlay) allowedMoves(LEFT);
+
+		if (autoPlay)
+			allowedMoves(LEFT);
 
 	}
 
 	public void right() {
-		
-//		int nextDeltaX = bodySize;
-//		int nextDeltaY = 0;
-//		
-//		Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
-//		 && !snakeBody.contains(nextHead)
-		
-		
-		
+
+		// int nextDeltaX = bodySize;
+		// int nextDeltaY = 0;
+		//
+		// Point nextHead = new Point(head.x + nextDeltaX, head.y + nextDeltaY);
+		// && !snakeBody.contains(nextHead)
+
 		if (deltaX != -bodySize) {
 			deltaX = bodySize;
 			deltaY = 0;
 		}
-		
-		if (autoPlay) allowedMoves(RIGHT);
+
+		if (autoPlay)
+			allowedMoves(RIGHT);
 
 	}
 
@@ -386,7 +373,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void leftOrRight(int i) {
-		
+
 		if (i < 0) {
 
 			addDirection(Direction.right);
@@ -395,90 +382,83 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			addDirection(Direction.left);
 
-
 		}
 	}
-	
+
 	public void nextHeadSet() {
-		
+
 		nextHead = new Point(head.x + deltaX, head.y + deltaY);
-		
-		
+
 	}
-	
+
 	public Point setDirection() {
-		
+
 		direction = new Point(deltaX, deltaY);
 		return direction;
 	}
-	
+
 	public void setDelta(Point p) {
-		
+
 		deltaX = p.x;
 		deltaY = p.y;
-		
+
 	}
-	
+
 	public Point getDirection() {
-		
+
 		return new Point(deltaX, deltaY);
 	}
-	
+
 	public void allowedMoves(Point d) {
-		
+
 		ArrayList<Point> invalidDirections = new ArrayList<Point>();
-				
-//		if (direction.equals(LEFT)) invalidDirections.add(RIGHT);
-//		if (direction.equals(RIGHT)) invalidDirections.add(LEFT);
-//		if (direction.equals(UP)) invalidDirections.add(DOWN);
-//		if (direction.equals(DOWN)) invalidDirections.add(UP);
-		
+
+		// if (direction.equals(LEFT)) invalidDirections.add(RIGHT);
+		// if (direction.equals(RIGHT)) invalidDirections.add(LEFT);
+		// if (direction.equals(UP)) invalidDirections.add(DOWN);
+		// if (direction.equals(DOWN)) invalidDirections.add(UP);
+
 		Point head = this.head;
-		
-		//Check Up
-		
+
+		// Check Up
+
 		if (snakeBody.contains(new Point(head.x + UP.x, head.y + UP.y))) {
-			
+
 			invalidDirections.add(UP);
-			
+
 		}
-		
-		//Check Down
-		
+
+		// Check Down
+
 		if (snakeBody.contains(new Point(head.x + DOWN.x, head.y + DOWN.y))) {
-			
+
 			invalidDirections.add(DOWN);
-			
+
 		}
-		
-		//Check Left
-		
+
+		// Check Left
+
 		if (snakeBody.contains(new Point(head.x + LEFT.x, head.y + LEFT.y))) {
-	
+
 			invalidDirections.add(LEFT);
-	
+
 		}
-		
-		//Check Right
-		
+
+		// Check Right
+
 		if (snakeBody.contains(new Point(head.x + RIGHT.x, head.y + RIGHT.y))) {
-	
+
 			invalidDirections.add(RIGHT);
-	
+
 		}
-		
+
 		if (!invalidDirections.contains(d)) {
-			
+
 			setDelta(d);
-			
+
 		}
-		
-		
-		
-		
-		
+
 	}
-	
 
 	public void addBodySquare(int fruitIndex) {
 
@@ -604,11 +584,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void addDirection(Direction d) {
 
-		
-			if (nextDirection.size() < 2) nextDirection.add(d);
-		
+		if (nextDirection.size() < 2)
+			nextDirection.add(d);
+
 	}
-		// lastDirection = d;
+
+	// lastDirection = d;
 	public void addGoodFruit(int fruitIndex) {
 
 		int x = randNum();
@@ -673,15 +654,12 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		if (startGame) {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 80));
-			CenteredText.draw("SNAKE!!", 500, 500, g,
-					true, 180);
+			CenteredText.draw("SNAKE!!", 500, 500, g, true, 180);
 			drawColorOptions(g, 415);
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
 
-			CenteredText.draw("Press Enter to", 500, 500,
-					g, true, 300);
-			CenteredText.draw("Start", 500, 500, g, true,
-					330);
+			CenteredText.draw("Press Enter to", 500, 500, g, true, 300);
+			CenteredText.draw("Start", 500, 500, g, true, 330);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 12));
 
@@ -693,8 +671,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
 			g.setColor(Color.WHITE);
-			CenteredText.draw(String.valueOf(score), 500,
-					500, g, true, 450);
+			CenteredText.draw(String.valueOf(score), 500, 500, g, true, 450);
 			int i = 0;
 			for (Point body : snakeBody) {
 
@@ -720,8 +697,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 			if (paused) {
 				g.setFont(new Font("Joystix", Font.BOLD, 60));
 				g.setColor(Color.WHITE);
-				CenteredText.draw("Paused", 500, 500, g,
-						true, 200);
+				CenteredText.draw("Paused", 500, 500, g, true, 200);
 
 				drawColorOptions(g, 300);
 			}
@@ -730,18 +706,15 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 40));
 			g.setColor(Color.WHITE);
-			CenteredText.draw(String.valueOf(score), 500,
-					500, g, true, 450);
+			CenteredText.draw(String.valueOf(score), 500, 500, g, true, 450);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 
-			CenteredText.draw("You Lose!", 500, 500, g,
-					true, 170);
+			CenteredText.draw("You Lose!", 500, 500, g, true, 170);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 
-			CenteredText.draw("Enter to Restart", 500,
-					500, g, true, 320);
+			CenteredText.draw("Enter to Restart", 500, 500, g, true, 320);
 		} else if (nameEnter) {
 
 			scores.enterName(g, 500, 500, snakeBody.size(), pName);
@@ -765,7 +738,6 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 				keyIndex = 0;
 
 		} else if (e.getKeyCode() == upKey) {
-
 
 			addDirection(Direction.up);
 
