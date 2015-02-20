@@ -3,6 +3,7 @@ package war;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -73,26 +74,27 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 //		if (playing) moves();
+
 		repaint();
 	}
-	
+
 	public void moves() {
-		
+
 		boolean almostWon = false;
-		for (ArrayList <Card> hand : playerCards) {
-			
+		for (ArrayList<Card> hand : playerCards) {
+
 			if (hand.size() < 51) {
 				almostWon = true;
 			} else {
-//				System.out.println(hand);
+				// System.out.println(hand);
 			}
-			
-			
+
 		}
-		if (almostWon) middleAdd();
-		
-		
+		if (almostWon)
+			middleAdd();
+
 	}
 
 	public void newDeck() {
@@ -157,14 +159,11 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
-			CenteredText title1 = new CenteredText("WAR!!", 500, 500, g, true,
-					230);
+			CenteredText.draw("WAR!!", 500, 500, g, true, 230);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 20));
-			CenteredText start1 = new CenteredText("Press Enter to", 500, 500,
-					g, true, 350);
-			CenteredText start2 = new CenteredText("Start", 500, 500, g, true,
-					380);
+			CenteredText.draw("Press Enter to", 500, 500, g, true, 350);
+			CenteredText.draw("Start", 500, 500, g, true, 380);
 
 		} else if (playing) {
 
@@ -178,11 +177,12 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 					g.fillRoundRect(x, y, 56, 100, 5, 5);
 					g.drawRoundRect(x, y, 56, 100, 5, 5);
 					g.setColor(Color.BLACK);
-					CenteredText cardNum = new CenteredText(
-							String.valueOf(playerCards.get(i).size()), 56, 100,
-							g);
-					g.drawString(String.valueOf(playerCards.get(i).size()), x
-							+ cardNum.x, y + 60);
+
+					CenteredText.draw(
+							String.valueOf(playerCards.get(i).size()),
+							new Rectangle(x, y, 56, 100), g);
+					// g.drawString(String.valueOf(playerCards.get(i).size()), x
+					// + cardNum.x, y + 60);
 				}
 			}
 			if (middleShow) {
@@ -196,11 +196,10 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 						g.fillRoundRect(x, y, 56, 100, 5, 5);
 						g.drawRoundRect(x, y, 56, 100, 5, 5);
 						g.setColor(Color.BLACK);
-						CenteredText cardNum = new CenteredText(
-								String.valueOf(playerCards.get(m).size()), 56,
-								100, g);
-						g.drawString(String.valueOf(playerCards.get(m).size()),
-								x + cardNum.x, y + 60);
+
+						CenteredText.draw(
+								String.valueOf(playerCards.get(m).size()),
+								new Rectangle(x, y, 56, 100), g);
 
 						g.setColor(Color.WHITE);
 						x = middleXYs[m][0];
@@ -212,10 +211,9 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 						g.fillRoundRect(x, y, 56, 100, 5, 5);
 						g.drawRoundRect(x, y, 56, 100, 5, 5);
 						g.setColor(Color.BLACK);
-						CenteredText cardNum1 = new CenteredText(
-								card.getShown(), 56, 100, g);
-						g.drawString(card.getShown(), x + cardNum.x, y + 60);
-						
+						CenteredText.draw(card.getShown(), new Rectangle(x, y,
+								56, 100), g);
+
 					}
 					m++;
 				}
@@ -228,15 +226,12 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 			g.setFont(new Font("Joystix", Font.BOLD, 60));
 
-			CenteredText win = new CenteredText("Player " + winner, 500, 500,
-					g, true, 130);
-			CenteredText win1 = new CenteredText("Wins!!", 500, 500, g, true,
-					210);
+			CenteredText.draw("Player " + winner, 500, 500, g, true, 130);
+			CenteredText.draw("Wins!!", 500, 500, g, true, 210);
 
 			g.setFont(new Font("Joystix", Font.BOLD, 26));
 
-			CenteredText restart = new CenteredText("Enter to Restart", 500,
-					500, g, true, 350);
+			CenteredText.draw("Enter to Restart", 500, 500, g, true, 350);
 
 		}
 	}
@@ -256,7 +251,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 
 			if (playerCards.get(i).size() == 52)
 				playing = false;
-				endGame = true;
+			endGame = true;
 
 		}
 	}
@@ -284,50 +279,44 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 			turn = 1;
 
 	}
-	
+
 	public void removeBlanks() {
-		
+
 		Card card = new Card(true);
-		for (ArrayList <Card> hand : playerCards) {
-			
+		for (ArrayList<Card> hand : playerCards) {
+
 			hand.removeAll(Collections.singleton(card));
-			
-			
+
 		}
-		
-		
+
 	}
-	
+
 	public void war(ArrayList<Integer> pInWar) {
-		
+
 		warCards = new ArrayList<Card>();
 		warCards.addAll(middle);
 		for (Integer n : pInWar) {
 			warCards.addAll(playerCards.get(n).subList(0, 3));
 			playerCards.get(n).removeAll(playerCards.get(n).subList(0, 3));
 		}
-		
+
 		for (Integer n : pInWar) {
-			
+
 			warCards.add(playerCards.get(n).get(0));
 			playerCards.get(n).remove(0);
-			
+
 		}
-		
-		
-		
-		
+
 	}
-	
+
 	public void middleAdd() {
-		
-		
+
 		if (!middleShow) {
 			middle.clear();
 			middleHighP = new Card(true);
 			middleHighPNum = 0;
 			for (int i = 0; i < numOfPlayers; i++) {
-				
+
 				Card card;
 				if (playerCards.get(i).size() == 0) {
 					card = new Card(true);
@@ -358,11 +347,7 @@ public class WarPanel extends JPanel implements ActionListener, KeyListener {
 			removeBlanks();
 			checkIfWon();
 		}
-		
-		
-		
-		
-		
+
 	}
 
 	@Override

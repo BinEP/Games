@@ -3,6 +3,7 @@ package utilityClasses;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -186,7 +187,7 @@ public class ScoreInfo {
 			}
 			dots = dots.concat(".");
 
-			// CenteredText lx = new CenteredText(c.toString(), 45, 8, g);
+			// CenteredText.draw(c.toString(), 45, 8, g);
 			// System.out.println(pIndex);
 			// Color col = (pIndex == r - 1) ? Color.YELLOW : Color.WHITE;
 			// g.setColor(col);
@@ -241,9 +242,8 @@ public void drawScores(Graphics g) {
 	public void enterName(Graphics g, int wSW, int wSH, int score, String pName) {
 
 		g.setFont(new Font("Joystix", Font.BOLD, 40));
-		CenteredText enter = new CenteredText("Enter", wSW, wSH, g, true, 100);
-		CenteredText enter1 = new CenteredText("Your Name", wSW, wSH, g, true,
-				170);
+		CenteredText.draw("Enter", 100, g);
+		CenteredText.draw("Your Name", 170, g);
 
 		int barWidth = 35;
 		int barSpace = 10 + barWidth;
@@ -252,10 +252,9 @@ public void drawScores(Graphics g) {
 		g.setFont(new Font("Joystix", Font.BOLD, 20));
 		for (int i = 0; i < 10; i++) {
 			if (pName.length() > i) {
-				CenteredText lx = new CenteredText(Character.toString(pName
-						.charAt(i)), barWidth, 8, g);
-				g.drawString(Character.toString(pName.charAt(i)), (barSpace * i)
-						+ startText + lx.x, 440);
+				CenteredText.draw(Character.toString(pName.charAt(i)), new Rectangle((barSpace * i) + startText, 440, barWidth, 8), g);
+//				g.drawString(Character.toString(pName.charAt(i)), (barSpace * i)
+//						+ startText + lx.x, 440);
 			}
 			g.fillRect((barSpace * i) + startText, 442, barWidth, 8);
 		}

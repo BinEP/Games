@@ -89,6 +89,7 @@ public class ChatCensor {
 		
 	}
 
+
 	public String[] arrayOfSwears() {
 
 		return allSwearWords.toArray(new String[allSwearWords.size()]);

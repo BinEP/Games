@@ -12,3 +12,11 @@
 hs_err_pid*
 Games/.DS_Store
 */dist/
+
+*.txt
+
+*.txt
+
+Games/Library/Application Support/Stoffel/Games/Infofiles/snakePeople.txt
+
+Games/Library/Application Support/Stoffel/Games/Infofiles/snakeScores.txt
