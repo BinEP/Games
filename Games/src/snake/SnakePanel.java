@@ -23,6 +23,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 //HI
 
+
+
+
+
 import utilityClasses.*;
 
 public class SnakePanel extends JPanel implements ActionListener, KeyListener {
@@ -121,8 +125,7 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (playing) {
 
-			if (nextDirection.size() > 0)
-				executeDirection();
+			if (nextDirection.size() > 0) executeDirection();
 
 			head.x += deltaX;
 			head.y += deltaY;
@@ -373,11 +376,11 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (i > 0) {
 
-			up();
+			addDirection(Direction.up);
 
 		} else {
 
-			down();
+			addDirection(Direction.down);
 
 		}
 	}
@@ -386,11 +389,11 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		
 		if (i < 0) {
 
-			right();
+			addDirection(Direction.right);
 
 		} else {
 
-			left();
+			addDirection(Direction.left);
 
 
 		}
@@ -601,7 +604,9 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void addDirection(Direction d) {
 
-		nextDirection.add(d);
+		
+			if (nextDirection.size() < 2) nextDirection.add(d);
+		
 	}
 		// lastDirection = d;
 	public void addGoodFruit(int fruitIndex) {
@@ -762,19 +767,19 @@ public class SnakePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == upKey) {
 
 
-			up();
+			addDirection(Direction.up);
 
 		} else if (e.getKeyCode() == downKey) {
 
-			down();
+			addDirection(Direction.down);
 
 		} else if (e.getKeyCode() == leftKey) {
 
-			left();
+			addDirection(Direction.left);
 
 		} else if (e.getKeyCode() == rightKey) {
 
-			right();
+			addDirection(Direction.right);
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
