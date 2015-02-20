@@ -21,24 +21,11 @@ public class ScanNetwork {
 
 	public static void main(String[] args) {
 
-		ScanNetwork sn = new ScanNetwork();
-		sn.runFromMain();
+		checkHosts();
 
 	}
 
-	public void runFromMain() {
-		// TODO Auto-generated method stub
-
-checkHosts();
-//		checkHostsAtPort(45017);
-//		getPublicIP();
-//		getGateway();
-//		System.out.println(getIPtoNumber(getPublicIP(), 2));
-//		checkSubnets();
-
-	}
-
-	public String getCurrentIP() {
+	public static String getCurrentIP() {
 
 		try {
 
@@ -51,7 +38,7 @@ checkHosts();
 		return "";
 	}
 
-	public String[] checkHosts() {
+	public static String[] checkHosts() {
 		String subnet;
 		
 		ArrayList<String> openHosts;
@@ -86,7 +73,7 @@ checkHosts();
 		return hostsString;
 	}
 	
-	public ArrayList<String> loopHosts(String subnet) {
+	public static ArrayList<String> loopHosts(String subnet) {
 		
 		int timeout = 10;
 		ArrayList<String> openHosts = new ArrayList<String>();
@@ -108,7 +95,7 @@ checkHosts();
 		
 	}
 	
-	public ArrayList<String> loopMultipleSubnets(String partSubnet) {
+	public static ArrayList<String> loopMultipleSubnets(String partSubnet) {
 		ArrayList<String> openHosts = new ArrayList<String>();
 		
 		for (int k = 5; k < 6; k++) {
@@ -122,10 +109,8 @@ checkHosts();
 		return openHosts;
 	}
 	
-	public String[] checkHostsAtPort(int port) {
-		
-		CheckPort cp = new CheckPort(port);
-		
+	public static String[] checkHostsAtPort(int port) {
+				
 		String[] ips = checkHosts();
 								
 		ArrayList<String> openHosts = new ArrayList<String>();
@@ -137,7 +122,7 @@ checkHosts();
 			
 			System.out.print("Checking " + host + "\t");
 				
-			if (cp.checkPort(host, port, true)) {
+			if (CheckPort.checkPort(host, port)) {
 
 					openHosts.add(host);
 
@@ -158,7 +143,7 @@ checkHosts();
 		
 	}
 	
-	public String getPublicIP() {
+	public static String getPublicIP() {
 		String ip = "";
 		URL whatismyip;
 		try {
@@ -177,7 +162,7 @@ checkHosts();
 		
 	}
 	
-	public String getGateway() {
+	public static String getGateway() {
 		
 		
 		 
@@ -202,7 +187,7 @@ checkHosts();
 		
 	}
 	
-	public boolean checkSubnets() {
+	public static boolean checkSubnets() {
 		
 		String routerAddress = getGateway();
 		
@@ -213,7 +198,7 @@ checkHosts();
 				
 	}
 	
-	public String getIPtoNumber(String routerAddress, int numOfNums) {
+	public static String getIPtoNumber(String routerAddress, int numOfNums) {
 		
 		int period = routerAddress.length();
 		for (int i = 0; i < 4 - numOfNums; i++) {
@@ -226,17 +211,15 @@ checkHosts();
 		
 	}
 	
-	public String[] addRecentServers(String[] scannedIPS) {
+	public static String[] addRecentServers(String[] scannedIPS) {
 		
-		FileList servers = new FileList("recentServers");
-		
-		ArrayList<String> recentList = servers.getFileList();
+		ArrayList<String> recentList = FileList.getFileList(Window.FOLDER_PATH + "recentServers");
 		
 		for (String currentServer : scannedIPS) {
 			
 			if (!recentList.contains(currentServer)) {
 				
-				servers.writeToFile(currentServer);
+				FileList.addToFile(Window.FOLDER_PATH + "recentServer", currentServer);
 				
 			}
 		}
@@ -245,16 +228,11 @@ checkHosts();
 		
 	}
 	
-	public void addServer(String server) {
+	public static void addServer(String server) {
 		
 		String[] s = {server};
 		addRecentServers(s);
 		
 		
-	}
-	public ScanNetwork() {
-		// TODO Auto-generated constructor stub
-
-		// checkHosts("10.42.5");
 	}
 }
