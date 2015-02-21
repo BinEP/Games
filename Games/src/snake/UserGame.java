@@ -130,6 +130,7 @@ public class UserGame extends Directions implements PlayerInterface {
 		if (!fruitOverlap) {
 			snakeBody.remove(snakeBody.size() - 1);
 		}
+		//To commit stuff
 	}
 
 	/**
