@@ -18,7 +18,7 @@ import utilityClasses.*;
 /**
  * @author Brady Stoffel
  */
-public class UserGame extends Directions implements PlayerInterface {
+public class UserGame extends Directions {
 
 	/*
 	 * To force implement of direction methods, have UserGame extend the

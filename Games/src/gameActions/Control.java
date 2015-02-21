@@ -402,6 +402,7 @@ public class Control extends JPanel implements Screen {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+		customPressed(e);
 		if (startGame && e.getKeyCode() != KeyEvent.VK_ENTER) {
 
 			keyMap[keyIndex] = e.getKeyCode();
@@ -500,6 +501,7 @@ public class Control extends JPanel implements Screen {
 	@Override
 	public void keyReleased(KeyEvent e) {
 
+		customReleased(e);
 		if (e.getKeyCode() == upKey) {
 
 			upReleased();
@@ -636,6 +638,18 @@ public class Control extends JPanel implements Screen {
 	@Override
 	public void rightReleased() {
 		rightPressed = false;
+	}
+	
+	public void customPressed(KeyEvent e) {
+		
+		
+		
+	}
+	
+public void customReleased(KeyEvent e) {
+		
+		
+		
 	}
 
 	/**

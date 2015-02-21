@@ -8,7 +8,7 @@ import javax.swing.Timer;
 
 import utilityClasses.*;
 
-public class UserGame extends Control implements PlayerInterface {
+public class UserGame extends PlayerInterface {
 
 	/*
 	 * int deltaX int deltaY int movementVar

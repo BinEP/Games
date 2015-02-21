@@ -2,7 +2,7 @@ package gameActions;
 
 import java.util.ArrayList;
 
-public abstract class Directions extends Control {
+public abstract class Directions extends PlayerInterface {
 
 	
 	
