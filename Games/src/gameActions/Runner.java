@@ -1,6 +1,7 @@
 package gameActions;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.JFrame;
 
@@ -18,7 +19,7 @@ public class Runner {
 	 */
 	public static void run(Control game) {
 		
-		
+		Class gameClass = game.getClass();
 		JFrame frame = new JFrame(Window.NAME + "!");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,6 +32,7 @@ public class Runner {
 //		frame.setAlwaysOnTop(true);
 
 //		UserGame game = new UserGame();
+		frame.add((Component) gameClass.cast(game), BorderLayout.CENTER);
 		frame.add(game, BorderLayout.CENTER);
 
 		frame.setSize(Window.WIDTH, Window.HEIGHT);
