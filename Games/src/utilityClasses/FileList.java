@@ -10,41 +10,20 @@ import java.util.Scanner;
 
 public class FileList {
 
-	private String folderPath = "InfoFiles/";
-	private String fileName;
-	private String filePath;
-	private ArrayList<String> wordList = new ArrayList<String>();
-
-	public static void main(String[] args) {
-		FileList runIt = new FileList();
-		runIt.runFromMain();
-	}
-
-	public void runFromMain() {
-
-	}
-
-	public FileList(String fileName) {
-		// TODO Auto-generated constructor stub
+	public static String checkFileName(String fileName) {
 
 		if (fileName.indexOf('.') == -1) {
 
 			fileName = fileName.concat(".txt");
 		}
-
-		this.fileName = fileName;
-		this.filePath = folderPath + fileName;
-		setFileList();
+		return fileName;
 
 	}
 
-	public FileList() {
-		// TODO Auto-generated constructor stub
+	public static ArrayList<String> getFileList(String filePath) {
 
-	}
-
-	public ArrayList<String> setFileList() {
-
+		filePath = checkFileName(filePath);
+		ArrayList<String> wordList = new ArrayList<String>();
 		Scanner input;
 		try {
 			input = new Scanner(new File(filePath));
@@ -62,17 +41,15 @@ public class FileList {
 
 	}
 
-	public void writeToFile() {
+	public static void addToFile(String filePath, String newLine) {
 
 		PrintWriter fileWriter;
+		filePath = checkFileName(filePath);
+
 		try {
-			fileWriter = new PrintWriter(new FileWriter(filePath));
+			fileWriter = new PrintWriter(new FileWriter(filePath, true));
 
-			for (String line : wordList) {
-
-				fileWriter.println(line);
-
-			}
+			fileWriter.println(newLine);
 
 			fileWriter.flush();
 			fileWriter.close();
@@ -82,39 +59,16 @@ public class FileList {
 		}
 
 	}
-	
-	public void writeToFile(String newLine) {
+
+	public static void addToFile(String filePath, ArrayList<String> newLine) {
 
 		PrintWriter fileWriter;
-		wordList.add(newLine);
-		
+		filePath = checkFileName(filePath);
+
 		try {
-			fileWriter = new PrintWriter(new FileWriter(filePath));
+			fileWriter = new PrintWriter(new FileWriter(filePath, true));
 
-			for (String line : wordList) {
-				
-				fileWriter.println(line);
-
-			}
-
-			fileWriter.flush();
-			fileWriter.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-	
-	public void writeToFile(ArrayList<String> newLine) {
-
-		PrintWriter fileWriter;
-		wordList.addAll(newLine);
-		
-		try {
-			fileWriter = new PrintWriter(new FileWriter(filePath));
-
-			for (String line : wordList) {
+			for (String line : newLine) {
 
 				fileWriter.println(line);
 
@@ -129,22 +83,75 @@ public class FileList {
 
 	}
 
-	public String[] get() {
+	public static void insertLine(String filePath, String newLine, int index) {
 
-		return getArray();
+		ArrayList<String> wordList = getFileList(filePath);
+
+		wordList.add(index, newLine);
+		overwriteFile(filePath, wordList);
+
 	}
 
-	public String[] getArray() {
+	public static void insertLines(String filePath, ArrayList<String> newLines,
+			int index) {
 
+		ArrayList<String> wordList = getFileList(filePath);
+
+		wordList.addAll(index, newLines);
+
+		overwriteFile(filePath, wordList);
+
+	}
+
+	public static void overwriteFile(String filePath, String newLine) {
+
+		PrintWriter fileWriter;
+		filePath = checkFileName(filePath);
+
+		try {
+			fileWriter = new PrintWriter(new FileWriter(filePath));
+
+			fileWriter.println(newLine);
+
+			fileWriter.flush();
+			fileWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void overwriteFile(String filePath, ArrayList<String> newLine) {
+
+		PrintWriter fileWriter;
+		filePath = checkFileName(filePath);
+
+		try {
+			fileWriter = new PrintWriter(new FileWriter(filePath));
+
+			for (String line : newLine) {
+
+				fileWriter.println(line);
+
+			}
+
+			fileWriter.flush();
+			fileWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static String[] getFileArray(String filePath) {
+
+		ArrayList<String> wordList = getFileList(filePath);
 		String[] list = new String[wordList.size()];
 		wordList.toArray(list);
 
 		return list;
-	}
-
-	public ArrayList<String> getFileList() {
-
-		return wordList;
 	}
 
 }

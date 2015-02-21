@@ -12,39 +12,7 @@ import java.net.Socket;
  */
 public class CheckPort {
 
-	public String host;
-	public int port;
-
-	public static void main(String[] args) {
-		CheckPort runIt = new CheckPort();
-		runIt.runFromMain();
-	}
-
-	public void runFromMain() {
-
-		CheckPort cp = new CheckPort("localhost", 45017);
-		System.out.println(cp.checkPort(cp.host, cp.port, true));
-
-	}
-
-	public CheckPort() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public CheckPort(String host, int port) {
-
-		this.host = host;
-		this.port = port;
-
-	}
-
-	public CheckPort(int port) {
-
-		this.port = port;
-
-	}
-
-	public boolean checkPort(String host, int port, boolean printStatus) {
+	public static boolean checkPort(String host, int port, boolean printStatus) {
 
 		try {
 			Socket s = new Socket(host, port);
@@ -55,6 +23,23 @@ public class CheckPort {
 		} catch (IOException e) {
 			
 			if (printStatus) System.out.println("Closed");
+			return false;
+
+		}
+
+	}
+	
+	public static boolean checkPort(String host, int port) {
+
+		try {
+			Socket s = new Socket(host, port);
+			
+			System.out.println("Open");
+			return true;
+			
+		} catch (IOException e) {
+			
+			System.out.println("Closed");
 			return false;
 
 		}
