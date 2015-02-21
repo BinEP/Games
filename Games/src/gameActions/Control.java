@@ -199,7 +199,8 @@ public class Control extends JPanel implements Screen {
 
 	public ArrayList<Direction> nextDirection = new ArrayList<Direction>();
 
-	public UserGame sub = (UserGame) this;
+//	public UserGame sub = (UserGame) this;
+
 
 	public Control() {
 
@@ -207,7 +208,9 @@ public class Control extends JPanel implements Screen {
 		setFocusable(true);
 		addKeyListener(this);
 
-		sub.setup();
+		
+		
+		setup();
 
 		timer = new Timer((int) (1000 / speed), this);
 		timer.start();
@@ -243,15 +246,15 @@ public class Control extends JPanel implements Screen {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale((double) width / (double) Window.WIDTH, (double) (height) / (double) Window.HEIGHT);
 		
-		sub.draw(g2);
+		draw(g2);
 
 		if (startGame) {
 
-			sub.drawStart(g2);
+			drawStart(g2);
 
 		} else if (playing || paused) {
 
-			sub.drawPlaying(g2);
+			drawPlaying(g2);
 
 			if (showMouseCoords) {
 				Point mouse = MouseInfo.getPointerInfo().getLocation();
@@ -262,7 +265,7 @@ public class Control extends JPanel implements Screen {
 			}
 			if (paused) {
 
-				sub.drawPaused(g2);
+				drawPaused(g2);
 			}
 		} else if (endGame) {
 
@@ -276,6 +279,10 @@ public class Control extends JPanel implements Screen {
 
 			ScoreInfo.drawScores(g2, Window.TXT_FILE);
 		}
+	}
+	
+	public void draw(Graphics2D g) {
+		
 	}
 
 	/**
@@ -343,6 +350,14 @@ public class Control extends JPanel implements Screen {
 
 		CenteredText.draw("Enter to Restart", Window.RESTART_Y, g);
 	}
+	
+	public void setup() {
+		
+	}
+	
+	public void reset() {
+		
+	}
 
 	/**
 	 * starts the timer that can be displayed on screen. Use getTime() to get
@@ -399,7 +414,7 @@ public class Control extends JPanel implements Screen {
 			if (singleDirection) {
 				addDirection(Direction.up);
 			} else {
-				sub.up();
+				up();
 			}
 
 		} else if (e.getKeyCode() == downKey) {
@@ -407,7 +422,7 @@ public class Control extends JPanel implements Screen {
 			if (singleDirection) {
 				addDirection(Direction.down);
 			} else {
-				sub.down();
+				down();
 			}
 
 		} else if (e.getKeyCode() == leftKey) {
@@ -415,7 +430,7 @@ public class Control extends JPanel implements Screen {
 			if (singleDirection) {
 				addDirection(Direction.left);
 			} else {
-				sub.left();
+				left();
 			}
 
 		} else if (e.getKeyCode() == rightKey) {
@@ -423,7 +438,7 @@ public class Control extends JPanel implements Screen {
 			if (singleDirection) {
 				addDirection(Direction.right);
 			} else {
-				sub.right();
+				right();
 			}
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && !(paused || playing)) {
@@ -434,12 +449,12 @@ public class Control extends JPanel implements Screen {
 				startGame = false;
 				setKeys();
 				startTime();
-				sub.setup();
+				setup();
 
 			} else if (endGame) {
 
 				speed = origSpeed;
-				sub.reset();
+				reset();
 				stopTime();
 				startGame = false;
 				playing = true;
@@ -487,19 +502,19 @@ public class Control extends JPanel implements Screen {
 
 		if (e.getKeyCode() == upKey) {
 
-			sub.upReleased();
+			upReleased();
 
 		} else if (e.getKeyCode() == downKey) {
 
-			sub.downReleased();
+			downReleased();
 			
 		} else if (e.getKeyCode() == leftKey) {
 
-			sub.leftReleased();
+			leftReleased();
 
 		} else if (e.getKeyCode() == rightKey) {
 
-			sub.rightReleased();
+			rightReleased();
 		}
 	}
 
@@ -515,23 +530,33 @@ public class Control extends JPanel implements Screen {
 		height = getHeight();
 		System.out.println("width: " + width + "\t height: " + height);
 		
-		sub.alwaysExecute();
+		alwaysExecute();
 		
 		if (playing) {
 
 			if (nextDirection.size() > 0 && singleDirection) executeDirection();
 			
-			sub.moves();
+			moves();
 
 			if (speedUp) timer.setDelay(1000 / (int) ( speed + score / 2));
 			
-			if (sub.checkIfDead()) {
+			if (checkIfDead()) {
 
 				playing = false;
 				nameEnter = true;
 			}
 		}
 		repaint();
+	}
+
+	public boolean checkIfDead() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void moves() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -646,19 +671,19 @@ public class Control extends JPanel implements Screen {
 		switch (d) {
 		
 		case up:
-			sub.up();
+			up();
 			break;
 			
 		case down:
-			sub.down();
+			down();
 			break;
 			
 		case left:
-			sub.left();
+			left();
 			break;
 			
 		case right:
-			sub.right();
+			right();
 		}
 	}
 	
