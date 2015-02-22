@@ -120,6 +120,12 @@ public String getGameName() {
 	return "Game";
 }
 
+@Override
+public int getScore() {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
 
 
 

@@ -285,7 +285,7 @@ public class Control extends JPanel implements Screen {
 
 		} else if (nameEnter) {
 
-			ScoreInfo.enterName(g2, score, pName);
+			ScoreInfo.enterName(g2, getScore(), pName);
 			
 		} else if (highScores) {
 
@@ -352,7 +352,7 @@ public class Control extends JPanel implements Screen {
 
 		g.setFont(new Font(Window.FONT_NAME, Font.BOLD, Window.END_SCORE_SIZE));
 		g.setColor(Color.WHITE);
-		CenteredText.draw(String.valueOf(score), Window.END_SCORE_Y, g);
+		CenteredText.draw(String.valueOf(getScore()), Window.END_SCORE_Y, g);
 
 		g.setFont(new Font(Window.FONT_NAME, Font.BOLD, Window.YOU_LOSE_SIZE));
 
@@ -481,7 +481,7 @@ public class Control extends JPanel implements Screen {
 			} else if (nameEnter) {
 				nameEnter = false;
 				highScores = true;
-				ScoreInfo.setScores(score, pName, TXT_FILE, FOLDER_PATH);
+				ScoreInfo.setScores(getScore(), pName, TXT_FILE, FOLDER_PATH);
 			} else if (highScores) {
 
 				highScores = false;
@@ -555,7 +555,7 @@ public class Control extends JPanel implements Screen {
 			
 			moves();
 
-			if (speedUp) timer.setDelay(1000 / (int) ( speed + score / 2));
+			if (speedUp) timer.setDelay(1000 / (int) ( speed + getScore() / 2));
 			
 			if (checkIfDead()) {
 
@@ -747,5 +747,9 @@ public void customReleased(KeyEvent e) {
 	public String getFontFile() {
 		// TODO Auto-generated method stub
 		return "joystix";
+	}
+	
+	public int getScore() {
+		return score;
 	}
 }

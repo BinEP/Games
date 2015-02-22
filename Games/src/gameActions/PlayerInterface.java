@@ -25,6 +25,7 @@ public abstract class PlayerInterface extends Control {
 	public abstract void setup();
 	
 	public abstract String getGameName();
+	public abstract int getScore();
 //	public abstract String getFolderPath();
 //	public abstract String getFontFile();
 	
