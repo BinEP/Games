@@ -171,6 +171,7 @@ public class TunnelPanel extends PlayerInterface {
 	public void reset() {
 		// TODO Auto-generated method stub
 		setup();
+		resetTime();
 	}
 
 	@Override
@@ -211,11 +212,12 @@ public class TunnelPanel extends PlayerInterface {
 	@Override
 	public void setup() {
 		// TODO Auto-generated method stub
-		for (int i = 0; i < holesX.length; i++) {
+		for (int i = 0; i < holeNumber; i++) {
 			holesX[i] = 500 + widthOfHole * i;
 			holesY[i] = randomY(i);
 
 		}
+		ballY = 40;
 		
 	}
 
