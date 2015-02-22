@@ -281,10 +281,10 @@ public void drawScores(Graphics g) {
 	//
 	// }
 	
-	public static void setScores(int score, String person, String gameName) {
+	public static void setScores(int score, String person, String gameName, String folderPath) {
 
-		File gameScores = getScoreFile(gameName);
-		File gamePeople = getPeopleFile(gameName);
+		File gameScores = getScoreFile(gameName, folderPath);
+		File gamePeople = getPeopleFile(gameName, folderPath);
 		
 		try {
 			if (!gameScores.exists()) {
@@ -344,10 +344,10 @@ public void drawScores(Graphics g) {
 
 	}
 
-	public static ArrayList<String[]> getScores(String gameName) {
+	public static ArrayList<String[]> getScores(String gameName, String folderPath) {
 
-		File gameScores = getScoreFile(gameName);
-		File gamePeople = getPeopleFile(gameName);
+		File gameScores = getScoreFile(gameName, folderPath);
+		File gamePeople = getPeopleFile(gameName, folderPath);
 		
 		try {
 			Scanner scoreContents = new Scanner(gameScores);
@@ -414,9 +414,9 @@ public void drawScores(Graphics g) {
 		return results;
 	}
 
-	public static void drawScores(Graphics2D g, String gameName) {
+	public static void drawScores(Graphics2D g, String gameName, String folderPath) {
 
-		ArrayList<String[]> results = getScores(gameName);
+		ArrayList<String[]> results = getScores(gameName, folderPath);
 		g.setFont(new Font("Joystix", Font.BOLD, 17));
 		int i = 0;
 		int yStart = 40;
@@ -473,17 +473,17 @@ public void drawScores(Graphics g) {
 		}
 	}
 	
-	public static File getScoreFile(String gameName) {
+	public static File getScoreFile(String gameName, String folderPath) {
 		
 //		return new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("Scores.txt"));
-		return new File(Window.FOLDER_PATH + gameName.concat("Scores.txt"));
+		return new File(folderPath + gameName.concat("Scores.txt"));
 		
 	}
 	
-public static File getPeopleFile(String gameName) {
+public static File getPeopleFile(String gameName, String folderPath) {
 		
 //		return new File("Library/Application Support/Stoffel/Games/Infofiles/" + gameName.concat("People.txt"));
-		return new File(Window.FOLDER_PATH + gameName.concat("People.txt"));
+		return new File(folderPath + gameName.concat("People.txt"));
 		
 	}
 }

@@ -47,16 +47,16 @@ public class Window {
 	/**
 	 * Game name displayed in window bar and on title screen
 	 */
-	public static final String GAME_NAME = "Snake";
-
-	/**
-	 * Path of folder where score and people files are
-	 */
-	public static final String FOLDER_PATH = "InfoFiles/";
-	public static final String NAME = "Game Name";
-	public static final String TXT_FILE = NAME.toLowerCase().replaceAll("\\s", "");
-	public static final String FONT_FILE = "joystix";
-	
+//	public static final String GAME_NAME = "Snake";
+//
+//	/**
+//	 * Path of folder where score and people files are
+//	 */
+//	public static final String FOLDER_PATH = "InfoFiles/";
+//	public static final String NAME = "Game Name";
+//	public static final String TXT_FILE = NAME.toLowerCase().replaceAll("\\s", "");
+//	public static final String FONT_FILE = "joystix";
+//	
  	public Window() {
 		// TODO Auto-generated constructor stub
 	}

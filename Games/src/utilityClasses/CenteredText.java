@@ -58,12 +58,12 @@ public class CenteredText {
 		
 	}
 	
-	public static void draw(String text, int yVal, Graphics2D g, int fontSize) {
+	public static void draw(String text, int yVal, Graphics2D g, int fontSize, String fontFile) {
 
 		int width = Window.WIDTH;
 		int height = Window.HEIGHT;
 		
-		g.setFont(CustomFont.makeCustomFont(Window.FONT_FILE, fontSize));
+		g.setFont(CustomFont.makeCustomFont(fontFile, fontSize));
 		
 		FontMetrics fontInfo = g.getFontMetrics();
 		int textWidth = fontInfo.stringWidth(text);
@@ -76,9 +76,9 @@ public class CenteredText {
 
 	}
 	
-	public static void draw(String text, Rectangle r, Graphics2D g, int fontSize) {
+	public static void draw(String text, Rectangle r, Graphics2D g, int fontSize, String fontFile) {
 
-		g.setFont(CustomFont.makeCustomFont(Window.FONT_FILE, fontSize));
+		g.setFont(CustomFont.makeCustomFont(fontFile, fontSize));
 		
 		FontMetrics fontInfo = g.getFontMetrics();
 		int textWidth = fontInfo.stringWidth(text);
