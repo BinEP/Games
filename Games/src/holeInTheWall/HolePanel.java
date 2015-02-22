@@ -250,7 +250,7 @@ public class HolePanel extends PlayerInterface {
 	public void setup() {
 		// TODO Auto-generated method stub
 		holeX = 500;
-		for (int i = 0; i < holesX.length; i++) {
+		for (int i = 0; i < holeNumber; i++) {
 			holesX[i] = 500 + (170) * i;
 			holesY[i] = randomY(i);
 		}
