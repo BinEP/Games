@@ -188,7 +188,7 @@ public class Control extends JPanel implements Screen {
 	public int playerY;
 
 	public Timer timer;
-	public int origSpeed = movementVar;
+	public int origSpeed = 60;
 	public double speed = origSpeed;
 	/**
 	 * If you want to game to speed up as the score gets higher
@@ -421,6 +421,7 @@ public class Control extends JPanel implements Screen {
 			keyIndex++;
 			if (keyIndex > 3)
 				keyIndex = 0;
+			
 
 		} else if (e.getKeyCode() == upKey) {
 
@@ -461,7 +462,7 @@ public class Control extends JPanel implements Screen {
 				playing = true;
 				startGame = false;
 				setKeys();
-				startTime();
+				resetTime();
 				setup();
 
 			} else if (endGame) {
@@ -493,9 +494,15 @@ public class Control extends JPanel implements Screen {
 
 		} else if (e.getKeyCode() == KeyEvent.VK_SPACE && (playing || paused)) {
 
+			if (playing) {
+				stopTime();
+			} else {
+				startTime();
+			}
+			
 			playing = !playing;
 			paused = !paused;
-
+			
 			repaint();
 
 		} else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD
