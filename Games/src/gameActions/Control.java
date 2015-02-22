@@ -289,7 +289,7 @@ public class Control extends JPanel implements Screen {
 			
 		} else if (highScores) {
 
-			ScoreInfo.drawScores(g2, TXT_FILE);
+			ScoreInfo.drawScores(g2, TXT_FILE, FOLDER_PATH);
 		}
 	}
 	
@@ -481,7 +481,7 @@ public class Control extends JPanel implements Screen {
 			} else if (nameEnter) {
 				nameEnter = false;
 				highScores = true;
-				ScoreInfo.setScores(score, pName, TXT_FILE);
+				ScoreInfo.setScores(score, pName, TXT_FILE, FOLDER_PATH);
 			} else if (highScores) {
 
 				highScores = false;
