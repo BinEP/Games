@@ -61,6 +61,7 @@ public class SnakePanel extends Directions {
 
 	public SnakePanel() {
 		super();
+		setSpeed(movementVar);
 		speedUp = true;
 	}
 
@@ -253,5 +254,7 @@ public class SnakePanel extends Directions {
 		// TODO Auto-generated method stub
 		return "Snake";
 	}
+
+	
 
 }
