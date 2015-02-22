@@ -324,5 +324,10 @@ public class PongPanel extends PlayerInterface {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public String getGameName() {
+		// TODO Auto-generated method stub
+		return "Pong";
+	}
 
 }
