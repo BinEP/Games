@@ -1,5 +1,7 @@
 package holeInTheWall;
 
+import gameActions.Runner;
+
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
@@ -11,16 +13,7 @@ public class HoleRunner {
 	public static void main(String[] args) {
 
 		
-		JFrame frame = new JFrame("HOLE IN THE WALL!");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
-//		frame.setAlwaysOnTop(true);
-
-		HolePanel HolePanel = new HolePanel();
-		//wWebPong pongPanel = new WebPong();
-		frame.add(HolePanel, BorderLayout.CENTER);
-		
-		frame.setSize(500, 500);
-		frame.setVisible(true);
+	new Runner(new HolePanel());
+	
 	}
 }
