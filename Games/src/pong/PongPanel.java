@@ -1,4 +1,7 @@
 package pong;
+import gameActions.Control;
+import gameActions.PlayerInterface;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,110 +17,88 @@ import javax.swing.Timer;
 
 import utilityClasses.CenteredText;
 
-public class PongPanel extends JPanel implements ActionListener, KeyListener {
+public class PongPanel extends PlayerInterface {
 
-	//private int slopeX = (int) (Math.random() * 2) + 1;
-//	private int slopeX = rand4or8();
-//	private int slopeY = (int) (Math.random() * 2) + 1;
+	//public int slopeX = (int) (Math.random() * 2) + 1;
+//	public int slopeX = rand4or8();
+//	public int slopeY = (int) (Math.random() * 2) + 1;
 	// ////////////////////////////////
-	private int startBallX = 400;
-	private int ballX = startBallX;
-	private int ballY = 250;
-	private int ballXSpeed = rand4or8();
-	private int ballYSpeed = rand4or8();
-	//private int ballXSpeed = (slopeX) * (4);
-		//private int ballYSpeed = (slopeY) * (4);
-	//private int deltaX = -Math.abs(((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed);
-	private int deltaX = randDeltaX();
-	private int deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
-	private int diameter = 20;
+	public int startBallX = 400;
+	public int ballX = startBallX;
+	public int ballY = 250;
+	public int ballXSpeed = rand4or8();
+	public int ballYSpeed = rand4or8();
+	//public int ballXSpeed = (slopeX) * (4);
+		//public int ballYSpeed = (slopeY) * (4);
+	//public int deltaX = -Math.abs(((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed);
+	public int deltaX = randDeltaX();
+	public int deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
+	public int diameter = 20;
 
-	private int widthOfFrame = 500;
-
-	private boolean startScreen = true;
-	private boolean playing = false;
-	private boolean endGame = false;
-	private boolean computerPlayer = false;
+	public boolean computerPlayer = false;
 	
-	private int computerXMove = 200;
-	//private boolean nextBall = true;
-	//private int countDown = 3;
-	//private int countDownTiming = 20;
+	public int computerXMove = 200;
+	//public boolean nextBall = true;
+	//public int countDown = 3;
+	//public int countDownTiming = 20;
 
-	private int paddleHeight = 100;
-	private int paddleWidth = 15;
-	private int paddleDistanceFromSide = 30;
-	private int paddleVerticalLocation = 200;
-	private int dashedY = 5;
+	public int paddleHeight = 100;
+	public int paddleWidth = 15;
+	public int paddleDistanceFromSide = 30;
+	public int paddleVerticalLocation = 200;
+	public int dashedY = 5;
 
-	private int p1DistanceFromSide = paddleDistanceFromSide;
-	private int p2DistanceFromSide = widthOfFrame - paddleDistanceFromSide - 10;
-
-	// ///////////////////////////////////////
-	private boolean WPressed = false;
-	private boolean SPressed = false;
-
-	private int player1X = p1DistanceFromSide;
-	private int player1Y = paddleVerticalLocation;
-	private int player1Height = paddleHeight;
-	private int player1Width = paddleWidth;
-	private int player1MiddleY = player1Y + player1Height/2;
-
-	private int player1Score = 0;
-
-	// ///////////////////////////////////////
-	private boolean UpPressed = false;
-	private boolean DownPressed = false;
-
-	private int player2X = p2DistanceFromSide;
-	private int player2Y = paddleVerticalLocation;
-	private int player2Height = paddleHeight;
-	private int player2Width = paddleWidth;
-
-	private int player2Score = 0;
+	public int p1DistanceFromSide = paddleDistanceFromSide;
+	public int p2DistanceFromSide = width - paddleDistanceFromSide - 10;
 
 	// ///////////////////////////////////////
 
-	private int paddleSpeed = 5;
-	private boolean paused = false;
+	public int player1X = p1DistanceFromSide;
+	public int player1Y = paddleVerticalLocation;
+	public int player1Height = paddleHeight;
+	public int player1Width = paddleWidth;
+	public int player1MiddleY = player1Y + player1Height/2;
+
+	public int player1Score = 0;
+
+	// ///////////////////////////////////////
+
+	public int player2X = p2DistanceFromSide;
+	public int player2Y = paddleVerticalLocation;
+	public int player2Height = paddleHeight;
+	public int player2Width = paddleWidth;
+
+	public int player2Score = 0;
+
+	// ///////////////////////////////////////
+
+	public int paddleSpeed = 5;
 
 	public PongPanel() {
 
-		setBackground(Color.BLACK);
-
-		setFocusable(true);
-		addKeyListener(this);
-
-		Timer timer = new Timer(1000 / 60, this);
-		timer.start();
+		super();
+		setSpeed(60);
 
 	}
-
-	public void actionPerformed(ActionEvent e) {
-
-		// ifStarted();
-		moves();
-
-	}
-
+	@Override
 	public void moves() {
 
-		if (playing) {
+		
 			//System.out.println(deltaX);
 			//System.out.println(deltaY);
 			//System.out.println(slopeX);
 			//System.out.println(slopeY);
-			if (WPressed && player1Y - paddleSpeed > 50)
+			if (leftPressed && player1Y - paddleSpeed > 50)
 				player1Y -= paddleSpeed;
 
-			if (SPressed
+			if (rightPressed
 					&& player1Y + player1Height + paddleSpeed < getHeight() - 50)
 				player1Y += paddleSpeed;
 
-			if (UpPressed && player2Y - paddleSpeed > 50)
+			if (upPressed && player2Y - paddleSpeed > 50)
 				player2Y -= paddleSpeed;
 
-			if (DownPressed
+			if (downPressed
 					&& player2Y + player2Height + paddleSpeed < getHeight() - 50)
 				player2Y += paddleSpeed;
 
@@ -134,8 +115,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			int nextPlayer1Paddle = player1Y;
 			int nextPlayer1PaddleMid = player1Y + paddleSpeed;
 			
-			if (computerPlayer) WPressed = nextPlayer1Paddle > nextBallMid && nextBallLeft < computerXMove;
-			if (computerPlayer) SPressed = nextPlayer1PaddleMid < nextBallMid && nextBallLeft < computerXMove;
+			if (computerPlayer && nextPlayer1Paddle > nextBallMid && nextBallLeft < computerXMove) {
+				
+				leftReleased();
+			}
+			if (computerPlayer && nextPlayer1PaddleMid < nextBallMid && nextBallLeft < computerXMove) {
+				rightReleased();
+			}
 			
 			int player2Left = player2X;
 			int player2Top = player2Y;
@@ -153,7 +139,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				} else if (nextBallLeft < 0) {
 					// System.out.println("Score Player 2!");
 					player2Score++;
-					gameEnds();
 					ballXSpeed = rand4or8();
 					ballYSpeed = rand4or8();
 					//deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
@@ -175,7 +160,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 					// System.out.println("Score Player 1!");
 					player1Score++;
-					gameEnds();
 					ballXSpeed = rand4or8();
 					ballYSpeed = rand4or8();
 					//deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
@@ -190,185 +174,79 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 			ballX += deltaX;
 			ballY += deltaY;
-		}
+		
 
-		repaint();
 
 		// ifStarted();
 
 	}
+	@Override
+	public void drawPlaying(Graphics2D g) {
+		
+		g.fillOval(ballX, ballY, diameter, diameter);
+		g.fillRect(player1X, player1Y, player1Width, player1Height);
+		g.fillRect(player2X, player2Y, player2Width, player2Height);
 
-	public void paintComponent(Graphics g) {
-
-		super.paintComponent(g);
-		g.setColor(Color.WHITE);
-
-		if (startScreen) {
-//			int a = (int)(Math.random() * 2);
-//			System.out.println(a);
+		/*
+		 * for (dashedY = 5; dashedY < getHeight(); dashedY += 34) {
+		 * g.fillRect(248, dashedY, 5, 15); }
+		 */
+		g.fillRect(248, 0, 5, getHeight());
+		g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+		g.drawString(String.valueOf(player1Score), 205 - 32 * (spacing()),
+				420);
+		g.drawString(String.valueOf(player2Score), 269, 420);
+		
+	}
+	@Override
+	public void drawEnd(Graphics2D g) {
+		
+		g.setFont(new Font("Joystix", Font.BOLD, 60));
+		
+		String playerWon = (player1Score > player2Score) ? "1" : "2";
+		
+		if (!computerPlayer) {
+		CenteredText.draw("Player " + playerWon, 500, 500, g, true, 120);
+		CenteredText.draw("You Win!", 500, 500, g, true, 210);
+		//g.drawString("Player " + playerWon, playWon.x, 120);
+		} else {
 			
-			g.setFont(new Font("Joystix", Font.BOLD, 120));
-			CenteredText.draw("PONG", 500, 500, g, true, 180);
-			//g.drawString("PONG", pong.x, pong.y);
+			if (player1Score > player2Score) {
+			CenteredText.draw("Computer", 500, 500, g, true, 80);
+			CenteredText.draw("Won!", 500, 500, g, true, 150);
+			CenteredText.draw("You Lose!", 500, 500, g, true, 280);
 			
-			g.setFont(new Font("Joystix", Font.BOLD, 20));
-			
-			CenteredText.draw("Press Enter to", 500, 500, g, true, 250);
-			//g.drawString("Press Enter to", pressStart.x, 250);
-			
-			CenteredText.draw("Start", 500, 500, g, true, 280);
-			//g.drawString("Start", start.x, 280);
-			//System.out.println(deltaX + "\t" + deltaY);
-			
-		} else if (playing || paused) {
-			
-			/*
-			if (countDown > 0) {
-				g.setFont(new Font(Font.DIALOG, Font.BOLD, 80));
-				g.drawString(String.valueOf(countDown), 245, 230);
-				
-				if (countDownTiming == 0) {
-					countDown--;
-					countDownTiming = 60;
-				} else {
-					countDownTiming--;
-				}
-			}
-			*/
-			
-			g.fillOval(ballX, ballY, diameter, diameter);
-			g.fillRect(player1X, player1Y, player1Width, player1Height);
-			g.fillRect(player2X, player2Y, player2Width, player2Height);
-
-			/*
-			 * for (dashedY = 5; dashedY < getHeight(); dashedY += 34) {
-			 * g.fillRect(248, dashedY, 5, 15); }
-			 */
-			g.fillRect(248, 0, 5, getHeight());
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.drawString(String.valueOf(player1Score), 205 - 32 * (spacing()),
-					420);
-			g.drawString(String.valueOf(player2Score), 269, 420);
-			
-			if (paused) {
-				g.setFont(new Font("Joystix", Font.BOLD, 60));
-				CenteredText.draw("Paused", 500, 500,
-						g, true, 200);
-			}
-
-		} else if (endGame) {
-			
-			g.setFont(new Font("Joystix", Font.BOLD, 60));
-			
-			String playerWon = (player1Score > player2Score) ? "1" : "2";
-			
-			if (!computerPlayer) {
-			CenteredText.draw("Player " + playerWon, 500, 500, g, true, 120);
-			CenteredText.draw("You Win!", 500, 500, g, true, 210);
-			//g.drawString("Player " + playerWon, playWon.x, 120);
 			} else {
 				
-				if (player1Score > player2Score) {
-				CenteredText.draw("Computer", 500, 500, g, true, 80);
-				CenteredText.draw("Won!", 500, 500, g, true, 150);
-				CenteredText.draw("You Lose!", 500, 500, g, true, 280);
-				
-				} else {
-					
-					CenteredText.draw("You Win!", 500, 500, g, true, 150);
-				}
-				computerPlayer = false;
+				CenteredText.draw("You Win!", 500, 500, g, true, 150);
 			}
-			
-			
-			//g.drawString("You Win!", win.x, 210);
-			
-			g.setFont(new Font("Joystix", Font.BOLD, 26));
-			CenteredText.draw("Enter to restart", 500, 500, g, true, 350);
-			//g.drawString("Enter to Restart", restart.x, 320);
-			
+			computerPlayer = false;
 		}
-
+		
+		
+		//g.drawString("You Win!", win.x, 210);
+		
+		g.setFont(new Font("Joystix", Font.BOLD, 26));
+		CenteredText.draw("Enter to restart", 500, 500, g, true, 350);
+		//g.drawString("Enter to Restart", restart.x, 320);
+		
 	}
-
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+	public void customPressed(KeyEvent e) {
 
-	}
-
-	public void keyPressed(KeyEvent e) {
-
-		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			UpPressed = true;
-
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			DownPressed = true;
-
-		} else if (e.getKeyCode() == KeyEvent.VK_W) {
-			if (!computerPlayer) WPressed = true;
-
-		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			if (!computerPlayer) SPressed = true;
-
-		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			
-			if (startScreen) {
-			playing = true;
-			startScreen = false;
-			} else if (endGame) {
-				
-				playing = true;
-				player1Score = 0;
-				player2Score = 0;
-				ballX = startBallX;
-				ballY = 250;
-				player1X = p1DistanceFromSide;
-				player1Y = paddleVerticalLocation;
-				player2X = p2DistanceFromSide;
-				player2Y = paddleVerticalLocation;
-				//countDown = 3;
-				//countDownTiming = 20;
-				ballXSpeed = rand4or8();
-				ballYSpeed = rand4or8();
-				//deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
-				deltaX = randDeltaX();
-				deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
-				
-				
-			}
-			
-		}  else if (e.getKeyCode() == KeyEvent.VK_1 && (startScreen || endGame)) {
+		if (e.getKeyCode() == KeyEvent.VK_1 && (startGame || endGame)) {
 			
 			computerPlayer = true;
 			computerXMove = 200;
 			
 			
-		} else if (e.getKeyCode() == KeyEvent.VK_2 && (startScreen || endGame)) {
+		} else if (e.getKeyCode() == KeyEvent.VK_2 && (startGame || endGame)) {
 			
 			computerPlayer = true;
 			computerXMove = 400;
 			
 			
 		}
-	}
-
-	public void keyReleased(KeyEvent e) {
-
-		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			UpPressed = false;
-
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			DownPressed = false;
-
-		} else if (e.getKeyCode() == KeyEvent.VK_W) {
-			if (!computerPlayer) WPressed = false;
-
-		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			if (!computerPlayer) SPressed = false;
-
-		} 
-
 	}
 
 	public int spacing() {
@@ -399,16 +277,52 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 
-	public void gameEnds() {
+	
 
-		if (player1Score >= 11 || player2Score >= 11
-				&& Math.abs(player1Score - player2Score) > 1) {
-			playing = false;
-			endGame = true;
-			
+	
+	
+	@Override
+	public boolean checkIfDead() {
+		// TODO Auto-generated method stub
+		return player1Score >= 11 || player2Score >= 11
+				&& Math.abs(player1Score - player2Score) > 1;
+	}
 
-		}
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		setup();
+	}
 
+	
+
+	@Override
+	public void setup() {
+		// TODO Auto-generated method stub
+		
+		leftKey = KeyEvent.VK_W;
+		rightKey = KeyEvent.VK_S;
+		player1Score = 0;
+		player2Score = 0;
+		ballX = startBallX;
+		ballY = 250;
+		player1X = p1DistanceFromSide;
+		player1Y = paddleVerticalLocation;
+		player2X = p2DistanceFromSide;
+		player2Y = paddleVerticalLocation;
+		//countDown = 3;
+		//countDownTiming = 20;
+		ballXSpeed = rand4or8();
+		ballYSpeed = rand4or8();
+		//deltaX = ((((int) (Math.random() * 2 )) * 2) - 1) * ballXSpeed;
+		deltaX = randDeltaX();
+		deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
