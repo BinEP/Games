@@ -82,15 +82,19 @@ public class Control extends JPanel implements Screen {
 	
 	public int width = Window.WIDTH;
 	public int height = Window.HEIGHT;
-
-	public static String fontFile = Window.FONT_FILE;
-	public static CustomFont customFont = new CustomFont(fontFile, Font.BOLD, 18);
+	
+	public static String NAME = "Game Name";
+	public static String TXT_FILE = NAME.toLowerCase().replaceAll("\\s", "");
+	public static String FOLDER_PATH = "InfoFiles/";
+	public static String FONT_FILE = "joystix";
+	
+	public static CustomFont customFont = new CustomFont(FONT_FILE, Font.BOLD, 18);
 	/**
 	 * Set to true if only one direction per frame
 	 * @author Brady Stoffel
 	 */
-	public boolean singleDirection = true;
-
+	public boolean singleDirection = false;
+	
 	public enum Direction {
 		up, down, left, right;
 	}
@@ -131,7 +135,7 @@ public class Control extends JPanel implements Screen {
 		 */
 		public void draw(String text, Graphics2D g) {
 			
-			g.setFont(CustomFont.makeCustomFont(Window.FONT_FILE, Window.SCORE_SIZE));
+			g.setFont(CustomFont.makeCustomFont(FONT_FILE, Window.SCORE_SIZE));
 			
 			FontMetrics fontInfo = g.getFontMetrics();
 			int textWidth = fontInfo.stringWidth(text);
@@ -208,12 +212,20 @@ public class Control extends JPanel implements Screen {
 		setFocusable(true);
 		addKeyListener(this);
 
-		
+		NAME = getGameName();
+		TXT_FILE = NAME.toLowerCase().replaceAll("\\s", "");
+		FOLDER_PATH = getFolderPath();
+		FONT_FILE = getFontFile();
 		
 		setup();
 
 		timer = new Timer((int) (1000 / speed), this);
 		timer.start();
+	}
+	
+	public void setSpeed(int speed) {
+		this.speed = speed;
+		timer.setDelay(1000 / speed);
 	}
 
 	public void setBackgroundColor(Color c) {
@@ -245,7 +257,7 @@ public class Control extends JPanel implements Screen {
 		
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale((double) width / (double) Window.WIDTH, (double) (height) / (double) Window.HEIGHT);
-		
+		g.setColor(Color.WHITE);
 		draw(g2);
 
 		if (startGame) {
@@ -277,7 +289,7 @@ public class Control extends JPanel implements Screen {
 			
 		} else if (highScores) {
 
-			ScoreInfo.drawScores(g2, Window.TXT_FILE);
+			ScoreInfo.drawScores(g2, TXT_FILE);
 		}
 	}
 	
@@ -294,7 +306,7 @@ public class Control extends JPanel implements Screen {
 
 		g.setColor(Color.WHITE);
 		g.setFont(new Font(Window.FONT_NAME, Font.BOLD, Window.TITLE_SIZE));
-		CenteredText.draw(Window.NAME, Window.TITLE_Y, g);
+		CenteredText.draw(NAME, Window.TITLE_Y, g);
 		g.setFont(new Font(Window.FONT_NAME, Font.BOLD,
 				Window.ENTER_TO_START_SIZE));
 
@@ -402,7 +414,7 @@ public class Control extends JPanel implements Screen {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 
-		customPressed(e);
+		
 		if (startGame && e.getKeyCode() != KeyEvent.VK_ENTER) {
 
 			keyMap[keyIndex] = e.getKeyCode();
@@ -469,7 +481,7 @@ public class Control extends JPanel implements Screen {
 			} else if (nameEnter) {
 				nameEnter = false;
 				highScores = true;
-				ScoreInfo.setScores(score, pName, Window.TXT_FILE);
+				ScoreInfo.setScores(score, pName, TXT_FILE);
 			} else if (highScores) {
 
 				highScores = false;
@@ -496,12 +508,13 @@ public class Control extends JPanel implements Screen {
 				pName = pName.concat(letter.toString());
 			}
 		}
+		customPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 
-		customReleased(e);
+		
 		if (e.getKeyCode() == upKey) {
 
 			upReleased();
@@ -518,6 +531,8 @@ public class Control extends JPanel implements Screen {
 
 			rightReleased();
 		}
+		
+		customReleased(e);
 	}
 
 	/**
@@ -530,7 +545,7 @@ public class Control extends JPanel implements Screen {
 
 		width = getWidth();
 		height = getHeight();
-		System.out.println("width: " + width + "\t height: " + height);
+//		System.out.println("width: " + width + "\t height: " + height);
 		
 		alwaysExecute();
 		
@@ -718,4 +733,19 @@ public void customReleased(KeyEvent e) {
 	}
 	
 	public void alwaysExecute() {}
+
+	public String getGameName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getFolderPath() {
+		// TODO Auto-generated method stub
+		return "InfoFiles/";
+	}
+
+	public String getFontFile() {
+		// TODO Auto-generated method stub
+		return "joystix";
+	}
 }

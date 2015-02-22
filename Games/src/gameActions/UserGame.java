@@ -114,4 +114,14 @@ public class UserGame extends PlayerInterface {
 
 	}
 
+@Override
+public String getGameName() {
+	// TODO Auto-generated method stub
+	return "Game";
+}
+
+
+
+
+
 }
