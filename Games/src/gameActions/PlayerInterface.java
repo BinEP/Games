@@ -10,11 +10,21 @@ import java.awt.Graphics2D;
  */
 public abstract class PlayerInterface extends Control {
 
+	public PlayerInterface() {
+		super();
+		NAME = getGameName();
+		TXT_FILE = NAME.toLowerCase().replaceAll("\\s", "");
+		FOLDER_PATH = getFolderPath();
+		FONT_FILE = getFontFile();
+	}
 	public abstract void moves();
 	public abstract boolean checkIfDead();
 	public abstract void reset();
 	public abstract void draw(Graphics2D g);
 	public abstract void setup();
 	
+	public abstract String getGameName();
+//	public abstract String getFolderPath();
+//	public abstract String getFontFile();
 	
 }

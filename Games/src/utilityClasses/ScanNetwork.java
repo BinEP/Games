@@ -211,15 +211,15 @@ public class ScanNetwork {
 		
 	}
 	
-	public static String[] addRecentServers(String[] scannedIPS) {
+	public static String[] addRecentServers(String[] scannedIPS, String folderPath) {
 		
-		ArrayList<String> recentList = FileList.getFileList(Window.FOLDER_PATH + "recentServers");
+		ArrayList<String> recentList = FileList.getFileList(folderPath + "recentServers");
 		
 		for (String currentServer : scannedIPS) {
 			
 			if (!recentList.contains(currentServer)) {
 				
-				FileList.addToFile(Window.FOLDER_PATH + "recentServer", currentServer);
+				FileList.addToFile(folderPath + "recentServer", currentServer);
 				
 			}
 		}
@@ -228,10 +228,10 @@ public class ScanNetwork {
 		
 	}
 	
-	public static void addServer(String server) {
+	public static void addServer(String server, String folderPath) {
 		
 		String[] s = {server};
-		addRecentServers(s);
+		addRecentServers(s, folderPath);
 		
 		
 	}

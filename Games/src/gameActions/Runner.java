@@ -20,7 +20,7 @@ public class Runner {
 	public static void run(Control game) {
 		
 		Class gameClass = game.getClass();
-		JFrame frame = new JFrame(Window.NAME + "!");
+		JFrame frame = new JFrame(game.NAME + "!");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());

@@ -33,6 +33,7 @@ public class PlayGoFish {
 
     private static final int DEFAULT_PORT = 45017;
     private final static int CHAT_PORT = 37829;
+    private static final String FOLDER_PATH = "InfoFiles/";
     
     public static void main(String[] args) {
         
@@ -47,7 +48,7 @@ public class PlayGoFish {
 //        final String[] choices = {"A", "B"};
         ScanNetwork scanning = new ScanNetwork();
         String[] choices = scanning.checkHostsAtPort(DEFAULT_PORT);
-        choices = scanning.addRecentServers(choices);
+        choices = scanning.addRecentServers(choices, FOLDER_PATH);
         
         boolean showServer = true;
 		if (!choices[0].equals("localhost")) showServer = false;
@@ -222,7 +223,7 @@ public class PlayGoFish {
                     continue;
                 }
                 try {
-                	scanning.addServer(host);
+                	scanning.addServer(host, FOLDER_PATH);
                 	ChatRoomWindow.newChat(host);
                 	new GoFishWindow(host,port);
                     
