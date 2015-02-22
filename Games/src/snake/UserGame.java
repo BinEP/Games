@@ -248,4 +248,10 @@ public class UserGame extends Directions {
 	@Override
 	public void rightReleased() {}
 
+	@Override
+	public String getGameName() {
+		// TODO Auto-generated method stub
+		return "Snake";
+	}
+
 }
