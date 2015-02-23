@@ -35,7 +35,7 @@ public class Runner {
 //		frame.add((Component) gameClass.cast(game), BorderLayout.CENTER);
 		frame.add(game, BorderLayout.CENTER);
 
-		frame.setSize(Window.WIDTH, Window.HEIGHT);
+		frame.setSize(Window.WIDTH, Window.REAL_HEIGHT);
 		frame.setVisible(true);
 		
 	}
