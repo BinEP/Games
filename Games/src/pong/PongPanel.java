@@ -209,11 +209,11 @@ public class PongPanel extends PlayerInterface {
 		ball.y += deltaY;
 		
 		
-		if (upPressed && !paddleRight.contains(paddleRight.x - 5, 50)) {
+		if (upPressed && !paddleRight.contains(paddleRight.x + 5, 50)) {
 			paddleRight.y -= paddleSpeed;
 		}
 		
-		if (downPressed && !paddleRight.contains(paddleRight.x - 5, height - 50)) {
+		if (downPressed && !paddleRight.contains(paddleRight.x + 5, height - 50)) {
 			paddleRight.y += paddleSpeed;
 		}
 		
@@ -310,19 +310,19 @@ public class PongPanel extends PlayerInterface {
 		String playerWon = (player1Score > player2Score) ? "1" : "2";
 		
 		if (!computerPlayer) {
-		CenteredText.draw("Player " + playerWon, 500, 500, g, true, 120);
-		CenteredText.draw("You Win!", 500, 500, g, true, 210);
+		CenteredText.draw("Player " + playerWon, 120, g);
+		CenteredText.draw("You Win!", 210, g);
 		//g.drawString("Player " + playerWon, playWon.x, 120);
 		} else {
 			
 			if (player1Score > player2Score) {
-			CenteredText.draw("Computer", 500, 500, g, true, 80);
-			CenteredText.draw("Won!", 500, 500, g, true, 150);
-			CenteredText.draw("You Lose!", 500, 500, g, true, 280);
+			CenteredText.draw("Computer", 80, g);
+			CenteredText.draw("Won!", 150, g);
+			CenteredText.draw("You Lose!", 280, g);
 			
 			} else {
 				
-				CenteredText.draw("You Win!", 500, 500, g, true, 150);
+				CenteredText.draw("You Win!", 150, g);
 			}
 			computerPlayer = false;
 		}
@@ -331,7 +331,7 @@ public class PongPanel extends PlayerInterface {
 		//g.drawString("You Win!", win.x, 210);
 		
 		g.setFont(new Font("Joystix", Font.BOLD, 26));
-		CenteredText.draw("Enter to restart", 500, 500, g, true, 350);
+		CenteredText.draw("Enter to restart", 350, g);
 		//g.drawString("Enter to Restart", restart.x, 320);
 		
 	}
