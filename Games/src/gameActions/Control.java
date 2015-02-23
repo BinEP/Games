@@ -467,6 +467,7 @@ public class Control extends JPanel implements Screen {
 
 				playing = true;
 				startGame = false;
+				
 				setKeys();
 				resetTime();
 				setup();

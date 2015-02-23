@@ -217,6 +217,14 @@ public class PongPanel extends PlayerInterface {
 			paddleRight.y += paddleSpeed;
 		}
 		
+		if (leftPressed && !paddleLeft.contains(paddleLeft.x + 5, 50)) {
+			paddleLeft.y -= paddleSpeed;
+		}
+		
+		if (rightPressed && !paddleLeft.contains(paddleLeft.x + 5, height - 50)) {
+			paddleLeft.y += paddleSpeed;
+		}
+		
 		if (computerPlayer) {
 			
 			if (paddleLeft.getMaxY() > ball.getCenterY()) {
@@ -400,8 +408,13 @@ public class PongPanel extends PlayerInterface {
 		rightKey = KeyEvent.VK_S;
 		player1Score = 0;
 		player2Score = 0;
+		ball = new Rectangle(startBallX, 250, 20, 20);
 		ball.x = startBallX;
 		ball.y = 250;
+		
+		paddleLeft = new Rectangle(p1DistanceFromSide, paddleVerticalLocation, paddleWidth, paddleHeight);
+		paddleRight = new Rectangle(width - 10 - p1DistanceFromSide, paddleVerticalLocation, paddleWidth, paddleHeight);
+
 		paddleLeft.x = p1DistanceFromSide;
 		paddleLeft.y = paddleVerticalLocation;
 		paddleRight.x = p2DistanceFromSide;
