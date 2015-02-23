@@ -1,23 +1,11 @@
 package pong;
-import gameActions.Control;
 import gameActions.PlayerInterface;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RectangularShape;
 import java.awt.Font;
-
-import javax.lang.model.element.Element;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 
 import utilityClasses.CenteredText;
 
@@ -63,19 +51,19 @@ public class PongPanel extends PlayerInterface {
 		ball.y += deltaY;
 		
 		if (upPressed && !paddleRight.contains(paddleRight.x + 5, 50)) {
-			paddleRight.y -= paddleSpeed;
+			paddleRight.translate(0, -paddleSpeed);
 		}
 		
 		if (downPressed && !paddleRight.contains(paddleRight.x + 5, height - 50)) {
-			paddleRight.y += paddleSpeed;
+			paddleRight.translate(0, paddleSpeed);
 		}
 		
 		if (leftPressed && !paddleLeft.contains(paddleLeft.x + 5, 50)) {
-			paddleLeft.y -= paddleSpeed;
+			paddleLeft.translate(0, -paddleSpeed);
 		}
 		
 		if (rightPressed && !paddleLeft.contains(paddleLeft.x + 5, height - 50)) {
-			paddleLeft.y += paddleSpeed;
+			paddleLeft.translate(0, paddleSpeed);
 		}
 		
 		if (computerPlayer) {
@@ -119,12 +107,14 @@ public class PongPanel extends PlayerInterface {
 		deltaY = ((((int) (Math.random() * 2 )) * 2) - 1) * ballYSpeed;
 		ball.x = startBallX;
 		ball.y = 250;
-		
 	}
+	
 	@Override
 	public void drawPlaying(Graphics2D g) {
 		
-		g.fillOval(ball.x, ball.y, diameter, diameter);
+		Ellipse2D.Double e = new Ellipse2D.Double(ball.x, ball.y, diameter, diameter);
+		
+		g.fill(e);
 		g.fill(paddleLeft);
 		g.fill(paddleRight);
 	
@@ -135,6 +125,7 @@ public class PongPanel extends PlayerInterface {
 		g.drawString(String.valueOf(player2Score), 269, 420);
 		
 	}
+	
 	@Override
 	public void drawEnd(Graphics2D g) {
 		
@@ -159,23 +150,6 @@ public class PongPanel extends PlayerInterface {
 		g.setFont(new Font("Joystix", Font.BOLD, 26));
 		CenteredText.draw("Enter to restart", 350, g);
 	}
-//	@Override
-//	public void customPressed(KeyEvent e) {
-//
-//		if (e.getKeyCode() == KeyEvent.VK_1 && (startGame || endGame)) {
-//			
-//			computerPlayer = true;
-//			computerXMove = 200;
-//			
-//			
-//		} else if (e.getKeyCode() == KeyEvent.VK_2 && (startGame || endGame)) {
-//			
-//			computerPlayer = true;
-//			computerXMove = 400;
-//			
-//			
-//		}
-//	}
 
 	public int spacing() {
 		int spacer = player1Score / 10;
@@ -188,8 +162,6 @@ public class PongPanel extends PlayerInterface {
 	}
 	public int rand4or8() {
 		return ((int) (Math.random() * 2) + 1) * (4);
-		
-		
 	}
 	
 	public int randDeltaX() {
@@ -221,19 +193,18 @@ public class PongPanel extends PlayerInterface {
 		
 		leftKey = KeyEvent.VK_W;
 		rightKey = KeyEvent.VK_S;
+		
 		player1Score = 0;
 		player2Score = 0;
+		
 		ball = new Rectangle(startBallX, 250, 20, 20);
-		ball.x = startBallX;
-		ball.y = 250;
+		ball.setLocation(startBallX, 250);
 		
 		paddleLeft = new Rectangle(p1DistanceFromSide, paddleVerticalLocation, paddleWidth, paddleHeight);
 		paddleRight = new Rectangle(width - 10 - p1DistanceFromSide, paddleVerticalLocation, paddleWidth, paddleHeight);
 
-		paddleLeft.x = p1DistanceFromSide;
-		paddleLeft.y = paddleVerticalLocation;
-		paddleRight.x = p2DistanceFromSide;
-		paddleRight.y = paddleVerticalLocation;
+		paddleLeft.setLocation(p1DistanceFromSide, paddleVerticalLocation);
+		paddleRight.setLocation(p2DistanceFromSide, paddleVerticalLocation);
 		
 		ballXSpeed = rand4or8();
 		ballYSpeed = rand4or8();
