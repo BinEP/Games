@@ -1,6 +1,6 @@
 package tunnelRunner;
 
-import gameActions.PlayerInterface;
+import gameActions.Game;
 
 import java.awt.AWTException;
 import java.awt.Color;
@@ -22,7 +22,7 @@ import javax.swing.Timer;
 
 import utilityClasses.*;
 
-public class TunnelPanel extends PlayerInterface {
+public class TunnelPanel extends Game {
 
 	private int holeX = 500;
 	private int holeY = 220;

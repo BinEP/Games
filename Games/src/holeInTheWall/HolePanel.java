@@ -1,6 +1,6 @@
 package holeInTheWall;
 
-import gameActions.PlayerInterface;
+import gameActions.Game;
 
 import java.awt.AWTException;
 import java.awt.Color;
@@ -19,7 +19,7 @@ import javax.swing.Timer;
 
 import utilityClasses.*;
 
-public class HolePanel extends PlayerInterface {
+public class HolePanel extends Game {
 
 	
 	

@@ -1,5 +1,5 @@
 package pong;
-import gameActions.PlayerInterface;
+import gameActions.Game;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -9,7 +9,7 @@ import java.awt.Font;
 
 import utilityClasses.CenteredText;
 
-public class PongPanel extends PlayerInterface {
+public class PongPanel extends Game {
 
 	public int startBallX = 400;
 	public Rectangle ball = new Rectangle(startBallX, 250, 20, 20);

@@ -8,9 +8,9 @@ import java.awt.Graphics2D;
  * @author Brady
  *
  */
-public abstract class PlayerInterface extends Control {
+public abstract class Game extends Control {
 
-	public PlayerInterface() {
+	public Game() {
 		super();
 		NAME = getGameName();
 		TXT_FILE = NAME.toLowerCase().replaceAll("\\s", "");
