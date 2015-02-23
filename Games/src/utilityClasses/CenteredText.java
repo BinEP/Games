@@ -2,6 +2,7 @@ package utilityClasses;
 
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 /*
@@ -55,6 +56,39 @@ public class CenteredText {
 		g.drawString(text, x, yVal);
 		
 		
+	}
+	
+	public static void draw(String text, int yVal, Graphics2D g, int fontSize, String fontFile) {
+
+		int width = Window.WIDTH;
+		int height = Window.HEIGHT;
+		
+		g.setFont(CustomFont.makeCustomFont(fontFile, fontSize));
+		
+		FontMetrics fontInfo = g.getFontMetrics();
+		int textWidth = fontInfo.stringWidth(text);
+		int textHeight = fontInfo.getHeight();
+
+		int x = (width - textWidth) / 2;
+		int y = (height - textHeight) / 2;
+		
+		g.drawString(text, x, yVal);
+
+	}
+	
+	public static void draw(String text, Rectangle r, Graphics2D g, int fontSize, String fontFile) {
+
+		g.setFont(CustomFont.makeCustomFont(fontFile, fontSize));
+		
+		FontMetrics fontInfo = g.getFontMetrics();
+		int textWidth = fontInfo.stringWidth(text);
+		int textHeight = fontInfo.getHeight();
+
+		int x = r.x + (r.width - textWidth) / 2;
+		int y = r.y + (r.height - textHeight) / 2;
+		
+		g.drawString(text, x, y);
+
 	}
 	
 	
