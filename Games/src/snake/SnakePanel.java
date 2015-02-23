@@ -53,7 +53,7 @@ public class SnakePanel extends Directions {
 			Color.ORANGE, Color.WHITE };
 	public ArrayList<CustomRectangle> snakeBody = new ArrayList<CustomRectangle>();
 	public ArrayList<CustomRectangle> fruits = new ArrayList<CustomRectangle>();
-	public Rectangle outerbox = new Rectangle(0, 0, width - 1, height);
+//	public Rectangle outerbox = new Rectangle(0, 0, width - 1, height);
 	public Rectangle boundary = new Rectangle(18, 18, width - 8 - 20, height - 8 - 20);
 	public int initialBodySize = 4;
 	public int numOfFruits = 4;
