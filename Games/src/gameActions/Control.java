@@ -591,19 +591,44 @@ public class Control extends JPanel implements Screen {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+		clicked();
+		repaint();
+	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {
+		pressed();
+		repaint();
+	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+		released();
+		repaint();
+	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {
+		enters();
+		repaint();
+	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {
+		exits();
+		repaint();
+	}
+	
+	public void clicked() {}
+	
+	public void pressed() {}
+	
+	public void released() {}
+	
+	public void enters() {}
+	
+	public void exits() {}
 
 	/**
 	 * What to set variables to when upKey is pressed. Called by keyPressed
