@@ -13,11 +13,11 @@ public class SnakeRunner {
 		Runner r = new Runner(new SnakePanel());
 		Runner.enterFullScreen(r);
 		
-		try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {}
- 
-		Runner.enterFullScreen(r);
+//		try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {}
+// 
+//		Runner.enterFullScreen(r);
 		
 //		JFrame frame = new JFrame("SNAKE!");
 //
