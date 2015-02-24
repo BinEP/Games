@@ -5,13 +5,13 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-
 public class PongRunner {
 
 	
 	
 	public static void main(String[] args) {
 		
-		new Runner(new PongPanel());
+		Runner r = new Runner(new PongPanel());
+		Runner.enterFullScreen(r);
 	}
 }
