@@ -60,8 +60,8 @@ public class CenteredText {
 	
 	public static void draw(String text, int yVal, Graphics2D g, int fontSize, String fontFile) {
 
-		int width = Window.WIDTH;
-		int height = Window.HEIGHT;
+		int width = Windows.WIDTH;
+		int height = Windows.HEIGHT;
 		
 		g.setFont(CustomFont.makeCustomFont(fontFile, fontSize));
 		

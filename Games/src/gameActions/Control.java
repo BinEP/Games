@@ -7,6 +7,8 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -16,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -81,8 +84,8 @@ public class Control extends JPanel implements Screen {
 	public boolean leftPressed = false;
 	public boolean rightPressed = false;
 	
-	public int width = Window.WIDTH;
-	public int height = Window.HEIGHT;
+	public int width = Windows.WIDTH;
+	public int height = Windows.HEIGHT;
 	
 	/**
 	 * Outside box of window
@@ -112,14 +115,14 @@ public class Control extends JPanel implements Screen {
 	public enum ScoreCoords {
 		
 		top_left (10, 10), 
-		top_middle (Window.WIDTH / 2, 10), 
-		top_right (Window.WIDTH - 10, 10), 
-		middle_left (10, Window.HEIGHT / 2), 
-		middle_middle (Window.WIDTH / 2, Window.HEIGHT / 2), 
-		middle_right (Window.WIDTH - 10, Window.HEIGHT / 2), 
-		bottom_left (10, Window.HEIGHT - 15), 
-		bottom_middle (Window.WIDTH / 2, Window.HEIGHT - Window.TOP_BUFFER), 
-		bottom_right (Window.WIDTH - 10, Window.HEIGHT - Window.TOP_BUFFER);
+		top_middle (Windows.WIDTH / 2, 10), 
+		top_right (Windows.WIDTH - 10, 10), 
+		middle_left (10, Windows.HEIGHT / 2), 
+		middle_middle (Windows.WIDTH / 2, Windows.HEIGHT / 2), 
+		middle_right (Windows.WIDTH - 10, Windows.HEIGHT / 2), 
+		bottom_left (10, Windows.HEIGHT - 15), 
+		bottom_middle (Windows.WIDTH / 2, Windows.HEIGHT - Windows.TOP_BUFFER), 
+		bottom_right (Windows.WIDTH - 10, Windows.HEIGHT - Windows.TOP_BUFFER);
 		
 		public int x;
 		public int y;
@@ -141,19 +144,19 @@ public class Control extends JPanel implements Screen {
 		 */
 		public void draw(String text, Graphics2D g) {
 			
-			g.setFont(CustomFont.makeCustomFont(FONT_FILE, Window.SCORE_SIZE));
+			g.setFont(CustomFont.makeCustomFont(FONT_FILE, Windows.SCORE_SIZE));
 			
 			FontMetrics fontInfo = g.getFontMetrics();
 			int textWidth = fontInfo.stringWidth(text);
 			int textHeight = fontInfo.getHeight();
 			
-			if (x == Window.WIDTH / 2) {
+			if (x == Windows.WIDTH / 2) {
 				
 				CenteredText.draw(text, y, g);
 			} else if (x == 10) {
 				
 				g.drawString(text, x, y + textHeight / 2);
-			} else if (x == Window.WIDTH - 10) {
+			} else if (x == Windows.WIDTH - 10) {
 				
 				g.drawString(text, x - textWidth, y + textHeight / 2);
 			}
@@ -206,18 +209,20 @@ public class Control extends JPanel implements Screen {
 
 	public double startTime;
 	public double totalTime = 0;
-
+	
+//	public boolean fullScreen;
+//	public JFrame frame;
+	
 	public ArrayList<Direction> nextDirection = new ArrayList<Direction>();
 
 //	public UserGame sub = (UserGame) this;
-
 
 	public Control() {
 
 		setBackground(Color.BLACK);
 		setFocusable(true);
 		addKeyListener(this);
-
+		
 		NAME = getGameName();
 		TXT_FILE = NAME.toLowerCase().replaceAll("\\s", "");
 		FOLDER_PATH = getFolderPath();
@@ -262,7 +267,7 @@ public class Control extends JPanel implements Screen {
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D) g;
-		g2.scale((double) width / (double) Window.WIDTH, (double) (height) / (double) Window.HEIGHT);
+		g2.scale((double) width / (double) Windows.WIDTH, (double) (height) / (double) Windows.HEIGHT);
 		g.setColor(Color.WHITE);
 		draw(g2);
 
@@ -304,22 +309,22 @@ public class Control extends JPanel implements Screen {
 	}
 
 	/**
-	 * Draws the start screen. gets game name from Window class
+	 * Draws the start screen. gets game name from Windows class
 	 * 
 	 * @param g
 	 */
 	public void drawStart(Graphics2D g) {
 
 		g.setColor(Color.WHITE);
-		g.setFont(new Font(Window.FONT_NAME, Font.BOLD, Window.TITLE_SIZE));
-		CenteredText.draw(NAME, Window.TITLE_Y, g);
-		g.setFont(new Font(Window.FONT_NAME, Font.BOLD,
-				Window.ENTER_TO_START_SIZE));
+		g.setFont(new Font(Windows.FONT_NAME, Font.BOLD, Windows.TITLE_SIZE));
+		CenteredText.draw(NAME, Windows.TITLE_Y, g);
+		g.setFont(new Font(Windows.FONT_NAME, Font.BOLD,
+				Windows.ENTER_TO_START_SIZE));
 
-		CenteredText.draw("Press Enter to", Window.ENTER_Y, g);
-		CenteredText.draw("Start", Window.START_Y, g);
+		CenteredText.draw("Press Enter to", Windows.ENTER_Y, g);
+		CenteredText.draw("Start", Windows.START_Y, g);
 
-		g.setFont(new Font(Window.FONT_NAME, Font.BOLD, 12));
+		g.setFont(new Font(Windows.FONT_NAME, Font.BOLD, 12));
 
 		CenteredText.draw("Press keys Up, Right, Down, Left to map new keys",
 				30, g);
@@ -344,9 +349,9 @@ public class Control extends JPanel implements Screen {
 	 */
 	public void drawPaused(Graphics2D g) {
 
-		g.setFont(new Font(Window.FONT_NAME, Font.BOLD, Window.PAUSE_SIZE));
+		g.setFont(new Font(Windows.FONT_NAME, Font.BOLD, Windows.PAUSE_SIZE));
 		g.setColor(Color.WHITE);
-		CenteredText.draw("Paused", Window.PAUSE_Y, g);
+		CenteredText.draw("Paused", Windows.PAUSE_Y, g);
 	}
 
 	/**
@@ -356,17 +361,17 @@ public class Control extends JPanel implements Screen {
 	 */
 	public void drawEnd(Graphics2D g) {
 
-		g.setFont(new Font(Window.FONT_NAME, Font.BOLD, Window.END_SCORE_SIZE));
+		g.setFont(new Font(Windows.FONT_NAME, Font.BOLD, Windows.END_SCORE_SIZE));
 		g.setColor(Color.WHITE);
-		CenteredText.draw(String.valueOf(getScore()), Window.END_SCORE_Y, g);
+		CenteredText.draw(String.valueOf(getScore()), Windows.END_SCORE_Y, g);
 
-		g.setFont(new Font(Window.FONT_NAME, Font.BOLD, Window.YOU_LOSE_SIZE));
+		g.setFont(new Font(Windows.FONT_NAME, Font.BOLD, Windows.YOU_LOSE_SIZE));
 
-		CenteredText.draw("You Lose!", Window.YOU_LOSE_Y, g);
+		CenteredText.draw("You Lose!", Windows.YOU_LOSE_Y, g);
 
-		g.setFont(new Font(Window.FONT_NAME, Font.BOLD, Window.RESTART_SIZE));
+		g.setFont(new Font(Windows.FONT_NAME, Font.BOLD, Windows.RESTART_SIZE));
 
-		CenteredText.draw("Enter to Restart", Window.RESTART_Y, g);
+		CenteredText.draw("Enter to Restart", Windows.RESTART_Y, g);
 	}
 	
 	public void setup() {
@@ -513,6 +518,7 @@ public class Control extends JPanel implements Screen {
 			repaint();
 
 		} else if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_STANDARD
+		
 				&& nameEnter) {
 
 			if (pName.length() < 10) {
