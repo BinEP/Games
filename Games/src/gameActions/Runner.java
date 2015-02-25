@@ -78,6 +78,7 @@ public class Runner extends JFrame {
 			System.out.println("An exception occurred while trying to toggle full screen mode");
 			e.printStackTrace();
 		}
+
 		
 	}
 	
