@@ -63,6 +63,7 @@ public class SnakePanel extends Directions {
 		super();
 		setSpeed(movementVar);
 		speedUp = true;
+		singleDirection = true;
 	}
 
 	/**
@@ -172,7 +173,7 @@ public class SnakePanel extends Directions {
 
 		for (int i = 0; i < numOfFruits; i++) {
 
-			fruits.add(new CustomRectangle(randNum(), randNum(), 10, 10,
+			fruits.add(new CustomRectangle(randNumX(), randNumY(), 10, 10,
 					randColor()));
 		}
 
@@ -184,8 +185,12 @@ public class SnakePanel extends Directions {
 		}
 	}
 
-	public int randNum() {
-		return ((int) (Math.random() * (playingWidth / 10))) * 10 + 10;
+	public int randNumX() {
+		return ((int) (Math.random() * ((width - 16 - 10) / 10))) * 10 + 10;
+	}
+	
+	public int randNumY() {
+		return ((int) (Math.random() * ((height - 16 - 10) / 10))) * 10 + 10;
 	}
 
 	public Color randColor() {
@@ -194,7 +199,7 @@ public class SnakePanel extends Directions {
 	
 	public void newFruit(int index) {
 		
-		fruits.get(index).setBounds(randNum(), randNum(), 10, 10);
+		fruits.get(index).setBounds(randNumX(), randNumY(), 10, 10);
 		fruits.get(index).color = randColor();
 	}
 

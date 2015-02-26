@@ -267,7 +267,7 @@ public class Control extends JPanel implements Screen {
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D) g;
-		g2.scale((double) width / (double) Windows.WIDTH, (double) (height) / (double) Windows.HEIGHT);
+		g2.scale((double) getWidth() / (double) Windows.WIDTH, (double) (getHeight()) / (double) Windows.HEIGHT);
 		g.setColor(Color.WHITE);
 		draw(g2);
 
@@ -563,8 +563,8 @@ public class Control extends JPanel implements Screen {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		width = getWidth();
-		height = getHeight();
+//		width = getWidth();
+//		height = getHeight();
 //		System.out.println("width: " + width + "\t height: " + height);
 		
 		alwaysExecute();

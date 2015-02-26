@@ -14,8 +14,8 @@ public class CenteredText {
 
 	public static void draw(String text, int yVal, Graphics g) {
 
-		int width = 500;
-		int height = 500;
+		int width = Windows.WIDTH;
+		int height = Windows.HEIGHT;
 		
 		FontMetrics fontInfo = g.getFontMetrics();
 		int textWidth = fontInfo.stringWidth(text);

@@ -13,11 +13,11 @@ public class Windows {
 	/**
 	 * Windows width size
 	 */
-	public static final int WIDTH = 500;
+	public static final int WIDTH = 800;
 	/**
 	 * Windows height size
 	 */
-	public static final int HEIGHT = 500;
+	public static final int HEIGHT = 480;
 	public static final int REAL_HEIGHT = HEIGHT + TOP_BUFFER;
 	public static final boolean ALWAYS_ON_TOP = false;
 	public static final boolean RESIZEABLE = true;
