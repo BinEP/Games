@@ -43,6 +43,7 @@ public class CustomFont {
 			ge.registerFont(customFont);
 		} catch (Exception e) {
 			// Handle exception
+			customFont = new Font("Arial", Font.BOLD, 18);
 			e.printStackTrace();
 		}
 
