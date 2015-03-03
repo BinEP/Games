@@ -369,7 +369,7 @@ public void drawScores(Graphics g) {
 
 			ArrayList<String[]> results = new ArrayList<String[]>();
 
-			for (int i = 0; i < people.size(); i++) {
+			for (int i = 0; i < people.size() - 1; i++) {
 				String[] hs = { scores.get(i).toString(), people.get(i) };
 				results.add(hs);
 			}
@@ -391,7 +391,7 @@ public void drawScores(Graphics g) {
 			ArrayList<String> people) {
 
 		ArrayList<String[]> results = new ArrayList<String[]>();
-		for (int i = 0; i < people.size(); i++) {
+		for (int i = 0; i < people.size() - 1; i++) {
 
 			String[] sp = { scores.get(i).toString(), people.get(i) };
 			results.add(sp);
